@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>About InfiniteShooter</title>
+
+        <link rel="icon" type="image/x-icon" href="assets/icon.ico" />
+
+        <link rel="stylesheet" href="stylesheets/about.css" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+
+    <body>
+        
+        <!-- The first row, with the title and an option to go back to the main menu. -->
+        <div class="row1">
+
+            <div class="container">
+
+                <h1 class="title">About InfiniteShooter</h1>
+
+                <a href="index.html" class="button">Back to Main Menu</a>
+
+            </div>
+
+        </div>
+
+        <!-- The second row, which talks about the game in two "paragraphs". -->
+        <div class="row2">
+
+            <div class="container">
+
+                <h2 class="title" id="about-game">About the Game</h2>
+
+                <p class="paragraph"><!-- I know white space doesn't matter but word wrapping makes it easier to see everything. On VSCode you could also hit Alt+Z -->
+                    InfinteShooter... was originally a game programmed in HTML? Canvas2D was <i>awesome</i> (but nobody used it). And I had no idea what Git was.
+                    So needless to say I lost the USB containing all of InfiniteShooter's files, and it was lost forever. Once I was given the option to make a
+                    game for Computer Science, I knew what I was going to do! I was to recreate InfiniteShooter from memory (with quite a bit of extra tweaks).
+                    This is that game!
+                </p>
+
+                <p class="paragraph">
+                    InfiniteShooter is a simple arcade game. Models are made in Blender and I'm trying to make the graphics a as best as possible without sacrificing
+                    performance. You play as a simple blue ship trying to defeat hordes of black and red ships. [NOTE: This game used to have a bit of a story! Maybe I
+                    should reintroduce it in future updates?] Now anyway, the goal of the game is to be like a rougelike game, but for a shooter, and the player should
+                    be able to... infinitely play. Hence the name. Once the game is submitted I'm planning on releasing it on GitHub as FLOSS (if I'm allowed to).
+                </p>
+        
+            </div>
+
+        </div>
+
+        <!-- I don't have much to talk about here. I mean, at all. So it's not that entertaining... -->
+        <div class="row3">
+
+            <div class="container">
+
+                <h2 class="title" id="about-creator">About the Creator</h2>
+
+                <p class="paragraph">
+                    I program stuff. I don't think there's any more to me than that. Egghead Productions is what I'm making this game under. Hopefully a company?
+                    Something of the like? I don't know. So far it's just myself and <a href="https://github.com/Egghead69">Acoy Campbell</a> working at Egghead Productions.
+                </p>
+        
+            </div>
+
+        </div>
+
+        <script>
+
+            // First gets anything in the URL after the actual URL bit. Could look like this = "?header=about-creator"
+            // Now we get the part after the equals sign. --> "about-creator"
+            // We get the element with that ID...
+            // ...and then we call scrollIntoView on it (and underline it for good measure).
+            // After a while we clear the underline formatting.
+            document.getElementById( window.location.search.split( "=" )[ 1 ] ).scrollIntoView( .3 );
+            document.getElementById( window.location.search.split( "=" )[ 1 ] ).style.textDecoration = "underline"
+            setTimeout( function() { document.getElementById( window.location.search.split( "=" )[ 1 ] ).style.textDecoration = null }, 1000 )
+        
+        </script>
+
+    </body>
+
+</html>

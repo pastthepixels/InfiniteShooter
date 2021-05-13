@@ -1,0 +1,100 @@
+/*
+    Note:
+        I really like the style that GNOME uses (Adwaita)
+        Although GTK uses CSS, there's no CSS for me to use in HTML documents.
+        Good news though, because GNOME has a website! (gnome.org)
+        but their styles are old.
+        Good news though, because they have sub-websites! (like forty.gnome.org)!
+        So I can use the CSS from there and it would be the official exact styles for GNOME.
+        And so that was what I did.
+        Note that I have tried to comment this but I can't really do much because if I change the styles it won't become the GNOME stylesheet anymore.
+*/
+
+/* General selectors */
+html, body { /* GNOME CSS */
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: "Cantarell", -apple-system, BlinkMacSystemFont, "Helvetica", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    word-spacing: -0.01em;
+}
+body { /* Also GNOME CSS. I changed the background to red colors (taken from the GNOME HIG color palette on Inkscape */
+    color: #f6f5f4;
+    background: linear-gradient( 90deg, #c01c28 0%, #c64600 100% );
+}
+h1, h2, h3, h4, h5, h6 { /* Also GNOME CSS */
+    margin: 0 0 10px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+/* Container divs (inside each row) */
+.container {
+    width: 85%;
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+/* Rows */
+.row1 {
+    padding: 8rem 0 3rem;
+}
+.row2, .row3 {
+    padding: 6rem 0;
+    overflow: hidden;
+}
+.row2 {
+    background-color: rgba(36, 31, 49, 0.47);
+}
+.row3 {
+    background-color: #241f31;
+}
+
+/* Titles */
+.title {
+    text-align: center;
+}
+h1.title {
+    font-size: 2.5em
+}
+
+/* Paragraphs */
+p.paragraph {
+    display: block;
+    max-width: 30em;
+    margin: 1.6rem auto 0.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* Back to main menu button */
+/* This is a GNOME button with GNOME CSS because I am using their style guide (and what's more in-line with these guides than literal CSS taken from their website). Therefore I've kept some comments from GNOME. */
+.button { /* Sneaky GNOME devs used an <a> tag for their site with a "button" class. */
+    width: 12em;
+    font-size: 1.2em;
+    background: linear-gradient( 0deg, #e01b24 0%, #ed333b 100% ); /* I replaced the colors with RED */
+    color: white;
+    display: block;
+    border-radius: 999999px;
+    padding: 0.9em 3em;
+    margin: 1.5rem auto 3rem;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier( 0.17, 0.89, 0.32, 1.28 );
+    filter: /* Sharp drop shadow */ drop-shadow( 0 0.08rem 0.1em rgba( 0, 0, 0, 0.2 ) ) /* Diffuse ambient shadow */ drop-shadow( 0 0.1rem 0.9em rgba( 0, 0, 0, 0.2 ) );
+}
+.button:hover {
+    transform: scale( 1.05 ); /* I didn't know you could have scale with one value until I saw this code. The more you know. */
+}
+.button:active {
+    transform: scale( .98 );
+}
+
+/* Just handling extra links and making them brighter (and also red). */
+a[ href ]:not( .button ) {
+    color: #f66151
+}

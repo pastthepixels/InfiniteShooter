@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=InfiniteShooter
+Version=1.0
+Icon=infiniteshooter.png
+X-Icon-Path="BASEPATH/assets/icon.png"
+Exec=python "BASEPATH/scripts/game.py" %U
+Terminal=false
+Type=Application
