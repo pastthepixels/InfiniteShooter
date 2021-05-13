@@ -9,7 +9,12 @@ Recommended hardware: ThinkPad E595 -- AMD Ryzen 5 3500U (no external GPU)
 Recommended software: Fedora 33/34
 Note for Windows users: Launch the .lnk file to start InfiniteShooter. You may need to install Python from the Microsoft store (and then install PyGame with pip)
 
-# Known issues
+# Installation
+1. Download InfiniteShooter.zip from the Releases tab (or just clone this repository and cd to InfiniteShooter)
+2. Run install.sh or install.ps1 depending on your operating system.
+Note that on Windows InfiniteShooter is only copied to your home directory and not installed. .lnk files don't work like .desktop ones so I don't know how to make a desktop shortcut for InfiniteShooter.
+
+# Known (unfixable) issues
 - Doesn't work on GNU/Linux NVIDIA drivers :(
 
 # Notes
