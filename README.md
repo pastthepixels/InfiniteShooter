@@ -23,7 +23,7 @@ EDIT: Scratch that last part, I just did this:
 xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT "dark" -name "InfiniteShooter"
 ```
 
-# Table of Contents (Use ctrl-f and enter the loc:$LOCATION_NUMBER to access the location in InfiniteShooter/scripts/game.py)
+# Table of Contents (Use ctrl-f and enter "loc:$LOCATION_NUMBER" to access the location in InfiniteShooter/scripts/game.py)
 | Location # | Title                                             |
 | ---------- | ------------------------------------------------- |
 | loc:0.5    | Upgrades                                          |
