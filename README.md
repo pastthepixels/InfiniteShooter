@@ -1,4 +1,4 @@
-![InfiniteShooter]("InfiniteShooter/models/renders/logo.png")
+![InfiniteShooter](InfiniteShooter/models/renders/logo.png)
 
 Deps:
 ```
