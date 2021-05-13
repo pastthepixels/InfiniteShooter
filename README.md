@@ -7,9 +7,7 @@ pip install pygame
 
 Recommended hardware: ThinkPad E595 -- AMD Ryzen 5 3500U (no external GPU)  
 Recommended software: Fedora 33/34
-
-*****NOTE FOR WINDOWS USERS: RUN .\game-windows.py*****  
-*****YOU MAY NEED TO INSTALL PYTHON FROM THE STORE*****
+Note for Windows users: Launch the .lnk file to start InfiniteShooter. You may need to install Python from the Microsoft store (and then install PyGame with pip)
 
 # Known issues
 - Doesn't work on GNU/Linux NVIDIA drivers :(
