@@ -8,8 +8,14 @@ cp * ~/InfiniteShooter -r
 # CD's to that directory
 cd ~/InfiniteShooter
 
-# Edits the infiniteshooter file
+# Edits the infiniteshooter.desktop file
 sed -i "s|BASEPATH|$(pwd)|g" ~/InfiniteShooter/infiniteshooter.desktop
+
+# Edits it some more if you use Nvidia drivers
+if [ -x "$(command -v nvidia-smi)" ]; then
+    echo "Nvidia drivers detected. Switching to game-windows.py..."
+    sed -i "s|game.py|game-windows.py|g" ~/InfiniteShooter/infiniteshooter.desktop
+fi
 
 # Removes the install file
 rm -rf ~/InfiniteShooter/install*

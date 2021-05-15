@@ -5,7 +5,7 @@
 # TASKS
 # - [.] Spritesheets
 # - [.] Player on its side
-# - [.] Enemies (lasers, movement, and death )
+# - [.] Enemies (lasers, movement, and death)
 # - [.] EXPLOSIONS!
 # - [.] Game logic (levels, ammo)
 # - [.] Levels
@@ -118,7 +118,7 @@ class Scene:
 
         self.width = width # Width of the window (a constant variable)
         self.height = height # Height of the window (a constant variable)
-        self.window = pygame.display.set_mode( ( self.width, self.height ), pygame.locals.DOUBLEBUF ) # Creates the window
+        self.window = pygame.display.set_mode( ( self.width, self.height ), pygame.DOUBLEBUF ) # Creates the window
         self.window.set_alpha( None )
         self.objects = [] # All objects in the scene (an array; can have recursive arrays)
         self.eventListeners = [] # Functions that listen for events in PyGame
@@ -134,6 +134,8 @@ class Scene:
 
     def update( self ):
 
+        if self.window == None: return
+
         # FPS
         self.clock.tick( self.fps ) # Updates the clock
         #print( str(int(self.clock. get_fps())) ) # A quick hack to get the fps
@@ -144,7 +146,7 @@ class Scene:
             
             self.renderObject( object ) # and renders it (NOTE: Each object is rendered on top of another. This is why we may want to use lists (in case, for example, you want to have a background layer.))
         
-        pygame.display.update() # Updates the display
+        pygame.display.flip() # Updates the display
 
         # Events/Extra Functions
         self.keys = pygame.key.get_pressed() # Sets an array of all the currently pressed keys as self.keys
