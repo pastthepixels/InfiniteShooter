@@ -7,15 +7,27 @@
 #    cclearly not working out for you.)
 
 # Modules
-from engine import * # Obviously
 from pathlib import Path # For setting BASEPATH
 import getpass # for getting the user's name
 import json # for saving lists to files
 import sys, os # For quitting the game
 
+# Quick! Before we do anything else!
+# This is copied from PyGame's code --> [Line 38] https://github.com/pygame/pygame/blob/6746053d1cda4c194a617e696b6eca06414e80b7/src_py/__init__.py
+# except we are switching wm_class to InfiniteShooter.
+# Look at the top bar in GNOME when playing InfiniteShooter.
+# Does it say "InfiniteShooter" or "game.py"? That's basically what we're doing.
+if "DISPLAY" in os.environ and "SDL_VIDEO_X11_WMCLASS" not in os.environ:
+        os.environ[ "SDL_VIDEO_X11_WMCLASS" ] = "InfiniteShooter"
+
+# OK, now we import PyGame (and the engine)
+from engine import *
+
 # Global variables / constants
 BASEPATH = str( Path(__file__).parent.parent.absolute() ) # Gets directory "[...]/InfiniteShooter"
 IMAGE_CACHE = {}
+MUSIC_VOL = 1
+SFX_VOL = 1
 ROUNDED_RECT_VERTS = [
     [
         [ -1.0 , 0.4 ], # Top left
@@ -46,6 +58,21 @@ ROUNDED_RECT_VERTS = [
 alertString = ""
 terminalOut = ""
 mayhem = False # Mayhem mode. You have very powerful bullets, but regular health, and enemies spawn every second. Your ammo capacity will also be reduced to 20 bullets.
+
+# Command-line parameters
+if len( sys.argv ) > 0:
+
+    for argument in sys.argv:
+       
+        if argument.split( "=" )[ 0 ] == "music_vol":
+            
+            globals()[ "MUSIC_VOL" ] = float( argument.split( "=" )[ 1 ] )
+            print( "Music volume is set to {0}%".format( MUSIC_VOL * 100 ) )
+        
+        if argument.split( "=" )[ 0 ] == "sfx_vol":
+            
+            globals()[ "SFX_VOL" ] = float( argument.split( "=" )[ 1 ] )
+            print( "Sound effect volume is set to {0}%".format( SFX_VOL * 100 ) )
 
 # Kinda fits here -- Creating a rounded rectangle
 def roundedRectangle( height, width, cornerSize=1 ):
@@ -288,11 +315,11 @@ def fireLaser( enemy = None ):
         
         laser.position = enemy.position.clone()
         laser.changeURL( BASEPATH + "/models/renders/enemylaser.png" )
-        Sound( BASEPATH + "/sounds/enemylaser" + str( enemy.type ) + ".wav" ).play()
+        Sound( BASEPATH + "/sounds/enemylaser" + str( enemy.type ) + ".wav", globals()[ "SFX_VOL" ] ).play()
     
     else:
 
-        Sound( BASEPATH + "/sounds/playerlaser.wav" ).play()
+        Sound( BASEPATH + "/sounds/playerlaser.wav", globals()[ "SFX_VOL" ] ).play()
 
     # Sets an interval to preiodically move up the laser / check if it collides with an enemy
     def moveLaser():
@@ -304,7 +331,7 @@ def fireLaser( enemy = None ):
                 
                 if laser.collides( enemy ):
                     
-                    Sound( BASEPATH + "/sounds/hit" + str( random.randint( 1, 3 ) ) + ".wav" ).play() # Plays a random "hitting" sound (out of 3 choices)
+                    Sound( BASEPATH + "/sounds/hit" + str( random.randint( 1, 3 ) ) + ".wav", globals()[ "SFX_VOL" ] ).play() # Plays a random "hitting" sound (out of 3 choices)
                     enemy.health -= player.damage
                     if hasattr( enemy, "updateHealth" ): enemy.updateHealth() # The if statements prevents some random issue
                     if random.randint( 1, 5 ) == 1 and enemy.health <= 0: createEnemyDrop( enemy ) # Creates an enemy drop if the player kills a ship
@@ -315,7 +342,7 @@ def fireLaser( enemy = None ):
             laser.position.y += 1 # as in moving it down and checking for collisions with the player
             if laser.collides( globals()[ "player" ] ):
                     
-                Sound( BASEPATH + "/sounds/hit" + str( random.randint( 1, 3 ) ) + ".wav" ).play() # Plays a random "hitting" sound (out of 3 choices)
+                Sound( BASEPATH + "/sounds/hit" + str( random.randint( 1, 3 ) ) + ".wav", globals()[ "SFX_VOL" ] ).play() # Plays a random "hitting" sound (out of 3 choices)
                 globals()[ "player" ].health -= laser.enemy.damage
                 updateHealth()
                 endLaser()
@@ -413,7 +440,7 @@ def killShip( ship ):
     shakeScreen( 500, 20 )
 
     # Plays a cool sound! (at random with 3 explosions to choose from)
-    Sound( BASEPATH + "/sounds/explosion" + str( random.randint( 1, 3 ) ) + ".wav" ).play()
+    Sound( BASEPATH + "/sounds/explosion" + str( random.randint( 1, 3 ) ) + ".wav", globals()[ "SFX_VOL" ] ).play()
 
     if ship in globals()[ "enemies" ]: # If the ship is an enemy ship
 
@@ -656,7 +683,7 @@ def checkKeys():
 def checkKeyTaps( event ):
 
     if event.type == pygame.KEYDOWN and event.key == pygame.K_q and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): quitGame() # If the game is paused and the "Q" key is pressed, quit the game.
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_r and globals()[ "ended" ] == True: resetGame(); Sound( BASEPATH + "/sounds/gui-use.wav" ).play()
+    if event.type == pygame.KEYDOWN and event.key == pygame.K_r and globals()[ "ended" ] == True: resetGame(); Sound( BASEPATH + "/sounds/gui-use.wav", globals()[ "SFX_VOL" ] ).play()
     if event.type == pygame.KEYDOWN and event.key == pygame.K_m and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): # GOing back to the main menu
         
         resetGame( False ) # Resets the game without restarting it
@@ -668,8 +695,8 @@ def checkKeyTaps( event ):
     if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and globals()[ "gameStarted" ] == True: # With the last part we have to make sure the game is paused BY the user and not by freezing the game for UI
 
         globals()[ "paused" ] = not globals()[ "paused" ]
-        if globals()[ "paused" ] == False: resumeAllIntervals(); resume(); Sound( BASEPATH + "/sounds/unpause.wav" ).play()
-        if globals()[ "paused" ] == True: pauseAllIntervals(); scene.interval.paused = False; pause(); Sound( BASEPATH + "/sounds/pause.wav" ).play() # Doesn't pause the scene updating interval so we can do these checks
+        if globals()[ "paused" ] == False: resumeAllIntervals(); resume(); Sound( BASEPATH + "/sounds/unpause.wav", globals()[ "SFX_VOL" ] ).play()
+        if globals()[ "paused" ] == True: pauseAllIntervals(); scene.interval.paused = False; pause(); Sound( BASEPATH + "/sounds/pause.wav", globals()[ "SFX_VOL" ] ).play() # Doesn't pause the scene updating interval so we can do these checks
     
     if globals()[ "paused" ] == True or globals()[ "ended" ] == True: return # The rest of this function will be executed even though the game is paused/ended. This is bad.
 
@@ -698,12 +725,12 @@ def gameChecks():
     if player.health < player.maxHealth: player.health += .0005; updateHealth() # Slow regeneration
 
     # Ammo
-    if player.ammo < .01: player.reloading = True; Sound( BASEPATH + "/sounds/ammo-beginreload.wav" ).play() # If the ammo is below a number, reload it.
+    if player.ammo < .01: player.reloading = True; Sound( BASEPATH + "/sounds/ammo-beginreload.wav", globals()[ "SFX_VOL" ] ).play() # If the ammo is below a number, reload it.
     if player.reloading:
         
         player.ammo += .005 # Adds some ammo
         updateAmmo() # Updates the ammo-stats bar
-        Sound( BASEPATH + "/sounds/ammo-reloadboop.wav" ).play() # Plays a cool sound
+        Sound( BASEPATH + "/sounds/ammo-reloadboop.wav", globals()[ "SFX_VOL" ] ).play() # Plays a cool sound
     
     if player.ammo >= player.maxAmmo: player.reloading = False; player.ammo = player.maxAmmo # If the ammo is reloaded, stop reloading it.
 
@@ -745,7 +772,7 @@ def gameChecks():
                 wipeEnemies() # Wipes all enemies on-screen.
             
             powerup.removeSelf() # Removes the powerup
-            Sound( BASEPATH + "/sounds/powerup.wav" ).play() # and plays a cool sound
+            Sound( BASEPATH + "/sounds/powerup.wav", globals()[ "SFX_VOL" ] ).play() # and plays a cool sound
 
 def checkMainMenuKeys( event ):
 
@@ -753,7 +780,7 @@ def checkMainMenuKeys( event ):
     if event.type == pygame.KEYDOWN and globals()[ "gui" ][ "startScreen" ] != None: switchToMainMenu(); return
 
     # If a key is pressed and you are in the leaderboard screen, close that screen
-    if event.type == pygame.KEYDOWN and globals()[ "gui" ][ "leaderboardElements" ] != None: hideLeaderboard(); Sound( BASEPATH + "/sounds/gui-use.wav" ).play(); return
+    if event.type == pygame.KEYDOWN and globals()[ "gui" ][ "leaderboardElements" ] != None: hideLeaderboard(); Sound( BASEPATH + "/sounds/gui-use.wav", globals()[ "SFX_VOL" ] ).play(); return
 
     # If a key is pressed and you are in the upgrades screen, do the following...
     if event.type == pygame.KEYDOWN and globals()[ "gui" ][ "upgradeElements" ] != None: selectGUIElement( event, globals()[ "gui" ][ "upgradeTextElements" ] ); return
@@ -764,14 +791,14 @@ def checkMainMenuKeys( event ):
 def selectGUIElement( event, textElements ):
 
     global gui
-    if event.key == pygame.K_SPACE: textElements[ gui[ "selectSquare" ].index ].onUse(); Sound( BASEPATH + "/sounds/gui-use.wav" ).play(); return # "Uses" an element if it is selected and the spacebar is pressed.
+    if event.key == pygame.K_SPACE: textElements[ gui[ "selectSquare" ].index ].onUse(); Sound( BASEPATH + "/sounds/gui-use.wav", globals()[ "SFX_VOL" ] ).play(); return # "Uses" an element if it is selected and the spacebar is pressed.
     if event.key == pygame.K_DOWN or event.key == pygame.K_UP: # If the up or down keys are pressed...
     
         if event.key == pygame.K_DOWN: gui[ "selectSquare" ].index += 1 # If the down key is pressed, move down the list of text elements
         if event.key == pygame.K_UP: gui[ "selectSquare" ].index -= 1 # If the up key is pressed, move up the list of text elements
         if gui[ "selectSquare" ].index < 0: gui[ "selectSquare" ].index = len( textElements ) - 1 # If the selected index is below zero (we can't have that), we wrap it around to the end of the list of text elements.
         if gui[ "selectSquare" ].index > len( textElements ) - 1: gui[ "selectSquare" ].index = 0 # If the selected index is at the end of the list (we can't have that), we set it to zero (the start of the list).
-        Sound( BASEPATH + "/sounds/gui-select.wav" ).play() # Plays a sound
+        Sound( BASEPATH + "/sounds/gui-select.wav", globals()[ "SFX_VOL" ] ).play() # Plays a sound
         
     setSelectSquarePosition( textElements[ gui[ "selectSquare" ].index ] )
 
@@ -801,7 +828,7 @@ def levelUp():
     globals()[ "enemy3Damage" ] *= 1 + level * .1
 
     # Plays a cool sound
-    Sound( BASEPATH + "/sounds/levelup.wav" ).play()
+    Sound( BASEPATH + "/sounds/levelup.wav", globals()[ "SFX_VOL" ] ).play()
 
 #
 # loc:7 -- Pausing, resuming, initialization, and main menus
@@ -814,6 +841,9 @@ def initScene():
     # Makes a scene
     scene = Scene( 600, 800 )
 
+    # Sets music volume
+    pygame.mixer.music.set_volume( globals()[ "MUSIC_VOL" ] )
+    
     # Sets the title of the window
     pygame.display.set_caption( "InfiniteShooter" )
 
@@ -1059,7 +1089,7 @@ def showUpgradeScreen():
                 # If the upgrade has already been bought, alert the user of this
                 if self.upgrade[ "bought" ] == True:
 
-                    Sound( BASEPATH + "/sounds/error.wav" ).play()
+                    Sound( BASEPATH + "/sounds/error.wav", globals()[ "SFX_VOL" ] ).play()
                     alert( "You cannot purchase this upgrade again." )
                     return
                 
@@ -1071,7 +1101,7 @@ def showUpgradeScreen():
                 else:
 
                     alert( "You cannot purchase this upgrade due to an insufficient number of points." )
-                    Sound( BASEPATH + "/sounds/error.wav" ).play()
+                    Sound( BASEPATH + "/sounds/error.wav", globals()[ "SFX_VOL" ] ).play()
                     return
 
                 self.text.color = "#666666" # Sets the color to grey because you already bought the upgrade
@@ -1146,7 +1176,7 @@ def hideUpgradeScreen():
 def switchToMainMenu():
 
     # Plays a sound
-    Sound( BASEPATH + "/sounds/gui-use.wav" ).play()
+    Sound( BASEPATH + "/sounds/gui-use.wav", globals()[ "SFX_VOL" ] ).play()
 
     # Removes excess objects
     for obj in globals()[ "gui" ][ "startScreen" ]: scene.objects.remove( obj )

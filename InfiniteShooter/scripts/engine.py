@@ -455,10 +455,11 @@ class Text( Image ):
 # Sounds
 class Sound:
 
-    def __init__( self, url ):
+    def __init__( self, url, volume=1 ):
 
         self.url = url
         self._pygame = pygame.mixer.Sound( url )
+        self._pygame.set_volume( volume )
     
     def play( self ):
 

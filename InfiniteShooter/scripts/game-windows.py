@@ -1,4 +1,8 @@
-# Hacky method to get the game running on Windows (tested on an HP Compaq 8100 running Windows 10)
+# Hacky method to get the game running on Windows (and GNU/Linux wi/ NVIDIA drivers) (tested on an HP Compaq 8100 running Windows 10)
+
+# Refer to game.py:10 to see what the heck this means
+import os
+if 'DISPLAY' in os.environ and 'SDL_VIDEO_X11_WMCLASS' not in os.environ: os.environ['SDL_VIDEO_X11_WMCLASS'] = "InfiniteShooter"
 
 # Imports the modules required
 import threading
