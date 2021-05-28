@@ -2,8 +2,9 @@
 [Desktop Entry]
 Name=InfiniteShooter
 Version=1.0
-Icon=infiniteshooter.png
+Icon="BASEPATH/assets/icon-large.png"
 X-Icon-Path="BASEPATH/assets/icon.png"
 Exec=python "BASEPATH/scripts/game.py" %U
 Terminal=false
 Type=Application
+Categories=Game;Application;
