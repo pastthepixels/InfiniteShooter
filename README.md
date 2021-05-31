@@ -10,6 +10,13 @@ Recommended software: Fedora 33/34
 Note for Windows users: Launch the .lnk file to start InfiniteShooter. You may need to install Python from the Microsoft store (and then install PyGame with pip)
 Note for those using Nvidia drivers for GNU/Linux: You'll also need to run game-windows.py. The install script should automatically do this for you.
 
+!!!
+Note: There are lots of concurrency errors in InfiniteShooter, which is the source of 99% of its bugs, and I have no idea how to fix them.
+Essentially, I'm trying to recreate setInterval, which doesn't have these errors (becuase intervals in JavaScript don't run simaltaneously), with Python threads, which do run simaltaneously.
+This results in variables that are overwritten at the same time, which equals sad.
+A possible fix for this would be to place every interval in a main thread loop, which has a number of frames, which counts up. If the frame number (which equals one millisecond) is divisible by the interval time, the interval executes. This is probably what JavaScript does and it saves time and patience.
+Unfortunately I tried this and it makes the game run slowly as it loops through EVERY function.
+!!!
 # Installation
 1. Download InfiniteShooter.zip from the Releases tab (or just clone this repository and cd to InfiniteShooter)
 2. Run install.sh or install.ps1 depending on your operating system.
