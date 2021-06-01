@@ -142,6 +142,7 @@ class Scene:
         self.clock = pygame.time.Clock() # Creates a clock to do stuff like get FPS
         self.fps = 60 # Max FPS value
         self.interval = threading.Thread( target=self.updateLoop )
+        self.interval.stopped = False
         self.interval.start()
         self.originPoint = Vector2( 0, 0 )
         self.noEventLoop = False # For special cases where you don't want the game to check for input
@@ -149,7 +150,7 @@ class Scene:
 
     def updateLoop( self ):
 
-        while True: self.update()
+        while self.interval.stopped == False: self.update()
         
     def update( self ):
 
