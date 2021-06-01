@@ -64,29 +64,43 @@ class Vector2:
 
         return Vector2( self.x + otherVector.x, self.y + otherVector.y )
 
-# setInterval + setTimeout because python doesn't have it because python sucks
+# setInterval (but a class) + setTimeout because python doesn't have it because python sucks
 intervals = []
 timeouts = []
-def setInterval( function, interval ): # Parameters just like in JS.
+intervalCounter = 0
 
-    def intervalFunction( stop, pause, thread ): # The function to run
+def checkIntervals():
+
+    while True:
+
+        globals()[ "intervalCounter" ] += 1
+        for interval in globals()[ "intervals" ]:
+
+            if globals()[ "intervalCounter" ] % interval.time == 0: interval.ready = True; interval.run();
+        
+        time.sleep( 1 / 1000 )
+
+intervalThread = threading.Thread( target=checkIntervals )
+intervalThread.start()
+
+class Interval:
+
+    def __init__( self, function, time ):
+
+        self.function = function
+        self.time = time
+        self.ready = True
+        self.stopped = False
+        self.paused = False
+        globals()[ "intervals" ].append( self )
     
-        global intervals
-        if interval > 0: time.sleep( interval / 1000 )
-        while not stop(): # While thread.stopped != True (see below + if thread.stopped == True, the loop will end, ending the function and thus the thread.)
-    
-            if pause() == False: function() # Run the function
-            if interval > 0: time.sleep( thread().interval / 1000 ) # Sleep for a set amount of time specified from "interval". If interval == 0 we have an infinite loop.
+    def run( self ):
 
-        intervals.remove( thread() )
+        if self.paused == False: self.function()
 
-    thread = threading.Thread( target=intervalFunction, args = ( lambda: thread.stopped, lambda: thread.paused, lambda: thread ) ) # Creates a thread. The argument passed is a function that determines that state of thread.stopped (instead of just directly passing its current state)
-    thread.stopped = False # Now that "thread" is defined, set its "stopped" value to False.
-    thread.paused = False
-    thread.interval = interval
-    thread.start() # Starts the thread.
-    intervals.append( thread ) # Adds it to the list of intervals
-    return thread # Returns the thread.
+        if self.stopped == True:
+
+            globals()[ "intervals" ].remove( self )
 
 def pauseAllIntervals():
 
@@ -127,11 +141,16 @@ class Scene:
         self.backgroundColor = "black" # The color of the scene's background
         self.clock = pygame.time.Clock() # Creates a clock to do stuff like get FPS
         self.fps = 60 # Max FPS value
-        self.interval = setInterval( self.update, 0 )
+        self.interval = threading.Thread( target=self.updateLoop )
+        self.interval.start()
         self.originPoint = Vector2( 0, 0 )
         self.noEventLoop = False # For special cases where you don't want the game to check for input
         pygame.event.set_allowed( [ pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP ] )
 
+    def updateLoop( self ):
+
+        while True: self.update()
+        
     def update( self ):
 
         if self.window == None: return
@@ -378,7 +397,7 @@ class Image( SurfaceObject ):
             self._column += 1 # Now just move up the counter for a column by one. (So we read right to left and then down.)
         
         intervalFunction()
-        interval = setInterval( intervalFunction, speed )
+        interval = Interval( intervalFunction, speed )
         return interval
 
 # Polygon
@@ -476,7 +495,7 @@ class Animation:
     
     def start( self ):
 
-        self.interval = setInterval( self.animateFunction, 16 )
+        self.interval = Interval( self.animateFunction, 16 )
     
     def animateFunction( self ):
 

@@ -188,7 +188,7 @@ def resetGame( init=True ):
     scene.extraFunctions = []
     scene.eventListeners = []
     scene.objects = []
-    scene.interval = setInterval( scene.update, 0 )
+    scene.interval = Interval( scene.update, 0 )
 
     # Inits the game
     if init == True: initGame()
@@ -212,7 +212,7 @@ def makeBackground():
         background1.position.y += 10
         background2.position.y += 10
     
-    setInterval( moveBackgrounds, 10 )
+    Interval( moveBackgrounds, 10 )
 
 def makePlayer():
 
@@ -272,7 +272,7 @@ def makeEnemy():
     # Firing a laser
     enemy.updateHealth = updateEnemyHealth
     enemy.updateHealth() # Updates the health bars for good measure
-    enemy.intervals.append( setInterval( lambda: fireLaser( enemy ), enemy.laserFrequency ) ) # Starts firing lasers
+    enemy.intervals.append( Interval( lambda: fireLaser( enemy ), enemy.laserFrequency ) ) # Starts firing lasers
 
     # Moves the enemy
     def moveEnemy():
@@ -284,7 +284,7 @@ def makeEnemy():
             updateHealth() # Updates the player health bars
             killShip( enemy ) # and THEN remove le ship
 
-    enemy.intervals.append( setInterval( moveEnemy, 6 ) ) # Starts moving the ship downward
+    enemy.intervals.append( Interval( moveEnemy, 6 ) ) # Starts moving the ship downward
 
     # Makes the game harder if you find each level easy
     globals()[ "enemyInterval" ].interval = 3000
@@ -362,7 +362,7 @@ def fireLaser( enemy = None ):
             
             pass
     
-    interval = setInterval( moveLaser, 1 ) # Still in the function!
+    interval = Interval( moveLaser, 1 ) # Still in the function!
 
 #
 # loc:3 -- Functions to Blow Up Scene Things
@@ -371,7 +371,7 @@ def shakeScreen( duration, jank=10 ):
 
     def shaking(): scene.originPoint = Vector2( random.randint( 0, jank ) / 10 - ( jank / 20 ), random.randint( 0, jank ) / 10 - ( jank / 20 ) )
     def stopShaking(): interval.stopped = True; scene.originPoint = Vector2( 0, 0 )
-    interval = setInterval( shaking, 40 )
+    interval = Interval( shaking, 40 )
     setTimeout( stopShaking, duration )
 
 def explosion( position, scale=Vector2( 1, 1 ) ):
@@ -424,7 +424,7 @@ def wipeEnemies(): # Wipes enemies from the face of the earth
         
         for enemy in globals()[ "enemies" ]: killShip( enemy ); enemy.position = Vector2( -100, -100 ) # Kills all ships (and moves them out of the way for collision intervals that have not stopped yet)
     
-    interval = setInterval( wiping, 50 ) # Runs this on an interval
+    interval = Interval( wiping, 50 ) # Runs this on an interval
 
     # Then we stop the wiping interval after 300 milliseconds -- letting the previous interval not ending too soon, and not looping for too long.
     def stopWipe(): interval.stopped = True
@@ -889,13 +889,13 @@ def initGame():
     scene.addEventListener( checkKeyTaps )
 
     # Creates a new enemy every 3 seconds
-    if globals()[ "mayhem" ] == False: globals()[ "enemyInterval" ] = setInterval( makeEnemy, 3000 )
+    if globals()[ "mayhem" ] == False: globals()[ "enemyInterval" ] = Interval( makeEnemy, 3000 )
 
     # or every second?
-    if globals()[ "mayhem" ] == True: globals()[ "enemyInterval" ] = setInterval( makeEnemy, 1200 )
+    if globals()[ "mayhem" ] == True: globals()[ "enemyInterval" ] = Interval( makeEnemy, 1200 )
 
     # Increases the level every 20 seconds
-    setInterval( levelUp, 20000 )
+    Interval( levelUp, 20000 )
 
     # Increases the level progress bar every .2 seconds
     def __increaseProgress():
@@ -904,7 +904,7 @@ def initGame():
         if globals()[ "levelProgress" ] > 1: globals()[ "levelProgress" ] = 0
         updateTerminal() # Updates the terminal indicator
     
-    setInterval( __increaseProgress, 200 )
+    Interval( __increaseProgress, 200 )
 
     # Plays some music (and switches to another song when the current one ends)
     switchGameSong()
