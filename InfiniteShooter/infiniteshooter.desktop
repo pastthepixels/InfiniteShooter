@@ -1,10 +1,16 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=InfiniteShooter
-Version=1.0
-Icon="BASEPATH/assets/icon-large.png"
-X-Icon-Path="BASEPATH/assets/icon.png"
+Categories=Game;Application;
+Comment=A shooter game written in Python.
 Exec=python "BASEPATH/scripts/game.py" %U
+GenericName=InfiniteShooter
+Icon=BASEPATH/assets/icon-large.png
+MimeType=
+Name[en_US]=InfiniteShooter
+Name=InfiniteShooter
+StartupNotify=true
 Terminal=false
 Type=Application
-Categories=Game;Application;
+Version=1.0
+X-Icon-Path=BASEPATH/assets/icon-large.png
+X-KDE-SubstituteUID=false
