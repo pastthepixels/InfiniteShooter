@@ -100,7 +100,7 @@ class Interval:
 
     def kill( self ):
         
-        globals()[ "intervals" ].remove( self )
+        if self in globals()[ "intervals" ]: globals()[ "intervals" ].remove( self )
 
 def pauseAllIntervals():
 

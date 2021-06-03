@@ -368,6 +368,7 @@ def fireLaser( enemy = None ):
 #
 def shakeScreen( duration, jank=10 ):
 
+    jank = int( jank )
     def shaking(): scene.originPoint = Vector2( random.randint( 0, jank ) / 10 - ( jank / 20 ), random.randint( 0, jank ) / 10 - ( jank / 20 ) )
     def stopShaking(): interval.kill(); scene.originPoint = Vector2( 0, 0 )
     interval = Interval( shaking, 40 )
@@ -436,7 +437,10 @@ def killShip( ship ):
     # Creates an explosion at the ship's position
     explosion( ship.position )
     if ship in globals()[ "mainObjects" ]: globals()[ "mainObjects" ].remove( ship ) # Removes the ship
-    shakeScreen( 500, 20 )
+    jank = ship.maxHealth * 100
+    if jank > 100: jank = 100
+    if jank < 20: jank = 20
+    shakeScreen( 500, jank )
 
     # Plays a cool sound! (at random with 3 explosions to choose from)
     Sound( BASEPATH + "/sounds/explosion" + str( random.randint( 1, 3 ) ) + ".wav", globals()[ "SFX_VOL" ] ).play()
