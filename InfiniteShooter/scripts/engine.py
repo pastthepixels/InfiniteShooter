@@ -90,17 +90,17 @@ class Interval:
         self.function = function
         self.time = time
         self.ready = True
-        self.stopped = False
         self.paused = False
+
         globals()[ "intervals" ].append( self )
     
     def run( self ):
 
         if self.paused == False: self.function()
 
-        if self.stopped == True:
-
-            globals()[ "intervals" ].remove( self )
+    def kill( self ):
+        
+        globals()[ "intervals" ].remove( self )
 
 def pauseAllIntervals():
 
@@ -125,6 +125,7 @@ def setTimeout( function, timeout ): # Parameters just like in JS.
     timeouts.append( thread )
     return thread # Returns the thread.
 
+
 # Scene
 class Scene:
     
@@ -142,7 +143,7 @@ class Scene:
         self.clock = pygame.time.Clock() # Creates a clock to do stuff like get FPS
         self.fps = 60 # Max FPS value
         self.interval = threading.Thread( target=self.updateLoop )
-        self.interval.stopped = False
+        self.interval.running = True
         self.interval.start()
         self.originPoint = Vector2( 0, 0 )
         self.noEventLoop = False # For special cases where you don't want the game to check for input
@@ -150,7 +151,7 @@ class Scene:
 
     def updateLoop( self ):
 
-        while self.interval.stopped == False: self.update()
+        while self.interval.running: self.update()
         
     def update( self ):
 
@@ -193,7 +194,7 @@ class Scene:
     
     def quit( self ): # Exits the scene:
         
-        self.interval.stopped = True # Stops regular scene updates
+        self.interval.kill() # Stops regular scene updates
         pygame.quit() # Stops PyGame
     
     def renderObject( self, object ): # Renders an object:
@@ -388,7 +389,7 @@ class Image( SurfaceObject ):
             if ( self._column >= columns and self._row >= rows ) or ( maxFrames != None and ( self._column * self._row >= maxFrames ) ) or self.animating == False:
                 
                 if callback != None: callback()
-                interval.stopped = True
+                interval.kill()
                 self.animating = False
                 if self.loopAnimation == True: self.animateSpritesheet( rows, columns, width, height, speed, callback, maxFrames, loop )
                 return # If we've reached the total number of rows and columns, quit the interval
@@ -504,7 +505,7 @@ class Animation:
         if self.keyframe > 1:
             
             self.keyframe = 1
-            self.interval.stopped = True
+            self.interval.kill()
             if self.callback != None: self.callback()
 
         # Sets the "animation progress", the multiplier in an animation. Say you want to get from # A to # B: currNumber = a - animationProgress * ( a - b )

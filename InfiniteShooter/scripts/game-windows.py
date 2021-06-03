@@ -20,5 +20,5 @@ thread = threading.Thread( target=runGame )
 thread.run()
 
 # this while loop. We force the game to update on the main file so that Windows notices each time pygame gets the events. This will prevent "not responding" errors and won't come at much of a cost at all.
-game.scene.interval.stopped = True
+game.scene.interval.running = False;
 while True: game.scene.update()

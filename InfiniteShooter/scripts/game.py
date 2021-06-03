@@ -183,12 +183,11 @@ def resetGame( init=True ):
     setGame( False )
     
     # Resets intervals + timeouts
-    for i in intervals: i.stopped = True
-    for i in timeouts: i.stopped = True
+    for i in intervals: i.kill()
+    for i in timeouts: i.kill()
     scene.extraFunctions = []
     scene.eventListeners = []
     scene.objects = []
-    scene.interval = Interval( scene.update, 0 )
 
     # Inits the game
     if init == True: initGame()
@@ -356,7 +355,7 @@ def fireLaser( enemy = None ):
         try: # Sometimes the laser is to end before the interval is declared! So we use a try/catch statement to ward off any errors (by the next cycle this function should be called again and "interval" would be declared)
 
             globals()[ "laserSpace" ].remove( laser ) # Removes the laser
-            interval.stopped = True # and ends the "moving" interval.
+            interval.kill() # and ends the "moving" interval.
         
         except:
             
@@ -370,7 +369,7 @@ def fireLaser( enemy = None ):
 def shakeScreen( duration, jank=10 ):
 
     def shaking(): scene.originPoint = Vector2( random.randint( 0, jank ) / 10 - ( jank / 20 ), random.randint( 0, jank ) / 10 - ( jank / 20 ) )
-    def stopShaking(): interval.stopped = True; scene.originPoint = Vector2( 0, 0 )
+    def stopShaking(): interval.kill(); scene.originPoint = Vector2( 0, 0 )
     interval = Interval( shaking, 40 )
     setTimeout( stopShaking, duration )
 
@@ -405,7 +404,7 @@ def createEnemyDrop( ship ):
     # Explodes the image after some time (also handles removing when the player picks up the powerup)
     def removeImage():
     
-        if image in globals()[ "powerups" ]: globals()[ "powerups" ].remove( image ); image.loopAnimation = False; image.animation.stopped = True; globals()[ "mainObjects" ].remove( image )
+        if image in globals()[ "powerups" ]: globals()[ "powerups" ].remove( image ); image.loopAnimation = False; image.animation.kill(); globals()[ "mainObjects" ].remove( image )
     
     image.removeSelf = removeImage
 
@@ -427,7 +426,7 @@ def wipeEnemies(): # Wipes enemies from the face of the earth
     interval = Interval( wiping, 50 ) # Runs this on an interval
 
     # Then we stop the wiping interval after 300 milliseconds -- letting the previous interval not ending too soon, and not looping for too long.
-    def stopWipe(): interval.stopped = True
+    def stopWipe(): interval.kill()
     setTimeout( stopWipe, 300 )
     
 def killShip( ship ):
@@ -447,7 +446,7 @@ def killShip( ship ):
         globals()[ "healthSpace" ].remove( ship.healthBG ) # and its background/foreground health bars
         globals()[ "healthSpace" ].remove( ship.healthFG )
         globals()[ "enemies" ].remove( ship ) # and remove it from the enemy list
-        for interval in ship.intervals: interval.stopped = True # Stops all intervals
+        for interval in ship.intervals: interval.kill() # Stops all intervals
     
     elif ship == globals()[ "player" ] and globals()[ "ended" ] == False and checkKeys in scene.extraFunctions: # Otherwise, if it's the player who is to be dead... (Note: that last part of this line makes sure that the game doesn't run the end screen twice.)
 
@@ -687,7 +686,7 @@ def checkKeyTaps( event ):
     if event.type == pygame.KEYDOWN and event.key == pygame.K_m and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): # GOing back to the main menu
         
         resetGame( False ) # Resets the game without restarting it
-        scene.interval.stopped = True # Stops the scene
+        scene.interval.running = False;
         setGame() # Does everything at the start of the game (but skips the Egghead screen)
         initScene()
         startScreen()
