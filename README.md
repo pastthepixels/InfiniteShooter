@@ -3,9 +3,9 @@
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/52388215/125573351-8dd2fa69-0596-4b5b-8bcf-0424ac417492.png" width="300">
-  <img src="https://user-images.githubusercontent.com/52388215/125573764-2b002dc0-6b78-4e51-87e4-8563904fc351.png" width="300">
-  <img src="https://user-images.githubusercontent.com/52388215/125573659-9caa6f7c-d15c-4f99-aae1-3ba94a64fc24.png" width="300">
+  <img src="https://user-images.githubusercontent.com/52388215/125573351-8dd2fa69-0596-4b5b-8bcf-0424ac417492.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/125573764-2b002dc0-6b78-4e51-87e4-8563904fc351.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/125573659-9caa6f7c-d15c-4f99-aae1-3ba94a64fc24.png" width="200">
 </p>
 
 # Installation
