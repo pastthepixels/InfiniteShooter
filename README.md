@@ -57,3 +57,7 @@ If you have any idea on how this works, please contact me (my address is somewhe
 | loc:6      | The Challenge                                     |
 | loc:7      | Pausing, resuming, initialization, and main menus |
 | loc:8      | Music                                             |
+
+# Credits
+All assets are made by me using Blender/Illustrator/Inkscape/GIMP/LMMS/Audacity.  
+Except for one... The laser sounds are from user Defunct3 right [here](https://freesound.org/people/Defunct3/sounds/77172/) on freesound.org.
