@@ -1,20 +1,28 @@
 ![InfiniteShooter](InfiniteShooter/models/renders/logo.png)
 
-Deps:
-```
-pip install pygame
-```
-
-Recommended hardware: ThinkPad E595 -- AMD Ryzen 5 3500U (no external GPU)  
-Recommended software: Fedora 33/34
-Note for Windows users: Launch the .lnk file to start InfiniteShooter. You may need to install Python from the Microsoft store (and then install PyGame with pip)
-Note for those using Nvidia drivers for GNU/Linux: You'll also need to run game-windows.py. The install script should automatically do this for you.
-
 # Installation
-1. Download InfiniteShooter.zip from the Releases tab (or just clone this repository and cd to InfiniteShooter)
-2. Run install.sh or install.ps1 depending on your operating system.
-Note that on Windows InfiniteShooter is only copied to your home directory and not installed. .lnk files don't work like .desktop ones so I don't know how to make a desktop shortcut for InfiniteShooter.
+1. Install Python and `pip`. It's shipped by default in Fedora.
+2. Install PyGame from `pip`. To do this, open up a terminal (yes, even on Windows!) and run `pip install pygame`.
+3. Clone this repository to a tempoary directory. I typically would go `cd /tmp; git clone https://github.com/pastthepixels/InfiniteShooter; cd InfiniteShooter` on my Fedora system
+4. `cd` (change directory) to the `InfiniteShooter` subfolder
+5. Installation:
+5a. On GNU/Linux systems, run `./install.sh` from a terminal.
+5b. On Windows systems, run `./install.ps1` (a PowerShell script). It should be noted that this simply copies InfiniteShooter to your home directory, and it does not create a shortcut.
 
+---
+**NOTE**
+
+Technical details for step 5b: The installation script copies a template `.desktop` file to `~/.local/share/applications` and then replaces a filler for the base path of InfiniteShooter for the actual path it was installed to. If I publish this game to, say, Steam (which I want to do in the near future), all installation stuff will be mitigated so you can just play InfiniteShooter without worrying about all this.
+
+---
+
+# Hardware/software requirements
+
+**Minimum hardware**: I tested this generally on an Intel Pentium processor. Unfortunately, since I don't know which, I can only garuntee that it works within this range. I'm guessing since there are many performance optimizations and that there is no heavy rendering going on that you can run this on any Pentium, but beware.
+**Tested hardware**: AMD Ryzen 5 3500U with mobile graphics (Lenovo ThinkPad E595)
+**Recommended hardware**: The very best you can muster. I don't know, RTX or something. But there's a GPU shortage right now so yeah.
+**Recommended OS**: GNU/Linux
+**Tested OS**: Fedora 34
 
 # Notes
 A cautionary tale: I have made a manual keyboard-focused GUI for this game. In the future, you should just use ``pygame_gui`` -- ``pip install pygame_gui``.  
@@ -25,7 +33,14 @@ EDIT: Scratch that last part, I just did this:
 xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT "dark" -name "InfiniteShooter"
 ```
 
-# Table of Contents (Use ctrl-f and enter "loc:$LOCATION_NUMBER" to access the location in InfiniteShooter/scripts/game.py)
+# Table of contents
+---
+**NOTE**
+
+What is this? --> This is a way to naviagate `./InfiniteShooter/game.py`. Simply hit <kbd>Ctrl</kbd> + <kbd>F</kbd> and type in `loc:` followed by the location number to reach different locations. I hope this can be simplified in the future through the use of some kind of bookmarking.
+
+---
+
 | Location # | Title                                             |
 | ---------- | ------------------------------------------------- |
 | loc:0.5    | Upgrades                                          |
