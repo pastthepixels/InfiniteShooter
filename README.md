@@ -9,12 +9,7 @@
 5a. On GNU/Linux systems, run `./install.sh` from a terminal.
 5b. On Windows systems, run `./install.ps1` (a PowerShell script). It should be noted that this simply copies InfiniteShooter to your home directory, and it does not create a shortcut.
 
----
-**NOTE**
-
-Technical details for step 5b: The installation script copies a template `.desktop` file to `~/.local/share/applications` and then replaces a filler for the base path of InfiniteShooter for the actual path it was installed to. If I publish this game to, say, Steam (which I want to do in the near future), all installation stuff will be mitigated so you can just play InfiniteShooter without worrying about all this.
-
----
+> **NOTE:** Technical details for step 5b: The installation script copies a template `.desktop` file to `~/.local/share/applications` and then replaces a filler for the base path of InfiniteShooter for the actual path it was installed to. If I publish this game to, say, Steam (which I want to do in the near future), all installation stuff will be mitigated so you can just play InfiniteShooter without worrying about all this.
 
 # Hardware/software requirements
 
@@ -25,21 +20,15 @@ Technical details for step 5b: The installation script copies a template `.deskt
 **Tested OS**: Fedora 34
 
 # Notes
-A cautionary tale: I have made a manual keyboard-focused GUI for this game. In the future, you should just use ``pygame_gui`` -- ``pip install pygame_gui``.  
-It's FLOSS and it's on pygame's site.  
-Also you can't get those sweet GTK4 rounded corners or even a dark title bar because blah blah blah SDL garbage.  
-EDIT: Scratch that last part, I just did this:
+- A cautionary tale: I have made a manual keyboard-focused GUI for this game. In the future, you should just use ``pygame_gui`` -- ``pip install pygame_gui``. It's FLOSS and it's on pygame's site.  
+- Also you can't get those sweet GTK4 rounded corners or even a dark title bar because blah blah blah SDL garbage.  
+- EDIT: Scratch that last part about dark themes, I just did this:
 ```
 xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT "dark" -name "InfiniteShooter"
 ```
 
 # Table of contents
----
-**NOTE**
-
-What is this? --> This is a way to naviagate `./InfiniteShooter/game.py`. Simply hit <kbd>Ctrl</kbd> + <kbd>F</kbd> and type in `loc:` followed by the location number to reach different locations. I hope this can be simplified in the future through the use of some kind of bookmarking.
-
----
+> What is this? --> This is a way to naviagate `./InfiniteShooter/game.py`. Simply hit <kbd>Ctrl</kbd> + <kbd>F</kbd> and type in `loc:` followed by the location number to reach different locations. I hope this can be simplified in the future through the use of some kind of bookmarking.
 
 | Location # | Title                                             |
 | ---------- | ------------------------------------------------- |
