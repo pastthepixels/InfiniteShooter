@@ -19,12 +19,14 @@
 
 > **NOTE:** Technical details for step 5b: The installation script copies a template `.desktop` file to `~/.local/share/applications` and then replaces a filler for the base path of InfiniteShooter for the actual path it was installed to. If I publish this game to, say, Steam (which I want to do in the near future), all installation stuff will be mitigated so you can just play InfiniteShooter without worrying about all this.
 
-# Uninstallation (GNU/Linux)
+# Uninstallation
+
+## GNU/Linux
 
 1. `cd` to `~/.infiniteshooter` or `/usr/share/infiniteshooter` depending on if you installed InfiniteShooter system-wide.
 2. Run `./uninstall.sh`.
 
-# Uninstallation (Windows)
+## Windows
 
 1. Go to your home folder. On Windows it looks something like this: `C:/Users/$YOURNAME/`
 2. Change directory to `InfiniteShooter`.
@@ -32,10 +34,10 @@
 
 # Hardware/software requirements
 
-**Minimum hardware**: I tested this generally on an Intel Pentium processor. Unfortunately, since I don't know which, I can only garuntee that it works within this range. I'm guessing since there are many performance optimizations and that there is no heavy rendering going on that you can run this on any Pentium, but beware.
-**Tested hardware**: AMD Ryzen 5 3500U with mobile graphics (Lenovo ThinkPad E595)
-**Recommended hardware**: The very best you can muster. I don't know, RTX or something. But there's a GPU shortage right now so yeah.
-**Recommended OS**: GNU/Linux
+**Minimum hardware**: I tested this generally on an Intel Pentium processor. Unfortunately, since I don't know which, I can only garuntee that it works within this range. I'm guessing since there are many performance optimizations and that there is no heavy rendering going on that you can run this on any Pentium, but beware.  
+**Tested hardware**: AMD Ryzen 5 3500U with mobile graphics (Lenovo ThinkPad E595)  
+**Recommended hardware**: The very best you can muster. I don't know, RTX or something. But there's a GPU shortage right now so yeah.  
+**Recommended OS**: GNU/Linux  
 **Tested OS**: Fedora 34
 
 # Notes
