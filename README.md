@@ -11,6 +11,17 @@
 
 > **NOTE:** Technical details for step 5b: The installation script copies a template `.desktop` file to `~/.local/share/applications` and then replaces a filler for the base path of InfiniteShooter for the actual path it was installed to. If I publish this game to, say, Steam (which I want to do in the near future), all installation stuff will be mitigated so you can just play InfiniteShooter without worrying about all this.
 
+# Uninstallation (GNU/Linux)
+
+1. `cd` to `~/.infiniteshooter` or `/usr/share/infiniteshooter` depending on if you installed InfiniteShooter system-wide.
+2. Run `./uninstall.sh`.
+
+# Uninstallation (Windows)
+
+1. Go to your home folder. On Windows it looks something like this: `C:/Users/$YOURNAME/`
+2. Change directory to `InfiniteShooter`.
+3. Run `./uninstall.ps1`, a PowerShell script.
+
 # Hardware/software requirements
 
 **Minimum hardware**: I tested this generally on an Intel Pentium processor. Unfortunately, since I don't know which, I can only garuntee that it works within this range. I'm guessing since there are many performance optimizations and that there is no heavy rendering going on that you can run this on any Pentium, but beware.
