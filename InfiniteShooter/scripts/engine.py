@@ -148,6 +148,11 @@ class Scene:
         self.originPoint = Vector2( 0, 0 )
         self.noEventLoop = False # For special cases where you don't want the game to check for input
         pygame.event.set_allowed( [ pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP ] )
+        # Controller support (if one is plugged in)
+        if pygame.joystick.get_count() > 0:
+            
+            self.joystick = pygame.joystick.Joystick( 0 )
+            self.joystick.init()
 
     def updateLoop( self ):
 
@@ -179,10 +184,10 @@ class Scene:
     def pygameEventLoop( self ): # Code to be ran on every loop when you get python events
 
         for event in pygame.event.get(): # For every event that exists...
-
+            
             if event.type == pygame.QUIT: # Checks for if the user presses the X button
 
-                self.quit() # and quits the window.
+                os._exit( 1 )
             
             for eventListener in self.eventListeners: # For every event listener...
 
@@ -445,8 +450,10 @@ class Polygon:
 
         self.calculateBoundingBox()
         self._pygame.set_alpha( 255 * self.alpha )
+        if hasattr( self, "_shadow" ): self._shadow.set_alpha( 255 * self.alpha )
         self._pygame.fill( ( 0, 0, 0, 0 ) )
-        pygame.draw.polygon( self._pygame, pygame.Color( self.color ), [ [ point[ 0 ] - self.boundingBox[ 0 ][ 0 ], point[ 1 ] - self.boundingBox[ 0 ][ 1 ] ] for point in self.compiledPoints ] )
+        gfxdraw.aapolygon( self._pygame, [ [ point[ 0 ] - self.boundingBox[ 0 ][ 0 ], point[ 1 ] - self.boundingBox[ 0 ][ 1 ] ] for point in self.compiledPoints ], pygame.Color( self.color ) )
+        gfxdraw.filled_polygon( self._pygame, [ [ point[ 0 ] - self.boundingBox[ 0 ][ 0 ], point[ 1 ] - self.boundingBox[ 0 ][ 1 ] ] for point in self.compiledPoints ], pygame.Color( self.color ) )
 
 # Text
 class Text( Image ):

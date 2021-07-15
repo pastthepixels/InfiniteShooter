@@ -582,9 +582,8 @@ def alert( string, duration=2000 ): # Lets you alert something to the player via
     text.position.y -= text.height / 2
 
     # Makes a background
-    background = Polygon( roundedRectangle( text.width + 30, 50, 20 ), scene, Vector2( scene.width / 2, scene.height - 100 ) )
-    background.color = "#3d3846"
-    background.alpha = .95
+    background = Polygon( roundedRectangle( text.width + 30, 50, 10 ), scene, Vector2( scene.width / 2, scene.height - 100 ) ).addShadow( BASEPATH + "/assets/shadow.png" )
+    background.color = "#222222"
     scene.objects.append( background )
 
     # Scaling in
@@ -638,27 +637,35 @@ def checkKeys():
     global scene
     if paused == True: return # This function will be executed even though the game is paused. This is bad.
 
-    # Moving left and right
-    if scene.keys[ pygame.K_LEFT ]:
+    # For the ship-tilting effect
+    leftPressed = scene.keys[ pygame.K_LEFT ]
+    rightPressed = scene.keys[ pygame.K_RIGHT ]
+    upPressed = scene.keys[ pygame.K_UP ]
+    downPressed = scene.keys[ pygame.K_DOWN ]
+    
+    if pygame.joystick.get_count() > 0:
         
-        player.position.x -= player.speed
-        if player.position.x <= -1: player.position.x = 600 # If the player hits the left side, wrap it around to the right side.
+        # Controller whatever
+        if scene.joystick.get_axis( 0 ) > .3: rightPressed = True
+        if scene.joystick.get_axis( 0 ) < -.3: leftPressed = True
+        if scene.joystick.get_axis( 1 ) > .3: downPressed = True
+        if scene.joystick.get_axis( 1 ) < -.3: upPressed = True
 
-    if scene.keys[ pygame.K_RIGHT ]:
-        
-        player.position.x += player.speed
-        if player.position.x >= scene.width: player.position.x = 0 # If the player hits the right side, wrap it around to the left side.
-    
-    # Moving up and down
-    if scene.keys[ pygame.K_UP ]:
-        
-        player.position.y -= player.speed
-        if player.position.y <= -1: player.position.y = 0 # If the player hits the top, make it so that it can't go further up
-    
-    if scene.keys[ pygame.K_DOWN ]:
-        
-        player.position.y += player.speed
-        if player.position.y >= scene.height - player.height / 2 - 20: player.position.y = scene.height - player.height / 2 - 20 # If the player hits the bottom, make it so that the player can't go further down.
+        # Controller movement
+        if scene.joystick.get_axis( 0 ) > .3 or scene.joystick.get_axis( 0 ) < -.3: player.position.x += scene.joystick.get_axis( 0 ) * player.speed
+        if scene.joystick.get_axis( 1 ) > .3 or scene.joystick.get_axis( 1 ) < -.3: player.position.y += scene.joystick.get_axis( 1 ) * player.speed
+
+    # Keyboard movement
+    if scene.keys[ pygame.K_LEFT ]: player.position.x -= player.speed
+    if scene.keys[ pygame.K_RIGHT ]: player.position.x += player.speed
+    if scene.keys[ pygame.K_UP ]: player.position.y -= player.speed
+    if scene.keys[ pygame.K_DOWN ]:player.position.y += player.speed
+
+    # Clamping le position
+    if player.position.y <= -1: player.position.y = 0 # If the player hits the top, make it so that it can't go further up
+    if player.position.x >= scene.width: player.position.x = 0 # If the player hits the right side, wrap it around to the left side.
+    if player.position.x <= -1: player.position.x = 600 # If the player hits the left side, wrap it around to the right side.
+    if player.position.y >= scene.height - player.height / 2 - 20: player.position.y = scene.height - player.height / 2 - 20 # If the player hits the bottom, make it so that the player can't go further down.
 
     # Setting player images
     # Changes the player image based on keys. Below we just make sure we don't inaccurately think the player is on its side when they are pressing the right and left keys at the same time.
@@ -667,27 +674,42 @@ def checkKeys():
     player.changeURL( BASEPATH + "/models/renders/player.png" )
     
     # Left and right
-    if scene.keys[ pygame.K_LEFT ] and not scene.keys[ pygame.K_RIGHT ]: player.changeURL( BASEPATH + "/models/renders/player-left.png" )
-    if scene.keys[ pygame.K_RIGHT ] and not scene.keys[ pygame.K_LEFT ]: player.changeURL( BASEPATH + "/models/renders/player-right.png" )
+    if leftPressed and not rightPressed: player.changeURL( BASEPATH + "/models/renders/player-left.png" )
+    if rightPressed and not leftPressed: player.changeURL( BASEPATH + "/models/renders/player-right.png" )
     
     # Up and down
-    if scene.keys[ pygame.K_UP ] and not scene.keys[ pygame.K_DOWN ]: player.changeURL( BASEPATH + "/models/renders/player-up.png" )
-    if scene.keys[ pygame.K_DOWN ] and not scene.keys[ pygame.K_UP ]: player.changeURL( BASEPATH + "/models/renders/player-down.png" )
+    if upPressed and not downPressed: player.changeURL( BASEPATH + "/models/renders/player-up.png" )
+    if downPressed and not upPressed: player.changeURL( BASEPATH + "/models/renders/player-down.png" )
 
     # Diagonal left
-    if scene.keys[ pygame.K_LEFT ] and scene.keys[ pygame.K_DOWN ]: player.changeURL( BASEPATH + "/models/renders/player-down-left.png" )
-    if scene.keys[ pygame.K_LEFT ] and scene.keys[ pygame.K_UP ]: player.changeURL( BASEPATH + "/models/renders/player-up-left.png" )
+    if leftPressed and downPressed: player.changeURL( BASEPATH + "/models/renders/player-down-left.png" )
+    if leftPressed and upPressed: player.changeURL( BASEPATH + "/models/renders/player-up-left.png" )
     
     # Diagonal right
-    if scene.keys[ pygame.K_RIGHT ] and scene.keys[ pygame.K_DOWN ]: player.changeURL( BASEPATH + "/models/renders/player-down-right.png" )
-    if scene.keys[ pygame.K_RIGHT ] and scene.keys[ pygame.K_UP ]: player.changeURL( BASEPATH + "/models/renders/player-up-right.png" )
+    if rightPressed and downPressed: player.changeURL( BASEPATH + "/models/renders/player-down-right.png" )
+    if rightPressed and upPressed: player.changeURL( BASEPATH + "/models/renders/player-up-right.png" )
     
 
 def checkKeyTaps( event ):
 
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_q and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): quitGame() # If the game is paused and the "Q" key is pressed, quit the game.
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_r and globals()[ "ended" ] == True: resetGame(); Sound( BASEPATH + "/sounds/gui-use.wav", globals()[ "SFX_VOL" ] ).play()
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_m and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): # GOing back to the main menu
+    # Keyboard support
+    qPressed = event.type == pygame.KEYDOWN and event.key == pygame.K_q
+    rPressed = event.type == pygame.KEYDOWN and event.key == pygame.K_r
+    mPressed = event.type == pygame.KEYDOWN and event.key == pygame.K_m
+    escPressed = event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
+    spacePressed = event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE
+
+    # Controller support (only for firing and pausing at the moment)
+    if event.type == pygame.JOYBUTTONDOWN:
+        
+        if event.button == 0 or event.button == 5 or event.button == 4: spacePressed = True # A, LT, and RT
+        if event.button == 7: escPressed = True
+        print( event.button )
+
+
+    if qPressed and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): quitGame() # If the game is paused and the "Q" key is pressed, quit the game.
+    if rPressed and globals()[ "ended" ] == True: resetGame(); Sound( BASEPATH + "/sounds/gui-use.wav", globals()[ "SFX_VOL" ] ).play()
+    if mPressed and ( globals()[ "paused" ] == True or globals()[ "ended" ] == True ): # GOing back to the main menu
         
         resetGame( False ) # Resets the game without restarting it
         scene.interval.running = False;
@@ -695,7 +717,7 @@ def checkKeyTaps( event ):
         initScene()
         startScreen()
     
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and globals()[ "gameStarted" ] == True: # With the last part we have to make sure the game is paused BY the user and not by freezing the game for UI
+    if escPressed and globals()[ "gameStarted" ] == True: # With the last part we have to make sure the game is paused BY the user and not by freezing the game for UI
 
         globals()[ "paused" ] = not globals()[ "paused" ]
         if globals()[ "paused" ] == False: resumeAllIntervals(); resume(); Sound( BASEPATH + "/sounds/unpause.wav", globals()[ "SFX_VOL" ] ).play()
@@ -703,7 +725,7 @@ def checkKeyTaps( event ):
     
     if globals()[ "paused" ] == True or globals()[ "ended" ] == True: return # The rest of this function will be executed even though the game is paused/ended. This is bad.
 
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and player.ammo > 0 and player.reloading == False: # If the space key is CLICKED (not pressed) + the player has ammunition left and isn't reloading
+    if spacePressed and player.ammo > 0 and player.reloading == False: # If the space key is CLICKED (not pressed) + the player has ammunition left and isn't reloading
         
         fireLaser() # fire a laser!
         player.ammo -= .01 # take away some of the player's ammunition!
@@ -905,7 +927,7 @@ def initGame():
         
         globals()[ "levelProgress" ] += .01
         if globals()[ "levelProgress" ] > 1: globals()[ "levelProgress" ] = 0
-        updateTerminal() # Updates the terminal indicator
+        #updateTerminal() # Updates the terminal indicator
     
     Interval( __increaseProgress, 200 )
 
@@ -925,6 +947,7 @@ def quitGame():
     quitSound = Sound( BASEPATH + "/sounds/explosion" + str( random.randint( 1, 3 ) ) + ".wav" ) # Plays an explosion sound
     quitSound.play()
     saveData()
+    scene.updating = False
     setTimeout( lambda: os._exit( 1 ), 700 )
 
 def pause():
@@ -1033,23 +1056,24 @@ def startScreen():
 def showLeaderboard( scores ): # Shows the top scores saved (that can fit on the screen. This number equates to a nice 10)
 
     # Makes a background
-    background = Polygon( roundedRectangle( 400, 600, 60 ), scene, Vector2( scene.width / 2, scene.height / 2 ) )
-    background.color = "#242424"
+    background = Polygon( roundedRectangle( 600, 800, 1 ), scene, Vector2( scene.width / 2, scene.height / 2 ) )
+    background.color = "white"
     scene.objects.append( background )
 
     # a title
-    leaderboardImage = Image( BASEPATH + "/models/renders/leaderboard.png", Vector2( scene.width / 2, scene.height / 2 - 250 ) )
-    leaderboardImage.scale = Vector2( .6, .6 )
-    scene.objects.append( leaderboardImage )
+    header = Text( "leaderboard", scene, Vector2( 50, 50 ) )
+    header.size = 60
+    header.color = "black"
+    scene.objects.append( header )
 
     # and shows the scores (but only the top 10 since they fit)
-    position = Vector2( scene.width / 2  - 150, scene.height / 2 - 200 )
-    globals()[ "gui" ][ "leaderboardElements" ] = [ background, leaderboardImage ]
+    position = Vector2( 50, 130 )
+    globals()[ "gui" ][ "leaderboardElements" ] = [ background, header ]
     for index, score in enumerate( scores ):
     
         text = Text( "{0}. {1} with a score of {2}".format( index + 1, score[ 0 ][ :13 ] + ( score[ 0 ][ 13: ] and "[...]" ), score[ 1 ] ), scene, position.clone() ) # Note: We are limiting the length of a username by 13 characters.
         position.y += 50
-        text.color = "white"
+        text.color = "black"
         scene.objects.append( text )
         globals()[ "gui" ][ "leaderboardElements" ].append( text )
 
@@ -1063,15 +1087,19 @@ def showUpgradeScreen():
     global scene
     textElements = []
 
+    # Sets the color of the selector square
+    globals()[ "gui" ][ "selectSquare" ].color = "black"
+
     # Makes a background
-    background = Polygon( roundedRectangle( 400, 600, 60 ), scene, Vector2( scene.width / 2, scene.height / 2 ) )
-    background.color = "#242424"
+    background = Polygon( roundedRectangle( 600, 800, 1 ), scene, Vector2( scene.width / 2, scene.height / 2 ) )
+    background.color = "white"
     scene.objects.append( background )
 
     # a title
-    upgradesImage = Image( BASEPATH + "/models/renders/upgrades.png", Vector2( scene.width / 2, scene.height / 2 - 250 ) )
-    upgradesImage.scale = Vector2( .6, .6 )
-    scene.objects.append( upgradesImage )
+    header = Text( "upgrades", scene, Vector2( 50, 50 ) )
+    header.size = 60
+    header.color = "black"
+    scene.objects.append( header )
 
     # Making text options
     class TextOption:
@@ -1079,7 +1107,8 @@ def showUpgradeScreen():
         def __init__( self, text, onuse, textIndex ):
 
             # Creates a new text element
-            self.text = Text( text, scene, Vector2( 200, upgradesImage.position.y + 40 * ( textIndex + 1 ) ) )
+            self.text = Text( text, scene, Vector2( 50, ( header.position.y + 40 * ( textIndex + 1 ) ) + 30 ) )
+            self.text.color = "black"
             self.text.onUse = onuse
             self.text.draw() # So that other functions can get the height/width of the text
             scene.objects.append( self.text )
@@ -1140,15 +1169,15 @@ def showUpgradeScreen():
                 alert( "All upgrades have been purchased! Reloading upgrades..." )
 
     # Displaying scores, damage, and health
-    statsText = Text( "If you can read this text, something has gone horribly wrong.", scene, Vector2( 200, upgradesImage.position.y + 40 ) )
+    statsText = Text( "If you can read this text, something has gone horribly wrong.", scene, Vector2( 50, header.position.y + 70 ) )
     statsText.text =  "PTS: {0:.5}  DMG: {1:.5}  HP: {2:.5}".format( float( globals()[ "POINTS" ] ), float( globals()[ "PLAYER_DAMAGE" ] ), float( globals()[ "PLAYER_HEALTH" ] ) )
-    statsText.color = "#aaaaee"
+    statsText.color = "#ff0000"
     scene.objects.append( statsText )
 
     # Making an "exit screen" button
     textIndex = 1
     exitText = TextOption( "exit", hideUpgradeScreen, textIndex )
-    exitText.text.color = "#eeaaaa"
+    exitText.text.color = "black"
     textIndex += 1
 
     # Making text entries for each upgrade
@@ -1165,7 +1194,7 @@ def showUpgradeScreen():
     setSelectSquarePosition( textElements[ 0 ] )
 
     # Makes a list of objects that are in this dialog
-    globals()[ "gui" ][ "upgradeElements" ] = [ background, upgradesImage, statsText ]
+    globals()[ "gui" ][ "upgradeElements" ] = [ background, header, statsText ]
     globals()[ "gui" ][ "upgradeTextElements" ] = textElements
 
 def hideUpgradeScreen():
@@ -1173,8 +1202,9 @@ def hideUpgradeScreen():
     for element in globals()[ "gui" ][ "upgradeElements" ]: scene.objects.remove( element ) # Removes main elements
     for element in globals()[ "gui" ][ "upgradeTextElements" ]: scene.objects.remove( element ) # Removes text elements
     globals()[ "gui" ][ "upgradeElements" ] = globals()[ "gui" ][ "upgradeTextElements" ] = None # Resets these variables
-    globals()[ "gui" ][ "selectSquare" ].index = 0 # and moves the select square to the "START" button
-    setSelectSquarePosition( globals()[ "gui" ][ "textElements" ][ 0 ] )
+    globals()[ "gui" ][ "selectSquare" ].index = 2 # and moves the select square to the "UPGRADES" button
+    globals()[ "gui" ][ "selectSquare" ].color = "white" # and sets the color of the select square
+    setSelectSquarePosition( globals()[ "gui" ][ "textElements" ][ 2 ] )
     
 def switchToMainMenu():
 
