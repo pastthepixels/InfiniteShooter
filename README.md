@@ -1,4 +1,4 @@
-![InfiniteShooter](InfiniteShooter/models/renders/logo.png)
+![InfiniteShooter](InfiniteShooter/assets/renders/logo.png)
 
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
