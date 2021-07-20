@@ -199,8 +199,8 @@ def makeBackground():
 
     # Makes 2 backgrounds and appends them to the scene.
     global scene
-    background1 = Image( BASEPATH + "/models/renders/spaaace.png", Vector2( scene.width / 2, scene.height / 2 ) )
-    background2 = Image( BASEPATH + "/models/renders/spaaace2.png", Vector2( scene.width / 2, -scene.height / 2 ) )
+    background1 = Image( BASEPATH + "/assets/renders/spaaace.png", Vector2( scene.width / 2, scene.height / 2 ) )
+    background2 = Image( BASEPATH + "/assets/renders/spaaace2.png", Vector2( scene.width / 2, -scene.height / 2 ) )
     scene.objects.append( background1 )
     scene.objects.append( background2 )
 
@@ -217,7 +217,7 @@ def makePlayer():
 
     global player
     # Makes the player (an Image) and appends it to the scene
-    player = Image( BASEPATH + "/models/renders/player.png", Vector2( globals()[ "scene" ].width / 2, globals()[ "scene" ].height - globals()[ "scene" ].height / 4 ) ).addShadow( BASEPATH + "/assets/shadow.png" )
+    player = Image( BASEPATH + "/assets/renders/player.png", Vector2( globals()[ "scene" ].width / 2, globals()[ "scene" ].height - globals()[ "scene" ].height / 4 ) ).addShadow( BASEPATH + "/assets/shadow.png" )
     globals()[ "mainObjects" ].append( player )
     player.speed = 10 # Sets the player's speed
     player.health = PLAYER_HEALTH # and health 
@@ -313,7 +313,7 @@ def fireLaser( enemy = None ):
     if enemy != None:
         
         laser.position = enemy.position.clone()
-        laser.changeURL( BASEPATH + "/models/renders/enemylaser.png" )
+        laser.changeURL( BASEPATH + "/assets/renders/enemylaser.png" )
         Sound( BASEPATH + "/sounds/enemylaser" + str( enemy.type ) + ".wav", globals()[ "SFX_VOL" ] ).play()
     
     else:
@@ -377,7 +377,7 @@ def shakeScreen( duration, jank=10 ):
 def explosion( position, scale=Vector2( 1, 1 ) ):
    
     # Creates an explosion at a  position
-    image = Image( BASEPATH + "/models/renders/explosion.png", position )
+    image = Image( BASEPATH + "/assets/renders/explosion.png", position )
     image.scale = scale
     def callback(): globals()[ "healthSpace" ].remove( image ); globals()[ "explosionIntervals" ].remove( animationInterval ) # Removes the image when finished
     animationInterval = image.animateSpritesheet( 5, 5, 128, 128, 15, callback ) # Animates the image
@@ -396,7 +396,7 @@ def createEnemyDrop( ship ):
     if dropType == 3: imagePath = "enemy_kill_animation"
 
     # Creates an image at the ship's position
-    image = Image( BASEPATH + "/models/renders/" + imagePath + ".png", ship.position )
+    image = Image( BASEPATH + "/assets/renders/" + imagePath + ".png", ship.position )
     image.animation = image.animateSpritesheet( 6, 7, 64, 64, 20, None, 40, True ) # Animates it indefinately
     image.type = dropType
     globals()[ "powerups" ].append( image )
@@ -516,7 +516,7 @@ def showGameOverScreen():
     pygame.mixer.music.set_volume( .4 )
 
     # Creates/fades in the game over image
-    image = Image( BASEPATH + "/models/renders/gameover.png", Vector2( scene.width / 2, 300 ) )
+    image = Image( BASEPATH + "/assets/renders/gameover.png", Vector2( scene.width / 2, 300 ) )
     image.scale = Vector2( .6, .6 )
     image.alpha = 0
     scene.objects.append( image )
@@ -671,23 +671,23 @@ def checkKeys():
     # Changes the player image based on keys. Below we just make sure we don't inaccurately think the player is on its side when they are pressing the right and left keys at the same time.
     
     # Fist we reset it to the default value
-    player.changeURL( BASEPATH + "/models/renders/player.png" )
+    player.changeURL( BASEPATH + "/assets/renders/player.png" )
     
     # Left and right
-    if leftPressed and not rightPressed: player.changeURL( BASEPATH + "/models/renders/player-left.png" )
-    if rightPressed and not leftPressed: player.changeURL( BASEPATH + "/models/renders/player-right.png" )
+    if leftPressed and not rightPressed: player.changeURL( BASEPATH + "/assets/renders/player-left.png" )
+    if rightPressed and not leftPressed: player.changeURL( BASEPATH + "/assets/renders/player-right.png" )
     
     # Up and down
-    if upPressed and not downPressed: player.changeURL( BASEPATH + "/models/renders/player-up.png" )
-    if downPressed and not upPressed: player.changeURL( BASEPATH + "/models/renders/player-down.png" )
+    if upPressed and not downPressed: player.changeURL( BASEPATH + "/assets/renders/player-up.png" )
+    if downPressed and not upPressed: player.changeURL( BASEPATH + "/assets/renders/player-down.png" )
 
     # Diagonal left
-    if leftPressed and downPressed: player.changeURL( BASEPATH + "/models/renders/player-down-left.png" )
-    if leftPressed and upPressed: player.changeURL( BASEPATH + "/models/renders/player-up-left.png" )
+    if leftPressed and downPressed: player.changeURL( BASEPATH + "/assets/renders/player-down-left.png" )
+    if leftPressed and upPressed: player.changeURL( BASEPATH + "/assets/renders/player-up-left.png" )
     
     # Diagonal right
-    if rightPressed and downPressed: player.changeURL( BASEPATH + "/models/renders/player-down-right.png" )
-    if rightPressed and upPressed: player.changeURL( BASEPATH + "/models/renders/player-up-right.png" )
+    if rightPressed and downPressed: player.changeURL( BASEPATH + "/assets/renders/player-down-right.png" )
+    if rightPressed and upPressed: player.changeURL( BASEPATH + "/assets/renders/player-up-right.png" )
     
 
 def checkKeyTaps( event ):
@@ -878,10 +878,10 @@ def initScene():
 
     # Pre-loads some images
     globals()[ "IMAGE_CACHE" ] = {
-        "enemyship1": Image( BASEPATH + "/models/renders/enemyship1.png" ),
-        "enemyship2": Image( BASEPATH + "/models/renders/enemyship2.png" ),
-        "enemyship3": Image( BASEPATH + "/models/renders/enemyship3.png" ),
-        "laser": Image( BASEPATH + "/models/renders/laser.png" )
+        "enemyship1": Image( BASEPATH + "/assets/renders/enemyship1.png" ),
+        "enemyship2": Image( BASEPATH + "/assets/renders/enemyship2.png" ),
+        "enemyship3": Image( BASEPATH + "/assets/renders/enemyship3.png" ),
+        "laser": Image( BASEPATH + "/assets/renders/laser.png" )
     }
 
     try:
@@ -1033,7 +1033,7 @@ def startScreen():
     mainMenuSong()
 
     # Logo
-    logo = Image( BASEPATH + "/models/renders/logo.png", Vector2( scene.width / 2, scene.height / 2 ) )
+    logo = Image( BASEPATH + "/assets/renders/logo.png", Vector2( scene.width / 2, scene.height / 2 ) )
     logo.scale = Vector2( .8, .8 )
     scene.objects.append( logo )
 
@@ -1216,7 +1216,7 @@ def switchToMainMenu():
     globals()[ "gui" ][ "startScreen" ] = None
 
     # Background
-    background = Image( BASEPATH + "/models/renders/spaaace.png", Vector2( scene.width / 2, scene.height / 2 ) )
+    background = Image( BASEPATH + "/assets/renders/spaaace.png", Vector2( scene.width / 2, scene.height / 2 ) )
     scene.objects.append( background )
 
     # GUI elements
