@@ -1,4 +1,6 @@
-![InfiniteShooter](InfiniteShooter/assets/renders/logo.png)
+<p align="center">
+  <img width="460" height="300" alt="InfiniteShooter" src="InfiniteShooter/assets/renders/logo.png">
+</p>
 
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
