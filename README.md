@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" alt="InfiniteShooter" src="InfiniteShooter/assets/renders/logo.png">
+  <img alt="InfiniteShooter" src="InfiniteShooter/assets/renders/logo.png">
 </p>
 
 # Screenshots
