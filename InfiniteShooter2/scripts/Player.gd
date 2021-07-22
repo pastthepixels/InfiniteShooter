@@ -9,6 +9,7 @@ var health = max_health
 var ammo = max_ammo
 
 # Variables used by the engine
+onready var main = get_tree().get_root().get_node( "Main" )
 signal died
 export (PackedScene) var Laser
 export var player_rotation =  35
@@ -68,7 +69,7 @@ func _process( delta ):
 # Firing lasers
 func _input( event ):
 	
-	if event.is_action_pressed("shoot_laser") and ammo > 0 and $ReloadTimer.time_left == 0 and $Explosion.visible != true:
+	if event.is_action_pressed("shoot_laser") and ammo > 0 and $ReloadTimer.time_left == 0 and $Explosion.exploding != true:
 		
 		var laser = Laser.instance()
 		laser.transform.origin = transform.origin
@@ -83,9 +84,9 @@ func _input( event ):
 			$ReloadTimer.start()
 
 # When the player collides with stuff
-func on_collision( area ):
+func on_collision( area ): # area == EnemyX model with a custom collision box because each ship is different
 	
-	if "Enemy" in area.name: # Enemy collision boxes are named "Enemy"+enemy variant number. Thus we can filter collisions with enemies.
+	if "Enemy" in area.name and area.get_parent().health > 0: # Enemy collision boxes are named "Enemy"+enemy variant number. Thus we can filter collisions with enemies. (Also, make sure we aren't colliding with an exploding ship, which is already dead.)
 		
 		enemy_collisions( area.get_parent() )
 
@@ -104,18 +105,18 @@ func reload():
 
 func die_already():
 	
-	emit_signal( "died" )
-	$Explosion.explode()
-	$player.hide()
-	
-	# ( Player < Game < Main )  > Camera          > ScreenShake                 .shake
-	# backtracks to "main"      gets the camera   gets its child "ScreenShake"  and shakes the screen
-	get_parent().get_parent().get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+	if !$Explosion.exploding: # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
+		
+		emit_signal( "died" )
+		$Explosion.explode()
+		$player.hide()
+		$RegenTimer.stop()
+		transform.basis = Basis() # Resets the player's rotation
+		main.get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
 
 func cleanup_player():
 
 	queue_free()
-
 
 func heal(): # Regenerates a bit of health every time this function is called.
 	

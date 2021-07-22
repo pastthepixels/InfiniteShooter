@@ -6,6 +6,7 @@ export var max_health = 1
 var health = max_health
 
 # Engine vars
+onready var main = get_tree().get_root().get_node( "Main" )
 var utils
 var enemy
 export (PackedScene) var Enemy1
@@ -69,16 +70,15 @@ func move_down():
 
 func explode_ship():
 	
-	$Explosion.explode()
-	$MovingTimer.stop()
-	$LaserTimer.stop()
-	$HealthBar.hide()
-	enemy.hide()
-	
-	# ( Enemy < Game < Main )   > Camera          > ScreenShake                 .shake
-	# backtracks to "main"      gets the camera   gets its child "ScreenShake"  and shakes the screen
-	get_parent().get_parent().get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
-
+	if !$Explosion.exploding: # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
+		
+		$Explosion.explode()
+		$MovingTimer.stop()
+		$LaserTimer.stop()
+		$HealthBar.hide()
+		enemy.hide()
+		main.get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+ 
 func cleanup_ship():
 	
 	queue_free()

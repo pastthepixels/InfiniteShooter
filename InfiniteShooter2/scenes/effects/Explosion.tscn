@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://models/explosion/0004.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Explosion.gd" type="Script" id=2]
@@ -21,6 +21,10 @@
 [ext_resource path="res://models/explosion/0019.png" type="Texture" id=19]
 [ext_resource path="res://models/explosion/0009.png" type="Texture" id=20]
 [ext_resource path="res://models/explosion/0012.png" type="Texture" id=21]
+[ext_resource path="res://sounds/explosion1.wav" type="AudioStream" id=22]
+[ext_resource path="res://scripts/ExplosionSound.gd" type="Script" id=23]
+[ext_resource path="res://sounds/explosion3.wav" type="AudioStream" id=24]
+[ext_resource path="res://sounds/explosion2.wav" type="AudioStream" id=25]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -37,4 +41,11 @@ script = ExtResource( 2 )
 transform = Transform( 0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, 0 )
 frames = SubResource( 1 )
 
-[connection signal="animation_finished" from="ExplosionAnimation" to="." method="end_explosion"]
+[node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 23 )
+Sound1 = ExtResource( 22 )
+Sound2 = ExtResource( 25 )
+Sound3 = ExtResource( 24 )
+
+[connection signal="animation_finished" from="ExplosionAnimation" to="." method="hide_explosion"]
+[connection signal="finished" from="ExplosionSound" to="." method="end_explosion"]
