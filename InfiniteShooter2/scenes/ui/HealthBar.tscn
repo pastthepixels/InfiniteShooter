@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://models/healthbar/base.png" type="Texture" id=1]
+[ext_resource path="res://models/healthbar/base_flat.png" type="Texture" id=2]
+[ext_resource path="res://scripts/HealthBar.gd" type="Script" id=3]
+[ext_resource path="res://models/healthbar/health.png" type="Texture" id=4]
+
+[node name="HealthBar" type="Sprite3D"]
+billboard = 1
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 150, 45 )
+transparent_bg = true
+usage = 0
+render_target_v_flip = true
+
+[node name="HealthBar2D" type="TextureProgress" parent="Viewport"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 4 )
