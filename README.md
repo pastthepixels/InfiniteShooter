@@ -13,15 +13,15 @@ The repository should also then just have the original README copied over and mo
 * I also have to move the `models` folder as well.
 
 ## DONE
-- [.] Enemies can shoot lasers
-- [.] The player can shoot lasers
-- [.] The health and ammunition bars for the player
-- [.] The player can kill enemies
-- [.] Enemies can die by falling out of the screen
-- [.] Controller support for in-game actions
-- [.] Ammo can recharge
-- [.] Player movement (and screen wrapping)
-- [.] The player can die
+- [x] Enemies can shoot lasers
+- [x] The player can shoot lasers
+- [x] The health and ammunition bars for the player
+- [x] The player can kill enemies
+- [x] Enemies can die by falling out of the screen
+- [x] Controller support for in-game actions
+- [x] Ammo can recharge
+- [x] Player movement (and screen wrapping)
+- [x] The player can die
 
 ## TODO
 - [ ] Game over screen
