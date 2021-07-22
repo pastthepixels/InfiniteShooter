@@ -115,3 +115,14 @@ func die_already():
 func cleanup_player():
 
 	queue_free()
+
+
+func heal(): # Regenerates a bit of health every time this function is called.
+	
+	if health < max_health:
+		
+		health += 0.01
+	
+	if health >= max_health:
+		
+		health = max_health

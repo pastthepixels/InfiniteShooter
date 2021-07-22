@@ -22,6 +22,11 @@ shape = SubResource( 1 )
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.05
 
+[node name="RegenTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="area_entered" from="." to="." method="on_collision"]
 [connection signal="exploded" from="Explosion" to="." method="cleanup_player"]
 [connection signal="timeout" from="ReloadTimer" to="." method="reload"]
+[connection signal="timeout" from="RegenTimer" to="." method="heal"]
