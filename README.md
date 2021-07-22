@@ -13,24 +13,24 @@ The repository should also then just have the original README copied over and mo
 * I also have to move the `models` folder as well.
 
 ## DONE
-[.] Enemies can shoot lasers
-[.] The player can shoot lasers
-[.] The health and ammunition bars for the player
-[.] The player can kill enemies
-[.] Enemies can die by falling out of the screen
-[.] Controller support for in-game actions
-[.] Ammo can recharge
-[.] Player movement (and screen wrapping)
-[.] The player can die
+- [.] Enemies can shoot lasers
+- [.] The player can shoot lasers
+- [.] The health and ammunition bars for the player
+- [.] The player can kill enemies
+- [.] Enemies can die by falling out of the screen
+- [.] Controller support for in-game actions
+- [.] Ammo can recharge
+- [.] Player movement (and screen wrapping)
+- [.] The player can die
 
 ## TODO
-[ ] Game over screen
-[ ] Pausing screen
-[ ] Main menu
-[ ] Upgrades
-[ ] Achievements???
-[ ] Leaderboard
-[ ] Enemy difficulty based on ship type
-[ ] Game "levels"
-[ ] Bottom stats bar (level, score, frame rate)
-[ ] Sounds (sound effects+music)
+- [ ] Game over screen
+- [ ] Pausing screen
+- [ ] Main menu
+- [ ] Upgrades
+- [ ] Achievements???
+- [ ] Leaderboard
+- [ ] Enemy difficulty based on ship type
+- [ ] Game "levels"
+- [ ] Bottom stats bar (level, score, frame rate)
+- [ ] Sounds (sound effects+music)
