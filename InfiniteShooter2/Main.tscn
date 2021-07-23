@@ -18,7 +18,6 @@ fog_enabled = true
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 0, 0, 0, 1 )
 tonemap_mode = 2
-auto_exposure_enabled = true
 ss_reflections_enabled = true
 ss_reflections_max_steps = 128
 ssao_radius = 23.74
