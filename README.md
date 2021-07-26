@@ -55,6 +55,10 @@ You actually want to contribute to InfiniteShooter? It'll be great to have you!
 Only thing is I only have experience to create repositories to store my software and I've never had any experience with contributing with others!  
 If you have any idea on how this works, please contact me (my address is somewhere in my GitHub profile) and let me know!
 
+# Trivia
+This game was my final project for my Computing Science 10 class! The first ever version (before 1.0) was made ~June of 2021 and since then the game's received a lot of improvements.  
+But expect more changes to come! You can see my port of InfiniteShooter to the Godot engine in the `godotengine-port` branch.
+
 # Table of contents
 > What is this? --> This is a way to naviagate `./InfiniteShooter/game.py`. Simply hit <kbd>Ctrl</kbd> + <kbd>F</kbd> and type in `loc:` followed by the location number to reach different locations. I hope this can be simplified in the future through the use of some kind of bookmarking.
 
