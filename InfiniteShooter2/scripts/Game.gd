@@ -20,10 +20,10 @@ func make_enemy():
 
 func _on_Player_died():
 	
+	$PauseMenu.queue_free()
 	$EnemyTimer.stop()
 	$ScoreTimer.stop()
 	
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield( get_tree().create_timer( 1.0 ), "timeout" ) # AFTER waiting for a bit (if porting to different programming languages, this is Godot's setTimeout)
 	$GameOverMenu.fade_show()
-	$PauseMenu.queue_free()

@@ -36,13 +36,13 @@ light_color = Color( 1, 0, 0, 1 )
 light_energy = 7.0
 spot_range = 14.0
 
+[node name="GameHUD" parent="." instance=ExtResource( 6 )]
+
 [node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 visible = false
-
-[node name="GameHUD" parent="." instance=ExtResource( 6 )]
 
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="timeout" from="EnemyTimer" to="." method="make_enemy"]
