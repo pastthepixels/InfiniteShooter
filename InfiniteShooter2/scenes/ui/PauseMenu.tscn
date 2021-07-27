@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://models/icon-pause/icon-pause-small.png" type="Texture" id=2]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -19,16 +20,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Background"]
+[node name="TextureRect" type="TextureRect" parent="Background"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -33.5
-margin_top = -10.5
-margin_right = 33.5
-margin_bottom = 10.5
-text = "paused"
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="."]
