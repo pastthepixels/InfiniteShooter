@@ -19,10 +19,13 @@ fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 0, 0, 0, 1 )
 tonemap_mode = 2
 ss_reflections_enabled = true
-ss_reflections_max_steps = 128
+ssao_enabled = true
 ssao_radius = 23.74
 ssao_color = Color( 0.929412, 0, 1, 1 )
 glow_enabled = true
+glow_intensity = 0.3
+glow_strength = 0.8
+glow_blend_mode = 0
 glow_bicubic_upscale = true
 
 [node name="Main" type="Spatial"]
