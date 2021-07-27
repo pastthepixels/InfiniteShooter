@@ -7,19 +7,23 @@ func _input( event ):
 		if visible == true:
 			
 			fade_out()
-			yield( $Tween, "tween_completed" )
+			yield( $BackgroundTween, "tween_completed" )
 		
 		visible = !visible
 		get_tree().paused = visible
 		fade_in()
+		
+		# If the screen isn't visible, you have resumed the game and thus a sound should be played. If it is, play a pause sound.
+		if visible == false: $ResumeSound.play()
+		if visible == true: $PauseSound.play()
 			
 
 func fade_in():
 	
-	$Tween.interpolate_property( $Background, "color", Color( 0, 0, 0, 0 ), Color( 0, 0, 0, .8 ), .3, Tween.TRANS_BACK, Tween.EASE_OUT )
-	$Tween.start()
+	$BackgroundTween.interpolate_property( $Background, "modulate", Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), .3, Tween.TRANS_BACK, Tween.EASE_OUT )
+	$BackgroundTween.start()
 
 func fade_out():
 	
-	$Tween.interpolate_property( $Background, "color", Color( 0, 0, 0, .8 ), Color( 0, 0, 0, 0 ), .3, Tween.TRANS_BACK, Tween.EASE_IN )
-	$Tween.start()
+	$BackgroundTween.interpolate_property( $Background, "modulate", Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), .3, Tween.TRANS_BACK, Tween.EASE_IN )
+	$BackgroundTween.start()
