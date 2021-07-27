@@ -14,7 +14,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process( delta ):
 	
-	if $Game.has_node( "Player" ) == true: # If the player is still in the scene, meaning that it is still alive, set GUI progress bars
+	if has_node( "Game" ) and $Game.has_node( "Player" ) == true: # If the player is still in the scene, meaning that it is still alive, set GUI progress bars
 		
-		$GameHUD/HealthBar.target_value = $Game/Player.health / $Game/Player.max_health * 100 # FLOAT DIVISION
-		$GameHUD/AmmoBar.target_value = float( $Game/Player.ammo ) / float( $Game/Player.max_ammo ) * 100 # FLOAT DIVISION
+		$Game/GameHUD/HealthBar.target_value = $Game/Player.health / $Game/Player.max_health * 100 # FLOAT DIVISION
+		$Game/GameHUD/AmmoBar.target_value = float( $Game/Player.ammo ) / float( $Game/Player.max_ammo ) * 100 # FLOAT DIVISION
