@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
 [ext_resource path="res://scenes/enemies/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui/PauseMenu.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 2 )
@@ -32,6 +33,9 @@ transform = Transform( 0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5
 light_color = Color( 1, 0, 0, 1 )
 light_energy = 7.0
 spot_range = 14.0
+
+[node name="PauseMenu" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="timeout" from="EnemyTimer" to="." method="make_enemy"]
