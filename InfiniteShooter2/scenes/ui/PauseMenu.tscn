@@ -1,18 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
-
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-
-void fragment() {
-	
-	COLOR = textureLod( SCREEN_TEXTURE, SCREEN_UV, 0.5 ) + vec4( .1, .1, .1, .1 );
-	
-}"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -24,9 +12,9 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
-material = SubResource( 2 )
 margin_right = 600.0
 margin_bottom = 800.0
+color = Color( 0, 0, 0, 0.392157 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -41,3 +29,6 @@ margin_top = -10.5
 margin_right = 33.5
 margin_bottom = 10.5
 text = "paused"
+__meta__ = {
+"_edit_use_anchors_": false
+}
