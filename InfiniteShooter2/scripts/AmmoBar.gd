@@ -12,10 +12,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process( delta ): # `value` and `target_value` must be integers for this to work or else you will be in a constant loop of the value going above and below the target value.
 	
-	if value < target_value:
-		
-		value += 1
-	
-	if value > target_value:
-		
-		value -= 1
+	if value + 1 == target_value: value += 1
+	if value - 1 == target_value: value -= 1
+	if value < target_value: value += 2
+	if value > target_value: value -= 2

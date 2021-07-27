@@ -18,7 +18,6 @@ func make_enemy():
 	enemy.transform.origin.x = utils.random_screen_point().x
 	enemy.transform.origin.z = utils.screen_to_local( Vector2( 0, 0 ) ).z - ( enemy.enemy.transform.basis.get_scale().z * 2)
 
-
 func _on_Player_died():
 	
 	$EnemyTimer.stop()

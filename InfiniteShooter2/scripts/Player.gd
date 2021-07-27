@@ -75,13 +75,14 @@ func _input( event ):
 		laser.transform.origin = transform.origin
 		laser.transform.origin.z -= 1 # To get the laser firing from the "top" of the ship instead of the center for added realism
 		laser.damage = damage
-		get_parent().add_child( laser )
+		main.get_node( "Game" ).add_child( laser )
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 		ammo -= 1
 		
 		if ammo <= 0:
 			
 			$ReloadTimer.start()
+			$ReloadStart.play()
 
 # When the player collides with stuff
 func on_collision( area ): # area == EnemyX model with a custom collision box because each ship is different
@@ -99,6 +100,7 @@ func enemy_collisions( enemy ): # enemy must be an instance of the class Enemy (
 func reload():
 	
 	ammo += 1
+	$ReloadBoop.play()
 	if ammo >= max_ammo:
 		
 		$ReloadTimer.stop()
@@ -109,7 +111,8 @@ func die_already():
 		
 		emit_signal( "died" )
 		$Explosion.explode()
-		$player.hide()
+		$PlayerModel.queue_free()
+		$CollisionShape.queue_free()
 		$RegenTimer.stop()
 		transform.basis = Basis() # Resets the player's rotation
 		main.get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )

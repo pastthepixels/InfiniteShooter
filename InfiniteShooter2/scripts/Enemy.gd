@@ -76,7 +76,7 @@ func explode_ship():
 		$MovingTimer.stop()
 		$LaserTimer.stop()
 		$HealthBar.hide()
-		enemy.hide()
+		enemy.queue_free()
 		main.get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
  
 func cleanup_ship():
@@ -91,4 +91,4 @@ func fire_laser():
 	laser.transform.origin = transform.origin
 	laser.transform.origin.z += 1 # Makes the laser come from the "top" of the ship instead of the center for added realism
 	laser.damage = damage
-	get_parent().add_child( laser ) # Gets the scene "Main" and adds to it this laser
+	main.get_node( "Game" ).add_child( laser ) # Gets the scene "Main" and adds to it this laser

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/explosion1.wav-73eaf07b5a2f143ef30801d5b486c3d0.sample"
+path="res://.import/enemylaser.wav-e9e6a71bb71ca85b74a9382c5b3ba070.sample"
 
 [deps]
 
-source_file="res://sounds/explosion1.wav"
-dest_files=[ "res://.import/explosion1.wav-73eaf07b5a2f143ef30801d5b486c3d0.sample" ]
+source_file="res://sounds/enemylaser.wav"
+dest_files=[ "res://.import/enemylaser.wav-e9e6a71bb71ca85b74a9382c5b3ba070.sample" ]
 
 [params]
 
