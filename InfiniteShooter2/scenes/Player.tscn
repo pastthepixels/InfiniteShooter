@@ -20,6 +20,7 @@ Laser = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Explosion" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.05

@@ -7,11 +7,6 @@ signal exploded
 
 # Called when the node enters the scene tree for the first time.
 
-
-func _ready():
-	
-	hide() # Hides the animation until needed
-
 func explode():
 	
 	if exploding == true: return
