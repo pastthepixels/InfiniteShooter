@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/SelectSquare.gd" type="Script" id=1]
+[ext_resource path="res://sounds/gui-select.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/gui-use.wav" type="AudioStream" id=3]
+
+[node name="SelectSquare" type="ColorRect"]
+margin_right = 10.0
+margin_bottom = 10.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="AcceptSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

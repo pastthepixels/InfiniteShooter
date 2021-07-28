@@ -3,10 +3,11 @@ extends Spatial
 
 # Declare member variables here.
 onready var utils = load( "res://scripts/Utils.gd" ).new() # Man if I only had better Mono support... I'd replace this line with `Utils utils = new Utils()` in a *heartbeat*.
-export (PackedScene) var Enemy
+export ( PackedScene ) var Enemy
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$EnemyTimer.start()
 	utils.init( get_viewport() )
 

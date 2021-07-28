@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/icon-pause/icon-pause-small.png" type="Texture" id=2]
 [ext_resource path="res://sounds/unpause.wav" type="AudioStream" id=3]
 [ext_resource path="res://sounds/pause.wav" type="AudioStream" id=4]
+[ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=5]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -43,3 +44,48 @@ stream = ExtResource( 4 )
 
 [node name="ResumeSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="SelectSquare" parent="." instance=ExtResource( 5 )]
+options_path = NodePath("../Options")
+
+[node name="Options" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.5
+margin_top = 117.0
+margin_right = 61.5
+margin_bottom = 167.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Retry" type="Label" parent="Options"]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "replay"
+align = 1
+valign = 1
+
+[node name="Quit" type="Label" parent="Options"]
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 32.0
+text = "quit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Label" parent="Options"]
+margin_top = 36.0
+margin_right = 123.0
+margin_bottom = 50.0
+text = "back to main menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

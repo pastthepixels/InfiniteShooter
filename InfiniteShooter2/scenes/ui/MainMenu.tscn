@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/title-infiniteshooter/title-infiniteshooter.png" type="Texture" id=1]
+[ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
@@ -38,21 +39,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectSquare" type="ColorRect" parent="."]
-margin_right = 10.0
-margin_bottom = 10.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="SelectSquare" parent="." instance=ExtResource( 2 )]
+visible = false
+options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -40.5
+margin_left = -39.8326
 margin_top = -20.0
-margin_right = 40.5
+margin_right = 41.1674
 margin_bottom = 20.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -64,7 +62,6 @@ margin_bottom = 14.0
 text = "play"
 align = 1
 valign = 1
-percent_visible = -0.25
 
 [node name="Quit" type="Label" parent="Options"]
 margin_top = 18.0

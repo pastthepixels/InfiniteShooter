@@ -69,4 +69,5 @@ func remove_laser( hit_ship ):
 		yield( $HitSound, "finished" )
 		
 	yield( $LaserSound, "finished" )
+	get_parent().remove_child( self )
 	queue_free()
