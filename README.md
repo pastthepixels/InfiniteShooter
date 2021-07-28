@@ -24,15 +24,15 @@ The repository should also then just have the original README copied over and mo
 - [x] Ammo can recharge
 - [x] Player movement (and screen wrapping)
 - [x] The player can die
+- [x] Game over screen
+- [x] Pausing screen
+- [x] Main menu
 
 ## TODO
-- [ ] Game over screen
-- [ ] Pausing screen
-- [ ] Main menu
 - [ ] Upgrades
-- [ ] Achievements???
 - [ ] Leaderboard
 - [ ] Enemy difficulty based on ship type
 - [ ] Game "levels"
 - [ ] Bottom stats bar (level, score, frame rate)
 - [ ] Sounds (sound effects+music)
+- [ ] Achievements???
