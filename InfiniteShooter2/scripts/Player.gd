@@ -2,7 +2,7 @@ extends Area
 
 # Variables related to the game
 export var max_ammo = 20 # 20 bullets
-export var max_health = 1
+export var max_health = 1.0
 export var speed = 14
 export var damage = .2
 var health = max_health
@@ -11,6 +11,8 @@ var ammo = max_ammo
 # Variables used by the engine
 onready var main = get_tree().get_root().get_node( "Main" )
 signal died
+signal health_changed
+signal ammo_changed
 export (PackedScene) var Laser
 export var player_rotation =  35
 var utils
@@ -78,6 +80,7 @@ func _input( event ):
 		main.get_node( "Game" ).add_child( laser )
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 		ammo -= 1
+		emit_signal( "ammo_changed", float( ammo ) / max_ammo )
 		
 		if ammo <= 0:
 			
@@ -96,10 +99,12 @@ func enemy_collisions( enemy ): # enemy must be an instance of the class Enemy (
 	
 	enemy.health -= speed / 10 # Dear GDScript developers: *Every other language* has floating-point division.
 	health -= speed / 10
+	emit_signal( "health_changed", float(health) / float(max_health) )
 
 func reload():
 	
 	ammo += 1
+	emit_signal( "ammo_changed", float(ammo) / float(max_ammo) )
 	$ReloadBoop.play()
 	if ammo >= max_ammo:
 		
@@ -126,6 +131,7 @@ func heal(): # Regenerates a bit of health every time this function is called.
 	if health < max_health:
 		
 		health += 0.01
+		emit_signal( "health_changed", float(health) / float(max_health) )
 	
 	if health >= max_health:
 		

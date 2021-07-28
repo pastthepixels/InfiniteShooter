@@ -81,7 +81,6 @@ func explode_ship():
  
 func cleanup_ship():
 	
-	get_parent().remove_child( self )
 	queue_free()
 
 

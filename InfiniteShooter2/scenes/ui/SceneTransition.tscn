@@ -1,61 +1,62 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/SceneTransition.gd" type="Script" id=1]
+[ext_resource path="res://sounds/scene-switch.wav" type="AudioStream" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Wipe1"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:rect_position")
+tracks/0/path = NodePath("ColorRect:anchor_top")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.3, 0.3 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 0, 800 ), Vector2( 0, 0 ) ]
+"values": [ 1.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:rect_size")
+tracks/1/path = NodePath("ColorRect:anchor_bottom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.3, 0.3 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 600, 0 ), Vector2( 600, 800 ) ]
+"values": [ 1.0 ]
 }
 
 [sub_resource type="Animation" id=2]
 resource_name = "Wipe2"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:rect_position")
+tracks/0/path = NodePath("ColorRect:anchor_bottom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.3, 1.8 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+"values": [ 1.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:rect_size")
+tracks/1/path = NodePath("ColorRect:anchor_top")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.3, 1.8 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 600, 800 ), Vector2( 600, 0 ) ]
+"values": [ 0.0 ]
 }
 
 [node name="SceneTransition" type="Control"]
@@ -68,10 +69,13 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
-margin_bottom = 800.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Wipe1 = SubResource( 1 )

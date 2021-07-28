@@ -11,8 +11,9 @@ func play( callback_object, callback_function ):
 	
 	show()
 	callback = funcref( callback_object, callback_function )
+	$SoundEffect.pitch_scale = rand_range( 0.9, 1.1 )
+	$SoundEffect.play()
 	$AnimationPlayer.play( "Wipe1" )
-	
 
 func _on_AnimationPlayer_animation_finished( anim_name ):
 	

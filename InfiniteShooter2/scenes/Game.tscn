@@ -44,5 +44,7 @@ visible = false
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 visible = false
 
+[connection signal="ammo_changed" from="Player" to="." method="_on_Player_ammo_changed"]
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
+[connection signal="health_changed" from="Player" to="." method="_on_Player_health_changed"]
 [connection signal="timeout" from="EnemyTimer" to="." method="make_enemy"]

@@ -28,3 +28,12 @@ func _on_Player_died():
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield( get_tree().create_timer( 1.0 ), "timeout" ) # AFTER waiting for a bit (if porting to different programming languages, this is Godot's setTimeout)
 	$GameOverMenu.fade_show()
+
+func _on_Player_ammo_changed( value ):
+	
+	$GameHUD.update_ammo( value )
+
+func _on_Player_health_changed( value ):
+	
+
+	$GameHUD.update_health( value )

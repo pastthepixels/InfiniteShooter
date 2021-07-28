@@ -51,6 +51,7 @@ func on_collision( area ):
 	if ( "Player" in area.name ) and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		 
 		area.health -= damage # send it to BRAZIL
+		area.emit_signal( "health_changed", float(area.health) / float(area.max_health) )
 		Input.start_joy_vibration(0, 0.6, 1, .1) # vibrate any controllers a bit
 		remove_laser( true ) # and remove the laser
 
@@ -67,7 +68,6 @@ func remove_laser( hit_ship ):
 		
 		$HitSound.play()
 		yield( $HitSound, "finished" )
-		
+	
 	yield( $LaserSound, "finished" )
-	get_parent().remove_child( self )
 	queue_free()

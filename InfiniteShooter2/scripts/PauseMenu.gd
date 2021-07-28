@@ -12,12 +12,12 @@ func _input( event ):
 		
 		if visible == true:
 			
-			fade_out()
-			yield( $BackgroundTween, "tween_completed" )
+			$AnimationPlayer.play( "FadeOut" )
+			yield( $AnimationPlayer, "animation_finished" )
 		
 		visible = !visible
 		get_tree().paused = visible
-		fade_in()
+		$AnimationPlayer.play( "FadeIn" )
 		
 		# If the screen isn't visible, you have resumed the game and thus a sound should be played. If it is, play a pause sound.
 		if visible == false: $ResumeSound.play()
@@ -26,7 +26,7 @@ func _input( event ):
 	if event.is_action_pressed( "ui_accept" ) and is_visible():
 		
 		get_tree().paused = false
-		get_parent().get_node( "Player" ).ammo = 0
+		get_parent().get_node( "Player" ).ammo = 0 # Done to prevent shooting on resuming everything
 		$SelectSquare/AcceptSound.play()
 		match $Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 			
@@ -57,13 +57,3 @@ func main_menu():
 	main.remove_child( get_parent() ) # Removes the node "Game" from the main menu
 	get_parent().queue_free() # Calls `queue_free` on it
 	main.add_child( load( "res://scenes/ui/MainMenu.tscn" ).instance() ) # adds a new menu node
-
-func fade_in():
-	
-	$BackgroundTween.interpolate_property( $Background, "modulate", Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), .3, Tween.TRANS_BACK, Tween.EASE_OUT )
-	$BackgroundTween.start()
-
-func fade_out():
-	
-	$BackgroundTween.interpolate_property( $Background, "modulate", Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), .3, Tween.TRANS_BACK, Tween.EASE_IN )
-	$BackgroundTween.start()

@@ -12,6 +12,8 @@ A "port" of InfiniteShooter to the Godot engine because I want to have some expe
 The repository should also then just have the original README copied over and modified slightly.  
 * I also have to move the `models` folder as well.
 
+--> "swooshy" sound effect from user qubodup on freesound.org: https://freesound.org/people/qubodup/sounds/60013/
+
 ## DONE
 - [x] Enemies can shoot lasers
 - [x] The player can shoot lasers

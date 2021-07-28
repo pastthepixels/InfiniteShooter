@@ -30,6 +30,7 @@ func _input( event ):
 
 func update():
 	
+	assert( options != null, "Error: You did't set the \"options_path\" variable for this instance!" )
 	var select_child = options.get_child( index ) # Gets the current child selected
 	var text_length = select_child.get_font( "font" ).get_string_size( select_child.text ).x # Gets the length of its text
 	var difference_to_text = ( select_child.rect_size.x - text_length ) / 2 # The amount of space required from the label's origin (left) to where the text begins

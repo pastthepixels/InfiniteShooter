@@ -23,8 +23,15 @@ func _input( event ):
 		# Gets rid of this background
 		$StartScreen.queue_free()
 		
-		# Slides the logo
+		# Slides the scale of the logo
 		logo.get_node( "LogoSlide" ).play( "LogoSlide" )
+		
+		# Slides the logo container -- DYNAMICALLY
+		var tween = Tween.new() # Makes a tween node
+		add_child( tween ) # and adds it to the MainMenu node
+		# vvv Does some fancy math to center the logo just 100 pixels above the middle
+		tween.interpolate_property( logo, "rect_position", logo.get_position(), Vector2( logo.get_position().x, logo.get_position().y - 100 ), 1, Tween.TRANS_QUAD, Tween.EASE_OUT )
+		tween.start() # Starts it!
 		
 		# Allows things to be selected
 		$SelectSquare.show()
