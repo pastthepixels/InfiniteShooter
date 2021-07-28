@@ -14,7 +14,7 @@ Enemy = ExtResource( 3 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 
 [node name="ScoreTimer" type="Timer" parent="."]
 

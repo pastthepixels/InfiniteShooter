@@ -1,7 +1,7 @@
 extends Spatial
 
 # Game vars
-export var damage = .1
+export var damage = .357 # funny half-life reference (this variable will be overridden anyway)
 export var max_health = 1
 var health = max_health
 
@@ -23,30 +23,34 @@ func _ready():
 	utils.init( get_viewport() )
 	
 	# Adds an enemy
-	var enemyType = utils.randint( 0, 2 )
+	randomize() # Makes more random numbers
+	var enemyType = randi() % 3 + 1 # Generates either a 1, 2, or 3
 	match enemyType: # Actually a switch statement!
 		
-		0:
+		1:
 			enemy = Enemy1.instance()
 			
 			# Sets enemy stats
 			max_health = 1
+			damage = .07
 			health = max_health
 			$MovingTimer.wait_time = 0.002
 			
-		1:
+		2:
 			enemy = Enemy2.instance()
 			
 			# Sets enemy stats
 			max_health = .5
+			damage = .1
 			health = max_health
 			$MovingTimer.wait_time = 0.003
 			
-		2:
+		3:
 			enemy = Enemy3.instance()
 			
 			# Sets enemy stats
 			max_health = 2
+			damage = .05
 			health = max_health
 			$MovingTimer.wait_time = 0.001
 			

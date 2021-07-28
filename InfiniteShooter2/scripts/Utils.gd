@@ -31,15 +31,3 @@ func random_screen_point():
 	
 	var screenPoint = Vector2( rand_range( screen_size.x, 0 ), rand_range( 0, screen_size.y ) )
 	return screen_to_local( screenPoint )
-
-func randint( minval, maxval ):
-	
-	var random_number = int( rand_range( minval, maxval + 1 ) )
-	if last_random_number == random_number: # If 2 numbers appear in a row, re-roll a random number.
-		
-		return randint( minval, maxval )
-		
-	else:
-	
-		last_random_number = random_number
-		return random_number

@@ -8,8 +8,9 @@ export ( PackedScene ) var Enemy
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	$EnemyTimer.start()
 	utils.init( get_viewport() )
+	$EnemyTimer.start()
+	make_enemy()
 
 func make_enemy():
 	

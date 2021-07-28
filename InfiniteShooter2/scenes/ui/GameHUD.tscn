@@ -56,7 +56,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tween" type="Tween" parent="."]
+[node name="StatusBar" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -30.0
+color = Color( 1, 1, 1, 0.431373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Status" type="Label" parent="StatusBar"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -7.0
+margin_right = 165.0
+margin_bottom = 7.0
+text = "Level 0; Score: 0; 60 FPS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Vignette" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -67,6 +87,8 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ProgressTween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeVignette = SubResource( 1 )
