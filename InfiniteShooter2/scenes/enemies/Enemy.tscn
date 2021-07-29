@@ -8,7 +8,9 @@
 [ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui/HealthBar.tscn" type="PackedScene" id=7]
 
-[node name="Enemy" type="Spatial"]
+[node name="Enemy" type="Spatial" groups=[
+"enemy",
+]]
 script = ExtResource( 2 )
 Enemy1 = ExtResource( 6 )
 Enemy2 = ExtResource( 3 )

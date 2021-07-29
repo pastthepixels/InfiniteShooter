@@ -1,17 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/laser/player/laser.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Laser.gd" type="Script" id=2]
 [ext_resource path="res://assets/laser/enemies/laser.glb" type="PackedScene" id=3]
-[ext_resource path="res://sounds/enemylaser.wav" type="AudioStream" id=4]
-[ext_resource path="res://scripts/LaserSound.gd" type="Script" id=5]
+[ext_resource path="res://sounds/laser.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/hit.wav" type="AudioStream" id=6]
-[ext_resource path="res://scripts/HitSound.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
 
-[node name="Laser" type="Area"]
+[node name="Laser" type="Area" groups=[
+"laser",
+]]
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -24,10 +24,8 @@ visible = false
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-script = ExtResource( 5 )
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-script = ExtResource( 7 )
 
 [connection signal="area_entered" from="." to="." method="on_collision"]

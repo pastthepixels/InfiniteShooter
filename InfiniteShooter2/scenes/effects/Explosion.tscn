@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/explosion/0004.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Explosion.gd" type="Script" id=2]
@@ -22,7 +22,6 @@
 [ext_resource path="res://assets/explosion/0009.png" type="Texture" id=20]
 [ext_resource path="res://assets/explosion/0012.png" type="Texture" id=21]
 [ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=22]
-[ext_resource path="res://scripts/ExplosionSound.gd" type="Script" id=23]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -40,8 +39,7 @@ transform = Transform( 0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0
 frames = SubResource( 1 )
 
 [node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
-script = ExtResource( 23 )
-Sound = ExtResource( 22 )
+stream = ExtResource( 22 )
 
 [connection signal="animation_finished" from="ExplosionAnimation" to="." method="hide_explosion"]
 [connection signal="finished" from="ExplosionSound" to="." method="end_explosion"]

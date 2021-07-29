@@ -42,26 +42,26 @@ func _process( delta ):
 		deltaRotation.z += deg2rad( player_rotation )
 		velocity.x -= 1
 	
-	if Input.is_action_pressed( "move_down" ) and ( transform.origin.z < utils.bottom_left.z ):
+	if Input.is_action_pressed( "move_down" ) and ( translation.z < utils.bottom_left.z ):
 		
 		deltaRotation.x += deg2rad( player_rotation )
 		velocity.z += 1
 		
-	if Input.is_action_pressed("move_up") and ( transform.origin.z > utils.top_left.z ):
+	if Input.is_action_pressed("move_up") and ( translation.z > utils.top_left.z ):
 		
 		deltaRotation.x -= deg2rad( player_rotation )
 		velocity.z -= 1
 	
 	# Sets position
-	transform.origin += velocity * delta * speed
+	translation += velocity * delta * speed
 	
 	# Sets rotation
 	transform.basis = Basis(Vector3(1, 0, 0), deltaRotation.x )
 	transform.basis = transform.basis.rotated(Vector3(0, 0, 1), deltaRotation.z )
 	
 	# If the player goes out of bounds (x axis only; see above for y)
-	if ( transform.origin.x < utils.top_left.x ): transform.origin.x = utils.top_right.x
-	if ( transform.origin.x > utils.top_right.x ): transform.origin.x = utils.top_left.x
+	if ( translation.x < utils.top_left.x ): translation.x = utils.top_right.x
+	if ( translation.x > utils.top_right.x ): translation.x = utils.top_left.x
 	
 	# Killing the player when it should die
 	if health <= 0.0:
@@ -74,8 +74,8 @@ func _input( event ):
 	if event.is_action_pressed("shoot_laser") and ammo > 0 and $ReloadTimer.time_left == 0 and $Explosion.exploding != true:
 		
 		var laser = Laser.instance()
-		laser.transform.origin = transform.origin
-		laser.transform.origin.z -= 1 # To get the laser firing from the "top" of the ship instead of the center for added realism
+		laser.translation = translation
+		laser.translation.z -= 1 # To get the laser firing from the "top" of the ship instead of the center for added realism
 		laser.damage = damage
 		main.get_node( "Game" ).add_child( laser )
 		Input.start_joy_vibration(0, 0.7, 1, .1)

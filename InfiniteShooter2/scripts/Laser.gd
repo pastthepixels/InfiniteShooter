@@ -16,8 +16,8 @@ func _ready():
 		
 			$PlayerLaser.hide()
 			$EnemyLaser.show()
-			$LaserSound.set_enemy_sound()
 	
+	$LaserSound.pitch_scale = rand_range( 0.9, 1.1 )
 	$LaserSound.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,23 +29,23 @@ func _process(delta):
 		
 	if from_player == true:
 		
-		transform.origin.z -= .4 # If the laser is from the player, move it up
+		translation.z -= .4 # If the laser is from the player, move it up
 	
 	else:
 		
-		transform.origin.z += .4 # otherwise, it's from an enemy ship, so move it down.
+		translation.z += .4 # otherwise, it's from an enemy ship, so move it down.
 		
-	if transform.origin.z < utils.screen_to_local( Vector2( 0, 0 ) ).z or\
-	   transform.origin.z > utils.screen_to_local( Vector2( 0, utils.screen_size.y ) ).z: # If the laser goes past the top of the screen (or the bottom of it)...
+	if translation.z < utils.screen_to_local( Vector2( 0, 0 ) ).z or\
+	   translation.z > utils.screen_to_local( Vector2( 0, utils.screen_size.y ) ).z: # If the laser goes past the top of the screen (or the bottom of it)...
 		
 		remove_laser( false ) # ...remove it
 
 # Called when the laser collides with objects
 func on_collision( area ):
 	
-	if ( "Enemy" in area.name ) and from_player == true: # If the area this is colliding with is an enemy MODEL (and it is from the player)
+	if area.get_parent().is_in_group( "enemy" ) and from_player == true: # If the area this is colliding with is an enemy (and it is from the player)
 		
-		area.get_parent().health -= damage # subtract health from the enemy SCENE
+		area.get_parent().health -= damage # subtract health from the enemy
 		remove_laser( true ) # and remove the laser
 	
 	if ( "Player" in area.name ) and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
@@ -66,6 +66,7 @@ func remove_laser( hit_ship ):
 	$CollisionShape.queue_free()
 	if hit_ship == true:
 		
+		$HitSound.pitch_scale = rand_range( 0.9, 1.1 )
 		$HitSound.play()
 		yield( $HitSound, "finished" )
 	

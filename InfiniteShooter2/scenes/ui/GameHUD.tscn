@@ -108,7 +108,6 @@ __meta__ = {
 }
 
 [node name="Vignette" type="TextureRect" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0

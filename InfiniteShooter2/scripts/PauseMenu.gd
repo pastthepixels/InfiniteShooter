@@ -1,14 +1,12 @@
 extends Control
 
-onready var main = get_tree().get_root().get_node( "Main" )
-
 func _ready():
 	
 	$SelectSquare.update()
 
 func _input( event ):
 	
-	if main.has_node( "Game" ) == false:
+	if get_parent().has_node( "Game" ) == false:
 		
 		return
 	
@@ -19,27 +17,27 @@ func _input( event ):
 	if event.is_action_pressed( "ui_accept" ) and is_visible():
 		
 		toggle_pause( false )
-		main.get_node( "Game/Player" ).queue_free() # To prevent the player from firing right as we unpause (since we are unpausing with the space bar)
+		get_parent().get_node( "Game/Player" ).queue_free() # To prevent the player from firing right as we unpause (since we are unpausing with the space bar)
 		$SelectSquare/AcceptSound.play()
 		match $Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 			
 			"Retry": # If it is the one named "play", play the game.
 				
-				main.get_node( "SceneTransition" ).play( self, "restart_game" )
+				get_parent().get_node( "SceneTransition" ).play( self, "restart_game" )
 				
 			"Quit": # Otherwise, quit the game
 			
-				main.get_node( "SceneTransition" ).play( self, "quit_game" )
+				get_parent().get_node( "SceneTransition" ).play( self, "quit_game" )
 			
 			"MainMenu": # or return to the main menu
 			
-				main.get_node( "SceneTransition" ).play( self, "main_menu" )
+				get_parent().get_node( "SceneTransition" ).play( self, "main_menu" )
 
 func restart_game():
 	
-	main.get_node( "Game" ).queue_free()
-	main.remove_child( main.get_node( "Game" ) ) # Removes the node "Game" from the main menu
-	main.add_child( load( "res://scenes/Game.tscn" ).instance() ) # adds a new game node
+	get_parent().get_node( "Game" ).queue_free()
+	get_parent().remove_child( get_parent().get_node( "Game" ) ) # Removes the node "Game" from the main menu
+	get_parent().add_child( load( "res://scenes/Game.tscn" ).instance() ) # adds a new game node
 
 func quit_game():
 	
@@ -47,9 +45,9 @@ func quit_game():
 
 func main_menu():
 	
-	main.get_node( "Game" ).queue_free()
-	main.remove_child( main.get_node( "Game" ) ) # Removes the node "Game" from the main menu
-	main.add_child( load( "res://scenes/ui/MainMenu.tscn" ).instance() ) # adds a new menu node
+	get_parent().get_node( "Game" ).queue_free()
+	get_parent().remove_child( get_parent().get_node( "Game" ) ) # Removes the node "Game" from the main menu
+	get_parent().add_child( load( "res://scenes/ui/MainMenu.tscn" ).instance() ) # adds a new menu node
 	
 func toggle_pause( toggle_smoothly ):
 	

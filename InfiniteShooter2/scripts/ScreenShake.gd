@@ -28,8 +28,8 @@ func shake( newIntensity, duration ):
 func end_shake():
 	
 	# Resets the camera's position
-	camera.transform.origin.x = 0
-	camera.transform.origin.z = 0
+	camera.translation.x = 0
+	camera.translation.z = 0
 	
 	# and sets "running" to false.
 	running = false
@@ -39,5 +39,5 @@ func _process( delta ):
 	
 	if running == true:
 		
-		camera.transform.origin.x = rand_range(-1.0, 1.0) * intensity
-		camera.transform.origin.z = rand_range(-1.0, 1.0) * intensity
+		camera.translation.x = rand_range(-1.0, 1.0) * intensity
+		camera.translation.z = rand_range(-1.0, 1.0) * intensity

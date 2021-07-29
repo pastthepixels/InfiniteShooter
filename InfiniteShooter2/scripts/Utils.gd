@@ -25,7 +25,7 @@ func init( theViewport ):
 # Converts a screen coordinate to a local one (e.g., Vector2( 0, 0 ) == top left of screen, so it gets the camera and gives the relative position in global 3d coordinates.
 func screen_to_local( vector2 ):
 	
-	return viewport.get_camera().project_position( vector2, viewport.get_camera().transform.origin.y )
+	return viewport.get_camera().project_position( vector2, viewport.get_camera().translation.y )
 
 func random_screen_point():
 	

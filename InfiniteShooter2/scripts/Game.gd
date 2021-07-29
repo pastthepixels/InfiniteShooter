@@ -21,12 +21,12 @@ func make_enemy():
 	# Creates an enemy
 	var enemy =  Enemy.instance() # Every time I see "var" used to declare a variable, I only feel complete once I put a semicolon at the end of the line.
 	add_child( enemy ) # like adding it to the scene
-	enemy.transform.origin.x = utils.random_screen_point().x
-	enemy.transform.origin.z = utils.screen_to_local( Vector2( 0, 0 ) ).z - ( enemy.enemy.transform.basis.get_scale().z * 2)
+	enemy.translation.x = utils.random_screen_point().x
+	enemy.translation.z = utils.screen_to_local( Vector2( 0, 0 ) ).z - ( enemy.get_node( "EnemyModel" ).transform.basis.get_scale().z * 2)
 
 func _on_Player_died():
 	
-	$PauseMenu.queue_free()
+	get_parent().get_node( "PauseMenu" ).queue_free() # <-- WARNING: QUICK HACK THAT WON'T LET YOU PAUSE
 	$EnemyTimer.stop()
 	$ScoreTimer.stop()
 	$LevelTimer.stop()

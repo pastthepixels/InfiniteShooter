@@ -14,6 +14,7 @@ func explode():
 	exploding = true
 	$ExplosionAnimation.playing = true
 	Input.start_joy_vibration( 0, 0.5, 0.7, .2 ) # Vibrates a controller if you have one
+	$ExplosionSound.pitch_scale = rand_range( 0.8, 1.2 )
 	$ExplosionSound.play()
 
 func hide_explosion(): # Once the explosion is done, hide it
