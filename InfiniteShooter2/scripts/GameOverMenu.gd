@@ -10,6 +10,7 @@ func fade_show():
 	
 	show()
 	$AnimationPlayer.play( "FadeAll" )
+	$SelectSquare.update()
 
 func _input( event ):
 	

@@ -1,11 +1,5 @@
 extends Control
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	
-	$Options.add_constant_override( "separation", 10 )
-
 func _input( event ):
 	
 	# If the start screen is still there, remove it! Also return the function so we don't trigger a menu option at the same time.

@@ -34,4 +34,4 @@ func update():
 	var select_child = options.get_child( index ) # Gets the current child selected
 	var text_length = select_child.get_font( "font" ).get_string_size( select_child.text ).x # Gets the length of its text
 	var difference_to_text = ( select_child.rect_size.x - text_length ) / 2 # The amount of space required from the label's origin (left) to where the text begins
-	set_position( select_child.get_global_position() + Vector2( difference_to_text - 20, 0 ) ) # Se ts the position to the position of the selected object MINUS 20px
+	set_position( select_child.get_global_position() + Vector2( difference_to_text - 20, select_child.get_size().y / 2 - 5 ) ) # Se ts the position to the position of the selected object MINUS 20px

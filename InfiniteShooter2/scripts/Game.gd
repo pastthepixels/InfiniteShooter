@@ -4,12 +4,14 @@ extends Spatial
 # Declare member variables here.
 onready var utils = load( "res://scripts/Utils.gd" ).new() # Man if I only had better Mono support... I'd replace this line with `Utils utils = new Utils()` in a *heartbeat*.
 export ( PackedScene ) var Enemy
+export var score = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	utils.init( get_viewport() )
 	$EnemyTimer.start()
+	$ScoreTimer.start()
 	make_enemy()
 
 func make_enemy():
@@ -38,3 +40,9 @@ func _on_Player_health_changed( value ):
 	
 
 	$GameHUD.update_health( value )
+
+
+func _on_ScoreTimer_timeout():
+	
+	score += 1
+	$GameHUD.update_score( score )

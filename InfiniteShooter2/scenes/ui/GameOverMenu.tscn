@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/title-gameover/gameover.png" type="Texture" id=1]
 [ext_resource path="res://scripts/GameOverMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeAll"
@@ -71,6 +72,7 @@ tracks/4/keys = {
 [node name="GameOverMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 4 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,27 +102,28 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -61.5
-margin_top = 44.0
-margin_right = 61.5
-margin_bottom = 94.0
+margin_left = -72.0
+margin_top = 55.5
+margin_right = 72.0
+margin_bottom = 120.5
+custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Retry" type="Label" parent="Options"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 123.0
-margin_bottom = 14.0
+margin_right = 144.0
+margin_bottom = 16.0
 text = "replay"
 align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 18.0
-margin_right = 123.0
-margin_bottom = 32.0
+margin_top = 26.0
+margin_right = 144.0
+margin_bottom = 42.0
 text = "quit"
 align = 1
 valign = 1
@@ -130,9 +133,9 @@ __meta__ = {
 
 [node name="MainMenu" type="Label" parent="Options"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 36.0
-margin_right = 123.0
-margin_bottom = 50.0
+margin_top = 52.0
+margin_right = 144.0
+margin_bottom = 68.0
 text = "back to main menu"
 align = 1
 valign = 1

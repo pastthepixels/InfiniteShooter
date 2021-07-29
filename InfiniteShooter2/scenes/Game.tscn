@@ -48,3 +48,4 @@ visible = false
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="health_changed" from="Player" to="." method="_on_Player_health_changed"]
 [connection signal="timeout" from="EnemyTimer" to="." method="make_enemy"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

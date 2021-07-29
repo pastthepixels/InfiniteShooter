@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/healthbar/ammo_player.png" type="Texture" id=1]
 [ext_resource path="res://assets/healthbar/base_player.png" type="Texture" id=2]
 [ext_resource path="res://assets/healthbar/health_player.png" type="Texture" id=3]
 [ext_resource path="res://assets/healthbar/base_ammo_player.png" type="Texture" id=4]
 [ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
+[ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=1]
@@ -25,6 +26,7 @@ tracks/0/keys = {
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 6 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -60,25 +62,53 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -30.0
-color = Color( 1, 1, 1, 0.431373 )
+margin_top = -25.0
+color = Color( 0.2, 0.2, 0.2, 0.501961 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Status" type="Label" parent="StatusBar"]
-anchor_top = 0.5
-anchor_bottom = 0.5
+[node name="Labels" type="HBoxContainer" parent="StatusBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 10.0
-margin_top = -7.0
-margin_right = 165.0
-margin_bottom = 7.0
-text = "Level 0; Score: 0; 60 FPS"
+margin_right = -10.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="StatusBar/Labels"]
+margin_top = 4.0
+margin_right = 49.0
+margin_bottom = 20.0
+text = "Level 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="StatusBar/Labels"]
+margin_left = 64.0
+margin_top = 4.0
+margin_right = 120.0
+margin_bottom = 20.0
+text = "Score: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="StatusBar/Labels"]
+margin_left = 135.0
+margin_top = 4.0
+margin_right = 174.0
+margin_bottom = 20.0
+text = "0 FPS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Vignette" type="TextureRect" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
