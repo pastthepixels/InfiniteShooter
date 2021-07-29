@@ -64,7 +64,7 @@ func _process( delta ):
 	if ( transform.origin.x > utils.top_right.x ): transform.origin.x = utils.top_left.x
 	
 	# Killing the player when it should die
-	if health <= 0:
+	if health <= 0.0:
 		
 		die_already()
 
@@ -96,9 +96,9 @@ func on_collision( area ): # area == EnemyX model with a custom collision box be
 
 # like enemies
 func enemy_collisions( enemy ): # enemy must be an instance of the class Enemy (no numbers)
-	
-	enemy.health -= speed / 10 # Dear GDScript developers: *Every other language* has floating-point division.
-	health -= speed / 10
+
+	enemy.health -= enemy.health
+	health -= speed / 10 # Dear GDScript developers: *Every other language* has floating-point division.
 	emit_signal( "health_changed", float(health) / float(max_health) )
 
 func reload():

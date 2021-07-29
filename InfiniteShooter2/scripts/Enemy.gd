@@ -31,29 +31,37 @@ func _ready():
 			enemy = Enemy1.instance()
 			
 			# Sets enemy stats
-			max_health = 1
-			damage = .07
+			max_health = .8
 			health = max_health
+			damage = .07
 			$MovingTimer.wait_time = 0.002
 			
 		2:
 			enemy = Enemy2.instance()
 			
 			# Sets enemy stats
-			max_health = .5
-			damage = .1
+			max_health = .4
 			health = max_health
+			damage = .1
 			$MovingTimer.wait_time = 0.003
 			
 		3:
 			enemy = Enemy3.instance()
 			
 			# Sets enemy stats
-			max_health = 2
-			damage = .05
+			max_health = 1.2
 			health = max_health
+			damage = .05
 			$MovingTimer.wait_time = 0.001
-			
+	
+	# Multiplies everything by the level number.
+	if main.get_node( "Game" ).level > 1:
+		
+		var mult = main.get_node( "Game" ).level / 2
+		max_health *= mult
+		health = max_health
+		damage *= mult
+		
 	add_child( enemy )
 	$MovingTimer.start()
 	$LaserTimer.start()
@@ -72,7 +80,7 @@ func _ready():
 # Called to process GAME stuff like health
 func _process( delta ):
 	
-	if health <= 0: explode_ship()
+	if health <= 0.0: explode_ship() # I made 0 a float because Godot requireth
 	if ( health / max_health ) < 1 and health > 0: $HealthBar.show()# If the health is between 100% and 0%, show the health bar.
 	$HealthBar.health = health
 	$HealthBar.max_health = max_health

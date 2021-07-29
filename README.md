@@ -27,12 +27,15 @@ The repository should also then just have the original README copied over and mo
 - [x] Game over screen
 - [x] Pausing screen
 - [x] Main menu
+- [x] Bottom stats bar (level, score, frame rate)
+- [x] Enemy difficulty based on ship type
+- [x] Game "levels"
 
 ## TODO
+- [ ] Powerups
 - [ ] Upgrades
 - [ ] Leaderboard
-- [ ] Enemy difficulty based on ship type
-- [ ] Game "levels"
-- [ ] Bottom stats bar (level, score, frame rate)
+- [ ] Scrolling background
 - [ ] Sounds (sound effects+music)
+- [ ] Port to C# to fix 99% of bugs
 - [ ] Achievements???
