@@ -5,6 +5,9 @@ func _input( event ):
 	# If the start screen is still there, remove it! Also return the function so we don't trigger a menu option at the same time.
 	if ( event is InputEventKey or event is InputEventJoypadButton ) and event.pressed and has_node( "StartScreen" ):
 		
+		# Ensures the scrolling background is not playing
+		get_node( "../ScrollingBackground" ).stop()
+		
 		# Plays the "gui-accept" sound
 		$SelectSquare/AcceptSound.play()
 		
@@ -49,6 +52,7 @@ func _input( event ):
 func play_game():
 	
 	queue_free()
+	get_node( "../ScrollingBackground" ).play()
 	get_node( "../ViewportContainer/Viewport" ).add_child( load( "res://scenes/Game.tscn" ).instance() )
 
 func quit_game():
