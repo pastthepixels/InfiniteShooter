@@ -26,6 +26,14 @@ glow_bicubic_upscale = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.101961, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 pause_mode = 2
 anchor_right = 1.0
@@ -36,6 +44,7 @@ __meta__ = {
 }
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
+transparent_bg = true
 handle_input_locally = false
 msaa = 2
 render_target_update_mode = 3

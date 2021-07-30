@@ -5,11 +5,9 @@ onready var game = get_parent()
 onready var main = get_tree().get_root().get_node( "Main" )
 
 func _ready():
-	
 	$SelectSquare.update()
 
 func _input( event ):
-	
 	if event.is_action_pressed( "pause" ):
 		
 		toggle_pause( true )
