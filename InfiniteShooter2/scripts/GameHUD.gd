@@ -4,24 +4,22 @@ extends Control
 # Variables that display in-game variables
 var animated_health = 100
 var animated_ammo = 100
-var score = 0
-var level = 0
 var low_health = false
 
 # Called when the node enters the scene tree for the first time.
-func _process( delta ):
+func _process( _delta ):
 	
 	$HealthBar.value = animated_health
 	$AmmoBar.value = animated_ammo
-	$StatusBar/Labels/FPS.set_text( str( Engine.get_frames_per_second() ) + " FPS" )
+	$StatusBar/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
 
 func update_score( score ):
 	
-	$StatusBar/Labels/Score.set_text( "Score: " + str( score ) )
+	$StatusBar/Labels/Score.text = "Score: %s" % score
 
 func update_level( level ):
 	
-	$StatusBar/Labels/Level.set_text( "Level " + str( level ) )
+	$StatusBar/Labels/Level.text = "Level %s" % level
 	
 func update_health( value ):
 	

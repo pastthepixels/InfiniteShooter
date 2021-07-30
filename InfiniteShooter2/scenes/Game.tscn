@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
 [ext_resource path="res://scenes/enemies/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/GameOverMenu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/ui/GameHUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ui/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://sounds/levelup.wav" type="AudioStream" id=7]
 
 [node name="Game" type="Spatial"]
+pause_mode = 1
 script = ExtResource( 2 )
 Enemy = ExtResource( 3 )
 
@@ -24,27 +26,12 @@ wait_time = 30.0
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
-[node name="WarningLight2" type="SpotLight" parent="."]
-transform = Transform( 0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 10, 7, 15 )
-light_color = Color( 1, 0, 0, 1 )
-light_energy = 7.0
-spot_range = 14.0
-
-[node name="WarningLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 7, 15 )
-light_color = Color( 1, 0, 0, 1 )
-light_energy = 7.0
-spot_range = 14.0
-
-[node name="WarningLight3" type="SpotLight" parent="."]
-transform = Transform( 0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, -0.612372, 0.612372, -10, 7, 15 )
-light_color = Color( 1, 0, 0, 1 )
-light_energy = 7.0
-spot_range = 14.0
-
-[node name="GameHUD" parent="." instance=ExtResource( 6 )]
+[node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false
 
 [connection signal="ammo_changed" from="Player" to="." method="_on_Player_ammo_changed"]

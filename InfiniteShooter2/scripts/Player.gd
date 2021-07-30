@@ -9,7 +9,7 @@ var health = max_health
 var ammo = max_ammo
 
 # Variables used by the engine
-onready var main = get_tree().get_root().get_node( "Main" )
+onready var game = get_node( "../" )
 signal died
 signal health_changed
 signal ammo_changed
@@ -77,7 +77,7 @@ func _input( event ):
 		laser.translation = translation
 		laser.translation.z -= 1 # To get the laser firing from the "top" of the ship instead of the center for added realism
 		laser.damage = damage
-		main.get_node( "Game" ).add_child( laser )
+		game.add_child( laser )
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 		ammo -= 1
 		emit_signal( "ammo_changed", float( ammo ) / max_ammo )
@@ -120,7 +120,7 @@ func die_already():
 		$CollisionShape.queue_free()
 		$RegenTimer.stop()
 		transform.basis = Basis() # Resets the player's rotation
-		main.get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+		game.get_node( "../Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
 
 func cleanup_player():
 

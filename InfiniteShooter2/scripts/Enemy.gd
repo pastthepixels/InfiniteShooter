@@ -10,18 +10,18 @@ export (PackedScene) var Enemy1
 export (PackedScene) var Enemy2
 export (PackedScene) var Enemy3
 export (PackedScene) var Laser
-onready var main = get_tree().get_root().get_node( "Main" )
-onready var player = get_tree().get_root().get_node( "Main/Game/Player" )
+onready var game = get_node( "../" ) # Enemies are placed directly inside the "Game" node.
+onready var player = get_node( "../Player" )
 var utils
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	randomize() # Makes more random numbers
 	# Initializes the instance of the class Utils
 	utils = load( "res://scripts/Utils.gd" ).new()
 	utils.init( get_viewport() )
 	
+func initialize():
 	# Adds an enemy
 	var enemyType = randi() % 3 + 1 # Generates either a 1, 2, or 3
 	match enemyType: # Actually a switch statement!
@@ -54,9 +54,9 @@ func _ready():
 			$MovingTimer.wait_time = 0.001
 	
 	# Multiplies everything by the level number for added difficulty.
-	if main.get_node( "Game" ).level > 1:
+	if game.level > 1:
 		
-		var mult = main.get_node( "Game" ).level / 2
+		var mult = game.level / 2
 		max_health *= mult
 		health = max_health
 		damage *= mult
@@ -100,7 +100,7 @@ func explode_ship():
 		$LaserTimer.stop()
 		$HealthBar.hide()
 		$EnemyModel.queue_free()
-		main.get_node( "Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+		game.get_node( "../Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
  
 func cleanup_ship():
 	
@@ -110,7 +110,7 @@ func cleanup_ship():
 func fire_laser():
 	
 	# If the player is not close to the enemy (5 metres in this case), why shoot a laser? This helps with performance and also with basic logic
-	if main.has_node( "Game/Player" ) and abs( player.translation.x - translation.x ) > 5: return
+	if game.has_node( "Player" ) and abs( player.translation.x - translation.x ) > 5: return
 	
 	# Creating the laser
 	var laser = Laser.instance()
@@ -124,4 +124,4 @@ func fire_laser():
 	laser.translation.z += 1 # Makes the laser come from the "top" of the ship instead of the center for added realism
 	
 	# Gets the scene "Main" and adds to it this laser
-	main.get_node( "Game" ).add_child( laser )
+	game.add_child( laser )

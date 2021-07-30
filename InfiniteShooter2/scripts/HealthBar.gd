@@ -10,6 +10,6 @@ func _ready():
 	
 	texture = $Viewport.get_texture()
 
-func _process( delta ):
+func _process( _delta ):
 
 	$Viewport/HealthBar2D.value = health / max_health * 100

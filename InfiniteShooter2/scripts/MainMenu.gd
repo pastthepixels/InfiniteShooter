@@ -40,16 +40,16 @@ func _input( event ):
 			
 			"Play": # If it is the one named "play", play the game.
 				
-				get_parent().get_node( "SceneTransition" ).play( self, "play_game" )
+				get_tree().get_root().get_node( "SceneTransition" ).play( self, "play_game" )
 				
 			"Quit": # Otherwise, quit the game
 			
-				get_parent().get_node( "SceneTransition" ).play( self, "quit_game" )
+				get_tree().get_root().get_node( "SceneTransition" ).play( self, "quit_game" )
 				
 func play_game():
 	
 	queue_free()
-	get_parent().add_child( load( "res://scenes/Game.tscn" ).instance() )
+	get_node( "../ViewportContainer/Viewport" ).add_child( load( "res://scenes/Game.tscn" ).instance() )
 
 func quit_game():
 	

@@ -14,6 +14,10 @@ config/name="InfiniteShooter2"
 run/main_scene="res://Main.tscn"
 config/icon="res://assets/icon/icon.png"
 
+[autoload]
+
+SceneTransition="*res://scenes/ui/SceneTransition.tscn"
+
 [display]
 
 window/size/width=600

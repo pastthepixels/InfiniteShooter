@@ -2,7 +2,6 @@ extends Area
 
 
 # Declare member variables here. Examples:
-onready var main = get_tree().get_root().get_node( "Main" )
 onready var utils = load( "res://scripts/Utils.gd" ).new()
 export var damage = 0
 export var from_player = true
@@ -21,7 +20,7 @@ func _ready():
 	$LaserSound.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	
 	if freeze == true:
 		
