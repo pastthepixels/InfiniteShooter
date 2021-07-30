@@ -5,12 +5,12 @@
 [ext_resource path="res://scenes/ui/ScrollingBackground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/effects/ScreenShake.tscn" type="PackedScene" id=4]
 
-[sub_resource type="PanoramaSky" id=3]
+[sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 2 )
 
 [sub_resource type="Environment" id=2]
 background_mode = 2
-background_sky = SubResource( 3 )
+background_sky = SubResource( 1 )
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 0, 0, 0, 1 )
 tonemap_mode = 2
