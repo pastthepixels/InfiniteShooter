@@ -30,12 +30,15 @@ The repository should also then just have the original README copied over and mo
 - [x] Bottom stats bar (level, score, frame rate)
 - [x] Enemy difficulty based on ship type
 - [x] Game "levels"
+- [x] Scrolling background
 
 ## TODO
 - [ ] Powerups
 - [ ] Upgrades
 - [ ] Leaderboard
-- [ ] Scrolling background
 - [ ] Sounds (sound effects+music)
-- [ ] Port to C# to fix 99% of bugs
+- [ ] Port to C# to fix some of the bugs (e.g. enemy ships still live until their health is < 0)
 - [ ] Achievements???
+- [ ] Co-op/4 person multiplayer?!?!?!??
+- [ ] STEAM?!?!?!?!?!!?!?!?!?!?!?! Possibly using: https://gramps.github.io/GodotSteam/
+- [ ] FUNNY HALF-LIFE REFERENCE BECAUSE STEAM?!?!?!?!??????????????????
