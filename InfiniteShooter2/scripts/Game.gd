@@ -11,6 +11,9 @@ export var level = 0
 func _ready():
 	
 	utils.init( get_viewport() )
+
+func _on_Countdown_finished():
+	
 	$EnemyTimer.start()
 	$ScoreTimer.start()
 	$LevelTimer.start()

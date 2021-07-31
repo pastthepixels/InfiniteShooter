@@ -78,7 +78,13 @@ func initialize():
 # Called to process GAME stuff like health
 func _process( _delta ):
 	
-	if health <= 0.0: explode_ship() # I made 0 a float because Godot requireth
+	# Uncovering the mystery: `health` is actually around 0.00000000001 99% of the time for some reason but Godot chooses to print it as 0.
+	# Hence, it doesn't == 0 and you will never know why because it says "0".
+	# And I spent countelss hours trying to fix the next `if` statement because of it. 
+	health = stepify( health, 0.01 )
+	
+	if health == 0: explode_ship()
+	
 	if ( health / max_health ) < 1 and health > 0: $HealthBar.show()# If the health is between 100% and 0%, show the health bar.
 	$HealthBar.health = health
 	$HealthBar.max_health = max_health

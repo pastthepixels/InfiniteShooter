@@ -37,7 +37,7 @@ The repository should also then just have the original README copied over and mo
 - [ ] Upgrades
 - [ ] Leaderboard
 - [ ] Sounds (sound effects+music)
-- [ ] Port to C# to fix some of the bugs (e.g. enemy ships still live until their health is < 0)
+- [ ] Clean up the code (and maybe port to c# to show dominance?)
 - [ ] Achievements???
 - [ ] Co-op/4 person multiplayer?!?!?!??
 - [ ] STEAM?!?!?!?!?!!?!?!?!?!?!?! Possibly using: https://gramps.github.io/GodotSteam/
