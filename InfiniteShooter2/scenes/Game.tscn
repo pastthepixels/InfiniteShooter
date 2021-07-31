@@ -29,13 +29,13 @@ stream = ExtResource( 7 )
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
+[node name="Countdown" parent="." instance=ExtResource( 8 )]
+
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false
-
-[node name="Countdown" parent="." instance=ExtResource( 8 )]
 
 [connection signal="ammo_changed" from="Player" to="." method="_on_Player_ammo_changed"]
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
