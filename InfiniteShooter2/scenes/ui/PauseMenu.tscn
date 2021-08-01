@@ -89,7 +89,7 @@ margin_left = -78.0
 margin_top = 120.5
 margin_right = 78.0
 margin_bottom = 197.5
-custom_constants/separation = 10
+custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -102,9 +102,9 @@ align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
-margin_top = 26.0
+margin_top = 31.0
 margin_right = 156.0
-margin_bottom = 42.0
+margin_bottom = 47.0
 text = "quit"
 align = 1
 valign = 1
@@ -113,9 +113,9 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Label" parent="Options"]
-margin_top = 52.0
+margin_top = 62.0
 margin_right = 156.0
-margin_bottom = 68.0
+margin_bottom = 78.0
 text = "back to main menu"
 align = 1
 valign = 1

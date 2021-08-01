@@ -30,7 +30,7 @@ margin_left = 50.0
 margin_top = 40.0
 margin_right = 40.0
 margin_bottom = 40.0
-custom_constants/separation = 25
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -46,17 +46,17 @@ __meta__ = {
 }
 
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 97.0
+margin_top = 92.0
 margin_right = 368.0
-margin_bottom = 121.0
-custom_constants/separation = 10
+margin_bottom = 111.0
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="VBoxContainer/Options"]
 margin_right = 368.0
-margin_bottom = 24.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "back"
 valign = 1

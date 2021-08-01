@@ -30,13 +30,13 @@ margin_left = 50.0
 margin_top = 40.0
 margin_right = 40.0
 margin_bottom = 40.0
-custom_constants/separation = 25
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 321.0
+margin_right = 289.0
 margin_bottom = 72.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -46,14 +46,14 @@ __meta__ = {
 }
 
 [node name="Stats" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 97.0
-margin_right = 321.0
-margin_bottom = 121.0
+margin_top = 92.0
+margin_right = 289.0
+margin_bottom = 111.0
 custom_constants/separation = 20
 
 [node name="Points" type="Label" parent="VBoxContainer/Stats"]
-margin_right = 77.0
-margin_bottom = 24.0
+margin_right = 61.0
+margin_bottom = 19.0
 text = "0 points"
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Stats/Points"]
@@ -70,31 +70,31 @@ __meta__ = {
 }
 
 [node name="Damage" type="Label" parent="VBoxContainer/Stats"]
-margin_left = 97.0
-margin_right = 207.0
-margin_bottom = 24.0
+margin_left = 81.0
+margin_right = 169.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 0.501961, 0, 1 )
 text = "0% damage"
 
 [node name="Health" type="Label" parent="VBoxContainer/Stats"]
-margin_left = 227.0
-margin_right = 321.0
-margin_bottom = 24.0
+margin_left = 189.0
+margin_right = 263.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0% health"
 
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 146.0
-margin_right = 321.0
-margin_bottom = 170.0
-custom_constants/separation = 10
+margin_top = 131.0
+margin_right = 289.0
+margin_bottom = 150.0
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 321.0
-margin_bottom = 24.0
+margin_right = 289.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "back"
 valign = 1
