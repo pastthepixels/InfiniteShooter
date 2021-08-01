@@ -5,6 +5,10 @@ func _ready():
 	var scores = read_scores()
 	for i in scores.size():
 		create_label( ( "%s. " + scores[i][0] + " with a score of " + scores[i][1] ) % ( i + 1 ) )
+	if scores.size() == 0:
+		create_label( "There are no scores yet!" )
+		create_label( "Finish a game to have your score listed." )
+		create_label( "This screen lists the top 10 scores." )
 
 func read_scores():
 	

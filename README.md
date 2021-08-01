@@ -32,13 +32,13 @@ The repository should also then just have the original README copied over and mo
 - [x] Game "levels"
 - [x] Scrolling background
 - [x] Powerups
+- [x] Leaderboard
 
 ## TODO
 - [ ] Upgrades
-- [ ] Leaderboard
 - [ ] Egghead Productions branding
 - [ ] Sounds (sound effects+music)
-- [ ] Clean up the code (and maybe port to c# to show dominance?)
+- [ ] Clean up the code (and maybe port to c#?)
 - [ ] Achievements???
 - [ ] Co-op/4 person multiplayer?!?!?!??
 - [ ] STEAM?!?!?!?!?!!?!?!?!?!?!?! Possibly using: https://gramps.github.io/GodotSteam/
