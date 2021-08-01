@@ -44,6 +44,17 @@ func _input( event ):
 			"Play": # If it is the one named "play", play the game.
 				
 				get_tree().get_root().get_node( "SceneTransition" ).play( self, "play_game" )
+			
+			"Leaderboard": # Same with selecting the leaderboard
+				
+				if $Leaderboard.visible == false:
+					$Leaderboard.visible = true
+					$LogoContainer.visible = false
+					$SelectSquare.visible = false
+				else:
+					$Leaderboard.visible = false
+					$LogoContainer.visible = true
+					$SelectSquare.visible = true
 				
 			"Quit": # Otherwise, quit the game
 			

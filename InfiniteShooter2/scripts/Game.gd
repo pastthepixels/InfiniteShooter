@@ -33,6 +33,7 @@ func _on_Player_died():
 	$EnemyTimer.stop()
 	$ScoreTimer.stop()
 	$LevelTimer.stop()
+	store_score()
 	
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield( get_tree().create_timer( 1.0 ), "timeout" ) # AFTER waiting for a bit (if porting to different programming languages, this is Godot's setTimeout)
@@ -59,3 +60,14 @@ func _on_LevelTimer_timeout():
 	if $EnemyTimer.wait_time > 2: $EnemyTimer.wait_time -= 0.2
 	$HUD.update_level( level )
 	$LevelSound.play()
+
+func store_score():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	if file.file_exists("user://scores.txt") == false: 
+		file.open( "user://scores.txt", File.WRITE ) # This creates a new file if there is none but truncates (writes over) existing files
+	else:
+		file.open( "user://scores.txt", File.READ_WRITE ) # This does NOT create a new file if there is none but also does NOT truncate existing files
+		file.seek_end() # Goes to the end of the file to write a new line
+	file.store_line( OS.get_environment("USERNAME") + " ~> %s" % score) # Writes a new line that looks like this: "$USERNAME ~> $SCORE"
+	file.close()

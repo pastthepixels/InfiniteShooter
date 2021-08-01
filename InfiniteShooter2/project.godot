@@ -12,6 +12,8 @@ config_version=4
 
 config/name="InfiniteShooter2"
 run/main_scene="res://Main.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="InfiniteShooter"
 config/icon="res://assets/icon/icon.png"
 
 [autoload]

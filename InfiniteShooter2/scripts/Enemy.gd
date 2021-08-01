@@ -100,7 +100,7 @@ func move_down():
 func explode_ship():
 	
 	if $Explosion.exploding: return # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
-		
+	
 	$Explosion.explode()
 	$MovingTimer.stop()
 	$LaserTimer.stop()

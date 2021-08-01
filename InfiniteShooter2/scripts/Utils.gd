@@ -29,5 +29,5 @@ func screen_to_local( vector2 ):
 
 func random_screen_point():
 	
-	var screenPoint = Vector2( rand_range( screen_size.x, 0 ), rand_range( 0, screen_size.y ) )
+	var screenPoint = Vector2( rand_range( screen_size.x - 50, 50 ), rand_range( 50, screen_size.y - 50 ) )
 	return screen_to_local( screenPoint )
