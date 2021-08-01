@@ -15,7 +15,6 @@ func _ready():
 		
 		else:
 			
-			
 			$CountdownSound.play()
 			
 		$Label.text = str( starting_number - i )
