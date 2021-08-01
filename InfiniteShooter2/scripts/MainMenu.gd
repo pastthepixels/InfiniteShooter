@@ -48,13 +48,22 @@ func _input( event ):
 			"Leaderboard": # Same with selecting the leaderboard
 				
 				if $Leaderboard.visible == false:
-					$Leaderboard.visible = true
-					$LogoContainer.visible = false
-					$SelectSquare.visible = false
+					$Leaderboard.show()
+					$LogoContainer.hide()
+					$SelectSquare.hide()
 				else:
-					$Leaderboard.visible = false
-					$LogoContainer.visible = true
-					$SelectSquare.visible = true
+					$Leaderboard.hide()
+					$LogoContainer.show()
+					$SelectSquare.show()
+			
+			"Upgrades": # Same with selecting the upgrades screen
+				
+				if $Upgrades.visible == false:
+					$Upgrades.show()
+					$LogoContainer.hide()
+					$SelectSquare.hide()
+				else:
+					$Upgrades.handle_selection()
 				
 			"Quit": # Otherwise, quit the game
 			

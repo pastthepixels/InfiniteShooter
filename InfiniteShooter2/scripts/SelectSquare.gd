@@ -18,7 +18,7 @@ func _input( event ):
 	if visible == false or get_parent().visible == false: return # If the select square is not visible, don't use it
 	
 	if event.is_action_pressed( "ui_up" ): index -= 1
-		
+	
 	if event.is_action_pressed( "ui_down" ): index += 1
 	
 	if event.is_action_pressed( "ui_up" ) or event.is_action_pressed( "ui_down" ): $SelectSound.play()

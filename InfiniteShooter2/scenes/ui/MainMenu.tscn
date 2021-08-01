@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/title-infiniteshooter/title-infiniteshooter.png" type="Texture" id=1]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/ui/Leaderboard.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ui/Upgrades.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "LogoSlide"
@@ -75,10 +76,18 @@ text = "leaderboard"
 align = 1
 valign = 1
 
-[node name="Quit" type="Label" parent="Options"]
+[node name="Upgrades" type="Label" parent="Options"]
 margin_top = 52.0
 margin_right = 82.0
 margin_bottom = 68.0
+text = "upgrades"
+align = 1
+valign = 1
+
+[node name="Quit" type="Label" parent="Options"]
+margin_top = 78.0
+margin_right = 82.0
+margin_bottom = 94.0
 text = "quit"
 align = 1
 valign = 1
@@ -125,4 +134,7 @@ __meta__ = {
 }
 
 [node name="Leaderboard" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="Upgrades" parent="." instance=ExtResource( 6 )]
 visible = false
