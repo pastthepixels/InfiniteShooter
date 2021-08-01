@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/healthbar/ammo_player.png" type="Texture" id=1]
 [ext_resource path="res://assets/healthbar/base_player.png" type="Texture" id=2]
@@ -30,29 +30,6 @@ colors = PoolColorArray( 0, 0, 0, 0.392157, 0, 0, 0, 1 )
 gradient = SubResource( 8 )
 width = 32
 
-[sub_resource type="Shader" id=3]
-code = "// Was exploring https://godotshaders.com and found this REALLY COOL one
-// All credit for the following code goes to bkhan --> https://godotshaders.com/shader/chromatic-abberation-with-offset/
-shader_type canvas_item;
-
-uniform sampler2D offset_image : hint_white;
-uniform float strength = 1.0;
-
-void fragment() {
-	vec4 output = texture(SCREEN_TEXTURE, SCREEN_UV);
-	
-	float shift = strength * texture(offset_image, SCREEN_UV).r / 100.0;
-	output.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + shift, SCREEN_UV.y)).r;
-	output.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
-	output.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - shift, SCREEN_UV.y)).b;
-	
-	COLOR = output;
-}"
-
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 3 )
-shader_param/strength = 0.0
-
 [sub_resource type="Animation" id=11]
 resource_name = "FadeVignette"
 tracks/0/type = "value"
@@ -66,18 +43,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ChromaticAberration:material:shader_param/strength")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.2 ]
 }
 
 [node name="HUD" type="Control"]
@@ -186,14 +151,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ChromaticAberration" type="ColorRect" parent="."]
-material = SubResource( 10 )
-anchor_right = 1.0
-anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
