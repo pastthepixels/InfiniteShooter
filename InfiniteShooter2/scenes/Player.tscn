@@ -10,7 +10,9 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.906798, 0.0775551, 0.725836 )
 
-[node name="Player" type="Area"]
+[node name="Player" type="Area" groups=[
+"players",
+]]
 script = ExtResource( 3 )
 Laser = ExtResource( 1 )
 

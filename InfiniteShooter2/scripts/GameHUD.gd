@@ -2,6 +2,7 @@ extends Control
 
 
 # Variables that display in-game variables
+onready var level_timer = get_node( "../LevelTimer" )
 var animated_health = 100
 var animated_ammo = 100
 var low_health = false
@@ -12,6 +13,7 @@ func _process( _delta ):
 	$HealthBar.value = animated_health
 	$AmmoBar.value = animated_ammo
 	$StatusBar/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
+	$StatusBar/Labels/Level/Progress.value = level_timer.time_left / level_timer.wait_time * 100
 
 func update_score( score ):
 	
@@ -34,7 +36,6 @@ func update_health( value ):
 		
 		low_health = false
 		$AnimationPlayer.play_backwards( "FadeVignette" )
-	
 
 func update_ammo( value ):
 	

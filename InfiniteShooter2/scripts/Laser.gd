@@ -42,15 +42,14 @@ func _process(_delta):
 # Called when the laser collides with objects
 func on_collision( area ):
 	
-	if area.get_parent().is_in_group( "enemy" ) and from_player == true: # If the area this is colliding with is an enemy (and it is from the player)
+	if area.get_parent().is_in_group( "enemies" ) and from_player == true: # If the area this is colliding with is an enemy (and it is from the player)
 		
 		area.get_parent().health -= damage # subtract health from the enemy
 		remove_laser( true ) # and remove the laser
 	
-	if ( "Player" in area.name ) and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
+	if area.is_in_group( "players" ) and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		 
-		area.health -= damage # send it to BRAZIL
-		area.emit_signal( "health_changed", float(area.health) / float(area.max_health) )
+		area.set_health( area.health - damage ) # send it to BRAZIL
 		Input.start_joy_vibration(0, 0.6, 1, .1) # vibrate any controllers a bit
 		remove_laser( true ) # and remove the laser
 

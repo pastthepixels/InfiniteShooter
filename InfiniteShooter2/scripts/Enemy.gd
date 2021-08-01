@@ -10,6 +10,7 @@ export (PackedScene) var Enemy1
 export (PackedScene) var Enemy2
 export (PackedScene) var Enemy3
 export (PackedScene) var Laser
+export (PackedScene) var Powerup
 onready var game = get_node( "../" ) # Enemies are placed directly inside the "Game" node.
 onready var player = get_node( "../Player" )
 var utils
@@ -73,7 +74,6 @@ func initialize():
 	# Then it gets the base size of that, multiplies that by its scale, and then moves the health bar down .5 for aesthetic purposes.
 	# Remember that a negative Z value actually moves the health bar UP.
 	$HealthBar.translation.z = -( $EnemyModel/ShipModel.get_aabb().size.z * $EnemyModel.scale.z ) + .5
-
 	
 # Called to process GAME stuff like health
 func _process( _delta ):
@@ -99,14 +99,18 @@ func move_down():
 
 func explode_ship():
 	
-	if !$Explosion.exploding: # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
+	if $Explosion.exploding: return # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
 		
-		$Explosion.explode()
-		$MovingTimer.stop()
-		$LaserTimer.stop()
-		$HealthBar.hide()
-		$EnemyModel.queue_free()
-		game.get_node( "../Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+	$Explosion.explode()
+	$MovingTimer.stop()
+	$LaserTimer.stop()
+	$HealthBar.hide()
+	$EnemyModel.queue_free()	
+	game.get_node( "../Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+	if randi() % 5 <= 2:
+		var powerup = Powerup.instance()
+		powerup.translation = translation
+		game.add_child( powerup )
  
 func cleanup_ship():
 	

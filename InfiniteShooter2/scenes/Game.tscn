@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/ui/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://sounds/levelup.wav" type="AudioStream" id=7]
 [ext_resource path="res://scenes/ui/Countdown.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemies/Powerup.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Spatial"]
 pause_mode = 1
@@ -36,6 +37,8 @@ visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="Powerup" parent="." instance=ExtResource( 9 )]
 
 [connection signal="ammo_changed" from="Player" to="." method="_on_Player_ammo_changed"]
 [connection signal="died" from="Player" to="." method="_on_Player_died"]

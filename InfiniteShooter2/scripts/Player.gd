@@ -79,7 +79,7 @@ func _input( event ):
 		laser.damage = damage
 		game.add_child( laser )
 		Input.start_joy_vibration(0, 0.7, 1, .1)
-		ammo -= 1
+		set_ammo( ammo - 1 )
 		emit_signal( "ammo_changed", float( ammo ) / max_ammo )
 		
 		if ammo <= 0:
@@ -98,13 +98,11 @@ func on_collision( area ): # area == EnemyX model with a custom collision box be
 func enemy_collisions( enemy ): # enemy must be an instance of the class Enemy (no numbers)
 
 	enemy.health -= enemy.health
-	health -= speed / 10 # Dear GDScript developers: *Every other language* has floating-point division.
-	emit_signal( "health_changed", float(health) / float(max_health) )
+	set_health(health - speed / 10) # Dear GDScript developers: *Every other language* has floating-point division.
 
 func reload():
 	
-	ammo += 1
-	emit_signal( "ammo_changed", float(ammo) / float(max_ammo) )
+	set_ammo( ammo + 1 )
 	$ReloadBoop.play()
 	if ammo >= max_ammo:
 		
@@ -130,9 +128,18 @@ func heal(): # Regenerates a bit of health every time this function is called.
 	
 	if health < max_health:
 		
-		health += 0.01
-		emit_signal( "health_changed", float(health) / float(max_health) )
+		set_health(health + 0.01)
 	
 	if health >= max_health:
 		
-		health = max_health
+		set_health(max_health)
+		
+func set_ammo( new_ammo ):
+	
+	ammo = new_ammo
+	emit_signal( "ammo_changed", float(ammo) / float(max_ammo) )
+
+func set_health( new_health ):
+	
+	health = new_health
+	emit_signal( "health_changed", float(health) / float(max_health) )

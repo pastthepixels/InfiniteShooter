@@ -10,7 +10,7 @@
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
 
 [node name="Laser" type="Area" groups=[
-"laser",
+"lasers",
 ]]
 script = ExtResource( 2 )
 

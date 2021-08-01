@@ -31,11 +31,12 @@ The repository should also then just have the original README copied over and mo
 - [x] Enemy difficulty based on ship type
 - [x] Game "levels"
 - [x] Scrolling background
+- [x] Powerups
 
 ## TODO
-- [ ] Powerups
 - [ ] Upgrades
 - [ ] Leaderboard
+- [ ] Egghead Productions branding
 - [ ] Sounds (sound effects+music)
 - [ ] Clean up the code (and maybe port to c# to show dominance?)
 - [ ] Achievements???
