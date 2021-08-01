@@ -69,5 +69,11 @@ func store_score():
 	else:
 		file.open( "user://scores.txt", File.READ_WRITE ) # This does NOT create a new file if there is none but also does NOT truncate existing files
 		file.seek_end() # Goes to the end of the file to write a new line
-	file.store_line( OS.get_environment("USERNAME") + " ~> %s" % score) # Writes a new line that looks like this: "$USERNAME ~> $SCORE"
+	file.store_line( ( OS.get_environment("USERNAME") + " ~> %s" % score ) + " ~> " + get_datetime() ) # Writes a new line that looks like this: "$USERNAME ~> $SCORE ~> $DATE"
 	file.close()
+	
+func get_datetime():
+	var datetime = OS.get_datetime()
+	var time = str(datetime.hour) + ":" + str(datetime.minute) + ":" + str(datetime.second) + " " + OS.get_time_zone_info().name
+	var date = str(datetime.day) + "/" + str(datetime.month) + "/" + str(datetime.year)
+	return time + " " + date
