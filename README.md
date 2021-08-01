@@ -33,10 +33,10 @@ The repository should also then just have the original README copied over and mo
 - [x] Scrolling background
 - [x] Powerups
 - [x] Leaderboard
+- [x] Egghead Productions branding
 
 ## TODO
 - [ ] Upgrades
-- [ ] Egghead Productions branding
 - [ ] Sounds (sound effects+music)
 - [ ] Clean up the code (and maybe port to c#?)
 - [ ] Achievements???

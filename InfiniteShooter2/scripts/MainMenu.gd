@@ -3,7 +3,7 @@ extends Control
 func _input( event ):
 	
 	# If the start screen is still there, remove it! Also return the function so we don't trigger a menu option at the same time.
-	if ( event is InputEventKey or event is InputEventJoypadButton ) and event.pressed and has_node( "StartScreen" ):
+	if ( event is InputEventKey or event is InputEventJoypadButton ) and event.pressed and has_node( "StartScreen" ) and has_node( "StartScreen/LogoContainer" ):
 		
 		# Ensures the scrolling background is not playing
 		get_node( "../ScrollingBackground" ).stop()
