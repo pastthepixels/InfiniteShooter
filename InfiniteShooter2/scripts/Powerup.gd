@@ -4,7 +4,7 @@ extends Area
 # Declare member variables here. Examples:
 export var type = 0
 export var ammo_increase = 10 # 10 bullets
-export var health_increase = .4 # 40%
+export var health_increase = 40
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,13 +1,17 @@
 extends Control
 
-var upgrades = []
-var points = 0
-var health = 0
-var damage = 0
+var upgrade_lookup_table = {} # <-- Something that should NOT be saved but that is used at runtime
+var inactive_color = Color(.5,.5,.5) # <-- The color of inactive (already purchased) labels
+export var upgrades = []
+export var points = 1000
+export var health = 100 # See res://scripts/Player.gd for info
+export var damage = 20
 
-# Creates and reads upgrades (temp)
+# Loads and reads upgrades
 func _ready():
-	create_upgrades()
+	randomize()
+	load_stats()
+	load_upgrades()
 	read_upgrades()
 
 # To handle when something is selected -- all input starts from the main menu but go over here for the upgrade screen
@@ -20,8 +24,20 @@ func handle_selection():
 			get_node("../SelectSquare").show()
 		
 		var name:
-			var node = get_node( "VBoxContainer/Options/" + name )
-			print( node, node.get( "upgrade" ) )
+			var upgrade = upgrade_lookup_table[name]
+			if upgrade.purchased == true:
+				$Alert.error("You have already purchased this upgrade.")
+			elif points - upgrade.cost > 0:
+				$Alert.alert("Upgrade purchased!")
+				set_health( health + upgrade.health )
+				set_damage( damage + upgrade.damage )
+				set_points( points - upgrade.cost )
+				get_node("VBoxContainer/Options/" + name).set("custom_colors/font_color", inactive_color)
+				upgrade.purchased = true
+			else:
+				$Alert.error( "%s points needed." % ( upgrade.cost - points ) )
+			save_upgrades() # <-- Saves upgrades in case we modified them by purchasing them.
+			save_stats() # <-- Same as above but for stats (score, health, and damage)
 
 # Creating a label (pretty straightforward)
 func create_label( text, tooltip ):
@@ -36,35 +52,73 @@ func create_label( text, tooltip ):
 # Creating an array of upgrades
 func create_upgrades():
 	
-	for i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
+	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
 		
-		var damage = randi() % 100
-		var health = randi() % 100
+		var upgrade_damage = randi() % 100
+		var upgrade_health = randi() % 100
 		upgrades.append( {
-			"cost": int( ( float(damage)/100 + 1 ) * ( float(health)/100 + 1 ) * 175 ), # A complicated algorithm, I know, but it's the same formula as InfiniteShooter 1.0
-			"damage": damage, # out of 100
-			"health": health # out of 100
+			"cost": int( ( float(upgrade_damage)/100 + 1 ) * ( float(upgrade_health)/100 + 1 ) * 175 ), # A complicated algorithm, I know, but it's the same formula as InfiniteShooter 1.0
+			"damage": upgrade_damage, # out of 100
+			"health": upgrade_health, # out of 100
+			"purchased": false
 		} )
 
 # Creates labels from the upgrades array
 func read_upgrades():
 	for i in upgrades:
-		var label = create_label( "+{damage}% damage, +{health}% health [{cost} PTS]".format( i ), "" )
-		label.name = "Upgrade%s" % upgrades.find( i, 0 )
+		var label = create_label( "+{damage} damage, +{health} health [{cost} PTS]".format( i ), "" )
+		if i.purchased == true: label.set("custom_colors/font_color", inactive_color)
+		upgrade_lookup_table[label.name] = i
 
 # Updates the labels
 func set_health( value ):
 	
 	health = value
-	$VBoxContainer/Stats/Health.text = "{health}% health".format( { "health": health } )
+	$VBoxContainer/Stats/Health.text = "%s health" % health
 
 func set_damage( value ):
 	
 	damage = value
-	$VBoxContainer/Stats/Damage.text = "{damage}% damage".format( { "damage": damage } )
+	$VBoxContainer/Stats/Damage.text = "%s damage" % damage
 
 func set_points( value ):
 	
 	points = value
-	$VBoxContainer/Stats/Points.text = "{points} points".format( { "points": points } )
+	$VBoxContainer/Stats/Points.text = "%s points" % points
 	if points == 1: $VBoxContainer/Stats/Points.text = "1 point"
+
+# Saving and loading upgrades/player stats onto a file
+func save_upgrades():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	file.open( "user://upgrades.txt", File.WRITE )
+	file.store_var( upgrades )
+	file.close()
+
+func load_upgrades():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	if not file.file_exists("user://upgrades.txt"): # If the file `upgrades.txt` does not exist, create a batch of upgrades and save them. Then proceed to read them.
+		create_upgrades()
+		save_upgrades()
+	file.open( "user://upgrades.txt", File.READ )
+	upgrades = file.get_var( true )
+	file.close()
+	
+func save_stats():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	file.open( "user://userdata.txt", File.WRITE )
+	file.store_var( { "points": points, "health": health, "damage": damage } )
+	file.close()
+
+func load_stats():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	if not file.file_exists("user://userdata.txt"): return # If there is no file containing these stats, don't worry because we have defaults.
+	file.open( "user://userdata.txt", File.READ ) # Opens the userdata file for reading
+	var data = file.get_var( true )
+	set_points(data.points)
+	set_health(data.health)
+	set_damage(data.damage)
+	file.close()

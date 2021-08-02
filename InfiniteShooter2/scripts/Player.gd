@@ -2,9 +2,9 @@ extends Area
 
 # Variables related to the game
 export var max_ammo = 20 # 20 bullets
-export var max_health = 1.0
+export var max_health = 100 # 100 HP
 export var speed = 14
-export var damage = .2
+export var damage = 20 # 20 HP
 var health = max_health
 var ammo = max_ammo
 
@@ -98,7 +98,7 @@ func on_collision( area ): # area == EnemyX model with a custom collision box be
 func enemy_collisions( enemy ): # enemy must be an instance of the class Enemy (no numbers)
 
 	enemy.health -= enemy.health
-	set_health(health - speed / 10) # Dear GDScript developers: *Every other language* has floating-point division.
+	set_health(health - speed * 10)
 
 func reload():
 	
@@ -128,7 +128,7 @@ func heal(): # Regenerates a bit of health every time this function is called.
 	
 	if health < max_health:
 		
-		set_health(health + 0.01)
+		set_health(health + 1)
 	
 	if health >= max_health:
 		

@@ -21,15 +21,15 @@ func _input( event ):
 			
 			"Retry": # If it is the one named "play", play the game.
 				
-				get_tree().get_root().get_node( "SceneTransition" ).play( self, "restart_game" )
+				SceneTransition.play( self, "restart_game" )
 				
 			"Quit": # Otherwise, quit the game
 			
-				get_tree().get_root().get_node( "SceneTransition" ).play( self, "quit_game" )
+				SceneTransition.play( self, "quit_game" )
 			
 			"MainMenu": # or return to the main menu
 			
-				get_tree().get_root().get_node( "SceneTransition" ).play( self, "main_menu" )
+				SceneTransition.play( self, "main_menu" )
 
 func toggle_pause( toggle_smoothly ):
 	if visible == true and toggle_smoothly == true:

@@ -2,7 +2,7 @@ extends Spatial
 
 # Game vars
 var damage
-var max_health = 1
+var max_health = 100
 var health = max_health
 
 # Engine vars
@@ -31,36 +31,34 @@ func initialize():
 			add_child( Enemy1.instance() )
 			
 			# Sets enemy stats
-			max_health = .8
+			max_health = 80
 			health = max_health
-			damage = .07
+			damage = 7
 			$MovingTimer.wait_time = 0.002
 			
 		2:
 			add_child( Enemy2.instance() )
 			
 			# Sets enemy stats
-			max_health = .4
+			max_health = 40
 			health = max_health
-			damage = .1
+			damage = 10
 			$MovingTimer.wait_time = 0.003
 			
 		3:
 			add_child( Enemy3.instance() )
 			
 			# Sets enemy stats
-			max_health = 1.2
+			max_health = 120
 			health = max_health
-			damage = .05
+			damage = 5
 			$MovingTimer.wait_time = 0.001
 	
 	# Multiplies everything by the level number for added difficulty.
-	if game.level > 1:
-		
-		var mult = game.level / 2
-		max_health *= mult
-		health = max_health
-		damage *= mult
+	var mult = float(game.level) / 2
+	max_health *= mult
+	health = max_health
+	damage *= mult
 	
 	# Starts all timers
 	$MovingTimer.start()
@@ -83,9 +81,9 @@ func _process( _delta ):
 	# And I spent countelss hours trying to fix the next `if` statement because of it. 
 	health = stepify( health, 0.01 )
 	
-	if health == 0: explode_ship()
+	if health <= 0: explode_ship()
 	
-	if ( health / max_health ) < 1 and health > 0: $HealthBar.show()# If the health is between 100% and 0%, show the health bar.
+	if health < max_health and health > 0: $HealthBar.show()# If the health is between 100% and 0%, show the health bar.
 	$HealthBar.health = health
 	$HealthBar.max_health = max_health
 
@@ -107,7 +105,7 @@ func explode_ship():
 	$HealthBar.hide()
 	$EnemyModel.queue_free()	
 	game.get_node( "../Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
-	if randi() % 5 <= 2:
+	if randi() % 4 == 1:
 		var powerup = Powerup.instance()
 		powerup.translation = translation
 		game.add_child( powerup )
