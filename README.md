@@ -34,9 +34,9 @@ The repository should also then just have the original README copied over and mo
 - [x] Powerups
 - [x] Leaderboard
 - [x] Egghead Productions branding
+- [x] Upgrades
 
 ## TODO
-- [ ] Upgrades
 - [ ] Sounds (sound effects+music)
 - [ ] Clean up the code (and maybe port to c#?)
 - [ ] Achievements???
