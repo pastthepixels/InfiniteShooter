@@ -6,10 +6,9 @@ export (AudioStream) var main_menu_song
 export (Array, AudioStream) var game_songs
 
 func _ready():
-	play_game()
+	randomize()
 
-# Called when the node enters the scene tree for the first time.
-func play_main_menu():
+func play_main():
 	
 	stream = main_menu_song
 	play()
@@ -17,6 +16,12 @@ func play_main_menu():
 func play_game():
 	
 	crossfade( game_songs[ randi() % game_songs.size() ] )
+
+func play_game_no_crossfade():
+	
+	stop()
+	stream = game_songs[ randi() % game_songs.size() ]
+	play()
 
 func crossfade( audiostream ):
 	

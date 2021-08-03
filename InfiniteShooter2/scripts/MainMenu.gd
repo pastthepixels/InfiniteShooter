@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	GameMusic.play_main()
+
 func _input( event ):
 	
 	# If the start screen is still there, remove it! Also return the function so we don't trigger a menu option at the same time.

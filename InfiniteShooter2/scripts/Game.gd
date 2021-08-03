@@ -12,7 +12,12 @@ export var level = 1
 func _ready():
 	
 	utils.init( get_viewport() )
+	GameMusic.play_game()
+	GameMusic.connect( "finished", self, "switch_song" )
 	load_data()
+
+func switch_song():
+	if has_node("Player"): GameMusic.play_game_no_crossfade()
 
 func _on_Countdown_finished():
 	

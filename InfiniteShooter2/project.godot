@@ -19,6 +19,7 @@ config/icon="res://assets/icon/icon.png"
 [autoload]
 
 SceneTransition="*res://scenes/ui/SceneTransition.tscn"
+GameMusic="*res://scenes/GameMusic.tscn"
 
 [display]
 

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/main.wav-3fec4b27cc66f628e5fb133ba5f24403.sample"
+
+[deps]
+
+source_file="res://sounds/soundtrack/main.wav"
+dest_files=[ "res://.import/main.wav-3fec4b27cc66f628e5fb133ba5f24403.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
