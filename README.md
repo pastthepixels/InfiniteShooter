@@ -35,9 +35,9 @@ The repository should also then just have the original README copied over and mo
 - [x] Leaderboard
 - [x] Egghead Productions branding
 - [x] Upgrades
+- [x] Sounds (sound effects+music)
 
 ## TODO
-- [ ] Sounds (sound effects+music)
 - [ ] Clean up the code (and maybe port to c#?)
 - [ ] Achievements???
 - [ ] Co-op/4 person multiplayer?!?!?!??
