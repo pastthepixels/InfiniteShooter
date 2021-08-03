@@ -3,7 +3,7 @@ extends Control
 var upgrade_lookup_table = {} # <-- Something that should NOT be saved but that is used at runtime
 var inactive_color = Color(.5,.5,.5) # <-- The color of inactive (already purchased) labels
 export var upgrades = []
-export var points = 1000
+export var points = 0
 export var health = 100 # See res://scripts/Player.gd for info
 export var damage = 20
 
@@ -13,6 +13,8 @@ func _ready():
 	load_stats()
 	load_upgrades()
 	read_upgrades()
+	reroll_upgrades()
+	points = 10000
 
 # To handle when something is selected -- all input starts from the main menu but go over here for the upgrade screen
 func handle_selection():
@@ -36,6 +38,7 @@ func handle_selection():
 				upgrade.purchased = true
 			else:
 				$Alert.error( "%s points needed." % ( upgrade.cost - points ) )
+			reroll_upgrades() # <-- Creates a new set of upgrades if all are purchased.
 			save_upgrades() # <-- Saves upgrades in case we modified them by purchasing them.
 			save_stats() # <-- Same as above but for stats (score, health, and damage)
 
@@ -52,6 +55,7 @@ func create_label( text, tooltip ):
 # Creating an array of upgrades
 func create_upgrades():
 	
+	upgrades = []
 	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
 		
 		var upgrade_damage = randi() % 100
@@ -70,6 +74,24 @@ func read_upgrades():
 		if i.purchased == true: label.set("custom_colors/font_color", inactive_color)
 		upgrade_lookup_table[label.name] = i
 
+# Creating a new list of upgrades if all are purchased
+func reroll_upgrades():
+	var purchased_upgrades = 0
+	for i in upgrades:
+		if i.purchased == true: purchased_upgrades += 1
+	print( purchased_upgrades, " ", upgrades.size())
+	if purchased_upgrades == upgrades.size():
+		$Alert.alert("All upgrades purchased! Creating a new set of upgrades...")
+		create_upgrades()
+		save_upgrades()
+		# Resets labels + variables related to them
+		$SelectSquare.index = 0
+		for label_name in upgrade_lookup_table.keys():
+			get_node( "VBoxContainer/Options/" + label_name ).queue_free()
+		upgrade_lookup_table = {}
+		# Creates new ones
+		read_upgrades()
+	
 # Updates the labels
 func set_health( value ):
 	

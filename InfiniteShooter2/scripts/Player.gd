@@ -97,8 +97,8 @@ func on_collision( area ): # area == EnemyX model with a custom collision box be
 # like enemies
 func enemy_collisions( enemy ): # enemy must be an instance of the class Enemy (no numbers)
 
+	set_health(health - enemy.health)
 	enemy.health -= enemy.health
-	set_health(health - speed * 10)
 
 func reload():
 	
