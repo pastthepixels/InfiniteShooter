@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/GameMusic.gd" type="Script" id=1]
+[ext_resource path="res://sounds/game2.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/game1.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -80.0, 0.0 ]
+}
+
+[node name="GameMusic" type="AudioStreamPlayer"]
+volume_db = -80.0
+script = ExtResource( 1 )
+game_songs = [ ExtResource( 3 ), ExtResource( 2 ) ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 1 )
