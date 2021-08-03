@@ -3,8 +3,8 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var scores = read_scores()
-	for i in scores.size():
-		create_label( ( "%s. " + scores[i][0] + " with a score of " + scores[i][1] ) % ( i + 1 ), scores[i][2] )
+	for i in range(0, 12):
+		if scores.size() > i: create_label( ( "%s. " + scores[i][0] + " with a score of " + scores[i][1] ) % ( i + 1 ), scores[i][2] )
 	if scores.size() == 0:
 		create_label( "There are no scores yet!", "Hover over leaderboard entries to see the dates in which they were entered." )
 		create_label( "Finish a game to have your score listed.", "" )

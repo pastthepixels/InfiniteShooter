@@ -79,7 +79,6 @@ func reroll_upgrades():
 	var purchased_upgrades = 0
 	for i in upgrades:
 		if i.purchased == true: purchased_upgrades += 1
-	print( purchased_upgrades, " ", upgrades.size())
 	if purchased_upgrades == upgrades.size():
 		$Alert.alert("All upgrades purchased! Creating a new set of upgrades...")
 		create_upgrades()
