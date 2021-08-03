@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="InfiniteShooter2"
+config/name="InfiniteShooter"
 run/main_scene="res://Main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="InfiniteShooter"
