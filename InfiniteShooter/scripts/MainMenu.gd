@@ -19,6 +19,7 @@ func _input( event ):
 		$StartScreen.remove_child( logo ) # First we remove the logo from this object.
 		self.add_child( logo ) # Then we put it in the parent node.
 		logo.set_owner( self ) # Then we tell Godot that the logo's parent is `MainMenu`.
+		move_child(logo, 3) # <-- Then we move the logo behind the leaderboard/upgrades screens
 		
 		# Gets rid of this background
 		$StartScreen.queue_free()
@@ -29,7 +30,8 @@ func _input( event ):
 		# Slides the logo container -- DYNAMICALLY
 		var tween = Tween.new() # Makes a tween node
 		add_child( tween ) # and adds it to the MainMenu node
-		# vvv Does some fancy math to center the logo just 100 pixels above the middle
+		# |- Does some fancy math to center the logo just 100 pixels above the middle
+		# v
 		tween.interpolate_property( logo, "rect_position", logo.get_position(), Vector2( logo.get_position().x, logo.get_position().y - 100 ), 1, Tween.TRANS_QUAD, Tween.EASE_OUT )
 		tween.start() # Starts it!
 		
@@ -51,19 +53,16 @@ func _input( event ):
 			"Leaderboard": # Same with selecting the leaderboard
 				
 				if $Leaderboard.visible == false:
-					$Leaderboard.show()
-					$LogoContainer.hide()
+					$Leaderboard.show_animated()
 					$SelectSquare.hide()
 				else:
-					$Leaderboard.hide()
-					$LogoContainer.show()
+					$Leaderboard.hide_animated()
 					$SelectSquare.show()
 			
 			"Upgrades": # Same with selecting the upgrades screen
 				
 				if $Upgrades.visible == false:
-					$Upgrades.show()
-					$LogoContainer.hide()
+					$Upgrades.show_animated()
 					$SelectSquare.hide()
 				else:
 					$Upgrades.handle_selection()

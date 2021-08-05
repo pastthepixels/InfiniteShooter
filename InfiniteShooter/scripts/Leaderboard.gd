@@ -1,6 +1,14 @@
 extends Control
 
-# Called when the node enters the scene tree for the first time.
+func show_animated():
+	show()
+	$AnimationPlayer.play("open")
+
+func hide_animated():
+	$AnimationPlayer.play_backwards("open")
+	yield($AnimationPlayer, "animation_finished")
+	hide()
+	
 func _ready():
 	var scores = read_scores()
 	for i in range(0, 12):

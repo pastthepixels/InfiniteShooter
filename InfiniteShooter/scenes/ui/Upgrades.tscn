@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/font/LiberationSans-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/ui/theme-submenu.tres" type="Theme" id=2]
@@ -10,7 +10,24 @@
 size = 64
 font_data = ExtResource( 1 )
 
+[sub_resource type="Animation" id=2]
+resource_name = "open"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 2, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Upgrades" type="Control"]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
@@ -109,3 +126,6 @@ options_path = NodePath("../VBoxContainer/Options")
 on_left = true
 
 [node name="Alert" parent="." instance=ExtResource( 5 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/open = SubResource( 2 )

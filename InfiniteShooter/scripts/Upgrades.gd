@@ -7,6 +7,15 @@ export var points = 0
 export var health = 100 # See res://scripts/Player.gd for info
 export var damage = 20
 
+func show_animated():
+	show()
+	$AnimationPlayer.play("open")
+
+func hide_animated():
+	$AnimationPlayer.play_backwards("open")
+	yield($AnimationPlayer, "animation_finished")
+	hide()
+	
 # Loads and reads upgrades
 func _ready():
 	randomize()
@@ -20,8 +29,7 @@ func handle_selection():
 	match $VBoxContainer/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 		
 		"Back":
-			hide()
-			get_node("../LogoContainer").show()
+			hide_animated()
 			get_node("../SelectSquare").show()
 		
 		var name:
