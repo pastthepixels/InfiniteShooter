@@ -38,6 +38,7 @@ The repository should also then just have the original README copied over and mo
 - [x] Sounds (sound effects+music)
 
 ## TODO
+- [ ] Options menu with volume settings and graphics settings
 - [ ] Clean up the code (and maybe port to c#?)
 - [ ] Achievements???
 - [ ] Co-op/4 person multiplayer?!?!?!??
