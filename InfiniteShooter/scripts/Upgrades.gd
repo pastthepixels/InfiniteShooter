@@ -14,7 +14,6 @@ func _ready():
 	load_upgrades()
 	read_upgrades()
 	reroll_upgrades()
-	points = 10000
 
 # To handle when something is selected -- all input starts from the main menu but go over here for the upgrade screen
 func handle_selection():
