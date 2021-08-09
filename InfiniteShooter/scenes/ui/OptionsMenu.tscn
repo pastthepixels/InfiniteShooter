@@ -1,0 +1,130 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/font/LiberationSans-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "open"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 2, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[node name="OptionsMenu" type="Control"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/open = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 50.0
+margin_top = 40.0
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_right = 281.0
+margin_bottom = 72.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Subtitle" type="Label" parent="VBoxContainer"]
+margin_top = 92.0
+margin_right = 281.0
+margin_bottom = 106.0
+custom_colors/font_color = Color( 0.4, 0.4, 0.4, 1 )
+text = "hover over features to get more information"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 126.0
+margin_right = 281.0
+margin_bottom = 208.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Label" parent="VBoxContainer/Options"]
+margin_right = 281.0
+margin_bottom = 14.0
+hint_tooltip = "Takes you back to the main menu."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "back"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AntiAliasing" type="Label" parent="VBoxContainer/Options"]
+margin_top = 34.0
+margin_right = 281.0
+margin_bottom = 48.0
+hint_tooltip = "Smoothens out sharp lines. (MSAA 4X for those who want to known more)"
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+custom_colors/font_color = Color( 0, 0.501961, 0, 1 )
+text = "anti-aliasing"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bloom" type="Label" parent="VBoxContainer/Options"]
+margin_top = 68.0
+margin_right = 281.0
+margin_bottom = 82.0
+hint_tooltip = "Makes bright parts of the screen \"glow\"."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+custom_colors/font_color = Color( 0, 0.501961, 0, 1 )
+text = "bloom"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
+color = Color( 0, 0, 0, 1 )
+options_path = NodePath("../VBoxContainer/Options")
+on_left = true

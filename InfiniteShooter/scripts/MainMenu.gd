@@ -67,6 +67,14 @@ func _input( event ):
 				else:
 					$Upgrades.handle_selection()
 				
+			"Options": # /options screen
+				
+				if $OptionsMenu.visible == false:
+					$OptionsMenu.show_animated()
+					$SelectSquare.hide()
+				else:
+					$OptionsMenu.handle_selection()
+				
 			"Quit": # Otherwise, quit the game
 			
 				SceneTransition.play( self, "quit_game" )
