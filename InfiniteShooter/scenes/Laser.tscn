@@ -17,6 +17,9 @@ script = ExtResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+aabb = AABB( -0.0521555, -0.0502256, -0.245932, 0.104311, 0.100451, 0.491863 )
+
 [node name="PlayerLaser" parent="." instance=ExtResource( 1 )]
 
 [node name="EnemyLaser" parent="." instance=ExtResource( 3 )]
@@ -31,3 +34,4 @@ stream = ExtResource( 6 )
 bus = "SFX"
 
 [connection signal="area_entered" from="." to="." method="on_collision"]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

@@ -2,19 +2,17 @@ extends Area
 
 
 # Declare member variables here. Examples:
-onready var utils = load( "res://scripts/Utils.gd" ).new()
 export var damage = 0
 export var from_player = true
-var freeze = false
+var freeze = false # <- Needs to be here for making the node still run while the laser explodes
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	utils.init( get_viewport() )
 	if from_player == false: # By default the player laser is visible where the enemy laser model is not. If this laser is from an enemy, swap this.
 		
-			$PlayerLaser.hide()
-			$EnemyLaser.show()
+		$PlayerLaser.hide()
+		$EnemyLaser.show()
 	
 	$LaserSound.pitch_scale = rand_range( 0.9, 1.1 )
 	$LaserSound.play()
@@ -33,11 +31,6 @@ func _process(_delta):
 	else:
 		
 		translation.z += .4 # otherwise, it's from an enemy ship, so move it down.
-		
-	if translation.z < utils.screen_to_local( Vector2( 0, 0 ) ).z or\
-	   translation.z > utils.screen_to_local( Vector2( 0, utils.screen_size.y ) ).z: # If the laser goes past the top of the screen (or the bottom of it)...
-		
-		remove_laser( false ) # ...remove it
 
 # Called when the laser collides with objects
 func on_collision( area ):
@@ -70,3 +63,7 @@ func remove_laser( hit_ship ):
 	
 	yield( $LaserSound, "finished" )
 	queue_free()
+
+
+func _on_VisibilityNotifier_screen_exited():
+	remove_laser(false)

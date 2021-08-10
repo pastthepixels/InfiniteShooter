@@ -5,9 +5,6 @@ extends AudioStreamPlayer
 export (AudioStream) var main_menu_song
 export (Array, AudioStream) var game_songs
 
-func _ready():
-	randomize()
-
 func play_main():
 	
 	stream = main_menu_song
@@ -15,6 +12,7 @@ func play_main():
 
 func play_game():
 	
+	randomize()
 	crossfade( game_songs[ randi() % game_songs.size() ] )
 
 func play_game_no_crossfade():
