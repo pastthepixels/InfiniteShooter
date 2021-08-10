@@ -40,6 +40,7 @@ frames = SubResource( 1 )
 
 [node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
+bus = "SFX"
 
 [connection signal="animation_finished" from="ExplosionAnimation" to="." method="hide_explosion"]
 [connection signal="finished" from="ExplosionSound" to="." method="end_explosion"]

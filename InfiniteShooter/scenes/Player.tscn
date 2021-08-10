@@ -33,9 +33,11 @@ autostart = true
 
 [node name="ReloadBoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="ReloadStart" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+bus = "SFX"
 
 [connection signal="area_entered" from="." to="." method="on_collision"]
 [connection signal="exploded" from="Explosion" to="." method="cleanup_player"]

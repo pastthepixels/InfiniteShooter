@@ -88,15 +88,17 @@ func play_game():
 func quit_game():
 	
 	get_tree().quit()
-	
-
-export var audio_bus_name := "Master"
-
-onready var _bus := AudioServer.get_bus_index(audio_bus_name)
-
-onready var value = db2linear(AudioServer.get_bus_volume_db(_bus))
 
 func _on_OptionsMenu_settings_changed(settings):
 
-	AudioServer.set_bus_volume_db(_bus, linear2db(float(settings["musicvol"])/100))
-	print(float(settings["musicvol"])/100)
+	# Sets music volume
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(float(settings["musicvol"])/100))
+	
+	# Sets sound effect volume
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear2db(float(settings["sfxvol"])/100))
+	
+	# Sets bloom
+	get_node("../WorldEnvironment").environment.glow_enabled = settings["bloom"]
+	
+	# Sets anti-aliasing (with the strangest ternary operator)
+	get_node("../ViewportContainer/Viewport").msaa = Viewport.MSAA_4X if settings["antialiasing"] == true else Viewport.MSAA_DISABLED

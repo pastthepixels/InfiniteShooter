@@ -25,6 +25,7 @@ tracks/0/keys = {
 }
 
 [node name="GameMusic" type="AudioStreamPlayer"]
+bus = "Music"
 script = ExtResource( 1 )
 main_menu_song = ExtResource( 2 )
 game_songs = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ) ]

@@ -73,9 +73,11 @@ __meta__ = {
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "SFX"
 
 [node name="ResumeSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "SFX"
 
 [node name="SelectSquare" parent="." instance=ExtResource( 5 )]
 options_path = NodePath("../Options")

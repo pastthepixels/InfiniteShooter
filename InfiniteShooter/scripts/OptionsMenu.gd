@@ -1,7 +1,10 @@
 extends Control
 
 signal settings_changed
-var settings = {"antialiasing": true, "bloom": true}
+var settings = {"antialiasing": true, "bloom": true, "musicvol": 100, "sfxvol": 100}
+
+func _ready():
+	get_settings()
 
 func show_animated():
 	show()
@@ -19,6 +22,14 @@ func handle_selection():
 		"Back":
 			hide_animated()
 			get_node("../SelectSquare").show()
+		
+		"AntiAliasing":
+			settings["antialiasing"] = !settings["antialiasing"]
+			$VBoxContainer/Options/AntiAliasing.set("custom_colors/font_color",Color(0,.5,0) if settings["antialiasing"] else Color(.7,0,0) )
+		
+		"Bloom":
+			settings["bloom"] = !settings["bloom"]
+			$VBoxContainer/Options/Bloom.set("custom_colors/font_color",Color(0,.5,0) if settings["bloom"] else Color(.7,0,0) )
 
 # To handle percentage inputs/save settings on input
 func _input(event):
@@ -44,9 +55,41 @@ func _input(event):
 # To save/set settings
 func set_settings():
 	
-	emit_signal( "settings_changed", {
-		"musicvol": $VBoxContainer/Options/MusicVolume/TextureProgress.value,
-		"sfxvol": $VBoxContainer/Options/SFXVolume/TextureProgress.value,
-		"antialiasing": settings["antialiasing"],
-		"bloom": settings["bloom"]
-	} )
+	# Updates music/sound effects volume
+	settings["musicvol"] = $VBoxContainer/Options/MusicVolume/TextureProgress.value
+	settings["sfxvol"] = $VBoxContainer/Options/SFXVolume/TextureProgress.value	
+	
+	# Tells the node MainMenu that settings have changed and it needs to set them
+	emit_signal( "settings_changed", settings )
+	
+	# Stores settings
+	var file = File.new() # Creates a new File object, for handling file operations
+	file.open( "user://settings.txt", File.WRITE )
+	file.store_line(to_json(settings))
+	file.close()
+	print(to_json(settings))
+
+# To load settings
+func get_settings():
+	
+	# Reads settings and puts that in a variable called "loaded_settings"
+	var file = File.new() # Creates a new File object, for handling file operations
+	file.open( "user://settings.txt", File.READ )
+	var loaded_settings = parse_json(file.get_line())
+	file.close() # We're done with the `file` for now.
+	
+	# Sets our "settings" variable, but with this code in case an extra setting is here but not in config files
+	# (e.g. something a user would experience after an update)
+	for key in loaded_settings:
+		
+		settings[key] = loaded_settings[key]
+	
+	# Now we set colors/values of elements
+	$VBoxContainer/Options/AntiAliasing.set("custom_colors/font_color",Color(0,.5,0) if settings["antialiasing"] else Color(.7,0,0) )
+	$VBoxContainer/Options/Bloom.set("custom_colors/font_color",Color(0,.5,0) if settings["bloom"] else Color(.7,0,0) )
+	$VBoxContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
+	$VBoxContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
+	
+	# Lastly we tell the parent node, MainMenu, to update everything
+
+	emit_signal( "settings_changed", settings )

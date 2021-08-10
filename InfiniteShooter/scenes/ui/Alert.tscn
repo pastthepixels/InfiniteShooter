@@ -67,5 +67,6 @@ one_shot = true
 
 [node name="ErrorSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+bus = "SFX"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

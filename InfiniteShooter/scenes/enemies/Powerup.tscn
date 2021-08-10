@@ -8,7 +8,7 @@
 
 [sub_resource type="BoxShape" id=1]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "hide"
 length = 0.2
 tracks/0/type = "value"
@@ -24,8 +24,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.8, 0.8, 0.8 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "spin"
+[sub_resource type="Animation" id=3]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -77,11 +76,12 @@ shape = SubResource( 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spin"
-anims/hide = SubResource( 3 )
-anims/spin = SubResource( 2 )
+anims/hide = SubResource( 2 )
+anims/spin = SubResource( 3 )
 anims/use = SubResource( 4 )
 
 [node name="CountdownTimer" type="Timer" parent="."]

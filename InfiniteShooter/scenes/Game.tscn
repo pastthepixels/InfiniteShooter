@@ -26,6 +26,7 @@ wait_time = 30.0
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "SFX"
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
