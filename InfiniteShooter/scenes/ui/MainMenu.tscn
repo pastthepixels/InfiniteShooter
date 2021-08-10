@@ -150,3 +150,5 @@ visible = false
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 7 )]
 visible = false
+
+[connection signal="settings_changed" from="OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]

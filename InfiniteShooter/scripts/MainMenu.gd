@@ -88,3 +88,15 @@ func play_game():
 func quit_game():
 	
 	get_tree().quit()
+	
+
+export var audio_bus_name := "Master"
+
+onready var _bus := AudioServer.get_bus_index(audio_bus_name)
+
+onready var value = db2linear(AudioServer.get_bus_volume_db(_bus))
+
+func _on_OptionsMenu_settings_changed(settings):
+
+	AudioServer.set_bus_volume_db(_bus, linear2db(float(settings["musicvol"])/100))
+	print(float(settings["musicvol"])/100)
