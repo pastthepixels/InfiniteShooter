@@ -64,7 +64,7 @@ func set_settings():
 	
 	# Stores settings
 	var file = File.new() # Creates a new File object, for handling file operations
-	file.open( "user://settings.txt", File.WRITE )
+	file.open( "user://settings.json", File.WRITE )
 	file.store_line(to_json(settings))
 	file.close()
 	print(to_json(settings))
@@ -74,8 +74,9 @@ func get_settings():
 	
 	# Reads settings and puts that in a variable called "loaded_settings"
 	var file = File.new() # Creates a new File object, for handling file operations
-	file.open( "user://settings.txt", File.READ )
+	file.open( "user://settings.json", File.READ )
 	var loaded_settings = parse_json(file.get_line())
+	if loaded_settings == null: return # Returns if settings.json doesn't exist
 	file.close() # We're done with the `file` for now.
 	
 	# Sets our "settings" variable, but with this code in case an extra setting is here but not in config files
