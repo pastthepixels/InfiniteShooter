@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/game5.mp3-c872ba1b34b54172c31d00194dfc40e9.mp3str"
+
+[deps]
+
+source_file="res://sounds/soundtrack/game5.mp3"
+dest_files=[ "res://.import/game5.mp3-c872ba1b34b54172c31d00194dfc40e9.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -22,6 +22,7 @@ config/icon="res://assets/icon/icon.png"
 
 SceneTransition="*res://scenes/ui/SceneTransition.tscn"
 GameMusic="*res://scenes/GameMusic.tscn"
+Utils="*res://scenes/Utils.tscn"
 
 [display]
 
