@@ -103,8 +103,8 @@ func explode_ship():
 	$MovingTimer.stop()
 	$LaserTimer.stop()
 	$HealthBar.hide()
-	$EnemyModel.queue_free()	
-	game.get_node( "../Camera" ).get_node( "ScreenShake" ).shake( .1, .5 )
+	$EnemyModel.queue_free()
+	if has_node( "/root/Main/ShakeCamera" ): get_node( "/root/Main/ShakeCamera" ).add_trauma(rand_range(.4,.6))
 	if randi() % 4 == 1:
 		var powerup = Powerup.instance()
 		powerup.translation = translation
