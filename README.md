@@ -36,11 +36,12 @@ The repository should also then just have the original README copied over and mo
 - [x] Egghead Productions branding
 - [x] Upgrades
 - [x] Sounds (sound effects+music)
+- [x] Options menu with volume settings and graphics settings
 
 ## TODO
-- [ ] Options menu with volume settings and graphics settings
-- [ ] Clean up the code (and maybe port to c#?)
-- [ ] Achievements???
-- [ ] Co-op/4 person multiplayer?!?!?!??
-- [ ] STEAM?!?!?!?!?!!?!?!?!?!?!?! Possibly using: https://gramps.github.io/GodotSteam/
-- [ ] FUNNY HALF-LIFE REFERENCE BECAUSE STEAM?!?!?!?!??????????????????
+- [ ] Clean up the code
+
+## Roadmap for the future
+- [ ] Release on Steam, possibly using: https://gramps.github.io/GodotSteam
+    - [ ] Achievements handled on Steam's server side (no in-game menu makes programming easier)
+    - [ ] Up to 4 person multiplayer
