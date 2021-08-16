@@ -34,11 +34,11 @@ func make_enemy():
 	var enemy = enemy_scene.instance()
 	add_child( enemy ) # adds it to the scene
 	enemy.initialize( level ) # Initializes the enemy
-
+	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
 	enemy.translation.z = Utils.screen_to_local(Vector2()).z - (enemy.get_node( "EnemyModel" ).transform.basis.get_scale().z * 2)
-
+	
 	# Dynamically changing the interval time
 	$EnemyTimer.wait_time = dynamic_enemy_interval( 1.5, 3.5, level * 25, 1 )
 	
@@ -69,7 +69,6 @@ func _on_Player_ammo_changed( value ):
 
 func _on_Player_health_changed( value ):
 	$HUD.update_health( value )
-
 
 
 func _on_ScoreTimer_timeout():
