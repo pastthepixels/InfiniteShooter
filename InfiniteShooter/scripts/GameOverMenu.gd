@@ -2,6 +2,7 @@ extends Control
 
 onready var game = get_parent()
 onready var game_parent = game.get_parent()
+onready var main = get_tree().get_root().get_node("Main")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +40,6 @@ func quit_game():
 func main_menu():
 	game.queue_free()
 	game_parent.remove_child(game)  # Removes the node "Game" from the main menu
-	get_tree().get_root().get_node("Main").add_child(
+	main.add_child(
 		load("res://scenes/ui/MainMenu.tscn").instance()
 	)  # adds a new menu node

@@ -18,11 +18,9 @@ I had a very messy transition between branches to make this the default branch b
 </p>
 
 # Installation
-Not currently installable! I will fix this before I release InfiniteShooter 2.0
-
-# Uninstallation
-
-Not currently uninstallable!
+InfiniteShooter, naturally through using Godot, can export to portable executable files to **any operating system**. However, you can't "install" one of these files. I'm probably going to publish InfiniteShooter to Steam/Flathub in further releases, but to see my process on packaging InfiniteShooter, go to the `Production` folder.  
+  
+If you want to use pre-compiled files, go to the Releases tab (usually on the right).
 
 # Hardware/software requirements
 
