@@ -8,30 +8,31 @@
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
 
-[sub_resource type="Gradient" id=12]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.668224 )
 colors = PoolColorArray( 0.784314, 0, 0, 1, 0.0313726, 0.0313726, 0.0313726, 0 )
 
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 width = 512
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 0, 0, 0, 0.392157, 0.392157, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 width = 64
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 0, 0, 0, 0.392157, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=9]
-gradient = SubResource( 8 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 width = 32
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=7]
 resource_name = "FadeVignette"
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Vignette:modulate")
 tracks/0/interp = 1
@@ -39,10 +40,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 2, 2 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.54902 ) ]
 }
 
 [node name="HUD" type="Control"]
@@ -54,28 +55,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="TextureProgress" parent="."]
-margin_left = 30.0
-margin_top = 30.0
-margin_right = 575.0
-margin_bottom = 106.0
-rect_scale = Vector2( 0.35, 0.35 )
-value = 1.0
-texture_under = ExtResource( 2 )
-texture_progress = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AmmoBar" type="TextureProgress" parent="."]
-margin_left = 30.0
-margin_top = 30.0
-margin_right = 594.0
-margin_bottom = 142.0
-rect_scale = Vector2( 0.35, 0.35 )
-value = 100.0
-texture_under = ExtResource( 4 )
-texture_progress = ExtResource( 1 )
+[node name="Vignette" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -85,7 +70,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -30.0
-texture = SubResource( 13 )
+texture = SubResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -118,8 +103,8 @@ margin_left = -5.0
 margin_top = -5.0
 margin_right = 5.0
 margin_bottom = 5.0
-texture_under = SubResource( 7 )
-texture_progress = SubResource( 9 )
+texture_under = SubResource( 4 )
+texture_progress = SubResource( 6 )
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -145,12 +130,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Vignette" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 5 )
-expand = true
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 594.0
+margin_bottom = 142.0
+rect_scale = Vector2( 0.35, 0.35 )
+value = 1.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AmmoBar" type="TextureProgress" parent="."]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 594.0
+margin_bottom = 142.0
+rect_scale = Vector2( 0.35, 0.35 )
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -158,4 +159,4 @@ __meta__ = {
 [node name="ProgressTween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeVignette = SubResource( 11 )
+anims/FadeVignette = SubResource( 7 )
