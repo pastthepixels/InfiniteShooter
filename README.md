@@ -1,44 +1,51 @@
-InfiniteShooter Godot Port
-==========================
-A "port" of InfiniteShooter to the Godot engine because I want to have some experience with making games in this engine. Because this is now a full port that is better than InfiniteShooter 1.x I will make this InfiniteShooter 2.0. This game: 
-- has way less bugs compared to InfiniteShooter 1.x
-- has the ability to be exported to almost all platforms
-- has better controller support
-- renders everything in real-time with OpenGL
-- is the successor to InfiniteShooter; InfiniteShooter (version) 2.0
+<p align="center">
+  <img alt="InfiniteShooter" src="InfiniteShooter/assets/title-infiniteshooter/title-infiniteshooter.png">
+</p>
+# Wait! I thought InfiniteShooter was written in PyGame!
+To sum it up:  
+a) the PyGame port suffered from a _lot_ of bugs  
+b) I wasn't using standard conventions which made programming a lot harder than usual  
+c) I was learning the Godot engine and thought remaking InfiniteShooter would be a good place to start-turns out I made a port that has no bugs (I hope), is rendered in real-time with OpenGL, and has a lot of new fancy effects! And an options menu!  
+I had a very messy transition between branches to make this the default branch but I can assure you that I won't be switching engines any time soon. And besides, you can always contribute to the PyGame version as it was in the branch aptly named `pygame`.
 
-The repository now just has to have the original README copied over and modified slightly.
-* I also have to move the `models` folder as well.
+# Screenshots
+<!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/52388215/125573351-8dd2fa69-0596-4b5b-8bcf-0424ac417492.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/125573764-2b002dc0-6b78-4e51-87e4-8563904fc351.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/125573659-9caa6f7c-d15c-4f99-aae1-3ba94a64fc24.png" width="200">
+</p>
 
---> "swooshy" sound effect from user qubodup on freesound.org: https://freesound.org/people/qubodup/sounds/60013/
+# Installation
+Not currently installable! I will fix this before I release InfiniteShooter 2.0
 
-## DONE
-- [x] Enemies can shoot lasers
-- [x] The player can shoot lasers
-- [x] The health and ammunition bars for the player
-- [x] The player can kill enemies
-- [x] Enemies can die by falling out of the screen
-- [x] Controller support for in-game actions
-- [x] Ammo can recharge
-- [x] Player movement (and screen wrapping)
-- [x] The player can die
-- [x] Game over screen
-- [x] Pausing screen
-- [x] Main menu
-- [x] Bottom stats bar (level, score, frame rate)
-- [x] Enemy difficulty based on ship type
-- [x] Game "levels"
-- [x] Scrolling background
-- [x] Powerups
-- [x] Leaderboard
-- [x] Egghead Productions branding
-- [x] Upgrades
-- [x] Sounds (sound effects+music)
-- [x] Options menu with volume settings and graphics settings
-- [x] Clean up the code
+# Uninstallation
+
+Not currently uninstallable!
+
+# Hardware/software requirements
+
+**Minimum hardware**: I tested this generally on an Intel Pentium processor. Unfortunately, since I don't know which, I can only garuntee that it works within this range. I'm guessing since there are many performance optimizations and that there is no heavy rendering going on that you can run this on any Pentium, but beware.  
+**Tested hardware**: AMD Ryzen 5 3500U with mobile graphics (Lenovo ThinkPad E595)  
+**Recommended hardware**: The very best you can muster. I don't know, RTX or something. But there's a GPU shortage right now so yeah.  
+**Recommended OS**: GNU/Linux  
+**Tested OS**: Fedora 34
+
+# Contributing
+You actually want to contribute to InfiniteShooter? It'll be great to have you!  
+Only thing is I only have experience to create repositories to store my software and I've never had any experience with contributing with others!  
+If you have any idea on how this works, please contact me (my address is somewhere in my GitHub profile) and let me know!
+
+# Trivia
+This game was my final project for my Computing Science 10 class! The first ever version (before 1.0) was made ~June of 2021 and since then the game's received a lot of improvements.  
+But expect more changes to come! You can see my port of InfiniteShooter to the Godot engine in the `godotengine-port` branch.
 
 ## Roadmap for the future
 - [ ] Improve gameplay (somehow)
 - [ ] Release on Steam, possibly using: https://gramps.github.io/GodotSteam
     - [ ] Achievements handled on Steam's server side (no in-game menu makes programming easier)
     - [ ] Up to 4 person multiplayer
+
+# Credits
+All assets are made by me using Blender/Illustrator/Inkscape/GIMP/LMMS/Audacity.  
+Except for one... The laser sounds are from user Defunct3 right [here](https://freesound.org/people/Defunct3/sounds/77172/) on freesound.org.
