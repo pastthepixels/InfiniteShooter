@@ -49,3 +49,4 @@ But expect more changes to come! You can see my port of InfiniteShooter to the G
 # Credits
 All assets are made by me using Blender/Illustrator/Inkscape/GIMP/LMMS/Audacity.  
 Except for one... The laser sounds are from user Defunct3 right [here](https://freesound.org/people/Defunct3/sounds/77172/) on freesound.org.
+And another: The sound effect for transitions is from user qubodup on freesound.org and you can find it [here](https://freesound.org/people/qubodup/sounds/60013/).
