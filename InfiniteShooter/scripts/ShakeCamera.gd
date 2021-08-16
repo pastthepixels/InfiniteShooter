@@ -1,5 +1,5 @@
 #
-# Modified from https://kidscancode.org/godot_recipes/2d/screen_shake/
+# Modified (very slightly) from https://kidscancode.org/godot_recipes/2d/screen_shake/
 #
 extends Camera2D
 

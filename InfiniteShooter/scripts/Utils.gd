@@ -1,21 +1,24 @@
 extends Node
 
-# Variables!
 # Screen positions
 var top_left
+
 var top_right
+
 var bottom_left
+
 var bottom_right
-# Viewport meaningless stuff
-var screen_size
+
 onready var viewport = get_node("/root/Main/ViewportContainer/Viewport")
+
+onready var screen_size = viewport.get_visible_rect().size
+
 # Random number generation
 var last_random_number = 0
 
 
 # Sets some variables when the class is made
 func _ready():
-	screen_size = viewport.get_visible_rect().size
 	top_left = screen_to_local(Vector2(0, 0))
 	top_right = screen_to_local(Vector2(screen_size.x, 0))
 	bottom_left = screen_to_local(Vector2(0, screen_size.y))

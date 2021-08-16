@@ -1,15 +1,13 @@
 InfiniteShooter Godot Port
 ==========================
+A "port" of InfiniteShooter to the Godot engine because I want to have some experience with making games in this engine. Because this is now a full port that is better than InfiniteShooter 1.x I will make this InfiniteShooter 2.0. This game: 
+- has way less bugs compared to InfiniteShooter 1.x
+- has the ability to be exported to almost all platforms
+- has better controller support
+- renders everything in real-time with OpenGL
+- is the successor to InfiniteShooter; InfiniteShooter (version) 2.0
 
-A "port" of InfiniteShooter to the Godot engine because I want to have some experience with making games in this engine. If finished, this game will:
-- have way less bugs compared to the game
-- have the ability to be exported to almost all platforms
-- have better controller support
-- render everything in real-time with OpenGL (and hopefully with Godot 4.0 Vulkan)
-- be developed on further to get better gameplay mechanics
-- be the successor to InfiniteShooter; InfiniteShooter (version) 2.0
-
-The repository should also then just have the original README copied over and modified slightly.  
+The repository now just has to have the original README copied over and modified slightly.
 * I also have to move the `models` folder as well.
 
 --> "swooshy" sound effect from user qubodup on freesound.org: https://freesound.org/people/qubodup/sounds/60013/
@@ -37,11 +35,10 @@ The repository should also then just have the original README copied over and mo
 - [x] Upgrades
 - [x] Sounds (sound effects+music)
 - [x] Options menu with volume settings and graphics settings
-
-## TODO
-- [ ] Clean up the code
+- [x] Clean up the code
 
 ## Roadmap for the future
+- [ ] Improve gameplay (somehow)
 - [ ] Release on Steam, possibly using: https://gramps.github.io/GodotSteam
     - [ ] Achievements handled on Steam's server side (no in-game menu makes programming easier)
     - [ ] Up to 4 person multiplayer

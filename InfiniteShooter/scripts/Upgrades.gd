@@ -1,28 +1,43 @@
 extends Control
 
-var upgrade_lookup_table = {} # <-- Something that should NOT be saved but that is used at runtime
-var inactive_color = Color(.5,.5,.5) # <-- The color of inactive (already purchased) labels
+# Something that should NOT be saved but that is used at runtime
+var upgrade_lookup_table = {}
+
+# The color of inactive (already purchased) labels
+var inactive_color = Color(.5,.5,.5)
+
 export var upgrades = []
+
+# Points (accumulated score over games)
 export var points = 0
-export var health = 100 # See res://scripts/Player.gd for info
+
+# Health, in HP/100
+export var health = 100
+
+# Damage/bullet, in HP/100
 export var damage = 20
 
+
+# Shows and hides the menu with FADING
 func show_animated():
 	show()
 	$AnimationPlayer.play("open")
+
 
 func hide_animated():
 	$AnimationPlayer.play_backwards("open")
 	yield($AnimationPlayer, "animation_finished")
 	hide()
-	
+
+
 # Loads and reads upgrades
 func _ready():
 	randomize()
-	load_stats()
-	load_upgrades()
-	read_upgrades()
-	reroll_upgrades()
+	load_stats() # <-- Loads stats
+	load_upgrades() # <-- Loads upgrades
+	read_upgrades() # <-- turns them into labels
+	reroll_upgrades() # <-- Does not nessecarilary reroll upgrades but checks first
+
 
 # To handle when something is selected -- all input starts from the main menu but go over here for the upgrade screen
 func handle_selection():
@@ -49,6 +64,7 @@ func handle_selection():
 			save_upgrades() # <-- Saves upgrades in case we modified them by purchasing them.
 			save_stats() # <-- Same as above but for stats (score, health, and damage)
 
+
 # Creating a label (pretty straightforward)
 func create_label( text, tooltip ):
 	var label = Label.new()
@@ -59,12 +75,12 @@ func create_label( text, tooltip ):
 	$VBoxContainer/Options.add_child( label )
 	return label
 
+
 # Creating an array of upgrades
 func create_upgrades():
 	
 	upgrades = []
 	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
-		
 		var upgrade_damage = randi() % 100
 		var upgrade_health = randi() % 100
 		upgrades.append( {
@@ -74,12 +90,14 @@ func create_upgrades():
 			"purchased": false
 		} )
 
+
 # Creates labels from the upgrades array
 func read_upgrades():
 	for i in upgrades:
 		var label = create_label( "+{damage} damage, +{health} health [{cost} PTS]".format( i ), "" )
 		if i.purchased == true: label.set("custom_colors/font_color", inactive_color)
 		upgrade_lookup_table[label.name] = i
+
 
 # Creating a new list of upgrades if all are purchased
 func reroll_upgrades():
@@ -98,22 +116,24 @@ func reroll_upgrades():
 		# Creates new ones
 		read_upgrades()
 	
+
 # Updates the labels
 func set_health( value ):
-	
 	health = value
 	$VBoxContainer/Stats/Health.text = "%s health" % health
 
+
 func set_damage( value ):
-	
 	damage = value
 	$VBoxContainer/Stats/Damage.text = "%s damage" % damage
+
 
 func set_points( value ):
 	
 	points = value
 	$VBoxContainer/Stats/Points.text = "%s points" % points
 	if points == 1: $VBoxContainer/Stats/Points.text = "1 point"
+
 
 # Saving and loading upgrades/player stats onto a file
 func save_upgrades():
@@ -122,6 +142,7 @@ func save_upgrades():
 	file.open( "user://upgrades.txt", File.WRITE )
 	file.store_var( upgrades )
 	file.close()
+
 
 func load_upgrades():
 	
@@ -139,6 +160,7 @@ func save_stats():
 	file.open( "user://userdata.txt", File.WRITE )
 	file.store_var( { "points": points, "health": health, "damage": damage } )
 	file.close()
+
 
 func load_stats():
 	
