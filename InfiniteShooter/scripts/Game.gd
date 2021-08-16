@@ -30,7 +30,6 @@ func _on_Countdown_finished():
 
 
 func make_enemy():
-	print(enemy_scene)
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
 	add_child( enemy ) # adds it to the scene

@@ -77,7 +77,6 @@ func set_settings():
 	file.open("user://settings.json", File.WRITE)
 	file.store_line(to_json(settings))
 	file.close()
-	print(to_json(settings))
 
 
 # To load settings
