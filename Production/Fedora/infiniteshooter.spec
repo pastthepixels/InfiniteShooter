@@ -4,6 +4,8 @@ Release: 2%{?dist}
 Summary: A shooter game
 
 License: GPLv2
+Source0: infiniteshooter
+Source1: InfiniteShooter.desktop
 BuildArch: x86_64
 Prefix: /opt
 
