@@ -12,12 +12,17 @@ func play_main():
 
 func play_game():
 	randomize()
+	
 	crossfade(game_songs[randi() % game_songs.size()])
 
 
 func switch_game():
 	stop()
+	var old_stream = stream
 	stream = game_songs[randi() % game_songs.size()]
+	if old_stream == stream:# Preventing duplicate songs
+		switch_game()
+		return
 	play()
 
 
