@@ -1,6 +1,7 @@
 <p align="center">
   <img alt="InfiniteShooter" src="InfiniteShooter/assets/title-infiniteshooter/title-infiniteshooter.png">
 </p>
+
 # Wait! I thought InfiniteShooter was written in PyGame!
 To sum it up:  
 a) the PyGame port suffered from a _lot_ of bugs  
