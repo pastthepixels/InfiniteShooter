@@ -41,6 +41,9 @@ func make_enemy():
 
 	# Dynamically changing the interval time
 	$EnemyTimer.wait_time = dynamic_enemy_interval( 1.5, 3.5, level * 25, 1 )
+	
+	# And decreasing it per level
+	$EnemyTimer.wait_time -= clamp(level/20, 0, $EnemyTimer.wait_time/2)
 
 
 # Makes the game harder with this complicated formula!
