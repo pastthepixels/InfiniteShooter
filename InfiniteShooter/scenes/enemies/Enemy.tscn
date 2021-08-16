@@ -1,28 +1,19 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/Laser.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
-[ext_resource path="res://scenes/enemies/Enemy2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/effects/Explosion.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/enemies/Enemy3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/enemies/Enemy1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui/HealthBar.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/enemies/Powerup.tscn" type="PackedScene" id=8]
 
 [node name="Enemy" type="Spatial" groups=[
 "enemies",
 ]]
 script = ExtResource( 2 )
-Enemy1 = ExtResource( 6 )
-Enemy2 = ExtResource( 3 )
-Enemy3 = ExtResource( 5 )
-Laser = ExtResource( 1 )
-Powerup = ExtResource( 8 )
 
 [node name="MovingTimer" type="Timer" parent="."]
 wait_time = 0.001
 
 [node name="LaserTimer" type="Timer" parent="."]
+wait_time = 1.5
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 aabb = AABB( -2, -1, -2, 4, 2, 4 )

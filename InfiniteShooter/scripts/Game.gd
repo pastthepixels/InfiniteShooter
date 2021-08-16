@@ -40,7 +40,7 @@ func make_enemy():
 	enemy.translation.z = Utils.screen_to_local(Vector2()).z - (enemy.get_node( "EnemyModel" ).transform.basis.get_scale().z * 2)
 
 	# Dynamically changing the interval time
-	$EnemyTimer.wait_time = dynamic_enemy_interval( 1.5, 5, level * 50, 1 )
+	$EnemyTimer.wait_time = dynamic_enemy_interval( 1.5, 3.5, level * 25, 1 )
 
 
 # Makes the game harder with this complicated formula!

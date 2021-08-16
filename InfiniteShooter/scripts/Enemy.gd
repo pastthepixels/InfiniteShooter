@@ -8,6 +8,8 @@ var max_health = 100
 
 var health = max_health
 
+var speed_mult = 1 # Multiplier for speed (pretty straightforward)
+
 # Scenes used
 
 onready var powerup_scene = load("res://scenes/enemies/Powerup.tscn")
@@ -35,28 +37,29 @@ func initialize(level):
 			# Sets enemy stats
 			max_health = 80
 			damage = 7
-			$MovingTimer.wait_time = 0.002
+			speed_mult = 1
 
 		2:
 			add_child(enemy_scenes[1].instance())
 
 			# Sets enemy stats
-			max_health = 40
+			max_health = 20
 			damage = 10
-			$MovingTimer.wait_time = 0.003
+			speed_mult = 1.5
 
 		3:
 			add_child(enemy_scenes[2].instance())
 
 			# Sets enemy stats
-			max_health = 120
+			max_health = 100
 			damage = 5
-			$MovingTimer.wait_time = 0.001
+			speed_mult = .8
 
 	# Multiplies everything by the level number for added difficulty.
 	var mult = float(level) / 2
-	max_health *= mult
+	max_health *= clamp(mult / 2, .5, 512)
 	damage *= mult
+	speed_mult *= clamp(mult / 5, 1, 2)
 
 	# Sets the current health as the new max health
 	health = max_health
@@ -86,7 +89,7 @@ func _process(_delta):
 
 
 func move_down():
-	translation.z += .05
+	translation.z += .05 * speed_mult
 	# If it is such that the center of the ship moves past the center of the screen...
 	if translation.z > Utils.screen_to_local(Vector2(0, Utils.screen_size.y)).z:
 		if has_node("../Player"):
