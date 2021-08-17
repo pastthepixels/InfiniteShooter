@@ -6,7 +6,6 @@ Summary: A shooter game
 
 License: GPLv2
 Source0: https://github.com/pastthepixels/InfiniteShooter/raw/godot/Production/sources.tar.gz
-BuildArch: x86_64
 
 %description
 A shooter game.
