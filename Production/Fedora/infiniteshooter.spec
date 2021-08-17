@@ -15,8 +15,8 @@ A shooter game.
 %install
 mkdir -p -m0755 %{buildroot}/opt
 mkdir -p %{buildroot}/usr/share/applications
-cp -r %{_specdir}/infiniteshooter %{buildroot}/opt
-cp -r %{_specdir}/InfiniteShooter.desktop %{buildroot}/usr/share/applications
+cp -r %{SOURCE0} %{buildroot}/opt
+cp -r %{SOURCE1} %{buildroot}/usr/share/applications
 #install -p -m 755 %{SOURCE0} %{buildroot}
 
 %files

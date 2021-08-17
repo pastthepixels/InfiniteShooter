@@ -4,7 +4,7 @@ This contains all the files required to create packages for InfiniteShooter. I a
   
 The main reason for having this folder though was because Godot _exports_ InfiniteShooter, but doesn't make it "deployable" as an installable program on other systems.  
   
---> Note: Type `make compile` to compile InfiniteShooter from Godot to each folder.
+--> Note: Type `make compile` to compile InfiniteShooter from Godot to the folder "sources".
 
 ## To fully compile a new package...
 1. Ensure Godot has the correct libraries to compile releases
