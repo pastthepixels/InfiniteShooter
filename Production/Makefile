@@ -14,7 +14,7 @@ flatpak:
 
 	# Creates a "repo", whatever that means. Modified from https://github.com/scx/qalculate-flatpak#create-repo
 	flatpak-builder --repo="repo" --force-clean "build" "com.pastthepixels.InfiniteShooter.yml"
-		
+
 	# Compiles InfiniteShooter into a .flatpak for installation
 	flatpak build-bundle "repo" "InfiniteShooter.flatpak" "com.pastthepixels.InfiniteShooter" --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
 
@@ -30,6 +30,6 @@ test_flatpak:
 
 	cd Flatpak
 
-	flatpak-builder build-dir com.pastthepixels.InfiniteShooter.yml --force-clean
-	flatpak-builder --user --install build-dir com.pastthepixels.InfiniteShooter.yml --force-clean
+	flatpak-builder build com.pastthepixels.InfiniteShooter.yml --force-clean
+	flatpak-builder --user --install build com.pastthepixels.InfiniteShooter.yml --force-clean
 	flatpak run com.pastthepixels.InfiniteShooter

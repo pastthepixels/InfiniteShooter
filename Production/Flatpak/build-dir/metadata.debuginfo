@@ -1,5 +1,0 @@
-[Runtime]
-name=com.pastthepixels.InfiniteShooter.Debug
-
-[ExtensionOf]
-ref=app/com.pastthepixels.InfiniteShooter/x86_64/master
