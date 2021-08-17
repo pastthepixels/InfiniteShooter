@@ -18,9 +18,11 @@ I had a very messy transition between branches to make this the default branch b
 </p>
 
 # Installation
-InfiniteShooter, naturally through using Godot, can export to portable executable files to **any operating system**. However, you can't "install" one of these files. I'm probably going to publish InfiniteShooter to Steam/Flathub in further releases, but to see my process on packaging InfiniteShooter, go to the `Production` folder.<br>
-<br>
-If you want to use pre-compiled files, go to the Releases tab (usually on the right).
+## GNU/Linux
+1. Go to the Releases tab.
+2. Download `InfiniteShooter.flatpak` from the latest version of InfiniteShooter
+3. Open the terminal in your downloads folder and type `flatpak install InfiniteShooter.flatpak`.
+4. Profit
 
 # Hardware/software requirements
 
