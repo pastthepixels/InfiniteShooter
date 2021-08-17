@@ -1,0 +1,16 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Game;
+Comment=A shooter game.
+Exec=/opt/infiniteshooter/InfiniteShooter.x86_64
+GenericName=InfiniteShooter
+Icon=/opt/infiniteshooter/icon.png
+MimeType=
+Name[en_US]=InfiniteShooter
+Name=InfiniteShooter
+StartupNotify=true
+Terminal=false
+Type=Application
+Version=1.0
+X-Icon-Path=/opt/infiniteshooter/icon.png
+X-KDE-SubstituteUID=false

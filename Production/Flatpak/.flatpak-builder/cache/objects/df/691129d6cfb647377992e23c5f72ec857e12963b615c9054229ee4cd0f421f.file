@@ -1,0 +1,16 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Game;
+Comment=A shooter game.
+Exec=com.pastthepixels.InfiniteShooter
+GenericName=InfiniteShooter
+Icon=com.pastthepixels.InfiniteShooter
+MimeType=
+Name[en_US]=InfiniteShooter
+Name=InfiniteShooter
+StartupNotify=true
+Terminal=false
+Type=Application
+Version=1.0
+X-Icon-Path=com.pastthepixels.InfiniteShooter
+X-KDE-SubstituteUID=false

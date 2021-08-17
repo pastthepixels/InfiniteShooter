@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=InfiniteShooter
+GenericName=InfiniteShooter
+Comment=A shooter game
+Exec=godot-runner
+Icon=com.pastthepixels.InfiniteShooter
+Type=Application
+Categories=Game
+Version=2.0

@@ -1,0 +1,34 @@
+# Remove comments and change name of godot-runner.pck to InfiniteShooter.pck to use the packed binary
+app-id: com.pastthepixels.InfiniteShooter
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+base: org.godotengine.godot.BaseApp
+base-version: '3.3'
+sdk: org.freedesktop.Sdk
+command: godot-runner
+modules:
+  - name: InfiniteShooter
+    buildsystem: simple
+    build-commands:
+      #- install -D InfiniteShooter.x86_64 /app/bin/InfiniteShooter.x86_64
+      - install -D InfiniteShooter.pck /app/bin/godot-runner.pck
+    sources:
+      #- type: file
+      #  path: infiniteshooter/InfiniteShooter.x86_64
+      - type: file
+        path: infiniteshooter/InfiniteShooter.pck
+  - name: InfiniteShooterShortcut
+    buildsystem: simple
+    build-commands:
+      - install -D com.pastthepixels.InfiniteShooter.desktop /app/share/applications/com.pastthepixels.InfiniteShooter.desktop
+      - install -D com.pastthepixels.InfiniteShooter.png /app/share/icons/hicolor/256x256/apps/com.pastthepixels.InfiniteShooter.png
+    sources:
+      - type: file
+        path: com.pastthepixels.InfiniteShooter.desktop
+      - type: file
+        path: com.pastthepixels.InfiniteShooter.png
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=all
