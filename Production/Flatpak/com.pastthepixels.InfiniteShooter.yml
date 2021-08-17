@@ -7,6 +7,7 @@ base-version: '3.3'
 sdk: org.freedesktop.Sdk
 command: infiniteshooter-launcher
 modules:
+  # InfiniteShooter/shortcut/launcher
   - name: InfiniteShooter
     buildsystem: simple
     build-commands:
@@ -39,6 +40,7 @@ modules:
         path: set-gtk-dark-theme.py
       - type: file
         path: infiniteshooter-launcher
+  # Libraries needed for the dark theme script to work
   - name: xprop
     sources:
     - type: archive
@@ -76,4 +78,4 @@ finish-args:
   - --share=ipc
   - --socket=x11
   - --socket=pulseaudio
-  - --device=all
+  - --device=all # <-- This flag enables controller support
