@@ -11,5 +11,5 @@ The main reason for having this folder though was because Godot _exports_ Infini
 2. Clone this repository somewhere.
 3. Open up a console. Type "make compile".
 4. Once this has finished, ensure you have `flatpak-builder` installed.
-5. Type "make build_flatpak".
+5. Type "make flatpak".
 6. Type "flatpak install Flatpak/InfiniteShooter.flatpak" to install InfiniteShooter or "make clean" to clean up everything.

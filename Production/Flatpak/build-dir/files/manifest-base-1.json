@@ -1,0 +1,85 @@
+{
+  "id" : "org.godotengine.godot.BaseApp",
+  "branch" : "3.3",
+  "runtime" : "org.freedesktop.Platform",
+  "runtime-version" : "20.08",
+  "runtime-commit" : "63c4b310325615c74b8b5b2576733e3e7b751026cb5bf458c98ffacd7bfc6235",
+  "sdk" : "org.freedesktop.Sdk",
+  "sdk-commit" : "aa987b7abf13970a660324557bcf158f6924f9049c8b0a8b6c40c0db212f86b5",
+  "build-options" : {
+    "env" : {
+      "BUILD_NAME" : "flathub",
+      "SCONS_FLAGS" : "platform=x11 CCFLAGS=-I/app/include prefix=/app unix_global_settings_path=/app progress=no builtin_freetype=no builtin_libogg=no builtin_libpng=no builtin_libtheora=no builtin_libvorbis=no builtin_libwebp=no builtin_libvpx=no builtin_zlib=no udev=no\n"
+    },
+    "arch" : {
+      "x86_64" : {
+        "env" : {
+          "SCONS_FLAGS_EXTRA" : "use_lto=yes"
+        }
+      }
+    }
+  },
+  "command" : "godot-runner",
+  "modules" : [
+    {
+      "name" : "glu",
+      "config-opts" : [
+        "--disable-static"
+      ],
+      "sources" : [
+        {
+          "url" : "https://mesa.freedesktop.org/archive/glu/glu-9.0.1.tar.xz",
+          "sha256" : "fb5a4c2dd6ba6d1c21ab7c05129b0769544e1d68e1e3b0ffecb18e73c93055bc",
+          "type" : "archive"
+        }
+      ],
+      "cleanup" : [
+        "/include",
+        "/lib/*.a",
+        "/lib/*.la",
+        "/lib/pkgconfig"
+      ]
+    },
+    {
+      "name" : "scons",
+      "buildsystem" : "simple",
+      "sources" : [
+        {
+          "url" : "https://downloads.sourceforge.net/project/scons/scons/4.0.1/scons-4.0.1.tar.gz",
+          "sha256" : "722ed104b5c624ecdc89bd4e02b094d2b14d99d47b5d0501961e47f579a2007c",
+          "type" : "archive"
+        }
+      ],
+      "cleanup" : [
+        "*"
+      ],
+      "build-commands" : [
+        "python3 setup.py install --prefix=/app"
+      ]
+    },
+    {
+      "name" : "godot-runner",
+      "buildsystem" : "simple",
+      "sources" : [
+        {
+          "url" : "https://downloads.tuxfamily.org/godotengine/3.3.2/godot-3.3.2-stable.tar.xz",
+          "sha256" : "7693c4ef541b815fa5035f136aaf75187a30f0ea8d15cf4ef05433c1c246c2d8",
+          "type" : "archive"
+        },
+        {
+          "only-arches" : [
+            "i386"
+          ],
+          "path" : "godot-i386-disable-O3.patch",
+          "type" : "patch"
+        }
+      ],
+      "build-commands" : [
+        "python3 /app/bin/scons $SCONS_FLAGS $SCONS_FLAGS_EXTRA tools=no target=release -j \"$FLATPAK_BUILDER_N_JOBS\"",
+        "install -Dm755 bin/godot.x11.opt.* /app/bin/godot-runner"
+      ]
+    }
+  ],
+  "tags" : [
+  ]
+}
