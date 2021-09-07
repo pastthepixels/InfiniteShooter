@@ -11,8 +11,8 @@ var low_health = false
 
 
 func _process(_delta):
-	$HealthBar.value = animated_health
-	$AmmoBar.value = animated_ammo
+	$ProgressBars/ProgressViewport/HealthBar.value = animated_health
+	$ProgressBars/ProgressViewport/AmmoBar.value = animated_ammo
 	$StatusBar/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
 	$StatusBar/Labels/Level/Progress.value = level_timer.time_left / level_timer.wait_time * 100
 

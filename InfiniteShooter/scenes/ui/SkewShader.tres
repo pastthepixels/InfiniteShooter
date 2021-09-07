@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "// Found off the Internet. Yeah... I know.
+
+shader_type canvas_item;
+
+// parameters
+uniform float level = 1;		// skewness / angle -> computed outside 
+
+// skew the shadow and adjust its length
+void vertex() {
+	VERTEX.x -= VERTEX.y * level;
+}
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/level = 0.5

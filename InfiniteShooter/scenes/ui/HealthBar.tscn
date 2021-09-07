@@ -1,9 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/healthbar/base.png" type="Texture" id=1]
 [ext_resource path="res://assets/healthbar/base_flat.png" type="Texture" id=2]
 [ext_resource path="res://scripts/HealthBar.gd" type="Script" id=3]
-[ext_resource path="res://assets/healthbar/health.png" type="Texture" id=4]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.587045 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0.129412, 0.129412, 0.129412, 0.196078, 1, 1, 1, 0.588235 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 150
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 0.40625, 0.0999756, 0.0999756, 1, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 
 [node name="HealthBar" type="Sprite3D"]
 billboard = 1
@@ -16,8 +34,25 @@ transparent_bg = true
 usage = 0
 render_target_v_flip = true
 
-[node name="HealthBar2D" type="TextureProgress" parent="Viewport"]
-margin_right = 40.0
+[node name="HealthBarBG" type="TextureRect" parent="Viewport"]
+visible = false
+margin_right = 160.0
 margin_bottom = 40.0
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 4 )
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar2D" type="TextureProgress" parent="Viewport"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 155.0
+margin_bottom = 35.0
+value = 60.0
+texture_under = SubResource( 4 )
+texture_progress = SubResource( 6 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
