@@ -52,9 +52,12 @@ func remove_laser(hit_ship):
 	hide()
 	$CollisionShape.queue_free()
 	if hit_ship == true:
-		$HitSound.pitch_scale = rand_range(0.9, 1.1)
+		if has_node("/root/Main/ShakeCamera"):
+			get_node("/root/Main/ShakeCamera").add_trauma(.3)  # Shakes the screen a little bit
+		$HitSound.pitch_scale = rand_range(0.9, 1.1) # and plays a sound
 		$HitSound.play()
 		yield($HitSound, "finished")
+	
 
 	yield($LaserSound, "finished")
 	queue_free()

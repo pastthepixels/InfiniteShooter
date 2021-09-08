@@ -106,7 +106,7 @@ func explode_ship():
 	$HealthBar.hide()
 	$EnemyModel.queue_free()
 	if has_node("/root/Main/ShakeCamera"):
-		get_node("/root/Main/ShakeCamera").add_trauma(.5)  # Shakes the screen
+		get_node("/root/Main/ShakeCamera").add_trauma(.4)  # Shakes the screen
 	if randi() % 4 == 1:  # 1/4 chance to create a powerup
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation

@@ -53,14 +53,14 @@ transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107,
 
 [node name="SpotLight" type="SpotLight" parent="ViewportContainer/Viewport"]
 transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 20, 0, -20 )
-light_color = Color( 0.784314, 0.392157, 0, 1 )
+light_color = Color( 1, 0.686275, 0.352941, 1 )
 light_energy = 6.0
 spot_range = 58.0
 spot_angle = 29.0037
 
 [node name="SpotLight2" type="SpotLight" parent="ViewportContainer/Viewport"]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -20, 5, 20 )
-light_color = Color( 0.235294, 0.235294, 1, 1 )
+light_color = Color( 0.46875, 0.46875, 1, 1 )
 light_energy = 6.0
 spot_range = 58.0
 spot_angle = 29.0037
