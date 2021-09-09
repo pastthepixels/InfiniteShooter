@@ -175,24 +175,23 @@ __meta__ = {
 
 [node name="ProgressViewport" type="Viewport" parent="ProgressBars"]
 size = Vector2( 202, 60 )
-size_override_stretch = true
 transparent_bg = true
 handle_input_locally = false
+fxaa = true
 usage = 0
 render_target_update_mode = 3
 
 [node name="ColorRect" type="TextureRect" parent="ProgressBars/ProgressViewport"]
-margin_right = 190.0
-margin_bottom = 40.0
+margin_right = 180.0
+margin_bottom = 32.0
 texture = SubResource( 9 )
 expand = true
 
 [node name="HealthBar" type="TextureProgress" parent="ProgressBars/ProgressViewport"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 125.0
-margin_bottom = 25.0
-rect_scale = Vector2( 1.5, 1.6 )
+margin_right = 185.0
+margin_bottom = 37.0
 value = 100.0
 texture_under = SubResource( 11 )
 texture_progress = SubResource( 13 )
@@ -204,9 +203,8 @@ __meta__ = {
 [node name="AmmoBar" type="TextureProgress" parent="ProgressBars/ProgressViewport"]
 margin_left = 5.0
 margin_top = 23.0
-margin_right = 125.0
-margin_bottom = 32.0
-rect_scale = Vector2( 1.5, 1.6 )
+margin_right = 185.0
+margin_bottom = 37.0
 value = 100.0
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )

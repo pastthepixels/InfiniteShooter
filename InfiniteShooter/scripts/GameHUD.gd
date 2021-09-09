@@ -46,8 +46,8 @@ func update_health(value):
 		low_health = false
 		$AnimationPlayer.play_backwards("FadeVignette")
 
-
 func update_ammo(value):
+	
 	$ProgressTween.interpolate_property(
 		self, "animated_ammo", animated_ammo, value * 100, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN
 	)
