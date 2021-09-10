@@ -138,6 +138,7 @@ options_path = NodePath("../VBoxContainer/Options")
 on_left = true
 
 [node name="Alert" parent="." instance=ExtResource( 5 )]
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/open = SubResource( 3 )

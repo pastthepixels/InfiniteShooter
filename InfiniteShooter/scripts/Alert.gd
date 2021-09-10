@@ -2,9 +2,11 @@ extends Label
 
 
 func alert(alert_text):
+	hide()
 	text = alert_text
 	$AnimationPlayer.play("slide")
 	$Timer.start()
+	show()
 
 
 func error(error_text):
