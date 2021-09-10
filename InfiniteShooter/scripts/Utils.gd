@@ -9,16 +9,21 @@ var bottom_left
 
 var bottom_right
 
-onready var viewport = get_node("/root/Main/ViewportContainer/Viewport")
+var viewport
 
-onready var screen_size = viewport.get_visible_rect().size
+var screen_size
 
 # Random number generation
 var last_random_number = 0
 
 
 # Sets some variables when the class is made
-func _ready():
+func init(viewport_path):
+	# Sets viewport
+	viewport = get_node("/root/Main/" + viewport_path)
+	screen_size = viewport.get_visible_rect().size
+	
+	# other stuff
 	top_left = screen_to_local(Vector2(0, 0))
 	top_right = screen_to_local(Vector2(screen_size.x, 0))
 	bottom_left = screen_to_local(Vector2(0, screen_size.y))

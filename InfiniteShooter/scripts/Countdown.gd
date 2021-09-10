@@ -17,9 +17,10 @@ func _ready():
 			yield($AnimationPlayer, "animation_finished") # wait until that's done
 			yield(get_tree().create_timer(.5), "timeout")  # and then wait a bit for you to be able to read the text
 		else: # Special flashing of text if we reach zero
+			$BackgroundFade.play("fade-background") # We also fade out the background
 			for a in range(0, 3): # number of flashes
 				$AnimationPlayer.stop(true)
-				$AnimationPlayer.play("show-fast") # Now we fade in the text
+				$AnimationPlayer.play("show") # Now we fade in the text
 				yield(get_tree().create_timer(.4), "timeout")  # and then wait a bit for you to be able to read the text
 	emit_signal("finished") # Once we are done the loop, we signal that we are done the countdown
 	queue_free() # and then remove the countdown node

@@ -89,7 +89,7 @@ func _input(event):
 func play_game():
 	queue_free()
 	get_node("../ScrollingBackground/AnimationPlayer").play("RotateCamera")
-	get_node("../ViewportContainer/Viewport").add_child(load("res://scenes/Game.tscn").instance())
+	get_node("/root/Main/").add_child(load("res://scenes/Game.tscn").instance())
 
 
 func quit_game():
@@ -106,12 +106,11 @@ func _on_OptionsMenu_settings_changed(settings):
 	AudioServer.set_bus_volume_db(
 		AudioServer.get_bus_index("SFX"), linear2db(float(settings["sfxvol"]) / 100)
 	)
-
 	# Sets bloom
 	get_node("../WorldEnvironment").environment.glow_enabled = settings["bloom"]
 
 	# Sets anti-aliasing (with the strangest ternary operator)
-	get_node("../ViewportContainer/Viewport").msaa = (
+	get_viewport().msaa = (
 		Viewport.MSAA_4X
 		if settings["antialiasing"] == true
 		else Viewport.MSAA_DISABLED

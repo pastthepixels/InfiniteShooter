@@ -1,8 +1,8 @@
 extends Control
 
 onready var game = get_parent()
-onready var game_parent = game.get_parent()
-onready var main = get_tree().get_root().get_node("Main")
+onready var game_space = get_node("." + game.game_space)
+onready var main = get_node("/root/Main")
 
 
 func _ready():
@@ -14,7 +14,7 @@ func _input(event):
 		toggle_pause(true)
 
 	if event.is_action_pressed("ui_accept") and is_visible():
-		game.get_node("Player").ammo = 0  # To prevent the player from firing right as we unpause (since we are unpausing with the space bar)
+		game_space.get_node("Player").ammo = 0  # To prevent the player from firing right as we unpause (since we are unpausing with the space bar)
 		toggle_pause(false)
 		get_node("SelectSquare/AcceptSound").play()
 		match $Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
@@ -48,8 +48,8 @@ func toggle_pause(toggle_smoothly):
 
 func restart_game():
 	game.queue_free()
-	game_parent.remove_child(game)  # Removes the node "Game" from the main menu
-	game_parent.add_child(load("res://scenes/Game.tscn").instance())  # adds a new game node
+	main.remove_child(game)  # Removes the node "Game" from the main menu
+	main.add_child(load("res://scenes/Game.tscn").instance())  # adds a new game node
 
 
 func quit_game():
@@ -58,5 +58,5 @@ func quit_game():
 
 func main_menu():
 	game.queue_free()
-	game_parent.remove_child(game)  # Removes the node "Game" from the main menu
+	main.remove_child(game)  # Removes the node "Game" from the main menu
 	main.add_child(load("res://scenes/ui/MainMenu.tscn").instance())  # adds a new menu node

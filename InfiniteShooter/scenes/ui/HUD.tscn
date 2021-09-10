@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
-[ext_resource path="res://scenes/ui/SkewShader.tres" type="Material" id=9]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.668224 )
@@ -163,31 +162,18 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeVignette = SubResource( 7 )
 
-[node name="ProgressBars" type="ViewportContainer" parent="."]
-material = ExtResource( 9 )
-margin_left = 50.0
+[node name="ProgressBars" type="TextureRect" parent="."]
+margin_left = 40.0
 margin_top = 30.0
-margin_right = 252.0
-margin_bottom = 90.0
+margin_right = 220.0
+margin_bottom = 62.0
+texture = SubResource( 9 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ProgressViewport" type="Viewport" parent="ProgressBars"]
-size = Vector2( 202, 60 )
-transparent_bg = true
-handle_input_locally = false
-fxaa = true
-usage = 0
-render_target_update_mode = 3
-
-[node name="ColorRect" type="TextureRect" parent="ProgressBars/ProgressViewport"]
-margin_right = 180.0
-margin_bottom = 32.0
-texture = SubResource( 9 )
-expand = true
-
-[node name="HealthBar" type="TextureProgress" parent="ProgressBars/ProgressViewport"]
+[node name="HealthBar" type="TextureProgress" parent="ProgressBars"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 185.0
@@ -200,7 +186,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AmmoBar" type="TextureProgress" parent="ProgressBars/ProgressViewport"]
+[node name="AmmoBar" type="TextureProgress" parent="ProgressBars"]
 margin_left = 5.0
 margin_top = 23.0
 margin_right = 185.0

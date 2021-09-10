@@ -1,10 +1,11 @@
-extends Spatial
+extends Node
 
 # To do with creating enemies
 onready var enemy_scene = preload("res://scenes/enemies/Enemy.tscn")
+export (String) var game_space = "./ViewportContainer/Viewport/GameSpace"
 
 # Data used when saving the game
-export onready var save_data = { "points": 0, "damage": $Player.damage, "health": $Player.max_health }
+export onready var save_data = { "points": 0, "damage": get_node(game_space + "/Player").damage, "health": get_node(game_space + "/Player").max_health }
 
 # Game score/level
 export var score = 0
@@ -13,13 +14,21 @@ export var level = 1
 
 
 func _ready():
+	# Inherits graphics settings
+	get_node("ViewportContainer/Viewport").msaa = get_viewport().msaa
+	# Inits "utils" with the viewport
+	Utils.init("Game/ViewportContainer/Viewport")
+	# Player stuff
+	get_node(game_space + "/Player").connect("ammo_changed", self, "_on_Player_ammo_changed")
+	get_node(game_space + "/Player").connect("health_changed", self, "_on_Player_health_changed")
+	# Music stuff
 	GameMusic.play_game() # Fade to a game song
-	GameMusic.connect( "finished", self, "switch_song" ) # when finished, switch to a random game song
+	GameMusic.connect("finished", self, "switch_song") # when finished, switch to a random game song
 	load_game() # Load save data (player damage/health)
 
 
 func switch_song():
-	if has_node("Player"): GameMusic.switch_game()
+	if has_node(game_space + "/Player"): GameMusic.switch_game()
 
 
 func _on_Countdown_finished():
@@ -32,12 +41,12 @@ func _on_Countdown_finished():
 func make_enemy():
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
-	add_child( enemy ) # adds it to the scene
+	get_node(game_space).add_child(enemy) # adds it to the scene
 	enemy.initialize( level ) # Initializes the enemy
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - (enemy.get_node( "EnemyModel" ).transform.basis.get_scale().z * 2)
+	enemy.translation.z = Utils.screen_to_local(Vector2()).z - (enemy.get_node("EnemyModel").transform.basis.get_scale().z * 2)
 	
 	# Dynamically changing the interval time
 	$EnemyTimer.wait_time = dynamic_enemy_interval( 1.5, 3.5, level * 25, 1 )
@@ -48,8 +57,10 @@ func make_enemy():
 
 # Makes the game harder with this complicated formula!
 func dynamic_enemy_interval( min_interval_time, max_interval_time, typical_enemy_health, multiplier ):
-	return clamp( max_interval_time - (float($Player.damage) / typical_enemy_health * max_interval_time / multiplier ), min_interval_time, max_interval_time )
-
+	if has_node(game_space + "/Player"):
+		return clamp(max_interval_time - (float(get_node(game_space + "/Player").damage) / typical_enemy_health * max_interval_time / multiplier ), min_interval_time, max_interval_time )
+	else:
+		return 0
 
 func _on_Player_died():
 	$EnemyTimer.stop()
@@ -111,8 +122,8 @@ func load_game():
 	if not file.file_exists("user://userdata.txt"): return # If there is no file containing these stats, don't worry because we have defaults.
 	file.open( "user://userdata.txt", File.READ ) # Opens the userdata file for reading
 	save_data = file.get_var(true)
-	$Player.set_health(save_data.health)
-	$Player.damage = save_data.damage
+	$ViewportContainer/Viewport/GameSpace/Player.set_health(save_data.health)
+	$ViewportContainer/Viewport/GameSpace/Player.damage = save_data.damage
 	file.close()
 
 
