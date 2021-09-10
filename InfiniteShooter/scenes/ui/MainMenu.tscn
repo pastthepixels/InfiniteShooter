@@ -63,40 +63,40 @@ __meta__ = {
 }
 
 [node name="Play" type="Label" parent="Options"]
-margin_right = 82.0
-margin_bottom = 16.0
+margin_right = 81.0
+margin_bottom = 15.0
 text = "start"
 align = 1
 valign = 1
 
 [node name="Leaderboard" type="Label" parent="Options"]
-margin_top = 31.0
-margin_right = 82.0
-margin_bottom = 47.0
+margin_top = 30.0
+margin_right = 81.0
+margin_bottom = 45.0
 text = "leaderboard"
 align = 1
 valign = 1
 
 [node name="Upgrades" type="Label" parent="Options"]
-margin_top = 62.0
-margin_right = 82.0
-margin_bottom = 78.0
+margin_top = 60.0
+margin_right = 81.0
+margin_bottom = 75.0
 text = "upgrades"
 align = 1
 valign = 1
 
 [node name="Options" type="Label" parent="Options"]
-margin_top = 93.0
-margin_right = 82.0
-margin_bottom = 109.0
+margin_top = 90.0
+margin_right = 81.0
+margin_bottom = 105.0
 text = "options"
 align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
-margin_top = 124.0
-margin_right = 82.0
-margin_bottom = 140.0
+margin_top = 120.0
+margin_right = 81.0
+margin_bottom = 135.0
 text = "quit"
 align = 1
 valign = 1
@@ -138,6 +138,7 @@ margin_top = 50.5
 margin_right = 91.0
 margin_bottom = 73.5
 text = "press any key to continue"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
