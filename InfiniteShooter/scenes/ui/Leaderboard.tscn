@@ -10,7 +10,6 @@ size = 64
 font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "open"
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -24,11 +23,25 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Leaderboard" type="Control"]
+modulate = Color( 1, 1, 1, 0 )
 light_mask = 524288
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_scale = Vector2( 1e-05, 1 )
 theme = ExtResource( 2 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -53,8 +66,8 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 368.0
-margin_bottom = 72.0
+margin_right = 326.0
+margin_bottom = 65.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "leaderboard"
@@ -63,17 +76,17 @@ __meta__ = {
 }
 
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 92.0
-margin_right = 368.0
-margin_bottom = 111.0
+margin_top = 85.0
+margin_right = 326.0
+margin_bottom = 102.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 368.0
-margin_bottom = 19.0
+margin_right = 326.0
+margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "back"
 valign = 1
