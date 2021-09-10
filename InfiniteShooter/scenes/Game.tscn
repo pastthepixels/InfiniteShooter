@@ -43,6 +43,7 @@ render_target_update_mode = 3
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="Countdown" parent="." instance=ExtResource( 8 )]
+visible = false
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 visible = false

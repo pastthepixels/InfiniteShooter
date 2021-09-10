@@ -18,9 +18,10 @@ func _ready():
 	get_node("ViewportContainer/Viewport").msaa = get_viewport().msaa
 	# Inits "utils" with the viewport
 	Utils.init("Game/ViewportContainer/Viewport")
-	# Player stuff
+	# Player signals
 	get_node(game_space + "/Player").connect("ammo_changed", self, "_on_Player_ammo_changed")
 	get_node(game_space + "/Player").connect("health_changed", self, "_on_Player_health_changed")
+	get_node(game_space + "/Player").connect("died", self, "_on_Player_died")
 	# Music stuff
 	GameMusic.play_game() # Fade to a game song
 	GameMusic.connect("finished", self, "switch_song") # when finished, switch to a random game song

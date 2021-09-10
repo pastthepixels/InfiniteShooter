@@ -5,6 +5,7 @@ export var starting_number = 3
 
 
 func _ready():
+	show()
 	for i in range(0, starting_number + 1): # Counts like this: 1, 2, 3
 		if i == starting_number: # so once i reaches 3 or the starting number, we finish the countdown
 			$FinishedSound.play()
