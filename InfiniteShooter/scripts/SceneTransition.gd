@@ -18,6 +18,7 @@ func play(callback_object, callback_function):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Wipe1":
+		yield(get_tree().create_timer(.1), "timeout") # Waits to ensure the animation has finished
 		callback.call_func()
 		$AnimationPlayer.play("Wipe2")
 
