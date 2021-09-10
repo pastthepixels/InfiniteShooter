@@ -64,6 +64,7 @@ func dynamic_enemy_interval( min_interval_time, max_interval_time, typical_enemy
 		return 0
 
 func _on_Player_died():
+	$HUD.update_health( 0 )
 	$EnemyTimer.stop()
 	$ScoreTimer.stop()
 	$LevelTimer.stop()
