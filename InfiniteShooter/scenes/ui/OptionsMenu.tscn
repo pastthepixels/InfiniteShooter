@@ -1,15 +1,26 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/theme-submenu.tres" type="Theme" id=4]
-[ext_resource path="res://assets/healthbar/base_flat.png" type="Texture" id=5]
-[ext_resource path="res://assets/healthbar/progress_flat.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 2 )
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 0, 0, 0, 1, 0.078125, 0.078125, 0.078125, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+width = 1024
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0, 1, 0.132812, 1, 0.171875, 1, 0.28186, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 
 [sub_resource type="Animation" id=3]
 length = 0.2
@@ -65,7 +76,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 292.0
+margin_right = 2152.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -76,7 +87,7 @@ __meta__ = {
 
 [node name="Subtitle" type="Label" parent="VBoxContainer"]
 margin_top = 85.0
-margin_right = 292.0
+margin_right = 2152.0
 margin_bottom = 102.0
 custom_colors/font_color = Color( 0.4, 0.4, 0.4, 1 )
 text = "hover over features to get more information"
@@ -87,15 +98,15 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 122.0
-margin_right = 292.0
-margin_bottom = 293.0
+margin_right = 2152.0
+margin_bottom = 287.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 292.0
+margin_right = 2152.0
 margin_bottom = 17.0
 hint_tooltip = "Takes you back to the main menu."
 mouse_filter = 1
@@ -109,7 +120,7 @@ __meta__ = {
 
 [node name="AntiAliasing" type="Label" parent="VBoxContainer/Options"]
 margin_top = 37.0
-margin_right = 292.0
+margin_right = 2152.0
 margin_bottom = 54.0
 hint_tooltip = "Smoothens out sharp lines. (MSAA 4X for those who want to known more)"
 mouse_filter = 1
@@ -123,7 +134,7 @@ __meta__ = {
 
 [node name="Bloom" type="Label" parent="VBoxContainer/Options"]
 margin_top = 74.0
-margin_right = 292.0
+margin_right = 2152.0
 margin_bottom = 91.0
 hint_tooltip = "Makes bright parts of the screen \"glow\"."
 mouse_filter = 1
@@ -137,51 +148,53 @@ __meta__ = {
 
 [node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
 margin_top = 111.0
-margin_right = 292.0
-margin_bottom = 131.0
+margin_right = 2152.0
+margin_bottom = 128.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="VBoxContainer/Options/MusicVolume"]
-margin_top = 1.0
 margin_right = 94.0
-margin_bottom = 18.0
+margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "music volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/Options/MusicVolume"]
 margin_left = 104.0
-margin_right = 224.0
-margin_bottom = 20.0
+margin_right = 204.0
+margin_bottom = 17.0
 value = 100.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 6 )
+texture_under = SubResource( 5 )
+texture_progress = SubResource( 7 )
+nine_patch_stretch = true
+stretch_margin_right = 100
 
 [node name="SFXVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
-margin_top = 151.0
-margin_right = 292.0
-margin_bottom = 171.0
+margin_top = 148.0
+margin_right = 2152.0
+margin_bottom = 165.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="VBoxContainer/Options/SFXVolume"]
-margin_top = 1.0
 margin_right = 73.0
-margin_bottom = 18.0
+margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "sfx volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/Options/SFXVolume"]
 margin_left = 83.0
-margin_right = 203.0
-margin_bottom = 20.0
+margin_right = 183.0
+margin_bottom = 17.0
 value = 100.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 6 )
+texture_under = SubResource( 5 )
+texture_progress = SubResource( 7 )
+nine_patch_stretch = true
+stretch_margin_right = 100
 
 [node name="SelectSquare" parent="." instance=ExtResource( 3 )]
 color = Color( 0, 0, 0, 1 )
