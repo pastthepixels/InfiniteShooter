@@ -23,21 +23,7 @@ wait_time = 30.0
 stream = ExtResource( 7 )
 bus = "SFX"
 
-[node name="ViewportContainer" type="ViewportContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 600, 800 )
-handle_input_locally = false
-msaa = 3
-render_target_update_mode = 3
-
-[node name="GameSpace" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
+[node name="GameSpace" parent="." instance=ExtResource( 1 )]
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
