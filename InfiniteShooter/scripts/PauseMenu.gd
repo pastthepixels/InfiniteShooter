@@ -30,9 +30,12 @@ func _input(event):
 
 func toggle_pause(toggle_smoothly):
 	if visible == true and toggle_smoothly == true:
+		$Label.text = "not paused"
 		$AnimationPlayer.play("FadeOut")
 		yield($AnimationPlayer, "animation_finished")
-
+	elif visible == false:
+		$Label.text = "paused"
+	
 	visible = ! visible
 	get_tree().paused = visible
 	if toggle_smoothly == true:

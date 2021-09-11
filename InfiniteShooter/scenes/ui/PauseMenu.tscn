@@ -1,22 +1,25 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
-[ext_resource path="res://assets/icon-pause/icon-pause-small.png" type="Texture" id=2]
 [ext_resource path="res://sounds/unpause.wav" type="AudioStream" id=3]
 [ext_resource path="res://sounds/pause.wav" type="AudioStream" id=4]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui/BackgroundBlur.gdshader" type="Shader" id=7]
+[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=8]
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 7 )
 shader_param/lod = 1.0
 shader_param/use_custom_color = false
 shader_param/custom_color = Color( 1, 1, 1, 1 )
 shader_param/darken_custom_color = false
 
-[sub_resource type="Animation" id=1]
-resource_name = "FadeIn"
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 8 )
+
+[sub_resource type="Animation" id=3]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -31,8 +34,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "FadeOut"
+[sub_resource type="Animation" id=4]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -58,7 +60,7 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
-material = SubResource( 3 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -73,16 +75,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Background"]
-anchor_left = 0.5
+[node name="Label" type="Label" parent="."]
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -128.0
-margin_top = -128.0
-margin_right = 128.0
-margin_bottom = 128.0
-texture = ExtResource( 2 )
+margin_top = -32.5
+margin_bottom = 32.5
+custom_fonts/font = SubResource( 2 )
+text = "paused"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,9 +106,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -78.0
-margin_top = 120.5
+margin_top = 70.5
 margin_right = 78.0
-margin_bottom = 197.5
+margin_bottom = 147.5
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
@@ -142,5 +144,5 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 1 )
-anims/FadeOut = SubResource( 2 )
+anims/FadeIn = SubResource( 3 )
+anims/FadeOut = SubResource( 4 )

@@ -1,72 +1,75 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/title-gameover/gameover.png" type="Texture" id=1]
+[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/GameOverMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=4]
 
-[sub_resource type="Animation" id=1]
-resource_name = "FadeAll"
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
 length = 4.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Image:modulate")
-tracks/0/interp = 1
+tracks/0/path = NodePath("Options/Retry:modulate")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 4 ),
-"transitions": PoolRealArray( 0.8, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Options/Retry:modulate")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 0.7 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Options/Quit:modulate")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("Options/Quit:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 0.7 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Options/MainMenu:modulate")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("Options/MainMenu:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0, 1.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1, 0.7 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("SelectSquare:modulate")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/path = NodePath("SelectSquare:modulate")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 0.7 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Labels:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="GameOverMenu" type="Control"]
@@ -78,17 +81,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Image" type="TextureRect" parent="."]
+[node name="Labels" type="HBoxContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -200.0
-margin_top = -35.0
-margin_right = 200.0
-margin_bottom = 35.0
-texture = ExtResource( 1 )
+margin_left = -144.0
+margin_top = -32.5
+margin_right = 144.0
+margin_bottom = 32.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="game" type="Label" parent="Labels"]
+margin_right = 164.0
+margin_bottom = 65.0
+custom_fonts/font = SubResource( 1 )
+text = "game "
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="over" type="Label" parent="Labels"]
+margin_left = 168.0
+margin_right = 288.0
+margin_bottom = 65.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "over"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,9 +129,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -72.0
-margin_top = 55.5
+margin_top = 70.5
 margin_right = 72.0
-margin_bottom = 120.5
+margin_bottom = 145.5
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
@@ -144,4 +170,4 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeAll = SubResource( 1 )
+anims/FadeAll = SubResource( 2 )
