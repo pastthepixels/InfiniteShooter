@@ -17,7 +17,7 @@ func _ready():
 	# Inherits graphics settings
 	get_node("ViewportContainer/Viewport").msaa = get_viewport().msaa
 	# Inits "utils" with the viewport
-	Utils.init("Game/ViewportContainer/Viewport")
+	Utils.set_viewport($ViewportContainer/Viewport)
 	# Player signals
 	get_node(game_space + "/Player").connect("ammo_changed", self, "_on_Player_ammo_changed")
 	get_node(game_space + "/Player").connect("health_changed", self, "_on_Player_health_changed")

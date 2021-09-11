@@ -84,5 +84,5 @@ common/enable_pause_aware_picking=true
 threads/thread_model=2
 quality/filters/use_nearest_mipmap_filter=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
-quality/filters/msaa=2
-environment/default_environment="res://default_env.tres"
+quality/filters/msaa=3
+environment/default_environment="res://MainEnvironment.tres"
