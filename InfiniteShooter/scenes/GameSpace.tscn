@@ -21,9 +21,4 @@ light_energy = 6.0
 spot_range = 58.0
 spot_angle = 29.0037
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0 )
-
-[node name="Spatial" type="Spatial" parent="."]
-
 [node name="Player" parent="." instance=ExtResource( 1 )]

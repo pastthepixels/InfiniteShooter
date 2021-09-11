@@ -2,7 +2,7 @@ extends Node
 
 # To do with creating enemies
 onready var enemy_scene = preload("res://scenes/enemies/Enemy.tscn")
-export (String) var game_space = "./ViewportContainer/Viewport/GameSpace"
+export (String) var game_space = "./GameSpace"
 
 # Data used when saving the game
 export onready var save_data = { "points": 0, "damage": get_node(game_space + "/Player").damage, "health": get_node(game_space + "/Player").max_health }
@@ -14,10 +14,6 @@ export var level = 1
 
 
 func _ready():
-	# Inherits graphics settings
-	get_node("ViewportContainer/Viewport").msaa = get_viewport().msaa
-	# Inits "utils" with the viewport
-	Utils.set_viewport($ViewportContainer/Viewport)
 	# Player signals
 	get_node(game_space + "/Player").connect("ammo_changed", self, "_on_Player_ammo_changed")
 	get_node(game_space + "/Player").connect("health_changed", self, "_on_Player_health_changed")
@@ -124,8 +120,8 @@ func load_game():
 	if not file.file_exists("user://userdata.txt"): return # If there is no file containing these stats, don't worry because we have defaults.
 	file.open( "user://userdata.txt", File.READ ) # Opens the userdata file for reading
 	save_data = file.get_var(true)
-	$ViewportContainer/Viewport/GameSpace/Player.set_health(save_data.health)
-	$ViewportContainer/Viewport/GameSpace/Player.damage = save_data.damage
+	$GameSpace/Player.set_health(save_data.health)
+	$GameSpace/Player.damage = save_data.damage
 	file.close()
 
 
