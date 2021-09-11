@@ -4,6 +4,9 @@ extends AudioStreamPlayer
 export (AudioStream) var main_menu_song
 export (Array, AudioStream) var game_songs
 
+func _ready(): # Ensuring that NO SONG loops
+	main_menu_song.set_loop(false)
+	for song in game_songs: song.set_loop(false)
 
 func play_main():
 	stream = main_menu_song
@@ -12,18 +15,18 @@ func play_main():
 
 func play_game():
 	randomize()
-	
 	crossfade(game_songs[randi() % game_songs.size()])
 
 
 func switch_game():
 	stop()
 	var old_stream = stream
-	stream = game_songs[randi() % game_songs.size()]
-	if old_stream == stream:# Preventing duplicate songs
+	var new_stream = game_songs[randi() % game_songs.size()]
+	if old_stream == new_stream:# Preventing duplicate songs
 		switch_game()
-		return
-	play()
+	else:
+		stream = new_stream
+		play()
 
 
 func crossfade(audiostream):
