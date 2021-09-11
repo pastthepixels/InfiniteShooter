@@ -21,16 +21,12 @@ onready var noise = OpenSimplexNoise.new()
 
 var noise_y = 0
 
-var threecam_default_translation = Vector3()
-
 
 func _ready():
 	randomize()
 	noise.seed = randi()
 	noise.period = 4
 	noise.octaves = 2
-	if three_camera:
-		threecam_default_translation = get_node(three_camera).translation
 
 
 func add_trauma(amount):
@@ -43,9 +39,9 @@ func _process(delta):
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
-	if three_camera and trauma:
-		get_node(three_camera).translation = threecam_default_translation
-		get_node(three_camera).translation = Utils.screen_to_local(global_position+offset) + threecam_default_translation
+	if three_camera:
+		get_node(three_camera).translation.x = offset.x
+		get_node(three_camera).translation.z = offset.y
 		get_node(three_camera).rotation.y = rotation
 
 
