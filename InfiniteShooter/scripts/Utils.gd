@@ -17,11 +17,10 @@ var screen_size
 var last_random_number = 0
 
 
-# Sets some variables with the viewport
-func set_viewport(viewport_node):
+# Sets some variables when the class is made
+func init(viewport_path):
 	# Sets viewport
-	viewport = viewport_node
-	print(viewport_node)
+	viewport = get_node("/root/Main/" + viewport_path)
 	screen_size = viewport.get_visible_rect().size
 	
 	# other stuff

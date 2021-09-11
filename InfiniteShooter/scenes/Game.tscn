@@ -33,8 +33,9 @@ __meta__ = {
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 600, 800 )
+transparent_bg = true
 handle_input_locally = false
-msaa = 3
+msaa = 2
 render_target_update_mode = 3
 
 [node name="GameSpace" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]

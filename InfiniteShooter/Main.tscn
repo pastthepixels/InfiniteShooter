@@ -1,31 +1,38 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/ui/MainMenu.tscn" type="PackedScene" id=1]
-[ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
+[ext_resource path="res://assets/space/space.png" type="Texture" id=2]
+[ext_resource path="res://scenes/ui/ScrollingBackground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/ShakeCamera.gd" type="Script" id=4]
 [ext_resource path="res://scenes/ui/SplashScreen.tscn" type="PackedScene" id=5]
 
-[sub_resource type="Animation" id=3]
-resource_name = "SkyRotate"
-length = 3.5
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("WorldEnvironment:environment:background_sky_rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 3.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, -180, 90 ), Vector3( 360, -180, 90 ) ]
-}
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+ambient_light_energy = 10.0
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0, 0, 0, 1 )
+tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 128.0
+ssao_intensity = 128.0
+ssao_color = Color( 1, 1, 1, 1 )
+glow_enabled = true
+glow_intensity = 0.3
+glow_strength = 0.8
+glow_blend_mode = 0
+glow_bicubic_upscale = true
 
 [node name="Main" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 2 )
+environment = SubResource( 2 )
+
+[node name="ScrollingBackground" parent="." instance=ExtResource( 3 )]
 
 [node name="MainMenu" parent="." instance=ExtResource( 1 )]
 
@@ -35,6 +42,3 @@ environment = ExtResource( 2 )
 position = Vector2( 300, 400 )
 current = true
 script = ExtResource( 4 )
-
-[node name="SkyScrolling" type="AnimationPlayer" parent="."]
-anims/SkyRotate = SubResource( 3 )

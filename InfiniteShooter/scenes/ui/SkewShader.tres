@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "// Found off the Internet. Yeah... I know.
+
+// TODO: Fix aliasing from shaders
+/*
+shader_type canvas_item;
+
+// parameters
+uniform float level = 1;		// skewness / angle -> computed outside 
+
+// skew the shadow and adjust its length
+void vertex() {
+	VERTEX.x -= VERTEX.y * level;
+	// Uncomment to make waviness (showing aliasing)
+	//VERTEX.y += sin(UV.x * TIME) * 10.0;
+}
+*/"
+
+[resource]
+shader = SubResource( 1 )

@@ -14,7 +14,7 @@ func _input(event):
 		and has_node("StartScreen/LogoContainer")
 	):
 		# Ensures the scrolling background is not playing
-		get_node("../SkyScrolling").stop(true)
+		get_node("../ScrollingBackground/AnimationPlayer").stop(true)
 
 		# Plays the "gui-accept" sound
 		$SelectSquare/AcceptSound.play()
@@ -88,7 +88,7 @@ func _input(event):
 
 func play_game():
 	queue_free()
-	get_node("../SkyScrolling").play("SkyRotate")
+	get_node("../ScrollingBackground/AnimationPlayer").play("RotateCamera")
 	get_node("/root/Main/").add_child(load("res://scenes/Game.tscn").instance())
 
 
