@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/title-infiniteshooter/title-infiniteshooter.png" type="Texture" id=1]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://scenes/ui/Leaderboard.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui/Upgrades.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui/OptionsMenu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/space/space-game.png" type="Texture" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "LogoSlide"
@@ -44,12 +43,6 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SkyBackground" type="TextureRect" parent="."]
-visible = false
-margin_right = 600.0
-margin_bottom = 800.0
-texture = ExtResource( 8 )
 
 [node name="SelectSquare" parent="." instance=ExtResource( 2 )]
 options_path = NodePath("../Options")

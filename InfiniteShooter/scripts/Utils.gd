@@ -16,12 +16,13 @@ var screen_size
 # Random number generation
 var last_random_number = 0
 
+func _ready():
+	set_viewport(get_viewport())
 
 # Sets some variables with the viewport
 func set_viewport(viewport_node):
 	# Sets viewport
 	viewport = viewport_node
-	print(viewport_node)
 	screen_size = viewport.get_visible_rect().size
 	
 	# other stuff
