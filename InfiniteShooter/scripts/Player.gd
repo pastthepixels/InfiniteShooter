@@ -1,5 +1,8 @@
 extends Area
 
+# For debugging
+export var godmode = false
+
 # Scenes
 onready var laser_scene = load("res://scenes/Laser.tscn")
 
@@ -30,7 +33,6 @@ signal died
 signal health_changed
 
 signal ammo_changed
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -97,7 +99,7 @@ func _input(event):
 
 # When the player collides with enemies
 func on_collision(area):
-	if area.get_parent().is_in_group("enemies") and area.get_parent().health > 0:
+	if godmode == false and area.get_parent().is_in_group("enemies") and area.name != "ShipDetection" and area.get_parent().health > 0:
 		set_health(health - area.get_parent().health)
 		area.get_parent().health -= area.get_parent().health
 

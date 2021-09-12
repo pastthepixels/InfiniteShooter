@@ -8,6 +8,10 @@ var max_health = 100
 
 var health = max_health
 
+var enemy_type
+
+var bounding_box
+
 var speed_mult = 1 # Multiplier for speed (pretty straightforward)
 
 # Scenes used
@@ -29,8 +33,8 @@ func _ready():
 
 func initialize(level):
 	# Adds an enemy
-	var enemyType = randi() % 3 + 1  # Generates either a 1, 2, or 3
-	match enemyType:
+	enemy_type = randi() % 3 + 1  # Generates either a 1, 2, or 3
+	match enemy_type:
 		1:
 			add_child(enemy_scenes[0].instance())
 
@@ -63,11 +67,23 @@ func initialize(level):
 
 	# Sets the current health as the new max health
 	health = max_health
+	
+	# Gets the bounding box for the enemy ship model
+	bounding_box = $EnemyModel.get_child(1).get_aabb()
 
 	# Starts all timers
 	$MovingTimer.start()
 	$LaserTimer.start()
 	$HealthBar.hide()  # Hides the health bar by default.
+	
+	# Kills ships that don't move out of the way fast enough
+	$EnemyModel.connect("area_entered", self, "collide_ship")
+	
+	# Adjusts the ShipDetection node's size
+	$ShipDetection/CollisionShape.shape.extents = $EnemyModel.get_child(0).shape.extents
+	$ShipDetection/CollisionShape.shape.extents.z *= 2
+	# Uncomment and add a cube MeshInstance to the ShipDetection node with dimensions (2, 2, 2) to have a visual helper
+#	$ShipDetection/MeshInstance.scale = $ShipDetection/CollisionShape.shape.extents
 
 	# Moves the health bar above the ship model. First, it gets the $EnemyModel/ShipModel
 	# Then it gets the base size of that, multiplies that by its scale, and then moves the health bar down .5 for aesthetic purposes.
@@ -92,7 +108,7 @@ func move_down():
 	translation.z += .05 * speed_mult
 	# If it is such that the center of the ship moves past the center of the screen...
 	if translation.z > Utils.screen_to_local(Vector2(0, Utils.screen_size.y)).z:
-		if has_node("../Player"):
+		if has_node("../Player") and get_node("../Player").godmode == false:
 			get_node("../Player").health -= health  # deduct health from the player
 		health = 0  # and kill this ship
 
@@ -135,3 +151,28 @@ func fire_laser():
 
 	# Gets the scene that housed the enemy and adds to it the laser
 	get_parent().add_child(laser)
+
+
+func _on_ShipDetection_area_entered(area):
+	if area.get_parent().is_in_group("enemies") and speed_mult > area.get_parent().speed_mult and health > 0 and  area.get_parent().health > 0:
+		# Basciallly moving a ship from the center of another ship to beside it (left/right)
+		# Subtracting this makes you go left, adding this makes you go right
+		var common_formula = area.get_parent().bounding_box.size.x/2 + bounding_box.size.x/2 + .2
+		var direction = -1 # Goes left
+		# If we are closer to the right of the ship, go to the right
+		if translation.x > area.get_parent().translation.x:
+			direction = 1
+		# Now we try to switch the direction if the ship will go off screen.
+		if (area.get_parent().translation.x + (common_formula*direction)) > Utils.bottom_right.x:
+			direction = -1
+		elif (area.get_parent().translation.x + (common_formula*direction)) < Utils.bottom_left.x:
+			direction = 1
+		# Uses the Tween node to smoothly move around the other ship, preventing a collision
+		$Tween.interpolate_property(self, "translation:x", translation.x, area.get_parent().translation.x + (common_formula*direction), 1/speed_mult, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		$Tween.start()
+
+func collide_ship(area):
+	# Kills the ship if it collides with other enemy ships
+	if area.get_parent().is_in_group("enemies") and area.get_parent().health > 0 and area.get_parent() != self and area.name != "ShipDetection":
+		area.get_parent().health -= health
+		health = 0
