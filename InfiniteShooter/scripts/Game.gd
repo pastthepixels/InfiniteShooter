@@ -21,7 +21,7 @@ export var enemies_per_wave = 10
 var enemies_in_wave = 0
 
 #
-# Countdown timers, _ready()/_process(), and music
+# Countdown timers, initialization and music
 #
 func _ready():
 	# Player signals
