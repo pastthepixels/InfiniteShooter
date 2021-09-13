@@ -16,9 +16,6 @@ wait_time = 5.0
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
-[node name="LevelTimer" type="Timer" parent="."]
-wait_time = 30.0
-
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "SFX"
@@ -38,5 +35,4 @@ visible = false
 
 [connection signal="timeout" from="EnemyTimer" to="." method="make_enemy"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
-[connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]

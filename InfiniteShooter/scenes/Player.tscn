@@ -13,6 +13,7 @@ extents = Vector3( 0.906798, 0.0775551, 0.725836 )
 "players",
 ]]
 script = ExtResource( 3 )
+godmode = true
 
 [node name="PlayerModel" parent="." instance=ExtResource( 2 )]
 

@@ -1,7 +1,8 @@
 extends Control
 
 # Variables that display in-game variables
-onready var level_timer = get_node("../LevelTimer")
+
+var level_progress = 0
 
 var animated_health = 100
 
@@ -14,17 +15,26 @@ func _process(_delta):
 	$ProgressBars/HealthBar.value = animated_health
 	$ProgressBars/AmmoBar.value = animated_ammo
 	$StatusBar/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
-	$StatusBar/Labels/Level/Progress.value = level_timer.time_left / level_timer.wait_time * 100
 
-
+#
+# Updating the status bar
+#
 func update_score(score):
 	$StatusBar/Labels/Score.text = "Score: %s" % score
 
 
-func update_level(level):
+func update_level(level, progress):
 	$StatusBar/Labels/Level.text = "Level %s" % level
+	$StatusBar/Labels/Level/Progress.value = progress
 
 
+func update_wave(wave, progress):
+	$StatusBar/Labels/Wave.text = "Wave %s" % wave
+	$StatusBar/Labels/Wave/Progress.value = progress
+
+#
+# Updating the top bars
+#
 func update_health(value):
 	$ProgressTween.interpolate_property(
 		self,
@@ -53,3 +63,23 @@ func update_ammo(value):
 	)
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
+
+#
+# Alerting text to the player
+#
+func alert(text, duration, switchto_text=""):
+	# Sets text and shows the label
+	$Alert/Label.text = text
+	$Alert.show()
+	# Fades in
+	$Alert/AnimationPlayer.play("fade_alert")
+	yield($Alert/AnimationPlayer, "animation_finished")
+	# Waits
+	yield(Utils.timeout(duration/2), "timeout")
+	if switchto_text != "": # This variable is for animations like when the level is increased, showing the previous and new level.
+		$Alert/Label.text = switchto_text
+	yield(Utils.timeout(duration/2), "timeout")
+	# Fades out
+	$Alert/AnimationPlayer.play_backwards("fade_alert")
+	yield($Alert/AnimationPlayer, "animation_finished")
+	$Alert.hide()

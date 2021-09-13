@@ -42,3 +42,7 @@ func random_screen_point():
 		rand_range(screen_size.x - 50, 50), rand_range(50, screen_size.y - 50)
 	)
 	return screen_to_local(screenPoint)
+
+# Setting timeouts
+func timeout(timeout): # Usage: yield(Utils.timeout(1), "timeout")
+	return get_tree().create_timer(timeout)

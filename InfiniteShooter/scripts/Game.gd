@@ -7,12 +7,22 @@ export (String) var game_space = "./GameSpace"
 # Data used when saving the game
 export onready var save_data = { "points": 0, "damage": get_node(game_space + "/Player").damage, "health": get_node(game_space + "/Player").max_health }
 
-# Game score/level
+# Game score/level/waves
 export var score = 0
 
 export var level = 1
 
+export var wave = 1
 
+export var waves_per_level = 5
+
+export var enemies_per_wave = 10
+
+var enemies_in_wave = 0
+
+#
+# Countdown timers, _ready()/_process(), and music
+#
 func _ready():
 	# Player signals
 	get_node(game_space + "/Player").connect("ammo_changed", self, "_on_Player_ammo_changed")
@@ -22,6 +32,8 @@ func _ready():
 	GameMusic.play_game() # Fade to a game song
 	GameMusic.connect("finished", self, "switch_song") # when finished, switch to a random game song
 	load_game() # Load save data (player damage/health)
+	# HUD stuff
+	$HUD.update_level(level, 100 * wave/waves_per_level)
 
 
 func switch_song():
@@ -32,9 +44,46 @@ func _on_Countdown_finished():
 	make_enemy()
 	$EnemyTimer.start()
 	$ScoreTimer.start()
-	$LevelTimer.start()
+
+#
+# Waves, levels, and score
+#
+func wave_up():
+	# Stops enemies from spawning and waits until they all die.
+	$EnemyTimer.paused = true
+	while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout") # Simply wait until all enemies die
+	# Switches the wave number and (if possible) levels up
+	wave += 1
+	enemies_in_wave = 0
+	if wave == waves_per_level + 1:
+		level_up()
+	else:
+		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
+	# Updates the HUD
+	$HUD.update_wave(wave, 0)
+	$HUD.update_level(level, 100 * wave/waves_per_level)
+	# Resumes enemy spawning
+	$EnemyTimer.paused = false
+
+func level_up():
+	
+	level += 1
+	wave = 1
+	if $EnemyTimer.wait_time > 2: $EnemyTimer.wait_time -= 0.2
+	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level), "completed")
+	$HUD.update_wave(wave, 0)
+	$HUD.update_level(level, 0)
+	$LevelSound.play()
 
 
+func _on_ScoreTimer_timeout():
+	
+	score += 1
+	$HUD.update_score( score )
+
+#
+# Making enemies
+#
 func make_enemy():
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
@@ -50,6 +99,13 @@ func make_enemy():
 	
 	# And decreasing it per level
 	$EnemyTimer.wait_time -= clamp(level/20, 0, $EnemyTimer.wait_time/2)
+	
+	# Updates the current amount of enemies in the wave
+	enemies_in_wave += 1
+	$HUD.update_wave(wave, 100 * enemies_in_wave/enemies_per_wave)
+	print(enemies_in_wave, "/", enemies_per_wave)
+	if enemies_in_wave == enemies_per_wave:
+		wave_up()
 
 
 # Makes the game harder with this complicated formula!
@@ -59,6 +115,9 @@ func dynamic_enemy_interval( min_interval_time, max_interval_time, typical_enemy
 	else:
 		return 0
 
+#
+# Player stuff
+#
 func _on_Player_died():
 	$HUD.update_health( 0 )
 	$EnemyTimer.stop()
@@ -79,21 +138,9 @@ func _on_Player_ammo_changed( value ):
 func _on_Player_health_changed( value ):
 	$HUD.update_health( value )
 
-
-func _on_ScoreTimer_timeout():
-	
-	score += 1
-	$HUD.update_score( score )
-
-
-func _on_LevelTimer_timeout():
-	
-	level += 1
-	if $EnemyTimer.wait_time > 2: $EnemyTimer.wait_time -= 0.2
-	$HUD.update_level( level )
-	$LevelSound.play()
-
-
+#
+# Saving and loading data
+#
 func store_score():
 	
 	var file = File.new() # Creates a new File object, for handling file operations

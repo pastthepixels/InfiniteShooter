@@ -1,8 +1,25 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
+[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
+
+[sub_resource type="Animation" id=7]
+resource_name = "FadeVignette"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vignette:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 2, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.54902 ) ]
+}
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.668224 )
@@ -25,22 +42,6 @@ colors = PoolColorArray( 0, 0, 0, 0.392157, 0, 0, 0, 1 )
 [sub_resource type="GradientTexture" id=6]
 gradient = SubResource( 5 )
 width = 32
-
-[sub_resource type="Animation" id=7]
-resource_name = "FadeVignette"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Vignette:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 2, 2 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.54902 ) ]
-}
 
 [sub_resource type="Gradient" id=8]
 colors = PoolColorArray( 1, 1, 1, 1, 0.304688, 0.304688, 0.304688, 0.0470588 )
@@ -73,6 +74,26 @@ colors = PoolColorArray( 0.2, 0.2, 0.2, 1, 0.266667, 0.266667, 0.266667, 1 )
 [sub_resource type="GradientTexture" id=17]
 gradient = SubResource( 16 )
 
+[sub_resource type="DynamicFont" id=18]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=19]
+resource_name = "fade_alert"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -81,6 +102,11 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ProgressTween" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeVignette = SubResource( 7 )
 
 [node name="Vignette" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -137,10 +163,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="StatusBar/Labels"]
+[node name="Wave" type="Label" parent="StatusBar/Labels"]
 margin_left = 55.0
 margin_top = 7.0
-margin_right = 102.0
+margin_right = 98.0
+margin_bottom = 22.0
+text = "Wave 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="TextureProgress" parent="StatusBar/Labels/Wave"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+texture_under = SubResource( 4 )
+texture_progress = SubResource( 6 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="StatusBar/Labels"]
+margin_left = 113.0
+margin_top = 7.0
+margin_right = 160.0
 margin_bottom = 22.0
 text = "Score: 0"
 __meta__ = {
@@ -148,19 +199,14 @@ __meta__ = {
 }
 
 [node name="FPS" type="Label" parent="StatusBar/Labels"]
-margin_left = 117.0
+margin_left = 175.0
 margin_top = 7.0
-margin_right = 150.0
+margin_right = 208.0
 margin_bottom = 22.0
 text = "0 FPS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ProgressTween" type="Tween" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeVignette = SubResource( 7 )
 
 [node name="ProgressBars" type="TextureRect" parent="."]
 margin_left = 40.0
@@ -198,3 +244,30 @@ nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Alert" type="ColorRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0.117647 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Alert"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -32.5
+margin_bottom = 32.5
+custom_fonts/font = SubResource( 18 )
+text = "alert!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Alert"]
+anims/fade_alert = SubResource( 19 )
