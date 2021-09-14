@@ -38,4 +38,3 @@ shape = SubResource( 1 )
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="cleanup_ship"]
 [connection signal="exploded" from="Explosion" to="." method="cleanup_ship"]
 [connection signal="area_entered" from="ShipDetection" to="." method="_on_ShipDetection_area_entered"]
-[connection signal="area_exited" from="ShipDetection" to="." method="_on_ShipDetection_area_exited"]

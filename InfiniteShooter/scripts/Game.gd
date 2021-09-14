@@ -16,7 +16,7 @@ export var wave = 1
 
 export var waves_per_level = 5
 
-export var enemies_per_wave = 10
+export var enemies_per_wave = 20
 
 var enemies_in_wave = 0
 
@@ -24,21 +24,11 @@ var enemies_in_wave = 0
 # Countdown timers, initialization and music
 #
 func _ready():
-	# Player signals
-	get_node(game_space + "/Player").connect("ammo_changed", self, "_on_Player_ammo_changed")
-	get_node(game_space + "/Player").connect("health_changed", self, "_on_Player_health_changed")
-	get_node(game_space + "/Player").connect("died", self, "_on_Player_died")
 	# Music stuff
-	GameMusic.play_game() # Fade to a game song
-	GameMusic.connect("finished", self, "switch_song") # when finished, switch to a random game song
+	GameMusic.start_game() # Fade to a game song
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/waves_per_level)
-
-
-func switch_song():
-	if has_node(game_space + "/Player"): GameMusic.switch_game()
-
 
 func _on_Countdown_finished():
 	make_enemy()
@@ -94,22 +84,21 @@ func make_enemy():
 	enemy.translation.x = Utils.random_screen_point().x
 	enemy.translation.z = Utils.screen_to_local(Vector2()).z - (enemy.get_node("EnemyModel").transform.basis.get_scale().z * 2)
 	
-	# Dynamically changing the interval time
-	$EnemyTimer.wait_time = dynamic_enemy_interval( 1.5, 3.5, level * 25, 1 )
-	
 	# And decreasing it per level
 	$EnemyTimer.wait_time -= clamp(level/20, 0, $EnemyTimer.wait_time/2)
+	
+	# Dynamically changing the interval time
+	$EnemyTimer.wait_time = dynamic_enemy_interval(1, 3, level * 25, float(wave)/waves_per_level * 2)
 	
 	# Updates the current amount of enemies in the wave
 	enemies_in_wave += 1
 	$HUD.update_wave(wave, 100 * enemies_in_wave/enemies_per_wave)
-	print(enemies_in_wave, "/", enemies_per_wave)
 	if enemies_in_wave == enemies_per_wave:
 		wave_up()
 
 
 # Makes the game harder with this complicated formula!
-func dynamic_enemy_interval( min_interval_time, max_interval_time, typical_enemy_health, multiplier ):
+func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_health, multiplier):
 	if has_node(game_space + "/Player"):
 		return clamp(max_interval_time - (float(get_node(game_space + "/Player").damage) / typical_enemy_health * max_interval_time / multiplier ), min_interval_time, max_interval_time )
 	else:
@@ -119,15 +108,14 @@ func dynamic_enemy_interval( min_interval_time, max_interval_time, typical_enemy
 # Player stuff
 #
 func _on_Player_died():
-	$HUD.update_health( 0 )
+	$HUD.update_health(0)
 	$EnemyTimer.stop()
 	$ScoreTimer.stop()
-	$LevelTimer.stop()
 	store_score()
 	save_game()
 	
 	# Shows the "game over" menu and prevents the player from pausing the game
-	yield( get_tree().create_timer( 1.0 ), "timeout" ) # AFTER waiting for a bit (if porting to different programming languages, this is Godot's setTimeout)
+	yield(Utils.timeout(1), "timeout") # AFTER waiting for a bit
 	$GameOverMenu.fade_show()
 
 

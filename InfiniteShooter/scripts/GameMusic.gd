@@ -1,21 +1,23 @@
 extends AudioStreamPlayer
 
-# Declare member variables here. Examples:
 export (AudioStream) var main_menu_song
 export (Array, AudioStream) var game_songs
+export var game_running = false
 
 func _ready(): # Ensuring that NO SONG loops
 	main_menu_song.set_loop(false)
 	for song in game_songs: song.set_loop(false)
 
 func play_main():
+	game_running = false
 	stream = main_menu_song
 	play()
 
 
-func play_game():
+func start_game():
 	randomize()
 	crossfade(game_songs[randi() % game_songs.size()])
+	game_running = true
 
 
 func switch_game():
@@ -36,3 +38,7 @@ func crossfade(audiostream):
 	stream = audiostream
 	play()
 	$AnimationPlayer.play("fade")
+
+# Switch game soundtrack (like looping for the game) if the user wants it
+func _on_GameMusic_finished():
+	if game_running: switch_game()

@@ -77,7 +77,7 @@ func initialize(level):
 	$HealthBar.hide()  # Hides the health bar by default.
 	
 	# Kills ships that don't move out of the way fast enough
-	$EnemyModel.connect("area_entered", self, "collide_ship")
+	var _will_godot_please_shut_up_about_unused_variables = $EnemyModel.connect("area_entered", self, "collide_ship")
 	
 	# Adjusts the ShipDetection node's size
 	$ShipDetection/CollisionShape.shape.extents = $EnemyModel.get_child(0).shape.extents

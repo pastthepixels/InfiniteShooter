@@ -32,3 +32,5 @@ game_songs = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade = SubResource( 1 )
+
+[connection signal="finished" from="." to="." method="_on_GameMusic_finished"]

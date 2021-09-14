@@ -41,4 +41,3 @@ bus = "SFX"
 [connection signal="exploded" from="Explosion" to="." method="cleanup_player"]
 [connection signal="timeout" from="ReloadTimer" to="." method="reload"]
 [connection signal="timeout" from="RegenTimer" to="." method="heal"]
-[connection signal="finished" from="ReloadBoop" to="ReloadBoop" method="play_loop"]

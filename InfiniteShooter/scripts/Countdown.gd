@@ -19,7 +19,7 @@ func _ready():
 			yield(get_tree().create_timer(.5), "timeout")  # and then wait a bit for you to be able to read the text
 		else: # Special flashing of text if we reach zero
 			$BackgroundFade.play("fade-background") # We also fade out the background
-			for a in range(0, 3): # number of flashes
+			for _flash in range(0, 3): # number of flashes
 				$AnimationPlayer.stop(true)
 				$AnimationPlayer.play("show") # Now we fade in the text
 				yield(get_tree().create_timer(.4), "timeout")  # and then wait a bit for you to be able to read the text
