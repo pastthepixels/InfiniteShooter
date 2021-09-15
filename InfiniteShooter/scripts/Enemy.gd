@@ -4,6 +4,8 @@ extends Spatial
 
 signal died(current_ship)
 
+var killed_from_player = false
+
 var damage
 
 var max_health = 100

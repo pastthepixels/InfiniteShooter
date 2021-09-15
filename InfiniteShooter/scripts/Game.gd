@@ -29,11 +29,11 @@ func _ready():
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/waves_per_level)
+	$GameSpace/Player.update_hud()
 
 func _on_Countdown_finished():
 	make_enemy()
 	$EnemyTimer.start()
-	$ScoreTimer.start()
 
 #
 # Waves, levels, and score
@@ -65,12 +65,6 @@ func level_up():
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
 
-
-func _on_ScoreTimer_timeout():
-	
-	score += 1
-	$HUD.update_score( score )
-
 #
 # Making enemies
 #
@@ -81,6 +75,7 @@ func make_enemy():
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
 	enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
+	enemy.connect("died", self, "_on_enemy_died_score")
 	get_node(game_space).add_child(enemy) # adds it to the scene
 	enemy.initialize( level ) # Initializes the enemy
 	
@@ -100,6 +95,10 @@ func make_enemy():
 func _on_enemy_died(enemy):
 	if $EnemyTimer.paused == false: make_enemy()
 
+func _on_enemy_died_score(enemy):
+	if enemy.killed_from_player: score += enemy.max_health / 2
+	$HUD.update_score(score)
+
 # Makes the game harder with this complicated formula!
 func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_health, multiplier):
 	if has_node(game_space + "/Player"):
@@ -113,7 +112,6 @@ func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_
 func _on_Player_died():
 	$HUD.update_health(0)
 	$EnemyTimer.stop()
-	$ScoreTimer.stop()
 	store_score()
 	save_game()
 	
@@ -122,8 +120,8 @@ func _on_Player_died():
 	$GameOverMenu.fade_show()
 
 
-func _on_Player_ammo_changed( value ):
-	$HUD.update_ammo( value )
+func _on_Player_ammo_changed(value, refills):
+	$HUD.update_ammo(value, refills)
 
 
 func _on_Player_health_changed( value ):

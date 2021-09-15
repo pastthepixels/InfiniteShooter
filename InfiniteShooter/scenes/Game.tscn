@@ -15,8 +15,6 @@ script = ExtResource( 2 )
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="ScoreTimer" type="Timer" parent="."]
-
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "SFX"
@@ -37,7 +35,6 @@ visible = false
 visible = false
 
 [connection signal="timeout" from="EnemyTimer" to="." method="make_enemy"]
-[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="ammo_changed" from="GameSpace/Player" to="." method="_on_Player_ammo_changed"]
 [connection signal="died" from="GameSpace/Player" to="." method="_on_Player_died"]
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]

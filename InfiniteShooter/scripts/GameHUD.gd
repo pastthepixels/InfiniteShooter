@@ -56,11 +56,13 @@ func update_health(value):
 		low_health = false
 		$AnimationPlayer.play_backwards("FadeVignette")
 
-func update_ammo(value):
+func update_ammo(value, refills):
 	
 	$ProgressTween.interpolate_property(
 		self, "animated_ammo", animated_ammo, value * 100, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN
 	)
+	$ProgressBars/AmmoBar/Refills.text = str(refills)
+	$ProgressBars/AmmoBar/Refills.visible = not refills == 0
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
 

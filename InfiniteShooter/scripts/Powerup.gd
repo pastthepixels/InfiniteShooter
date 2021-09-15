@@ -24,11 +24,8 @@ func _on_Powerup_area_entered(area):
 	if area.is_in_group("players"):
 		match type:
 			1:
-				if area.ammo + ammo_increase <= area.max_ammo:
-					area.set_ammo(area.ammo + ammo_increase)
-
-				else:
-					area.set_ammo(area.max_ammo)
+				area.ammo_refills += 1
+				area.update_hud()
 
 			2:
 				if area.health + health_increase <= area.max_health:
@@ -39,6 +36,7 @@ func _on_Powerup_area_entered(area):
 
 			3:
 				for enemy in get_tree().get_nodes_in_group("enemies"):
+					enemy.killed_from_player = true
 					enemy.health = 0
 
 		$AnimationPlayer.play("use")

@@ -36,6 +36,7 @@ func _process(_delta):
 func on_collision(area):
 	if area.get_parent().is_in_group("enemies") and area.name != "ShipDetection" and from_player == true:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().health -= damage  # subtract health from the enemy
+		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
 		remove_laser(true)  # and remove the laser
 
 	if area.is_in_group("players") and from_player == false:  # If the area this is colliding with is the PLAYER (and it is from the enemy)

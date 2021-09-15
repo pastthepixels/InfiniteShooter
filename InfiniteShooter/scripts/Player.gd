@@ -9,6 +9,9 @@ onready var laser_scene = load("res://scenes/Laser.tscn")
 # Ammunition (in bullets)
 export var max_ammo = 20
 
+# Ammo refills
+export var ammo_refills = 10
+
 # Health (in HP/100)
 export var max_health = 100
 
@@ -30,9 +33,9 @@ var ammo = max_ammo
 # Signals
 signal died
 
-signal health_changed
+signal health_changed(value)
 
-signal ammo_changed
+signal ammo_changed(value, refills)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -90,9 +93,9 @@ func _input(event):
 		get_parent().add_child(laser)
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 		set_ammo(ammo - 1)
-		emit_signal("ammo_changed", float(ammo) / max_ammo)
 
-		if ammo <= 0:
+		if ammo <= 0 and ammo_refills > 0:
+			ammo_refills -= 1
 			$ReloadTimer.start()
 			$ReloadStart.play()
 
@@ -137,9 +140,14 @@ func heal():  # Regenerates a bit of health every time this function is called.
 
 func set_ammo(new_ammo):
 	ammo = new_ammo
-	emit_signal("ammo_changed", float(ammo) / float(max_ammo))
+	update_hud()
 
 
 func set_health(new_health):
 	health = new_health
+	update_hud()
+
+
+func update_hud():
+	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
 	emit_signal("health_changed", float(health) / float(max_health))
