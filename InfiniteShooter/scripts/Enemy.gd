@@ -2,6 +2,8 @@ extends Spatial
 
 # Variables related to enemy properties
 
+signal died(current_ship)
+
 var damage
 
 var max_health = 100
@@ -122,6 +124,7 @@ func explode_ship():
 	$HealthBar.hide()
 	$EnemyModel.queue_free()
 	remove_from_group("enemies")
+	emit_signal("died", self)
 	if has_node("/root/Main/ShakeCamera"):
 		get_node("/root/Main/ShakeCamera").add_trauma(.4)  # Shakes the screen
 	if randi() % 4 == 1:  # 1/4 chance to create a powerup

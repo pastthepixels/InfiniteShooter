@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://scenes/effects/Explosion.tscn" type="PackedScene" id=4]
@@ -6,9 +6,38 @@
 
 [sub_resource type="BoxShape" id=1]
 
+[sub_resource type="Animation" id=2]
+resource_name = "initiate"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 20, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
 [node name="Enemy" type="Spatial" groups=[
 "enemies",
 ]]
+transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 script = ExtResource( 2 )
 
 [node name="MovingTimer" type="Timer" parent="."]
@@ -32,6 +61,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "initiate"
+anims/initiate = SubResource( 2 )
 
 [connection signal="timeout" from="MovingTimer" to="." method="move_down"]
 [connection signal="timeout" from="LaserTimer" to="." method="fire_laser"]

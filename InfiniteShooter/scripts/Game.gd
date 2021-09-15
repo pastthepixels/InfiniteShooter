@@ -75,27 +75,30 @@ func _on_ScoreTimer_timeout():
 # Making enemies
 #
 func make_enemy():
+	# Ensures no enemy ships have the ability to create a new enemy when they die
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.disconnect("died", self, "_on_enemy_died")
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
+	enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
 	get_node(game_space).add_child(enemy) # adds it to the scene
 	enemy.initialize( level ) # Initializes the enemy
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - (enemy.get_node("EnemyModel").transform.basis.get_scale().z * 2)
+	enemy.translation.z = Utils.screen_to_local(Vector2()).z - .5
 	
-	# And decreasing it per level
-	$EnemyTimer.wait_time -= clamp(level/20, 0, $EnemyTimer.wait_time/2)
+	# Dynamically changing the interval time with a quadratic function
+	$EnemyTimer.wait_time = -3 * pow(float(wave)/waves_per_level, 2) + 3
 	
-	# Dynamically changing the interval time
-	$EnemyTimer.wait_time = dynamic_enemy_interval(1, 3, level * 25, float(wave)/waves_per_level * 2)
-	
-	# Updates the current amount of enemies in the wave
+	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1
 	$HUD.update_wave(wave, 100 * enemies_in_wave/enemies_per_wave)
 	if enemies_in_wave == enemies_per_wave:
 		wave_up()
 
+func _on_enemy_died(enemy):
+	if $EnemyTimer.paused == false: make_enemy()
 
 # Makes the game harder with this complicated formula!
 func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_health, multiplier):
