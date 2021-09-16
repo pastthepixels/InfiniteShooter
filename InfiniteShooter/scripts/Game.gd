@@ -2,23 +2,29 @@ extends Node
 
 # To do with creating enemies
 onready var enemy_scene = preload("res://scenes/enemies/Enemy.tscn")
+
 export (String) var game_space = "./GameSpace"
 
 # Data used when saving the game
 export onready var save_data = { "points": 0, "damage": get_node(game_space + "/Player").damage, "health": get_node(game_space + "/Player").max_health }
 
-# Game score/level/waves
-export var score = 0
+# Game mechanics variables
+var score = 0
 
-export var level = 1
+var level = 1
 
-export var wave = 1
+var wave = 1
+
+var enemies_in_wave = 0
+
+# User-adjustable game mechanics variables
+export var enemy_difficulty = 1
+
+export var enemy_spawn_multiplier = 3.5
 
 export var waves_per_level = 5
 
 export var enemies_per_wave = 20
-
-var enemies_in_wave = 0
 
 #
 # Countdown timers, initialization and music
@@ -77,14 +83,14 @@ func make_enemy():
 	enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
 	enemy.connect("died", self, "_on_enemy_died_score")
 	get_node(game_space).add_child(enemy) # adds it to the scene
-	enemy.initialize( level ) # Initializes the enemy
+	enemy.initialize(level * enemy_difficulty) # Initializes the enemy
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
 	enemy.translation.z = Utils.screen_to_local(Vector2()).z - .5
 	
 	# Dynamically changing the interval time with a quadratic function
-	$EnemyTimer.wait_time = -3 * pow(float(wave)/waves_per_level, 2) + 3
+	$EnemyTimer.wait_time = clamp(-enemy_spawn_multiplier * pow(float(wave)/waves_per_level, 2) + 3, .5, 3)
 	
 	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1
@@ -92,11 +98,12 @@ func make_enemy():
 	if enemies_in_wave == enemies_per_wave:
 		wave_up()
 
-func _on_enemy_died(enemy):
+func _on_enemy_died(_enemy):
 	if $EnemyTimer.paused == false: make_enemy()
 
 func _on_enemy_died_score(enemy):
 	if enemy.killed_from_player: score += enemy.max_health / 2
+	enemy.disconnect("died", self, "_on_enemy_died_score")
 	$HUD.update_score(score)
 
 # Makes the game harder with this complicated formula!

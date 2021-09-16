@@ -35,7 +35,7 @@ func _ready():
 	randomize()
 
 
-func initialize(level):
+func initialize(difficulty):
 	# Adds an enemy
 	enemy_type = randi() % 3 + 1  # Generates either a 1, 2, or 3
 	match enemy_type:
@@ -63,8 +63,8 @@ func initialize(level):
 			damage = 5
 			speed_mult = .8
 
-	# Multiplies everything by the level number for added difficulty.
-	var mult = float(level) / 2
+	# Multiplies everything by the difficulty number for added difficulty.
+	var mult = float(difficulty) / 2
 	max_health *= clamp(mult / 2, .5, 512)
 	damage *= mult
 	speed_mult *= clamp(mult / 5, 1, 2)
@@ -81,7 +81,7 @@ func initialize(level):
 	$HealthBar.hide()  # Hides the health bar by default.
 	
 	# Kills ships that don't move out of the way fast enough
-	var _will_godot_please_shut_up_about_unused_variables = $EnemyModel.connect("area_entered", self, "collide_ship")
+	$EnemyModel.connect("area_entered", self, "collide_ship")
 	
 	# Adjusts the ShipDetection node's size
 	$ShipDetection/CollisionShape.shape.extents = $EnemyModel.get_child(0).shape.extents
