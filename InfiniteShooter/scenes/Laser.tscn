@@ -33,5 +33,9 @@ bus = "SFX"
 stream = ExtResource( 6 )
 bus = "SFX"
 
+[node name="FollowTimer" type="Timer" parent="."]
+wait_time = 4.0
+
 [connection signal="area_entered" from="." to="." method="on_collision"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]

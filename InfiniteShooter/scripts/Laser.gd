@@ -9,12 +9,19 @@ var from_player = true
 # Needs to be here for making the node still run while the laser explodes
 var freeze = false
 
+# Folowwing the player
+onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()]
+
+export var follow_player = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if from_player == false:  # By default the player laser is visible where the enemy laser model is not. If this laser is from an enemy, swap this.
 		$PlayerLaser.hide()
 		$EnemyLaser.show()
+	
+	if follow_player == true:
+		$FollowTimer.start()
 
 	$LaserSound.pitch_scale = rand_range(0.9, 1.1)
 	$LaserSound.play()
@@ -29,7 +36,12 @@ func _process(_delta):
 		translation.z -= .4  # If the laser is from the player, move it up
 
 	else:
-		translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
+		if follow_player == true and followed_player != null:
+			$EnemyLaser/Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
+			translation.z += .05 if translation.z < followed_player.translation.z else -.05
+			translation.x += .05 if translation.x < followed_player.translation.x else -.05
+		else:
+			translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
 
 
 # Called when the laser collides with objects
@@ -65,4 +77,8 @@ func remove_laser(hit_ship):
 
 
 func _on_VisibilityNotifier_screen_exited():
+	remove_laser(false)
+
+
+func _on_FollowTimer_timeout():
 	remove_laser(false)

@@ -77,7 +77,7 @@ func level_up():
 func make_enemy():
 	# Ensures no enemy ships have the ability to create a new enemy when they die
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		enemy.disconnect("died", self, "_on_enemy_died")
+		if enemy.has_user_signal("died"): enemy.disconnect("died", self, "_on_enemy_died")
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
 	enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
@@ -87,7 +87,7 @@ func make_enemy():
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - .5
+	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-1.0, 1.0)
 	
 	# Dynamically changing the interval time with a quadratic function
 	$EnemyTimer.wait_time = clamp(-enemy_spawn_multiplier * pow(float(wave)/waves_per_level, 2) + 3, .5, 3)
