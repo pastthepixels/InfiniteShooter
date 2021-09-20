@@ -12,17 +12,18 @@ var freeze = false
 # Folowwing the player
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()]
 
-export var follow_player = true
+export var follow_player = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(from_player)
 	if from_player == false:  # By default the player laser is visible where the enemy laser model is not. If this laser is from an enemy, swap this.
 		$PlayerLaser.hide()
 		$EnemyLaser.show()
 	
 	if follow_player == true:
 		$FollowTimer.start()
-
+	
 	$LaserSound.pitch_scale = rand_range(0.9, 1.1)
 	$LaserSound.play()
 
@@ -36,10 +37,12 @@ func _process(_delta):
 		translation.z -= .4  # If the laser is from the player, move it up
 
 	else:
-		if follow_player == true and followed_player != null:
+		if follow_player == true and is_instance_valid(followed_player):
 			$EnemyLaser/Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
-			translation.z += .05 if translation.z < followed_player.translation.z else -.05
-			translation.x += .05 if translation.x < followed_player.translation.x else -.05
+			translation.z += .1 if translation.z < followed_player.translation.z else -.1
+			translation.x += .1 if translation.x < followed_player.translation.x else -.1
+		elif is_instance_valid(followed_player) == false:
+			remove_laser(false) # If 'yer follwing the player, and the player dies, YOU DIE
 		else:
 			translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
 
@@ -62,17 +65,24 @@ func remove_laser(hit_ship):
 		return
 
 	freeze = true
-	hide()
+	$PlayerLaser.hide()
+	$EnemyLaser.hide()
+	if hit_ship == false:
+		$Particles.emitting = true
+		# Also we're setting the color of the explosion bits (for some reason we have to do it NOW of ALL TIMES)
+		var material = $Particles.draw_pass_1.surface_get_material(0)
+		material.albedo_color = ($EnemyLaser if from_player == false else $PlayerLaser).get_child(0).get_active_material(0).albedo_color
+		$Particles.draw_pass_1.surface_set_material(0, material)
 	$CollisionShape.queue_free()
 	if hit_ship == true:
 		if has_node("/root/Main/ShakeCamera"):
 			get_node("/root/Main/ShakeCamera").add_trauma(.3)  # Shakes the screen a little bit
 		$HitSound.pitch_scale = rand_range(0.9, 1.1) # and plays a sound
 		$HitSound.play()
-		yield($HitSound, "finished")
 	
-
-	yield($LaserSound, "finished")
+	if $HitSound.playing == true: yield($HitSound, "finished")
+	if $LaserSound.playing == true: yield($LaserSound, "finished")
+	if $Particles.emitting == true: yield(Utils.timeout(.5), "timeout")
 	queue_free()
 
 

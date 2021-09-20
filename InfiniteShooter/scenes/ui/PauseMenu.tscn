@@ -5,15 +5,13 @@
 [ext_resource path="res://sounds/pause.wav" type="AudioStream" id=4]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
-[ext_resource path="res://scenes/ui/BackgroundBlur.gdshader" type="Shader" id=7]
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=7]
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 7 )
 shader_param/lod = 1.0
-shader_param/use_custom_color = false
-shader_param/custom_color = Color( 1, 1, 1, 1 )
-shader_param/darken_custom_color = false
+shader_param/aberration_strength = 0.5
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
@@ -70,7 +68,7 @@ __meta__ = {
 [node name="Background Color" type="ColorRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.129412, 0.129412, 0.129412, 0.129412 )
+color = Color( 0.666667, 0.666667, 0.666667, 0.129412 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -18,6 +18,8 @@ var bounding_box
 
 var speed_mult = 1 # Multiplier for speed (pretty straightforward)
 
+onready var homing_lasers = bool(round(rand_range(0, 1)))
+
 # Scenes used
 
 onready var powerup_scene = load("res://scenes/enemies/Powerup.tscn")
@@ -146,6 +148,7 @@ func fire_laser():
 
 	# Creating the laser
 	var laser = laser_scene.instance()
+	laser.follow_player = homing_lasers
 
 	# Telling the laser that it is not from the player + sets its damage
 	laser.from_player = false

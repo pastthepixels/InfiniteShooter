@@ -259,10 +259,17 @@ __meta__ = {
 
 [node name="Alert" type="ColorRect" parent="."]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 1, 1, 1, 0.117647 )
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Alert"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.666667, 0.666667, 0.666667, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

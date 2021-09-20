@@ -20,7 +20,7 @@ var enemies_in_wave = 0
 # User-adjustable game mechanics variables
 export var enemy_difficulty = 1
 
-export var enemy_spawn_multiplier = 3.5
+export var enemy_spawn_multiplier = 3
 
 export var waves_per_level = 5
 
