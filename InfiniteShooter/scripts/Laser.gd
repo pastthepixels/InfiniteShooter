@@ -40,7 +40,7 @@ func _process(_delta):
 		translation.z -= .4  # If the laser is from the player, move it up
 
 	else:
-		if follow_player == true and is_instance_valid(followed_player):
+		if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
 			$EnemyLaser/Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
 			translation.z += .1 if translation.z < followed_player.translation.z else -.1
 			translation.x += .1 if translation.x < followed_player.translation.x else -.1
