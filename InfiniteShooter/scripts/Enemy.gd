@@ -149,6 +149,7 @@ func fire_laser():
 	# Creating the laser
 	var laser = laser_scene.instance()
 	laser.follow_player = homing_lasers
+	laser.sender = self
 
 	# Telling the laser that it is not from the player + sets its damage
 	laser.from_player = false

@@ -9,8 +9,11 @@ var from_player = true
 # Needs to be here for making the node still run while the laser explodes
 var freeze = false
 
-# Folowwing the player
-onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()]
+# A variable for... the "sender" of a laser
+var sender
+
+# Following the player
+onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 
 export var follow_player = false
 
@@ -41,20 +44,18 @@ func _process(_delta):
 			$EnemyLaser/Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
 			translation.z += .1 if translation.z < followed_player.translation.z else -.1
 			translation.x += .1 if translation.x < followed_player.translation.x else -.1
-		elif is_instance_valid(followed_player) == false:
-			remove_laser(false) # If 'yer follwing the player, and the player dies, YOU DIE
 		else:
 			translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
 
 
 # Called when the laser collides with objects
 func on_collision(area):
-	if area.get_parent().is_in_group("enemies") and area.name != "ShipDetection" and from_player == true:  # If the area this is colliding with is an enemy (and it is from the player)
+	if area.get_parent().is_in_group("enemies") and area.name != "ShipDetection" and area.get_parent() != sender:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().health -= damage  # subtract health from the enemy
 		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
 		remove_laser(true)  # and remove the laser
 
-	if area.is_in_group("players") and from_player == false:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
+	if area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		if area.godmode == false: area.set_health(area.health - damage)  # send it to BRAZIL
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
 		remove_laser(true)  # and remove the laser

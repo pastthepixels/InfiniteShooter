@@ -87,6 +87,7 @@ func _input(event):
 		and $Explosion.exploding != true
 	):
 		var laser = laser_scene.instance()
+		laser.sender = self
 		laser.translation = translation
 		laser.translation.z -= 1  # To get the laser firing from the "top" of the ship instead of the center for added realism
 		laser.damage = damage
