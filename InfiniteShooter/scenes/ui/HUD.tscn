@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
-[ext_resource path="res://scenes/ui/theme.tres" type="Theme" id=6]
+[ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=1]

@@ -28,4 +28,3 @@ glow_intensity = 0.3
 glow_strength = 0.8
 glow_blend_mode = 0
 glow_bicubic_upscale = true
-adjustment_saturation = 5.98

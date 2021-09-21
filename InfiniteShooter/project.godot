@@ -34,7 +34,7 @@ window/vsync/vsync_via_compositor=true
 
 [gui]
 
-theme/custom="res://scenes/ui/theme.tres"
+theme/custom="res://scenes/effects/theme.tres"
 
 [input]
 
