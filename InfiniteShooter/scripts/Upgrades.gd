@@ -84,7 +84,7 @@ func create_upgrades():
 		var upgrade_damage = randi() % 100
 		var upgrade_health = randi() % 100
 		upgrades.append( {
-			"cost": int( ( float(upgrade_damage)/100 + 1 ) * ( float(upgrade_health)/100 + 1 ) * 175 ), # A complicated algorithm, I know, but it's the same formula as InfiniteShooter 1.0
+			"cost": 10 * (upgrade_damage + upgrade_health),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false

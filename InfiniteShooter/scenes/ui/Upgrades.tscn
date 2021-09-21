@@ -6,11 +6,11 @@
 [ext_resource path="res://scripts/Upgrades.gd" type="Script" id=4]
 [ext_resource path="res://scenes/ui/Alert.tscn" type="PackedScene" id=5]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 64
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -38,10 +38,8 @@ tracks/1/keys = {
 }
 
 [node name="Upgrades" type="Control"]
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_scale = Vector2( 1e-05, 1 )
 theme = ExtResource( 2 )
 script = ExtResource( 4 )
 __meta__ = {
@@ -68,7 +66,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_right = 250.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "upgrades"
 __meta__ = {
@@ -141,4 +139,4 @@ on_left = true
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/open = SubResource( 3 )
+anims/open = SubResource( 2 )
