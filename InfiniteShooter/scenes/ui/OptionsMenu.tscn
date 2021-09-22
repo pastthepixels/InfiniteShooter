@@ -1,28 +1,34 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=4]
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/lod = 3.0
+shader_param/aberration_strength = 0.5
+
+[sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 2 )
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 0, 0, 0, 1, 0.078125, 0.078125, 0.078125, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 width = 1024
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 0, 1, 0.132812, 1, 0.171875, 1, 0.28186, 1 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -59,8 +65,17 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -76,10 +91,9 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "options"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -87,7 +101,7 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 85.0
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 250.0
 custom_constants/separation = 20
 __meta__ = {
@@ -95,9 +109,8 @@ __meta__ = {
 }
 
 [node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 17.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "back"
 valign = 1
 __meta__ = {
@@ -106,10 +119,10 @@ __meta__ = {
 
 [node name="AntiAliasing" type="Label" parent="VBoxContainer/Options"]
 margin_top = 37.0
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 54.0
 mouse_default_cursor_shape = 16
-custom_colors/font_color = Color( 0, 0.501961, 0, 1 )
+custom_colors/font_color = Color( 0, 1, 0, 1 )
 text = "anti-aliasing"
 valign = 1
 __meta__ = {
@@ -120,8 +133,8 @@ __meta__ = {
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -188.0
-custom_colors/font_color = Color( 0.207843, 0.207843, 0.207843, 1 )
+margin_left = -110.0
+margin_right = 150.0
 text = "> smoothens out sharp lines (MSAA 4x)"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,9 +142,9 @@ __meta__ = {
 
 [node name="Bloom" type="Label" parent="VBoxContainer/Options"]
 margin_top = 74.0
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 91.0
-custom_colors/font_color = Color( 0, 0.501961, 0, 1 )
+custom_colors/font_color = Color( 0, 1, 0, 1 )
 text = "bloom"
 valign = 1
 __meta__ = {
@@ -142,8 +155,8 @@ __meta__ = {
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -188.0
-custom_colors/font_color = Color( 0.207843, 0.207843, 0.207843, 1 )
+margin_left = -153.0
+margin_right = 111.0
 text = "> makes bright parts of the screen glow"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -151,7 +164,7 @@ __meta__ = {
 
 [node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
 margin_top = 111.0
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 128.0
 custom_constants/separation = 10
 __meta__ = {
@@ -161,7 +174,6 @@ __meta__ = {
 [node name="Label" type="Label" parent="VBoxContainer/Options/MusicVolume"]
 margin_right = 94.0
 margin_bottom = 17.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "music volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/Options/MusicVolume"]
@@ -169,14 +181,14 @@ margin_left = 104.0
 margin_right = 204.0
 margin_bottom = 17.0
 value = 100.0
-texture_under = SubResource( 3 )
-texture_progress = SubResource( 5 )
+texture_under = SubResource( 4 )
+texture_progress = SubResource( 6 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
 [node name="SFXVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
 margin_top = 148.0
-margin_right = 296.0
+margin_right = 204.0
 margin_bottom = 165.0
 custom_constants/separation = 10
 __meta__ = {
@@ -186,7 +198,6 @@ __meta__ = {
 [node name="Label" type="Label" parent="VBoxContainer/Options/SFXVolume"]
 margin_right = 73.0
 margin_bottom = 17.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "sfx volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/Options/SFXVolume"]
@@ -194,15 +205,14 @@ margin_left = 83.0
 margin_right = 183.0
 margin_bottom = 17.0
 value = 100.0
-texture_under = SubResource( 3 )
-texture_progress = SubResource( 5 )
+texture_under = SubResource( 4 )
+texture_progress = SubResource( 6 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
 [node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-color = Color( 0, 0, 0, 1 )
 options_path = NodePath("../VBoxContainer/Options")
 on_left = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/open = SubResource( 6 )
+anims/open = SubResource( 7 )

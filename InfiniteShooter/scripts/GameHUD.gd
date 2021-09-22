@@ -40,7 +40,7 @@ func update_health(value):
 		self,
 		"animated_health",
 		animated_health,
-		value * 100,
+		value * 1000,
 		0.2,
 		Tween.TRANS_LINEAR,
 		Tween.EASE_IN

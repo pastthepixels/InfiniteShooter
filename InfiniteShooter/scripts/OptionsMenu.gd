@@ -30,14 +30,14 @@ func handle_selection():
 			settings["antialiasing"] = ! settings["antialiasing"]
 			$VBoxContainer/Options/AntiAliasing.set(
 				"custom_colors/font_color",
-				Color(0, .5, 0) if settings["antialiasing"] else Color(.7, 0, 0)
+				Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
 			)
 
 		"Bloom":
 			settings["bloom"] = ! settings["bloom"]
 			$VBoxContainer/Options/Bloom.set(
 				"custom_colors/font_color",
-				Color(0, .5, 0) if settings["bloom"] else Color(.7, 0, 0)
+				Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
 			)
 
 
@@ -96,10 +96,10 @@ func get_settings():
 
 	# Now we set colors/values of elements
 	$VBoxContainer/Options/AntiAliasing.set(
-		"custom_colors/font_color", Color(0, .5, 0) if settings["antialiasing"] else Color(.7, 0, 0)
+		"custom_colors/font_color", Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
 	)
 	$VBoxContainer/Options/Bloom.set(
-		"custom_colors/font_color", Color(0, .5, 0) if settings["bloom"] else Color(.7, 0, 0)
+		"custom_colors/font_color", Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
 	)
 	$VBoxContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
 	$VBoxContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]

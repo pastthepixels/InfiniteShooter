@@ -51,5 +51,4 @@ func create_label(text, tooltip):
 	label.text = text
 	label.hint_tooltip = tooltip
 	label.mouse_filter = Control.MOUSE_FILTER_PASS  # <-- In order for the tooltip to work
-	label.set("custom_colors/font_color", Color(0, 0, 0))
 	$VBoxContainer.add_child(label)

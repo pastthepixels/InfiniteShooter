@@ -14,6 +14,6 @@ void fragment(){
 	output.g = texture(SCREEN_TEXTURE, SCREEN_UV, lod).g;
 	output.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - shift, SCREEN_UV.y), lod).b;
 	
-	COLOR = output;	
+	COLOR = output;
 }
 
