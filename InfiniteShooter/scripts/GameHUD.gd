@@ -40,7 +40,7 @@ func update_health(value):
 		self,
 		"animated_health",
 		animated_health,
-		value * 1000,
+		value * 100,
 		0.2,
 		Tween.TRANS_LINEAR,
 		Tween.EASE_IN
@@ -48,11 +48,10 @@ func update_health(value):
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
 
-	if value < .3 and low_health == false:
+	if value < 0.3 and low_health == false:
 		low_health = true
 		$AnimationPlayer.play("FadeVignette")
-
-	if value > .3 and $AnimationPlayer.is_playing() == false and low_health == true:
+	elif value > 0.3 and $AnimationPlayer.is_playing() == false and low_health == true:
 		low_health = false
 		$AnimationPlayer.play_backwards("FadeVignette")
 
@@ -70,6 +69,7 @@ func update_ammo(value, refills):
 # Alerting text to the player
 #
 func alert(text, duration, switchto_text=""):
+	get_node("../PauseMenu").disabled = true
 	# Sets text and shows the label
 	$Alert/Label.text = text
 	$Alert.show()
@@ -85,3 +85,4 @@ func alert(text, duration, switchto_text=""):
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
 	$Alert.hide()
+	get_node("../PauseMenu").disabled = false

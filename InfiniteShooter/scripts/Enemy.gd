@@ -18,7 +18,7 @@ var bounding_box
 
 var speed_mult = 1 # Multiplier for speed (pretty straightforward)
 
-onready var homing_lasers = bool(round(rand_range(0, 1)))
+onready var homing_lasers = rand_range(0, 1) > .5
 
 # Scenes used
 

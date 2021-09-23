@@ -5,6 +5,7 @@ export var starting_number = 3
 
 
 func _ready():
+	get_node("../PauseMenu").disabled = true
 	show()
 	for i in range(0, starting_number + 1): # Counts like this: 1, 2, 3
 		if i == starting_number: # so once i reaches 3 or the starting number, we finish the countdown
@@ -23,5 +24,6 @@ func _ready():
 				$AnimationPlayer.stop(true)
 				$AnimationPlayer.play("show") # Now we fade in the text
 				yield(get_tree().create_timer(.4), "timeout")  # and then wait a bit for you to be able to read the text
+	get_node("../PauseMenu").disabled = false
 	emit_signal("finished") # Once we are done the loop, we signal that we are done the countdown
 	queue_free() # and then remove the countdown node

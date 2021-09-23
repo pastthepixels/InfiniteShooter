@@ -60,3 +60,7 @@ func update():
 
 func _process(_delta):
 	update()
+	if Input.is_action_pressed("ui_select"):
+		$ColorRect.color = Color(.8, .8, .8)
+	elif $ColorRect.color == Color(.8, .8, .8):
+		$ColorRect.color = Color(1, 1, 1)

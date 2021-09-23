@@ -8,7 +8,6 @@ onready var main = get_node("/root/Main")
 # Called when the node enters the scene tree for the first time.
 func fade_show():
 	show()
-	get_node("../PauseMenu").queue_free()  # Prevents pausing
 	$AnimationPlayer.play("FadeAll")
 	$SelectSquare.update()
 

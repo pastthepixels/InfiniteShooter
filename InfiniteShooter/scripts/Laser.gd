@@ -19,7 +19,6 @@ export var follow_player = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(from_player)
 	if from_player == false:  # By default the player laser is visible where the enemy laser model is not. If this laser is from an enemy, swap this.
 		$PlayerLaser.hide()
 		$EnemyLaser.show()
