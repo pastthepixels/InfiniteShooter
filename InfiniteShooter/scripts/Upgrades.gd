@@ -25,7 +25,7 @@ func show_animated():
 
 
 func hide_animated():
-	$AnimationPlayer.play_backwards("open")
+	$AnimationPlayer.play("close")
 	yield($AnimationPlayer, "animation_finished")
 	hide()
 
