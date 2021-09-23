@@ -47,7 +47,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "BorderPulse"
 length = 1.4
 loop = true
@@ -192,4 +192,4 @@ anims/FadeOut = SubResource( 4 )
 
 [node name="BorderPulse" type="AnimationPlayer" parent="."]
 autoplay = "BorderPulse"
-anims/BorderPulse = SubResource( 6 )
+anims/BorderPulse = SubResource( 5 )

@@ -81,6 +81,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
+modulate = Color( 1, 1, 1, 0 )
+options_path = NodePath("../Options")
+
 [node name="Labels" type="HBoxContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
@@ -118,10 +122,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0 )
-options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_left = 0.5

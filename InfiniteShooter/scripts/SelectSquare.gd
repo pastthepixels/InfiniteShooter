@@ -1,4 +1,4 @@
-extends ColorRect
+extends TextureRect
 
 export (NodePath) var options_path
 
@@ -10,6 +10,8 @@ export var index = 0
 
 # Vbox containing lables (options)
 onready var options = get_node(options_path)
+
+export var margin = 20
 
 
 func _input(event):
@@ -45,13 +47,13 @@ func update():
 	if select_child is Label:
 		var text_length = select_child.get_font("font").get_string_size(select_child.text).x  # Gets the length of its text
 		var difference_to_text = (select_child.rect_size.x - text_length) / 2  # The amount of space required from the label's origin (left) to where the text begins
-		position_offset = Vector2(difference_to_text - 20, select_child.get_size().y / 2 - 5)
+		position_offset = Vector2(difference_to_text - margin, select_child.get_size().y / 2 - rect_size.y / 2)
 	else:
 		pass  # TODO: get the centers of non-label objects
 
 	# If the select square is to be on the left, do some math
 	if on_left == true:
-		position_offset.x = -20
+		position_offset.x = -margin
 
 	# Sets the position to the position of the selected object
 	set_position(select_child.get_global_position() + position_offset)

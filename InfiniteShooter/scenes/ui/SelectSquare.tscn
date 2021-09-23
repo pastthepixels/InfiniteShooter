@@ -1,13 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/SelectSquare.gd" type="Script" id=1]
 [ext_resource path="res://sounds/gui-select.wav" type="AudioStream" id=2]
 [ext_resource path="res://sounds/gui-use.wav" type="AudioStream" id=3]
 
-[node name="SelectSquare" type="ColorRect"]
-margin_right = 10.0
-margin_bottom = 10.0
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 1, 1, 0.235294, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[node name="SelectSquare" type="TextureRect"]
+margin_right = 40.0
+margin_bottom = 20.0
+texture = SubResource( 2 )
+expand = true
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

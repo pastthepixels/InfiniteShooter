@@ -166,6 +166,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
+options_path = NodePath("../VBoxContainer/Options")
+on_left = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 50.0
 margin_top = 40.0
@@ -295,10 +299,6 @@ texture_under = SubResource( 4 )
 texture_progress = SubResource( 6 )
 nine_patch_stretch = true
 stretch_margin_right = 100
-
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-options_path = NodePath("../VBoxContainer/Options")
-on_left = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/close = SubResource( 7 )
