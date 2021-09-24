@@ -20,8 +20,6 @@ var enemies_in_wave = 0
 # User-adjustable game mechanics variables
 export var enemy_difficulty = 1
 
-export var enemy_spawn_multiplier = 3
-
 export var waves_per_level = 5
 
 export var enemies_per_wave = 20
@@ -74,6 +72,7 @@ func level_up():
 #
 # Making enemies
 #
+var last_enemy_position = Vector3()
 func make_enemy():
 	# Ensures no enemy ships have the ability to create a new enemy when they die
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -87,10 +86,10 @@ func make_enemy():
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-1.0, 1.0)
-	
-	# Dynamically changing the interval time with a quadratic function
-	$EnemyTimer.wait_time = clamp(-enemy_spawn_multiplier * pow(float(wave)/waves_per_level, 2) + 3, .5, 3)
+	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 0)
+	if enemy.translation.distance_to(last_enemy_position) < 1:
+		enemy.translation.x = Utils.random_screen_point().x
+	last_enemy_position = enemy.translation
 	
 	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1

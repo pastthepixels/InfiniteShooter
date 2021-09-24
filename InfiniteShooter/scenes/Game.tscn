@@ -13,7 +13,7 @@
 script = ExtResource( 2 )
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 4.0
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

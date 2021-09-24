@@ -46,7 +46,7 @@ func initialize(difficulty):
 
 			# Sets enemy stats
 			max_health = 80
-			damage = 7
+			damage = 30
 			speed_mult = 1
 
 		2:
@@ -54,7 +54,7 @@ func initialize(difficulty):
 
 			# Sets enemy stats
 			max_health = 20
-			damage = 10
+			damage = 40
 			speed_mult = 1.5
 
 		3:
@@ -62,7 +62,7 @@ func initialize(difficulty):
 
 			# Sets enemy stats
 			max_health = 100
-			damage = 5
+			damage = 20
 			speed_mult = .8
 
 	# Multiplies everything by the difficulty number for added difficulty.

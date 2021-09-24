@@ -19,7 +19,7 @@ export var max_health = 100
 export var speed = 14
 
 # Damage per bullet (in HP/100)
-export var damage = 20
+export var damage = 30
 
 # How much the player rotates when you use the arrow keys
 export var player_rotation = 35
