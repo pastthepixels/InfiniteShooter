@@ -51,3 +51,6 @@ func _on_AudioStreamPlayer_finished():
 func _on_CountdownTimer_timeout():
 	$AnimationPlayer.play("hide")
 	$CollisionShape.set_deferred("disabled", true)
+
+func _process(_delta):
+	$Outline.visible = $CountdownTimer.time_left < 3

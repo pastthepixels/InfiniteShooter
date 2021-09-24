@@ -1,15 +1,21 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/GameOverMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=4]
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 5 )
+shader_param/lod = 1.0
+shader_param/aberration_strength = 0.5
+
+[sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Options/Retry:modulate")
@@ -71,12 +77,53 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Background:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Background:material:shader_param/lod")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 
 [node name="GameOverMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background Color" type="ColorRect" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.666667, 0.666667, 0.666667, 0.0392157 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -102,7 +149,7 @@ __meta__ = {
 [node name="game" type="Label" parent="Labels"]
 margin_right = 164.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "game "
 align = 1
 valign = 1
@@ -114,7 +161,7 @@ __meta__ = {
 margin_left = 168.0
 margin_right = 288.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "over"
 align = 1
@@ -170,4 +217,4 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeAll = SubResource( 2 )
+anims/FadeAll = SubResource( 3 )
