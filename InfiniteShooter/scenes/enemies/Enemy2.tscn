@@ -33,7 +33,7 @@ surfaces/1 = {
 "vertex_count": 20
 }
 
-[node name="EnemyModel" type="Area"]
+[node name="Enemy2" type="Area"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

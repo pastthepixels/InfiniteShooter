@@ -36,8 +36,9 @@ func _ready():
 	$GameSpace/Player.update_hud()
 
 func _on_Countdown_finished():
-	make_enemy()
-	$EnemyTimer.start()
+	pass
+	#make_enemy()
+	#$EnemyTimer.start()
 
 #
 # Waves, levels, and score

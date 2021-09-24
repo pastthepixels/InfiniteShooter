@@ -12,4 +12,5 @@ func _ready():
 
 
 func _process(_delta):
-	$Viewport/HealthBar2D.value = health / max_health * 100
+	$Viewport/HealthBar2D.value = health
+	$Viewport/HealthBar2D.max_value = max_health

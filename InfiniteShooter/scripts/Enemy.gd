@@ -26,45 +26,40 @@ onready var powerup_scene = load("res://scenes/enemies/Powerup.tscn")
 
 onready var laser_scene = load("res://scenes/Laser.tscn")
 
-onready var enemy_scenes = [
-	load("res://scenes/enemies/Enemy1.tscn"),
-	load("res://scenes/enemies/Enemy2.tscn"),
-	load("res://scenes/enemies/Enemy3.tscn")
-]
-
-
-func _ready():
-	randomize()
+var enemy_model
 
 
 func initialize(difficulty):
 	# Adds an enemy
+	randomize()
 	enemy_type = randi() % 3 + 1  # Generates either a 1, 2, or 3
 	match enemy_type:
 		1:
-			add_child(enemy_scenes[0].instance())
-
+			enemy_model = $Enemy1
+			$Enemy2.queue_free()
+			$Enemy3.queue_free()
 			# Sets enemy stats
 			max_health = 80
 			damage = 30
 			speed_mult = 1
 
 		2:
-			add_child(enemy_scenes[1].instance())
-
+			enemy_model = $Enemy2
+			$Enemy1.queue_free()
+			$Enemy3.queue_free()
 			# Sets enemy stats
 			max_health = 20
 			damage = 40
 			speed_mult = 1.5
 
 		3:
-			add_child(enemy_scenes[2].instance())
-
+			enemy_model = $Enemy3
+			$Enemy1.queue_free()
+			$Enemy2.queue_free()
 			# Sets enemy stats
 			max_health = 100
 			damage = 20
 			speed_mult = .8
-
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
 	max_health *= clamp(mult / 2, .5, 512)
@@ -75,39 +70,35 @@ func initialize(difficulty):
 	health = max_health
 	
 	# Gets the bounding box for the enemy ship model
-	bounding_box = $EnemyModel.get_child(1).get_aabb()
+	bounding_box = enemy_model.get_child(1).get_aabb()
 
 	# Starts all timers
 	$MovingTimer.start()
 	$LaserTimer.start()
-	$HealthBar.hide()  # Hides the health bar by default.
 	
 	# Kills ships that don't move out of the way fast enough
-	$EnemyModel.connect("area_entered", self, "collide_ship")
+	enemy_model.connect("area_entered", self, "collide_ship")
 	
 	# Adjusts the ShipDetection node's size
-	$ShipDetection/CollisionShape.shape.extents = $EnemyModel.get_child(0).shape.extents
+	$ShipDetection/CollisionShape.shape.extents = enemy_model.get_child(0).shape.extents
 	$ShipDetection/CollisionShape.shape.extents.z *= 2
 	# Uncomment and add a cube MeshInstance to the ShipDetection node with dimensions (2, 2, 2) to have a visual helper
 #	$ShipDetection/MeshInstance.scale = $ShipDetection/CollisionShape.shape.extents
-
-	# Moves the health bar above the ship model. First, it gets the $EnemyModel/ShipModel
-	# Then it gets the base size of that, multiplies that by its scale, and then moves the health bar down .5 for aesthetic purposes.
-	# Remember that a negative Z value actually moves the health bar UP.
-	$HealthBar.translation.z = -($EnemyModel/ShipModel.get_aabb().size.z * $EnemyModel.scale.z) + .5
+	
+	# Moves health bar into position
+	$HealthBar.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
 
 
 # Called to process health
 func _process(_delta):
-	# If the health is below or equal to zero, explode the ship.
-	if health <= 0:
-		explode_ship()
-
 	# If the health is between 100% and 0%, show the health bar.
 	if health < max_health and health > 0:
 		$HealthBar.show()
 		$HealthBar.health = health
 		$HealthBar.max_health = max_health
+	elif health <= 0:
+		$HealthBar.hide()
+		explode_ship() # otherwise, explode the ship
 
 
 func move_down():
@@ -125,8 +116,7 @@ func explode_ship():
 	$Explosion.explode()
 	$MovingTimer.stop()
 	$LaserTimer.stop()
-	$HealthBar.hide()
-	$EnemyModel.queue_free()
+	enemy_model.queue_free()
 	remove_from_group("enemies")
 	emit_signal("died", self)
 	if has_node("/root/Main/ShakeCamera"):
