@@ -60,7 +60,7 @@ stream = ExtResource( 6 )
 bus = "SFX"
 
 [node name="FollowTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false

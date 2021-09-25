@@ -3,6 +3,8 @@ extends Node
 # To do with creating enemies
 onready var enemy_scene = preload("res://scenes/enemies/Enemy.tscn")
 
+onready var boss_scene = preload("res://scenes/bosses/Boss.tscn")
+
 export (String) var game_space = "./GameSpace"
 
 # Data used when saving the game
@@ -36,9 +38,8 @@ func _ready():
 	$GameSpace/Player.update_hud()
 
 func _on_Countdown_finished():
-	pass
-	#make_enemy()
-	#$EnemyTimer.start()
+	make_enemy()
+	$EnemyTimer.start()
 
 #
 # Waves, levels, and score
@@ -51,14 +52,15 @@ func wave_up():
 	wave += 1
 	enemies_in_wave = 0
 	if wave == waves_per_level + 1:
-		level_up()
+		yield(Utils.timeout(1), "timeout") # Waits exactly one second
+		make_boss() # then initiates a boss battle
 	else:
 		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
-	# Updates the HUD
-	$HUD.update_wave(wave, 0)
-	$HUD.update_level(level, 100 * wave/waves_per_level)
-	# Resumes enemy spawning
-	$EnemyTimer.paused = false
+		# Resumes enemy spawning after the popup
+		$EnemyTimer.paused = false
+		# Updates the HUD
+		$HUD.update_wave(wave, 0)
+		$HUD.update_level(level, 100 * wave/waves_per_level)
 
 func level_up():
 	
@@ -69,6 +71,8 @@ func level_up():
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
+	# Resumes enemy spawning after the popup
+	$EnemyTimer.paused = false
 
 #
 # Making enemies
@@ -87,7 +91,7 @@ func make_enemy():
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 0)
+	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-1.0, 1.0)
 	if enemy.translation.distance_to(last_enemy_position) < 1:
 		enemy.translation.x = Utils.random_screen_point().x
 	last_enemy_position = enemy.translation
@@ -97,6 +101,18 @@ func make_enemy():
 	$HUD.update_wave(wave, 100 * enemies_in_wave/enemies_per_wave)
 	if enemies_in_wave == enemies_per_wave:
 		wave_up()
+
+func make_boss():
+	print(true)
+	# Creates a boss
+	var boss = boss_scene.instance()
+	boss.translation.z = Utils.screen_to_local(Vector2()).z - 5
+	boss.connect("died", self, "_on_boss_died")
+	get_node(game_space).add_child(boss) # adds it to the scene
+	boss.initialize(level * enemy_difficulty) # Initializes the enemy
+
+func _on_boss_died(_boss):
+	level_up()
 
 func _on_enemy_died(_enemy):
 	if $EnemyTimer.paused == false: make_enemy()

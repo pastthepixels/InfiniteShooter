@@ -103,7 +103,7 @@ func _input(event):
 
 # When the player collides with enemies
 func on_collision(area):
-	if godmode == false and area.get_parent().is_in_group("enemies") and area.name != "ShipDetection" and area.get_parent().health > 0:
+	if godmode == false and (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and area.get_parent().health > 0:
 		set_health(health - area.get_parent().health)
 		area.get_parent().health -= area.get_parent().health
 
