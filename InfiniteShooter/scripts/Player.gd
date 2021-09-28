@@ -31,7 +31,11 @@ var health = max_health
 var ammo = max_ammo
 
 # Signals
+signal moved
+
 signal died
+
+signal laser_fired(laser)
 
 signal health_changed(value)
 
@@ -63,6 +67,8 @@ func _process(delta):
 
 	# Sets position
 	translation += velocity * delta * speed
+	if velocity * delta * speed != Vector3():
+		emit_signal("moved")
 
 	# Sets rotation
 	rotation = delta_rotation * deg2rad(player_rotation)
@@ -94,6 +100,7 @@ func _input(event):
 		get_parent().add_child(laser)
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 		set_ammo(ammo - 1)
+		emit_signal("laser_fired", laser)
 
 		if ammo <= 0 and ammo_refills > 0:
 			ammo_refills -= 1

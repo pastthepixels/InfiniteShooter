@@ -28,9 +28,22 @@ export (Array, Curve3D) var paths
 
 
 func initialize(difficulty):
-	# Does some initialization before the mini-cutscene:
+	# Sets up the path to follow
 	$Path.curve = paths[randi() % len(paths)]
 	$Path/PathFollow.unit_offset = 0
+	
+	# Gets the bounding box for the enemy ship model
+	bounding_box = $EnemyModel/Boss.get_child(0).get_aabb()
+
+	# Gets the health bar into position
+	$HealthBar.translation.z = -(bounding_box.size.z * $EnemyModel.scale.z) + .5
+	
+	# Multiplies everything by the difficulty number for added difficulty (same as we would for Enemy.gd)
+	max_health *= difficulty
+	damage *= difficulty
+	
+	# Sets the current health as the new max health
+	health = max_health
 	
 	# Mini-cutscene
 	$Tween.interpolate_property(self, "translation:z", translation.z, 0, 4, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
@@ -41,21 +54,9 @@ func initialize(difficulty):
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	
+	# Begins the stuff
 	skip_process = false
 	$LaserTimer.start()
-	
-	# Multiplies everything by the difficulty number for added difficulty (same as we would for Enemy.gd)
-	max_health *= difficulty
-	damage *= difficulty
-	
-	# Sets the current health as the new max health
-	health = max_health
-	
-	# Gets the bounding box for the enemy ship model
-	bounding_box = $EnemyModel/Boss.get_child(0).get_aabb()
-
-	# Gets the health bar into position
-	$HealthBar.translation.z = -(bounding_box.size.z * $EnemyModel.scale.z) + .5
 
 
 # Called to process health and movement

@@ -19,12 +19,29 @@ var wave = 1
 
 var enemies_in_wave = 0
 
+export var show_tutorial = true
+
 # User-adjustable game mechanics variables
 export var enemy_difficulty = 1
 
 export var waves_per_level = 5
 
 export var enemies_per_wave = 20
+
+# Scripts
+export var tutorial_script = [
+	"Welcome to InfniteShooter!",
+	"Use the arrow keys/WASD to move around (left stick on a controller).",
+	"wait_movement", # Command to wait for player movement
+	"Excellent work!",
+	"Now press space or A on a controller to fire a laser.",
+	"wait_laser", # Command to wait for the player to fire a laser
+	"Here comes an enemy ship; don't let it reach the bottom of the screen!",
+	"wait_enemy", # Command to spawn an enemy
+	"And that's all you need to know about InfiniteShooter!",
+	"Let's see if you can keep up with the game...",
+	"Good luck!"
+]
 
 #
 # Countdown timers, initialization and music
@@ -36,10 +53,49 @@ func _ready():
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/waves_per_level)
 	$GameSpace/Player.update_hud()
+	# Loads tutorial information
+	load_tutorialcomplete()
 
 func _on_Countdown_finished():
+	if show_tutorial == true:
+		activate_tutorial()
+	else:
+		make_enemy()
+		$EnemyTimer.start()
+
+#
+# the Tutorial
+#
+func activate_tutorial():
+	yield(Utils.timeout(.5), "timeout")
+	for line in tutorial_script:
+		match line:
+			"wait_enemy":
+				yield(make_enemy(false), "died")
+			"wait_movement":
+				yield($GameSpace/Player, "moved")
+			"wait_laser":
+				yield($GameSpace/Player, "laser_fired")
+			_:
+				$TutorialAlert.alert(line, 2)
+				yield($TutorialAlert, "finished")
 	make_enemy()
 	$EnemyTimer.start()
+	save_tutorialcomplete()
+
+func load_tutorialcomplete():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	show_tutorial = not file.file_exists("user://tutorial-complete")
+	file.close()
+
+
+func save_tutorialcomplete():
+	
+	var file = File.new() # Creates a new File object, for handling file operations
+	file.open( "user://tutorial-complete", File.WRITE )
+	file.store_line( "true" )
+	file.close()
 
 #
 # Waves, levels, and score
@@ -78,13 +134,13 @@ func level_up():
 # Making enemies
 #
 var last_enemy_position = Vector3()
-func make_enemy():
+func make_enemy(spawn_more=true):
 	# Ensures no enemy ships have the ability to create a new enemy when they die
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if enemy.has_user_signal("died"): enemy.disconnect("died", self, "_on_enemy_died")
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
-	enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
+	if spawn_more == true: enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
 	enemy.connect("died", self, "_on_enemy_died_score")
 	get_node(game_space).add_child(enemy) # adds it to the scene
 	enemy.initialize(level * enemy_difficulty) # Initializes the enemy
@@ -101,6 +157,8 @@ func make_enemy():
 	$HUD.update_wave(wave, 100 * enemies_in_wave/enemies_per_wave)
 	if enemies_in_wave == enemies_per_wave:
 		wave_up()
+	
+	return enemy
 
 func make_boss():
 	print(true)
@@ -115,7 +173,7 @@ func _on_boss_died(_boss):
 	level_up()
 
 func _on_enemy_died(_enemy):
-	if $EnemyTimer.paused == false: make_enemy()
+	if $EnemyTimer.paused == false and len(get_tree().get_nodes_in_group("enemies")) <= 10: make_enemy()
 
 func _on_enemy_died_score(enemy):
 	if enemy.killed_from_player: score += enemy.max_health / 2

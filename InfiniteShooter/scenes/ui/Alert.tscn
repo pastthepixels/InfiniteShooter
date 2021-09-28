@@ -57,12 +57,14 @@ tracks/3/keys = {
 }
 
 [node name="Alert" type="Label"]
-anchor_left = 0.05
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = -0.2
 anchor_top = 0.95
-anchor_right = 0.05
+anchor_right = -0.2
 anchor_bottom = 0.95
 margin_top = -17.0
 margin_right = 83.0
+rect_scale = Vector2( 0.6, 0.6 )
 theme = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Sample Text"
@@ -86,11 +88,6 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/slide = SubResource( 1 )
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="ErrorSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 bus = "SFX"
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
