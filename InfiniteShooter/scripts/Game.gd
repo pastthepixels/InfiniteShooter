@@ -31,16 +31,22 @@ export var enemies_per_wave = 20
 # Scripts
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
+	"begin_wait",
 	"Use the arrow keys/WASD to move around (left stick on a controller).",
 	"wait_movement", # Command to wait for player movement
 	"Excellent work!",
+	"begin_wait",
 	"Now press space or A on a controller to fire a laser.",
 	"wait_laser", # Command to wait for the player to fire a laser
+	"begin_wait",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen!",
 	"wait_enemy", # Command to spawn an enemy
+	"Next, let's talk about the in-game HUD.",
+	"Your health is the green bar in the top left corner.",
+	"The grey bar is your ammo (the number beside it notes your refills).",
+	"On the bottom, we have the current level, wave, score, and frame rate.",
 	"And that's all you need to know about InfiniteShooter!",
-	"Let's see if you can keep up with the game...",
-	"Good luck!"
+	"Let's see if you can keep up with the game... good luck!",
 ]
 
 #
@@ -70,15 +76,22 @@ func activate_tutorial():
 	yield(Utils.timeout(.5), "timeout")
 	for line in tutorial_script:
 		match line:
+			"begin_wait":
+				$TutorialAlert.user_confirmation = false
+				$TutorialAlert.waiting = false
 			"wait_enemy":
 				yield(make_enemy(false), "died")
+				$TutorialAlert.user_confirmation = true
 			"wait_movement":
 				yield($GameSpace/Player, "moved")
+				$TutorialAlert.user_confirmation = true
 			"wait_laser":
 				yield($GameSpace/Player, "laser_fired")
+				$TutorialAlert.user_confirmation = true
 			_:
-				$TutorialAlert.alert(line, 2)
+				$TutorialAlert.alert(line + ("  [ENTER/Y]" if $TutorialAlert.user_confirmation == true else ""), 3)
 				yield($TutorialAlert, "finished")
+	yield(Utils.timeout(1), "timeout")
 	make_enemy()
 	$EnemyTimer.start()
 	save_tutorialcomplete()

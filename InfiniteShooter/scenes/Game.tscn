@@ -28,6 +28,7 @@ bus = "SFX"
 visible = false
 margin_top = -33.0
 margin_bottom = -16.0
+user_confirmation = true
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
