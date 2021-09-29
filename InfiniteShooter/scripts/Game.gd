@@ -35,7 +35,7 @@ export var tutorial_script = [
 	"Use the arrow keys/WASD to move around (left stick on a controller).",
 	"wait_movement", # Command to wait for player movement
 	"Excellent work!",
-	"begin_wait",
+	"begin_wait_laser",
 	"Now press space or A on a controller to fire a laser.",
 	"wait_laser", # Command to wait for the player to fire a laser
 	"begin_wait",
@@ -79,6 +79,8 @@ func activate_tutorial():
 			"begin_wait":
 				$TutorialAlert.user_confirmation = false
 				$TutorialAlert.waiting = false
+			"begin_wait_laser":
+				$TutorialAlert.confirmation_key = "shoot_laser"
 			"wait_enemy":
 				yield(make_enemy(false), "died")
 				$TutorialAlert.user_confirmation = true
@@ -86,10 +88,10 @@ func activate_tutorial():
 				yield($GameSpace/Player, "moved")
 				$TutorialAlert.user_confirmation = true
 			"wait_laser":
-				yield($GameSpace/Player, "laser_fired")
+				$TutorialAlert.confirmation_key = "ui_dismiss"
 				$TutorialAlert.user_confirmation = true
 			_:
-				$TutorialAlert.alert(line + ("  [ENTER/Y]" if $TutorialAlert.user_confirmation == true else ""), 3)
+				$TutorialAlert.alert(line, 3)
 				yield($TutorialAlert, "finished")
 	yield(Utils.timeout(1), "timeout")
 	make_enemy()

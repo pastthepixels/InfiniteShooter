@@ -57,14 +57,12 @@ tracks/3/keys = {
 }
 
 [node name="Alert" type="Label"]
-modulate = Color( 1, 1, 1, 0 )
-anchor_left = -0.2
+anchor_left = 0.05
 anchor_top = 0.95
-anchor_right = -0.2
+anchor_right = 0.05
 anchor_bottom = 0.95
 margin_top = -17.0
 margin_right = 83.0
-rect_scale = Vector2( 0.6, 0.6 )
 theme = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Sample Text"
@@ -91,3 +89,58 @@ anims/slide = SubResource( 1 )
 [node name="ErrorSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 bus = "SFX"
+
+[node name="UserInputWarning" type="HBoxContainer" parent="."]
+margin_left = -9.0
+margin_top = -35.0
+margin_right = 146.0
+margin_bottom = -18.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KeyEnter" type="Label" parent="UserInputWarning"]
+margin_right = 37.0
+margin_bottom = 17.0
+text = "Enter"
+
+[node name="ColorRect" type="ColorRect" parent="UserInputWarning/KeyEnter"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_right = 2.0
+color = Color( 0.2, 0.2, 0.2, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slash" type="Label" parent="UserInputWarning"]
+margin_left = 41.0
+margin_right = 53.0
+margin_bottom = 17.0
+text = " / "
+
+[node name="KeyY" type="Label" parent="UserInputWarning"]
+margin_left = 57.0
+margin_right = 66.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Y"
+
+[node name="ColorRect" type="ColorRect" parent="UserInputWarning/KeyY"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_right = 2.0
+color = Color( 1, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToContinue" type="Label" parent="UserInputWarning"]
+margin_left = 70.0
+margin_right = 151.0
+margin_bottom = 17.0
+text = "  to continue"

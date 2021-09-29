@@ -4,16 +4,18 @@ signal finished
 
 export var user_confirmation = false
 
+export var confirmation_key = "ui_dismiss"
+
 var waiting = false
 
 func _input(event):
-	print(waiting)
-	print(event.is_action_pressed("ui_dismiss"))
-	if event.is_action_pressed("ui_dismiss") and waiting == true:
+	print(event.is_action_pressed(confirmation_key))
+	if event.is_action_pressed(confirmation_key) and waiting == true:
 		waiting = false
 		fade_out()
 
 func alert(alert_text, duration=1):
+	$UserInputWarning.visible = user_confirmation and confirmation_key == "ui_dismiss"
 	hide()
 	text = alert_text
 	$AnimationPlayer.play("slide")
