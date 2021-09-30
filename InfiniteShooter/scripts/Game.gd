@@ -60,7 +60,7 @@ func _ready():
 	$HUD.update_level(level, 100 * wave/waves_per_level)
 	$GameSpace/Player.update_hud()
 	# Loads tutorial information
-	#load_tutorialcomplete()
+	load_tutorialcomplete()
 
 func _on_Countdown_finished():
 	if show_tutorial == true:
