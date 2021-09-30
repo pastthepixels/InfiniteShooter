@@ -99,36 +99,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="KeyEnter" type="Label" parent="UserInputWarning"]
-margin_right = 37.0
+[node name="Press" type="Label" parent="UserInputWarning"]
+margin_right = 45.0
 margin_bottom = 17.0
+text = "Press  "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keyboard" type="Label" parent="UserInputWarning"]
+margin_left = 49.0
+margin_right = 86.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Enter"
 
-[node name="ColorRect" type="ColorRect" parent="UserInputWarning/KeyEnter"]
+[node name="ColorRect" type="ColorRect" parent="UserInputWarning/Keyboard"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -2.0
 margin_right = 2.0
-color = Color( 0.2, 0.2, 0.2, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Slash" type="Label" parent="UserInputWarning"]
-margin_left = 41.0
-margin_right = 53.0
-margin_bottom = 17.0
-text = " / "
-
-[node name="KeyY" type="Label" parent="UserInputWarning"]
-margin_left = 57.0
-margin_right = 66.0
+[node name="Controller" type="Label" parent="UserInputWarning"]
+visible = false
+margin_left = 49.0
+margin_right = 58.0
 margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Y"
 
-[node name="ColorRect" type="ColorRect" parent="UserInputWarning/KeyY"]
+[node name="ColorRect" type="ColorRect" parent="UserInputWarning/Controller"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -140,7 +144,7 @@ __meta__ = {
 }
 
 [node name="ToContinue" type="Label" parent="UserInputWarning"]
-margin_left = 70.0
-margin_right = 151.0
+margin_left = 90.0
+margin_right = 171.0
 margin_bottom = 17.0
 text = "  to continue"

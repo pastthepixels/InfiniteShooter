@@ -119,8 +119,6 @@ func explode_ship():
 	enemy_model.queue_free()
 	remove_from_group("enemies")
 	emit_signal("died", self)
-	if has_node("/root/Main/ShakeCamera"):
-		get_node("/root/Main/ShakeCamera").add_trauma(.4)  # Shakes the screen
 	if randi() % 4 == 1:  # 1/4 chance to create a powerup
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation

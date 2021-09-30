@@ -12,7 +12,9 @@ func explode():
 	exploding = true
 	$ExplosionAnimation.playing = true
 	Input.start_joy_vibration(0, 0.5, 0.7, .2)  # Vibrates a controller if you have one
-
+	if has_node("/root/Main/ShakeCamera"):
+		get_node("/root/Main/ShakeCamera").add_trauma(.2)  # Shakes the screen
+	
 	# Plays an explosion sound at a varying pitch
 	$ExplosionSound.pitch_scale = rand_range(0.8, 1.2)
 	$ExplosionSound.play()

@@ -9,13 +9,21 @@ export var confirmation_key = "ui_dismiss"
 var waiting = false
 
 func _input(event):
-	print(event.is_action_pressed(confirmation_key))
 	if event.is_action_pressed(confirmation_key) and waiting == true:
 		waiting = false
 		fade_out()
 
 func alert(alert_text, duration=1):
+	# user confirmation stuff
 	$UserInputWarning.visible = user_confirmation and confirmation_key == "ui_dismiss"
+	if Input.get_joy_name(0) != "":
+		$UserInputWarning/Keyboard.hide()
+		$UserInputWarning/Controller.show()
+	else:
+		$UserInputWarning/Keyboard.show()
+		$UserInputWarning/Controller.hide()
+	
+	# everything else
 	hide()
 	text = alert_text
 	$AnimationPlayer.play("slide")

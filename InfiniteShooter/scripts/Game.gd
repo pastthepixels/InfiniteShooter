@@ -60,7 +60,7 @@ func _ready():
 	$HUD.update_level(level, 100 * wave/waves_per_level)
 	$GameSpace/Player.update_hud()
 	# Loads tutorial information
-	load_tutorialcomplete()
+	#load_tutorialcomplete()
 
 func _on_Countdown_finished():
 	if show_tutorial == true:
@@ -77,10 +77,11 @@ func activate_tutorial():
 	for line in tutorial_script:
 		match line:
 			"begin_wait":
-				$TutorialAlert.user_confirmation = false
 				$TutorialAlert.waiting = false
+				$TutorialAlert.user_confirmation = false
 			"begin_wait_laser":
 				$TutorialAlert.confirmation_key = "shoot_laser"
+				$TutorialAlert.user_confirmation = true
 			"wait_enemy":
 				yield(make_enemy(false), "died")
 				$TutorialAlert.user_confirmation = true
@@ -89,9 +90,8 @@ func activate_tutorial():
 				$TutorialAlert.user_confirmation = true
 			"wait_laser":
 				$TutorialAlert.confirmation_key = "ui_dismiss"
-				$TutorialAlert.user_confirmation = true
 			_:
-				$TutorialAlert.alert(line, 3)
+				$TutorialAlert.alert(line, len(line) * .05)
 				yield($TutorialAlert, "finished")
 	yield(Utils.timeout(1), "timeout")
 	make_enemy()
