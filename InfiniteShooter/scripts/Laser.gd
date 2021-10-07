@@ -17,14 +17,20 @@ onready var followed_player = get_tree().get_nodes_in_group("players")[randi() %
 
 export var follow_player = false
 
+export var follow_speed = 0.08
+
+# Laser "modifiers"
+export var modifier_fire = true
+
+export var modifier_ice = false
+
+export var modifier_corrosion = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if from_player == false:  # By default the player laser is visible where the enemy laser model is not. If this laser is from an enemy, swap this.
-		$PlayerLaser.hide()
-		$EnemyLaser.show()
+	set_laser()
 	
-	if follow_player == true:
-		$FollowTimer.start()
+	if follow_player == true: $FollowTimer.start()
 	
 	$LaserSound.pitch_scale = rand_range(0.9, 1.1)
 	$LaserSound.play()
@@ -40,12 +46,22 @@ func _process(_delta):
 
 	else:
 		if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
-			$EnemyLaser/Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
-			translation.z += .1 if translation.z < followed_player.translation.z else -.1
-			translation.x += .1 if translation.x < followed_player.translation.x else -.1
+			$EnemyLaser.look_at(followed_player.translation, Vector3(0, 1, 0))
+			if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed): translation.z += follow_speed if stepify(translation.z, follow_speed) < stepify(followed_player.translation.z, follow_speed) else -follow_speed
+			if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed): translation.x += follow_speed if stepify(translation.x, follow_speed) < stepify(followed_player.translation.x, follow_speed) else -follow_speed
 		else:
 			translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
 
+# Called to set the laser's color/decoration
+func set_laser():
+	if from_player == false:
+		# Hides the player laser
+		$PlayerLaser.hide()
+		# Sets the color of the particles
+		$Particles.draw_pass_1.surface_set_material(0, $EnemyLaser.get_active_material(0))
+	else:
+		# HIdes the enemy laser
+		$EnemyLaser.hide()
 
 # Called when the laser collides with objects
 func on_collision(area):
@@ -68,15 +84,12 @@ func remove_laser(hit_ship):
 	$PlayerLaser.hide()
 	$EnemyLaser.hide()
 	if hit_ship == false:
+		set_laser()
 		$Particles.emitting = true
-		# Also we're setting the color of the explosion bits (for some reason we have to do it NOW of ALL TIMES)
-		var material = $Particles.draw_pass_1.surface_get_material(0)
-		material.albedo_color = ($EnemyLaser if from_player == false else $PlayerLaser).get_child(0).get_active_material(0).albedo_color
-		$Particles.draw_pass_1.surface_set_material(0, material)
 	$CollisionShape.queue_free()
 	if hit_ship == true:
 		if has_node("/root/Main/ShakeCamera"):
-			get_node("/root/Main/ShakeCamera").add_trauma(.3)  # Shakes the screen a little bit
+			get_node("/root/Main/ShakeCamera").add_trauma(.15)  # Shakes the screen a little bit
 		$HitSound.pitch_scale = rand_range(0.9, 1.1) # and plays a sound
 		$HitSound.play()
 	

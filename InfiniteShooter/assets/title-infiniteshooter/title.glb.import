@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/laser.glb-025c8ab6c45bd1950b173e068ac28dec.scn"
+path="res://.import/title.glb-ddead7c12923755b7352c290fd0a8bef.scn"
 
 [deps]
 
-source_file="res://assets/laser/player/laser.glb"
-dest_files=[ "res://.import/laser.glb-025c8ab6c45bd1950b173e068ac28dec.scn" ]
+source_file="res://assets/title-infiniteshooter/title.glb"
+dest_files=[ "res://.import/title.glb-ddead7c12923755b7352c290fd0a8bef.scn" ]
 
 [params]
 
