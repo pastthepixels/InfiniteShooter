@@ -23,11 +23,11 @@ export var follow_player = false
 export var follow_speed = 0.08
 
 # Laser "modifiers"
-export var modifier_fire = true
+export var modifier_fire = true # DONE (enabled for debugging, but also because it's cool)
 
-export var modifier_ice = false
+export var modifier_ice = false # TODO
 
-export var modifier_corrosion = false
+export var modifier_corrosion = false # TODO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
