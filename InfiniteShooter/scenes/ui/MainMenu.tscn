@@ -1,74 +1,130 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/title-infiniteshooter/title-infiniteshooter.png" type="Texture" id=1]
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/ui/Leaderboard.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui/Upgrades.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui/OptionsMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/title-infiniteshooter/title.glb" type="PackedScene" id=8]
 
-[sub_resource type="Animation" id=1]
-resource_name = "LogoSlide"
+[sub_resource type="Animation" id=4]
+resource_name = "introduce-title"
+length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position")
+tracks/0/path = NodePath("Title:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector3( 0, 16, 0 ), Vector3( 0, 8, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "switch"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.4, 0.4 ),
+"times": PoolRealArray( 2.79397e-07, 1.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 300, 400 ), Vector2( 300, 300 ) ]
+"values": [ Vector3( 0, 8, 0 ), Vector3( 0, 6, -2 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Logo:scale")
-tracks/1/interp = 2
+tracks/1/path = NodePath("Menu/Options:modulate")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 0.4 ),
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 0.8, 0.8 ), Vector2( 0.6, 0.6 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Menu/SelectSquare:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Node"]
+script = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/introduce-title = SubResource( 4 )
+anims/switch = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Title" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -2 )
+
+[node name="title" parent="Title" instance=ExtResource( 8 )]
+
+[node name="Direct Light" type="SpotLight" parent="Title"]
+transform = Transform( -0.479384, -0.674061, 0.56199, -0.341905, 0.733218, 0.587785, -0.808264, 0.0896274, -0.581958, 2.70917, 1.52453, -1.62942 )
+light_energy = 5.0
+spot_range = 6.67086
+spot_angle = 49.3769
+
+[node name="Indirect Light" type="SpotLight" parent="Title"]
+transform = Transform( 0.36223, 0.679974, -0.637514, -0.341905, 0.733218, 0.587785, 0.867116, 0.00505608, 0.498081, -5, 2.8375, 2 )
+light_energy = 4.0
+spot_range = 8.75525
+spot_angle = 45.5262
+
+[node name="Menu" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
-script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectSquare" parent="." instance=ExtResource( 2 )]
+[node name="SelectSquare" parent="Menu" instance=ExtResource( 2 )]
+visible = false
 options_path = NodePath("../Options")
 
-[node name="Options" type="VBoxContainer" parent="."]
+[node name="Options" type="VBoxContainer" parent="Menu"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -39.8326
-margin_top = -20.0
-margin_right = 41.1674
-margin_bottom = 20.0
+margin_left = -40.5
+margin_top = -67.5
+margin_right = 40.5
+margin_bottom = 67.5
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Play" type="Label" parent="Options"]
+[node name="Play" type="Label" parent="Menu/Options"]
 margin_right = 81.0
 margin_bottom = 15.0
 text = "start"
 align = 1
 valign = 1
 
-[node name="Leaderboard" type="Label" parent="Options"]
+[node name="Leaderboard" type="Label" parent="Menu/Options"]
 margin_top = 30.0
 margin_right = 81.0
 margin_bottom = 45.0
@@ -76,7 +132,7 @@ text = "leaderboard"
 align = 1
 valign = 1
 
-[node name="Upgrades" type="Label" parent="Options"]
+[node name="Upgrades" type="Label" parent="Menu/Options"]
 margin_top = 60.0
 margin_right = 81.0
 margin_bottom = 75.0
@@ -84,7 +140,7 @@ text = "upgrades"
 align = 1
 valign = 1
 
-[node name="Options" type="Label" parent="Options"]
+[node name="Options" type="Label" parent="Menu/Options"]
 margin_top = 90.0
 margin_right = 81.0
 margin_bottom = 105.0
@@ -92,7 +148,7 @@ text = "options"
 align = 1
 valign = 1
 
-[node name="Quit" type="Label" parent="Options"]
+[node name="Quit" type="Label" parent="Menu/Options"]
 margin_top = 120.0
 margin_right = 81.0
 margin_bottom = 135.0
@@ -103,31 +159,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartScreen" type="ColorRect" parent="."]
+[node name="StartScreen" type="Control" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="LogoContainer" type="HBoxContainer" parent="StartScreen"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Logo" type="Sprite" parent="StartScreen/LogoContainer"]
-scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 1 )
-
-[node name="LogoSlide" type="AnimationPlayer" parent="StartScreen/LogoContainer"]
-anims/LogoSlide = SubResource( 1 )
-
-[node name="AltText" type="Label" parent="StartScreen"]
+[node name="AltText" type="Label" parent="Menu/StartScreen"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -142,13 +178,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Leaderboard" parent="." instance=ExtResource( 5 )]
+[node name="Leaderboard" parent="Menu" instance=ExtResource( 5 )]
 visible = false
 
-[node name="Upgrades" parent="." instance=ExtResource( 6 )]
+[node name="Upgrades" parent="Menu" instance=ExtResource( 6 )]
 visible = false
 
-[node name="OptionsMenu" parent="." instance=ExtResource( 7 )]
+[node name="OptionsMenu" parent="Menu" instance=ExtResource( 7 )]
 visible = false
 
-[connection signal="settings_changed" from="OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]
+[connection signal="settings_changed" from="Menu/OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]
