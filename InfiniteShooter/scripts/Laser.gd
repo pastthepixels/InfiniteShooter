@@ -12,6 +12,9 @@ var freeze = false
 # A variable for... the "sender" of a laser
 var sender
 
+# To stop ships from hurting themselves as soon as they shoot lasers
+var invincible = true
+
 # Following the player
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 
@@ -65,7 +68,7 @@ func set_laser():
 
 # Called when the laser collides with objects
 func on_collision(area):
-	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and area.get_parent() != sender:  # If the area this is colliding with is an enemy (and it is from the player)
+	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().health -= damage  # subtract health from the enemy
 		# Laser modifiers
 		if modifier_fire == true:
@@ -109,3 +112,7 @@ func _on_VisibilityNotifier_screen_exited():
 
 func _on_FollowTimer_timeout():
 	remove_laser(false)
+
+
+func _on_InvincibilityTimer_timeout():
+	invincible = false

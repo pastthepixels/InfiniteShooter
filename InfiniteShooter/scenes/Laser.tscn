@@ -92,6 +92,10 @@ bus = "SFX"
 [node name="FollowTimer" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
 [node name="Particles" type="Particles" parent="."]
 emitting = false
 amount = 25
@@ -106,3 +110,4 @@ draw_pass_1 = SubResource( 10 )
 [connection signal="area_entered" from="." to="." method="on_collision"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
 [connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
