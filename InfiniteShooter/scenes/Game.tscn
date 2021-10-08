@@ -12,6 +12,8 @@
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
+waves_per_level = 1
+enemies_per_wave = 1
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 4.0

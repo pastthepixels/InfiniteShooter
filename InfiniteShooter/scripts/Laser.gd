@@ -67,6 +67,10 @@ func set_laser():
 func on_collision(area):
 	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and area.get_parent() != sender:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().health -= damage  # subtract health from the enemy
+		# Laser modifiers
+		if modifier_fire == true:
+			area.get_node("../LaserEffects").bleed(.5, 3)
+		# End laser modifiers
 		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
 		remove_laser(true)  # and remove the laser
 

@@ -100,7 +100,6 @@ func _process(_delta):
 		$HealthBar.hide()
 		explode_ship() # otherwise, explode the ship
 
-
 func move_down():
 	translation.z += .05 * speed_mult
 	# If it is such that the center of the ship moves past the center of the screen...
