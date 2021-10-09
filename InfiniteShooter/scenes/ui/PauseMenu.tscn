@@ -13,7 +13,7 @@ resource_name = "BorderPulse"
 length = 1.4
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background/Border:modulate")
+tracks/0/path = NodePath("BackBufferCopy/Background/Border:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -90,7 +90,11 @@ bus = "SFX"
 stream = ExtResource( 3 )
 bus = "SFX"
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+rect = Rect2( 0, 0, 600, 800 )
+
+[node name="Background" type="ColorRect" parent="BackBufferCopy"]
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -98,7 +102,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Border" type="ReferenceRect" parent="Background"]
+[node name="Border" type="ReferenceRect" parent="BackBufferCopy/Background"]
 anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95
@@ -110,7 +114,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background Color" type="ColorRect" parent="Background"]
+[node name="Background Color" type="ColorRect" parent="BackBufferCopy/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.666667, 0.666667, 0.666667, 0.129412 )

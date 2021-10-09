@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=2]
 [ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
 [ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
@@ -21,23 +22,27 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.54902 ) ]
 }
 
+[sub_resource type="ShaderMaterial" id=20]
+shader = ExtResource( 2 )
+shader_param/lod = 2.0
+shader_param/aberration_strength = 0.5
+
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.668224 )
-colors = PoolColorArray( 0.784314, 0, 0, 1, 0.0313726, 0.0313726, 0.0313726, 0 )
+colors = PoolColorArray( 1, 1, 1, 0.313726, 1, 1, 1, 0.117647 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
 width = 512
 
 [sub_resource type="Gradient" id=4]
-colors = PoolColorArray( 0, 0, 0, 0.392157, 0.392157, 0, 0, 1 )
+colors = PoolColorArray( 0, 0, 0, 0.392157, 0.2, 0.2, 0.2, 0.392157 )
 
 [sub_resource type="GradientTexture" id=5]
 gradient = SubResource( 4 )
 width = 64
 
 [sub_resource type="Gradient" id=6]
-colors = PoolColorArray( 0, 0, 0, 0.392157, 0, 0, 0, 1 )
+colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
 
 [sub_resource type="GradientTexture" id=7]
 gradient = SubResource( 6 )
@@ -50,20 +55,25 @@ colors = PoolColorArray( 1, 1, 1, 1, 0.304688, 0.304688, 0.304688, 0.0470588 )
 gradient = SubResource( 8 )
 
 [sub_resource type="Gradient" id=10]
-colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 1, 1, 1, 1, 0.784314 )
+colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 0.313726, 1, 1, 1, 0.313726 )
 
 [sub_resource type="GradientTexture" id=11]
 gradient = SubResource( 10 )
 
 [sub_resource type="Gradient" id=12]
-colors = PoolColorArray( 0.267868, 0.625, 0.256348, 1, 0, 1, 0.109375, 1 )
+colors = PoolColorArray( 0.266667, 0.784314, 0.254902, 1, 0, 1, 0.115, 1 )
 
 [sub_resource type="GradientTexture" id=13]
 gradient = SubResource( 12 )
 width = 512
 
+[sub_resource type="ShaderMaterial" id=21]
+shader = ExtResource( 2 )
+shader_param/lod = 2.0
+shader_param/aberration_strength = 0.5
+
 [sub_resource type="Gradient" id=14]
-colors = PoolColorArray( 0.560784, 0.560784, 0.560784, 0.784314, 0.627451, 0.627451, 0.627451, 0.54902 )
+colors = PoolColorArray( 0.560784, 0.560784, 0.560784, 0.588235, 0.627451, 0.627451, 0.627451, 0.627451 )
 
 [sub_resource type="GradientTexture" id=15]
 gradient = SubResource( 14 )
@@ -118,11 +128,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatusBar" type="TextureRect" parent="."]
+[node name="StatusBar" type="Control" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -30.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="StatusBar"]
+material = SubResource( 20 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gradient" type="TextureRect" parent="StatusBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = SubResource( 3 )
 expand = true
 __meta__ = {
@@ -232,12 +257,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="ProgressBars/HealthBar"]
+show_behind_parent = true
+material = SubResource( 21 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AmmoBar" type="TextureProgress" parent="ProgressBars"]
 margin_left = 5.0
 margin_top = 23.0
 margin_right = 185.0
 margin_bottom = 37.0
-value = 100.0
+value = 50.0
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true

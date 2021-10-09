@@ -7,23 +7,21 @@
 [ext_resource path="res://sounds/gui-use.wav" type="AudioStream" id=5]
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=6]
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 6 )
 shader_param/lod = 1.0
-shader_param/use_custom_color = true
-shader_param/custom_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
-shader_param/darken_custom_color = false
+shader_param/aberration_strength = 0.5
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 225
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "fade-background"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background:modulate")
+tracks/0/path = NodePath("BackBufferCopy/Background:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -35,7 +33,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Label:modulate")
@@ -54,7 +52,7 @@ tracks/0/keys = {
 resource_name = "fade-background"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background:modulate")
+tracks/0/path = NodePath("BackBufferCopy/Background:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -91,8 +89,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="."]
-material = SubResource( 3 )
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+rect = Rect2( 0, 0, 600, 800 )
+
+[node name="Background" type="ColorRect" parent="BackBufferCopy"]
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -102,7 +104,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 0.941176 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 text = "3"
@@ -114,8 +116,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade-background = SubResource( 4 )
-anims/show = SubResource( 7 )
+anims/fade-background = SubResource( 3 )
+anims/show = SubResource( 4 )
 
 [node name="BackgroundFade" type="AnimationPlayer" parent="."]
 anims/fade-background = SubResource( 5 )

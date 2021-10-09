@@ -69,7 +69,7 @@ tracks/4/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Background:modulate")
+tracks/5/path = NodePath("BackBufferCopy/Background:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -81,7 +81,7 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Background:material:shader_param/lod")
+tracks/6/path = NodePath("BackBufferCopy/Background:material:shader_param/lod")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -116,7 +116,11 @@ anims/FadeAll = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+rect = Rect2( 0, 0, 600, 800 )
+
+[node name="Background" type="ColorRect" parent="BackBufferCopy"]
 modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 1 )
 anchor_right = 1.0
@@ -125,7 +129,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background Color" type="ColorRect" parent="Background"]
+[node name="Background Color" type="ColorRect" parent="BackBufferCopy/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.666667, 0.666667, 0.666667, 0.0392157 )
@@ -220,3 +224,5 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
