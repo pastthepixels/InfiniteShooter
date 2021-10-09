@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=3]
@@ -64,6 +64,23 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=3]
+resource_name = "flash_text"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AltText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2 ),
+"transitions": PoolRealArray( 0.5, 2, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="MainMenu" type="Node"]
 script = ExtResource( 3 )
 
@@ -74,7 +91,7 @@ anims/switch = SubResource( 2 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Title" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
 [node name="title" parent="Title" instance=ExtResource( 8 )]
 
@@ -162,8 +179,15 @@ options_path = NodePath("../Options")
 [node name="StartScreen" type="Control" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu/StartScreen"]
+anims/flash_text = SubResource( 3 )
 
 [node name="AltText" type="Label" parent="Menu/StartScreen"]
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

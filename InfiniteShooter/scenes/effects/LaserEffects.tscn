@@ -2,35 +2,37 @@
 
 [ext_resource path="res://scripts/LaserEffects.gd" type="Script" id=1]
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.503876, 1 )
 colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 1, 1, 0.458008, 0.458008, 0.458008, 1 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 8 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=3]
 lifetime_randomness = 0.25
 emission_shape = 1
 emission_sphere_radius = 0.8
 direction = Vector3( 0, 0, 0 )
 gravity = Vector3( 0, 0, -2 )
 initial_velocity = 0.5
-color_ramp = SubResource( 7 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=4]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 albedo_color = Color( 1, 0.552941, 0, 1 )
 proximity_fade_enable = true
 proximity_fade_distance = 1.0
 
-[sub_resource type="PlaneMesh" id=10]
-material = SubResource( 3 )
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
 size = Vector2( 0.025, 0.05 )
 
 [node name="LaserEffects" type="Spatial"]
 script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
 
 [node name="BleedTimer" type="Timer" parent="."]
 
@@ -39,7 +41,8 @@ emitting = false
 amount = 500
 lifetime = 1.5
 randomness = 0.2
-process_material = SubResource( 9 )
-draw_pass_1 = SubResource( 10 )
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
 
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="BleedTimer" to="." method="_on_BleedTimer_timeout"]

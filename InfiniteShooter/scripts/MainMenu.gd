@@ -5,6 +5,8 @@ func _ready():
 	GameMusic.play_main()
 	get_node("../SkyScrolling").stop(true)
 	$AnimationPlayer.play("introduce-title")
+	yield($AnimationPlayer, "animation_finished")
+	$Menu/StartScreen/AnimationPlayer.play("flash_text")
 
 
 func _input(event):

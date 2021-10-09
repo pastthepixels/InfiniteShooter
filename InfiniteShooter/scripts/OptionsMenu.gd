@@ -84,10 +84,9 @@ func set_settings():
 func get_settings():
 	# Reads settings and puts that in a variable called "loaded_settings"
 	var file = File.new()  # Creates a new File object, for handling file operations
+	if file.file_exists("user://settings.json") == false: return # Returns if settings.json doesn't exist
 	file.open("user://settings.json", File.READ)
 	var loaded_settings = parse_json(file.get_line())
-	if loaded_settings == null:
-		return  # Returns if settings.json doesn't exist
 	file.close()  # We're done with the `file` for now.
 
 	# Sets our "settings" variable, but with this code in case an extra setting is here but not in config files
