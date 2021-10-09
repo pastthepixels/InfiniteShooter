@@ -12,18 +12,16 @@ func fade_show():
 	$SelectSquare.update()
 
 
-func _input(event):
-	if event.is_action_pressed("ui_accept") and is_visible():
-		$SelectSquare/AcceptSound.play()
-		match $Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
-			"Retry":  # If it is the one named "play", play the game.
-				SceneTransition.play(self, "restart_game")
+func _on_SelectSquare_selected():
+	match $Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
+		"Retry":  # If it is the one named "play", play the game.
+			SceneTransition.play(self, "restart_game")
 
-			"Quit":  # Otherwise, quit the game
-				SceneTransition.play(self, "quit_game")
+		"Quit":  # Otherwise, quit the game
+			SceneTransition.play(self, "quit_game")
 
-			"MainMenu":  # or return to the main menu
-				SceneTransition.play(self, "main_menu")
+		"MainMenu":  # or return to the main menu
+			SceneTransition.play(self, "main_menu")
 
 
 func restart_game():

@@ -20,11 +20,11 @@ func _input(event):
 	if event.is_action_pressed("pause"):
 		toggle_pause(true)
 
-	if event.is_action_pressed("ui_accept") and is_visible():
+func _on_SelectSquare_selected():
+	if is_visible():
 		game_space.get_node("Player").ammo = 0  # To prevent the player from firing right as we unpause (since we are unpausing with the space bar)
 		toggle_pause(false)
 		disabled = true
-		get_node("SelectSquare/AcceptSound").play()
 		match $Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 			"Retry":  # If it is the one named "play", play the game.
 				SceneTransition.play(self, "restart_game")

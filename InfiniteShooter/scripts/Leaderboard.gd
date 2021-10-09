@@ -11,6 +11,10 @@ func hide_animated():
 	yield($AnimationPlayer, "animation_finished")
 	hide()
 
+func _on_SelectSquare_selected():
+	hide_animated()
+	get_node("../SelectSquare").show()
+	get_node("../SelectSquare").ignore_hits += 1
 
 func _ready():
 	var scores = read_scores()

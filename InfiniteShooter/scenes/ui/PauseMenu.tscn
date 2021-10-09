@@ -8,14 +8,22 @@
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=7]
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=8]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 7 )
-shader_param/lod = 1.0
-shader_param/aberration_strength = 0.5
-
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 8 )
+[sub_resource type="Animation" id=5]
+resource_name = "BorderPulse"
+length = 1.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background/Border:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.4 ),
+"transitions": PoolRealArray( -2, -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 length = 0.3
@@ -47,22 +55,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "BorderPulse"
-length = 1.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Background/Border:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.7, 1.4 ),
-"transitions": PoolRealArray( -2, -2, -2 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 7 )
+shader_param/lod = 1.0
+shader_param/aberration_strength = 0.5
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 8 )
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -74,6 +74,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BorderPulse" type="AnimationPlayer" parent="."]
+autoplay = "BorderPulse"
+anims/BorderPulse = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 3 )
+anims/FadeOut = SubResource( 4 )
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="ResumeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
+
 [node name="Background" type="ColorRect" parent="."]
 material = SubResource( 1 )
 anchor_right = 1.0
@@ -83,7 +99,6 @@ __meta__ = {
 }
 
 [node name="Border" type="ReferenceRect" parent="Background"]
-modulate = Color( 1, 1, 1, 0.0918129 )
 anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95
@@ -117,17 +132,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PauseSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-bus = "SFX"
-
-[node name="ResumeSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-bus = "SFX"
-
-[node name="SelectSquare" parent="." instance=ExtResource( 5 )]
-options_path = NodePath("../Options")
-
 [node name="Subtitle" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -142,6 +146,9 @@ text = "press pause key again to resume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SelectSquare" parent="." instance=ExtResource( 5 )]
+options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -186,10 +193,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 3 )
-anims/FadeOut = SubResource( 4 )
-
-[node name="BorderPulse" type="AnimationPlayer" parent="."]
-autoplay = "BorderPulse"
-anims/BorderPulse = SubResource( 5 )
+[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

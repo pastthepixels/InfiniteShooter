@@ -19,12 +19,12 @@ func hide_animated():
 	hide()
 
 
-# To handle when something is selected -- all input starts from the main menu but go over here for the [OPTIONS] screen
-func handle_selection():
+func _on_SelectSquare_selected():
 	match $VBoxContainer/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"Back":
 			hide_animated()
 			get_node("../SelectSquare").show()
+			get_node("../SelectSquare").ignore_hits += 1
 
 		"AntiAliasing":
 			settings["antialiasing"] = ! settings["antialiasing"]
@@ -45,6 +45,7 @@ func handle_selection():
 func _input(event):
 	if visible == true:
 		set_settings()
+		
 	match $VBoxContainer/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"MusicVolume":
 			if event.is_action_pressed("ui_left"):

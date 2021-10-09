@@ -37,40 +37,31 @@ func _input(event):
 		
 		# Allows things to be selected
 		$Menu/SelectSquare.show()
+		$Menu/SelectSquare.ignore_hits += 1
 
-		# Returns the rest of this function
-		return
+func _on_SelectSquare_selected():
+	match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...
+		"Play":  # If it is the one named "play", play the game.
+			SceneTransition.play(self, "play_game")
 
-	if event.is_action_pressed("ui_accept"):
-		$Menu/SelectSquare/AcceptSound.play()
-		match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...
-			"Play":  # If it is the one named "play", play the game.
-				SceneTransition.play(self, "play_game")
+		"Leaderboard":  # Same with selecting the leaderboard
+			if $Menu/Leaderboard.visible == false:
+				$Menu/Leaderboard.show_animated()
+				$Menu/SelectSquare.hide()
+			else:
+				$Menu/Leaderboard.hide_animated()
+				$Menu/SelectSquare.show()
 
-			"Leaderboard":  # Same with selecting the leaderboard
-				if $Menu/Leaderboard.visible == false:
-					$Menu/Leaderboard.show_animated()
-					$Menu/SelectSquare.hide()
-				else:
-					$Menu/Leaderboard.hide_animated()
-					$Menu/SelectSquare.show()
+		"Upgrades":  # Same with selecting the upgrades screen
+			$Menu/Upgrades.show_animated()
+			$Menu/SelectSquare.hide()
 
-			"Upgrades":  # Same with selecting the upgrades screen
-				if $Menu/Upgrades.visible == false:
-					$Menu/Upgrades.show_animated()
-					$Menu/SelectSquare.hide()
-				else:
-					$Menu/Upgrades.handle_selection()
+		"Options":  # /options screen
+			$Menu/OptionsMenu.show_animated()
+			$Menu/SelectSquare.hide()
 
-			"Options":  # /options screen
-				if $Menu/OptionsMenu.visible == false:
-					$Menu/OptionsMenu.show_animated()
-					$Menu/SelectSquare.hide()
-				else:
-					$Menu/OptionsMenu.handle_selection()
-
-			"Quit":  # Otherwise, quit the game
-				SceneTransition.play(self, "quit_game")
+		"Quit":  # Otherwise, quit the game
+			SceneTransition.play(self, "quit_game")
 
 
 func play_game():

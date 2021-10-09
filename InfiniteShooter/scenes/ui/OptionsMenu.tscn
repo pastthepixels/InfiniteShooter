@@ -6,28 +6,6 @@
 [ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 5 )
-shader_param/lod = 2.0
-shader_param/aberration_strength = 1.0
-
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 2 )
-
-[sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 0, 0, 0, 1, 0.078125, 0.078125, 0.078125, 1 )
-
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
-width = 1024
-
-[sub_resource type="Gradient" id=5]
-colors = PoolColorArray( 0, 1, 0.132812, 1, 0.171875, 1, 0.28186, 1 )
-
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
-
 [sub_resource type="Animation" id=7]
 resource_name = "close"
 length = 0.2
@@ -131,6 +109,28 @@ tracks/3/keys = {
 "values": [ 1.0 ]
 }
 
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/lod = 2.0
+shader_param/aberration_strength = 1.0
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0, 0, 0, 1, 0.078125, 0.078125, 0.078125, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 1024
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 0, 1, 0.132812, 1, 0.171875, 1, 0.28186, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
 [node name="OptionsMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -139,6 +139,10 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/close = SubResource( 7 )
+anims/open = SubResource( 8 )
 
 [node name="Background" type="ColorRect" parent="."]
 material = SubResource( 1 )
@@ -300,6 +304,4 @@ texture_progress = SubResource( 6 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/close = SubResource( 7 )
-anims/open = SubResource( 8 )
+[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

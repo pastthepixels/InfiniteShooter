@@ -15,7 +15,7 @@ shader_param/aberration_strength = 0.5
 size = 64
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "close"
 length = 0.2
 tracks/0/type = "value"
@@ -67,7 +67,7 @@ tracks/3/keys = {
 "values": [ 1.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -198,5 +198,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/close = SubResource( 4 )
-anims/open = SubResource( 3 )
+anims/close = SubResource( 3 )
+anims/open = SubResource( 4 )
+
+[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

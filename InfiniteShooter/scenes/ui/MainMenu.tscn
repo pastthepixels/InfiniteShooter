@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/ui/OptionsMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/title-infiniteshooter/title.glb" type="PackedScene" id=8]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 resource_name = "introduce-title"
 length = 3.0
 tracks/0/type = "value"
@@ -68,7 +68,7 @@ tracks/2/keys = {
 script = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/introduce-title = SubResource( 4 )
+anims/introduce-title = SubResource( 1 )
 anims/switch = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
@@ -97,10 +97,6 @@ theme = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SelectSquare" parent="Menu" instance=ExtResource( 2 )]
-visible = false
-options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="Menu"]
 visible = false
@@ -159,6 +155,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SelectSquare" parent="Menu" instance=ExtResource( 2 )]
+visible = false
+options_path = NodePath("../Options")
+
 [node name="StartScreen" type="Control" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -187,4 +187,5 @@ visible = false
 [node name="OptionsMenu" parent="Menu" instance=ExtResource( 7 )]
 visible = false
 
+[connection signal="selected" from="Menu/SelectSquare" to="." method="_on_SelectSquare_selected"]
 [connection signal="settings_changed" from="Menu/OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]

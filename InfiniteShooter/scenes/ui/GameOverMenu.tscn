@@ -6,15 +6,6 @@
 [ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 5 )
-shader_param/lod = 1.0
-shader_param/aberration_strength = 0.5
-
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 1 )
-
 [sub_resource type="Animation" id=3]
 length = 4.0
 tracks/0/type = "value"
@@ -102,6 +93,15 @@ tracks/6/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/lod = 0.0
+shader_param/aberration_strength = 0.5
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 1 )
+
 [node name="GameOverMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -110,6 +110,11 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeAll = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="Background" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -127,10 +132,6 @@ color = Color( 0.666667, 0.666667, 0.666667, 0.0392157 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0 )
-options_path = NodePath("../Options")
 
 [node name="Labels" type="HBoxContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -169,6 +170,10 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
+modulate = Color( 1, 1, 1, 0 )
+options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -215,8 +220,3 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeAll = SubResource( 3 )
-
-[node name="Tween" type="Tween" parent="."]

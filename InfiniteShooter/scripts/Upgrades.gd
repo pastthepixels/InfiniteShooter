@@ -39,13 +39,13 @@ func _ready():
 	reroll_upgrades() # <-- Does not nessecarilary reroll upgrades but checks first
 
 
-# To handle when something is selected -- all input starts from the main menu but go over here for the upgrade screen
-func handle_selection():
+func _on_SelectSquare_selected():
 	match $VBoxContainer/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 		
 		"Back":
 			hide_animated()
 			get_node("../SelectSquare").show()
+			get_node("../SelectSquare").ignore_hits += 1
 		
 		var name:
 			var upgrade = upgrade_lookup_table[name]
