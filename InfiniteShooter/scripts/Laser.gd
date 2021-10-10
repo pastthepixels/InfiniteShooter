@@ -23,11 +23,11 @@ export var follow_player = false
 export var follow_speed = 0.08
 
 # Laser "modifiers"
-export var modifier_fire = true # DONE (enabled for debugging, but also because it's cool)
+export var modifier_fire = false
 
-export var modifier_ice = false # TODO
+export var modifier_ice = false
 
-export var modifier_corrosion = false # TODO
+export var modifier_corrosion = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -73,6 +73,13 @@ func on_collision(area):
 		# Laser modifiers
 		if modifier_fire == true:
 			area.get_node("../LaserEffects").bleed(.5, 3)
+			area.get_node("../LaserEffects").start_fire()
+		if modifier_corrosion == true:
+			area.get_node("../LaserEffects").bleed(2, 20)
+			area.get_node("../LaserEffects").start_corrosion()
+		if modifier_ice == true:
+			area.get_node("../LaserEffects").freeze(5)
+			area.get_node("../LaserEffects").start_ice()
 		# End laser modifiers
 		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
 		remove_laser(true)  # and remove the laser

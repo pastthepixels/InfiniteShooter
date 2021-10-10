@@ -16,6 +16,8 @@ var enemy_type
 
 var bounding_box
 
+var freeze_movement = false # Important for laser effects
+
 var speed_mult = 1 # Multiplier for speed (pretty straightforward)
 
 onready var homing_lasers = rand_range(0, 1) > .5
@@ -64,7 +66,7 @@ func initialize(difficulty):
 	var mult = float(difficulty) / 2
 	max_health *= clamp(mult / 2, .5, 512)
 	damage *= mult
-	speed_mult *= clamp(mult / 5, 1, 2)
+	speed_mult *= clamp(mult / 5, 1, 3)
 
 	# Sets the current health as the new max health
 	health = max_health
@@ -101,7 +103,8 @@ func _process(_delta):
 		explode_ship() # otherwise, explode the ship
 
 func move_down():
-	translation.z += .05 * speed_mult
+	if freeze_movement: return
+	translation.z += .04 * speed_mult
 	# If it is such that the center of the ship moves past the center of the screen...
 	if translation.z > Utils.screen_to_local(Vector2(0, Utils.screen_size.y)).z:
 		if has_node("../Player") and get_node("../Player").godmode == false:
@@ -117,6 +120,7 @@ func explode_ship():
 	$LaserTimer.stop()
 	enemy_model.queue_free()
 	remove_from_group("enemies")
+	$LaserEffects.reset()
 	emit_signal("died", self)
 	if randi() % 4 == 1:  # 1/4 chance to create a powerup
 		var powerup = powerup_scene.instance()
@@ -151,7 +155,7 @@ func fire_laser():
 
 
 func _on_ShipDetection_area_entered(area):
-	if area.get_parent().is_in_group("enemies") and speed_mult > area.get_parent().speed_mult and health > 0 and  area.get_parent().health > 0:
+	if freeze_movement == false and area.get_parent().is_in_group("enemies") and speed_mult > area.get_parent().speed_mult and health > 0 and  area.get_parent().health > 0:
 		# Basciallly moving a ship from the center of another ship to beside it (left/right)
 		# Subtracting this makes you go left, adding this makes you go right
 		var common_formula = area.get_parent().bounding_box.size.x/2 + bounding_box.size.x/2 + .2

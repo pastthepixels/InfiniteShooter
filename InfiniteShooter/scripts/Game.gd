@@ -162,7 +162,7 @@ func make_enemy(spawn_more=true):
 	
 	# Sets the enemy ship's position to a random X point and just above the screen
 	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-1.0, 1.0)
+	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 1.0)
 	if enemy.translation.distance_to(last_enemy_position) < 1:
 		enemy.translation.x = Utils.random_screen_point().x
 	last_enemy_position = enemy.translation

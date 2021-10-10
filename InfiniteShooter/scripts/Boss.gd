@@ -14,6 +14,8 @@ var health = max_health
 
 var bounding_box
 
+var freeze_movement = false # Important for laser effects
+
 var skip_process = true
 
 export var homing_lasers = true
@@ -62,7 +64,7 @@ func initialize(difficulty):
 # Called to process health and movement
 func _process(delta):
 	# Looking at the player
-	if is_instance_valid(followed_player) and followed_player.health > 0:
+	if is_instance_valid(followed_player) and followed_player.health > 0 and health > 0:
 		look_at(followed_player.translation, Vector3(0, 1, 0))
 		rotation.y += deg2rad(180)
 	elif health > 0 and rotation.y != 0 and $Tween.is_active() == false:
@@ -80,7 +82,7 @@ func _process(delta):
 		explode_ship() # otherwise, explode the ship
 	
 	# Moving around
-	if skip_process: return
+	if skip_process or freeze_movement: return
 	translation = $Path/PathFollow.translation
 	$Path/PathFollow.unit_offset += .05 * delta
 
@@ -92,6 +94,7 @@ func explode_ship():
 	$LaserTimer.stop()
 	$EnemyModel.queue_free()
 	remove_from_group("enemies")
+	$LaserEffects.reset()
 	emit_signal("died", self)
 	if has_node("/root/Main/ShakeCamera"):
 		get_node("/root/Main/ShakeCamera").add_trauma(.4)  # Shakes the screen
