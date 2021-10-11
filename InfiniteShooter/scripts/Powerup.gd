@@ -25,15 +25,16 @@ func _ready():
 			3:
 				$EnemyWipe.show()
 	else:
+		$LaserTypes.show()
 		match modifier:
 			MODIFIERS.fire:
-				$FireLaser.show()
+				$LaserTypes/Fire.show()
 			
 			MODIFIERS.ice:
-				$IceLaser.show()
+				$LaserTypes/Ice.show()
 			
 			MODIFIERS.corrosion:
-				$CorrosionLaser.show()
+				$LaserTypes/Corrosion.show()
 
 
 func _on_Powerup_area_entered(area):
