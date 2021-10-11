@@ -30,6 +30,9 @@ var health = max_health
 # Ammo (taken from the max ammo)
 var ammo = max_ammo
 
+# Freezing movement
+var freeze_movement = false
+
 # Signals
 signal moved
 
@@ -40,6 +43,11 @@ signal laser_fired(laser)
 signal health_changed(value)
 
 signal ammo_changed(value, refills)
+
+# Laser "modifiers"
+enum MODIFIERS { fire, ice, corrosion, none }
+
+export (MODIFIERS) var modifier = MODIFIERS.none
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -66,9 +74,10 @@ func _process(delta):
 		velocity.z -= 1
 
 	# Sets position
-	translation += velocity * delta * speed
-	if velocity * delta * speed != Vector3():
-		emit_signal("moved")
+	if freeze_movement == false:
+		translation += velocity * delta * speed
+		if velocity * delta * speed != Vector3():
+			emit_signal("moved")
 
 	# Sets rotation
 	rotation = delta_rotation * deg2rad(player_rotation)
@@ -94,6 +103,7 @@ func _input(event):
 	):
 		var laser = laser_scene.instance()
 		laser.sender = self
+		laser.modifier = modifier
 		laser.translation = translation
 		laser.translation.z -= 1  # To get the laser firing from the "top" of the ship instead of the center for added realism
 		laser.damage = damage

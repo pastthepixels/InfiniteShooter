@@ -30,6 +30,13 @@ onready var laser_scene = load("res://scenes/Laser.tscn")
 
 var enemy_model
 
+# Laser stuff
+enum MODIFIERS { fire, ice, corrosion }
+
+var modifier = MODIFIERS.values()[randi() % MODIFIERS.size()]
+
+var use_modifier = randi() % 10 == 1
+
 
 func initialize(difficulty):
 	# Adds an enemy
@@ -115,9 +122,14 @@ func explode_ship():
 	remove_from_group("enemies")
 	$LaserEffects.reset()
 	emit_signal("died", self)
-	if randi() % 4 == 1:  # 1/4 chance to create a powerup
+	if randi() % 4 == 1 and use_modifier == false:  # 1/4 chance to create a powerup
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
+		get_parent().add_child(powerup)
+	elif use_modifier == true:
+		var powerup = powerup_scene.instance()
+		powerup.translation = translation
+		powerup.modifier = modifier
 		get_parent().add_child(powerup)
 
 
@@ -137,6 +149,17 @@ func fire_laser():
 
 	# Setting the laser's damage
 	laser.damage = damage
+	
+	# Modifiers
+	if use_modifier:
+		match(modifier):
+			MODIFIERS.fire:
+				laser.modifier = laser.MODIFIERS.fire
+			MODIFIERS.ice:
+				laser.modifier = laser.MODIFIERS.ice
+			MODIFIERS.corrosion:
+				laser.modifier = laser.MODIFIERS.corrosion
+		laser.set_laser()
 
 	# Setting the laser's position
 	laser.translation = translation

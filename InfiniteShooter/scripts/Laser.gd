@@ -33,7 +33,7 @@ export var follow_speed = 0.05
 # Laser "modifiers"
 enum MODIFIERS { fire, ice, corrosion, none }
 
-export(MODIFIERS) var modifier = MODIFIERS.none
+export (MODIFIERS) var modifier = MODIFIERS.none
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -95,15 +95,23 @@ func on_collision(area):
 			MODIFIERS.ice:
 				area.get_node("../LaserEffects").freeze(5)
 				area.get_node("../LaserEffects").start_ice()
-		# End laser modifiers
 		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
 		remove_laser(true)  # Removes the laser
 	elif area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		if area.godmode == false: area.set_health(area.health - damage)  # send it to BRAZIL
+		# Laser modifiers
+		match modifier:
+			MODIFIERS.fire:
+				area.get_node("LaserEffects").bleed(.5, 3)
+				area.get_node("LaserEffects").start_fire()
+			MODIFIERS.corrosion:
+				area.get_node("LaserEffects").bleed(2, 20)
+				area.get_node("LaserEffects").start_corrosion()
+			MODIFIERS.ice:
+				area.get_node("LaserEffects").freeze(5)
+				area.get_node("LaserEffects").start_ice()
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
 		remove_laser(true)  # Removes the laser
-	elif area.is_in_group("lasers"):
-		remove_laser(false)
 
 
 func remove_laser(hit_ship):

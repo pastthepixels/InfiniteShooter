@@ -85,7 +85,6 @@ player_material = SubResource( 2 )
 fire_material = SubResource( 3 )
 ice_material = SubResource( 4 )
 corrosion_material = SubResource( 5 )
-modifier = 0
 
 [node name="FollowTimer" type="Timer" parent="."]
 wait_time = 3.0

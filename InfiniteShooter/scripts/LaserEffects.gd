@@ -38,6 +38,8 @@ func start_ice():
 func _on_BleedTimer_timeout():
 	if get_node(ship).health > 0:
 		get_node(ship).health -= 5
+	if get_node(ship).is_in_group("players"):
+		get_node(ship).update_hud()
 
 
 func _on_Timer_timeout():
