@@ -4,42 +4,42 @@
 [ext_resource path="res://sounds/laser.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/hit.wav" type="AudioStream" id=6]
 
-[sub_resource type="SpatialMaterial" id=11]
+[sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=12]
+[sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 albedo_color = Color( 1, 0.498039, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=4]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 albedo_color = Color( 0, 0, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=5]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 albedo_color = Color( 0, 1, 0, 1 )
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
 
-[sub_resource type="PlaneMesh" id=3]
+[sub_resource type="PlaneMesh" id=7]
 size = Vector2( 0.1, 0.5 )
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=8]
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 roughness = 0.4
@@ -49,13 +49,13 @@ emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=9]
 colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
 
-[sub_resource type="ParticlesMaterial" id=8]
+[sub_resource type="ParticlesMaterial" id=11]
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -65,25 +65,25 @@ angle = 20.0
 angle_random = 1.0
 scale = 1.1
 scale_random = 1.0
-color_ramp = SubResource( 7 )
+color_ramp = SubResource( 10 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=12]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
-[sub_resource type="PlaneMesh" id=10]
-material = SubResource( 9 )
+[sub_resource type="PlaneMesh" id=13]
+material = SubResource( 12 )
 size = Vector2( 0.05, 0.05 )
 
 [node name="Laser" type="Area" groups=[
 "lasers",
 ]]
 script = ExtResource( 2 )
-enemy_material = SubResource( 11 )
-player_material = SubResource( 12 )
-fire_material = SubResource( 13 )
-ice_material = SubResource( 14 )
-corrosion_material = SubResource( 15 )
+enemy_material = SubResource( 1 )
+player_material = SubResource( 2 )
+fire_material = SubResource( 3 )
+ice_material = SubResource( 4 )
+corrosion_material = SubResource( 5 )
 modifier = 0
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
@@ -105,11 +105,11 @@ bus = "SFX"
 aabb = AABB( -0.0521555, -0.0502256, -0.245932, 0.104311, 0.100451, 0.491863 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="Laser" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
-material/0 = SubResource( 2 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false
@@ -119,8 +119,8 @@ one_shot = true
 speed_scale = 20.0
 explosiveness = 1.0
 visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
-process_material = SubResource( 8 )
-draw_pass_1 = SubResource( 10 )
+process_material = SubResource( 11 )
+draw_pass_1 = SubResource( 13 )
 
 [connection signal="area_entered" from="." to="." method="on_collision"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
