@@ -1,11 +1,43 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/Laser.gd" type="Script" id=2]
 [ext_resource path="res://sounds/laser.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/hit.wav" type="AudioStream" id=6]
 
+[sub_resource type="SpatialMaterial" id=11]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=12]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 1, 0.498039, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=14]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 0, 0, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 0, 1, 0, 1 )
+
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
+
+[sub_resource type="PlaneMesh" id=3]
+size = Vector2( 0.1, 0.5 )
 
 [sub_resource type="SpatialMaterial" id=2]
 vertex_color_use_as_albedo = true
@@ -16,25 +48,6 @@ emission = Color( 1, 1, 1, 1 )
 emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
-
-[sub_resource type="PlaneMesh" id=3]
-material = SubResource( 2 )
-size = Vector2( 0.1, 0.5 )
-
-[sub_resource type="SpatialMaterial" id=4]
-vertex_color_use_as_albedo = true
-params_cull_mode = 2
-albedo_color = Color( 1, 0, 0, 1 )
-roughness = 0.4
-emission_enabled = true
-emission = Color( 1, 0, 0, 1 )
-emission_energy = 1.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="PlaneMesh" id=5]
-material = SubResource( 4 )
-size = Vector2( 0.1, 0.5 )
 
 [sub_resource type="Gradient" id=6]
 colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
@@ -66,20 +79,19 @@ size = Vector2( 0.05, 0.05 )
 "lasers",
 ]]
 script = ExtResource( 2 )
+enemy_material = SubResource( 11 )
+player_material = SubResource( 12 )
+fire_material = SubResource( 13 )
+ice_material = SubResource( 14 )
+corrosion_material = SubResource( 15 )
+modifier = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
-aabb = AABB( -0.0521555, -0.0502256, -0.245932, 0.104311, 0.100451, 0.491863 )
-
-[node name="PlayerLaser" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="EnemyLaser" type="MeshInstance" parent="."]
-mesh = SubResource( 5 )
-material/0 = null
+[node name="FollowTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -89,12 +101,15 @@ bus = "SFX"
 stream = ExtResource( 6 )
 bus = "SFX"
 
-[node name="FollowTimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+aabb = AABB( -0.0521555, -0.0502256, -0.245932, 0.104311, 0.100451, 0.491863 )
 
-[node name="InvincibilityTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Laser" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = SubResource( 2 )
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false
@@ -108,6 +123,6 @@ process_material = SubResource( 8 )
 draw_pass_1 = SubResource( 10 )
 
 [connection signal="area_entered" from="." to="." method="on_collision"]
-[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
-[connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
+[connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

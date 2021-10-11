@@ -15,19 +15,28 @@ var sender
 # To stop ships from hurting themselves as soon as they shoot lasers
 var invincible = true
 
+# Materials
+export (SpatialMaterial) var enemy_material
+
+export (SpatialMaterial) var player_material
+
+export (SpatialMaterial) var fire_material
+
+export (SpatialMaterial) var ice_material
+
+export (SpatialMaterial) var corrosion_material
+
 # Following the player
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 
 export var follow_player = false
 
-export var follow_speed = 0.08
+export var follow_speed = 0.05
 
 # Laser "modifiers"
-export var modifier_fire = false
+enum MODIFIERS { fire, ice, corrosion, none }
 
-export var modifier_ice = false
-
-export var modifier_corrosion = false
+export(MODIFIERS) var modifier = MODIFIERS.none
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,37 +58,49 @@ func _process(_delta):
 
 	else:
 		if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
-			$EnemyLaser.look_at(followed_player.translation, Vector3(0, 1, 0))
+			$Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
 			if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed): translation.z += follow_speed if stepify(translation.z, follow_speed) < stepify(followed_player.translation.z, follow_speed) else -follow_speed
 			if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed): translation.x += follow_speed if stepify(translation.x, follow_speed) < stepify(followed_player.translation.x, follow_speed) else -follow_speed
 		else:
 			translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
 
-# Called to set the laser's color/decoration
+# Called to set the laser's material
 func set_laser():
+	# Sets the material of the laser
 	if from_player == false:
-		# Hides the player laser
-		$PlayerLaser.hide()
-		# Sets the color of the particles
-		$Particles.draw_pass_1.surface_set_material(0, $EnemyLaser.get_active_material(0))
+		$Laser.set_surface_material(0, enemy_material)
 	else:
-		# HIdes the enemy laser
-		$EnemyLaser.hide()
+		$Laser.set_surface_material(0, player_material)
+	
+	# Sets the material of the laser depeding on modifiers
+	match modifier:
+		MODIFIERS.fire:
+			$Laser.set_surface_material(0, fire_material)
+		
+		MODIFIERS.ice:
+			$Laser.set_surface_material(0, ice_material)
+		
+		MODIFIERS.corrosion:
+			$Laser.set_surface_material(0, corrosion_material)
+	
+	# Sets the material of the particle thing
+	$Particles.draw_pass_1.surface_set_material(0, $Laser.get_surface_material(0))
 
 # Called when the laser collides with objects
 func on_collision(area):
 	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().health -= damage  # subtract health from the enemy
 		# Laser modifiers
-		if modifier_fire == true:
-			area.get_node("../LaserEffects").bleed(.5, 3)
-			area.get_node("../LaserEffects").start_fire()
-		if modifier_corrosion == true:
-			area.get_node("../LaserEffects").bleed(2, 20)
-			area.get_node("../LaserEffects").start_corrosion()
-		if modifier_ice == true:
-			area.get_node("../LaserEffects").freeze(5)
-			area.get_node("../LaserEffects").start_ice()
+		match modifier:
+			MODIFIERS.fire:
+				area.get_node("../LaserEffects").bleed(.5, 3)
+				area.get_node("../LaserEffects").start_fire()
+			MODIFIERS.corrosion:
+				area.get_node("../LaserEffects").bleed(2, 20)
+				area.get_node("../LaserEffects").start_corrosion()
+			MODIFIERS.ice:
+				area.get_node("../LaserEffects").freeze(5)
+				area.get_node("../LaserEffects").start_ice()
 		# End laser modifiers
 		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
 		remove_laser(true)  # and remove the laser
@@ -95,8 +116,7 @@ func remove_laser(hit_ship):
 		return
 
 	freeze = true
-	$PlayerLaser.hide()
-	$EnemyLaser.hide()
+	$Laser.hide()
 	if hit_ship == false:
 		set_laser()
 		$Particles.emitting = true
