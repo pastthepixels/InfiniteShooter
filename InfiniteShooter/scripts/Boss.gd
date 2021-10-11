@@ -68,7 +68,7 @@ func _process(delta):
 		look_at(followed_player.translation, Vector3(0, 1, 0))
 		rotation.y += deg2rad(180)
 	elif health > 0 and rotation.y != 0 and $Tween.is_active() == false:
-		$Tween.interpolate_property(self, "rotation:y", rotation.y, 0 if rotation.y < deg2rad(180) else deg2rad(360), 5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		$Tween.interpolate_property(self, "rotation:y", rotation.y, (deg2rad(0) if rotation.y < deg2rad(180) else deg2rad(360)), 5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		$Tween.start()
 		$LaserTimer.stop()
 	
@@ -78,6 +78,7 @@ func _process(delta):
 		$HealthBar.health = health
 		$HealthBar.max_health = max_health
 	elif health <= 0:
+		set_process(false)
 		$HealthBar.hide()
 		explode_ship() # otherwise, explode the ship
 	
@@ -88,7 +89,6 @@ func _process(delta):
 
 func explode_ship():
 	for explosion in $Explosions.get_children():
-		if explosion.exploding: return
 		explosion.explode()
 		yield(Utils.timeout(.1), "timeout")
 	$LaserTimer.stop()

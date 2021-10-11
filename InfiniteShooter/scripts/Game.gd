@@ -116,6 +116,7 @@ func save_tutorialcomplete():
 # Waves, levels, and score
 #
 func wave_up():
+	if has_node("GameSpace/Player") == false: return
 	# Stops enemies from spawning and waits until they all die.
 	$EnemyTimer.paused = true
 	while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout") # Simply wait until all enemies die
@@ -134,7 +135,7 @@ func wave_up():
 		$HUD.update_level(level, 100 * wave/waves_per_level)
 
 func level_up():
-	
+	if has_node("GameSpace/Player") == false: return
 	level += 1
 	wave = 1
 	if $EnemyTimer.wait_time > 2: $EnemyTimer.wait_time -= 0.2

@@ -128,6 +128,9 @@ autostart = true
 stream = ExtResource( 5 )
 bus = "SFX"
 
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 5 )
+
 [node name="Ammo" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 visible = false
@@ -139,9 +142,6 @@ visible = false
 [node name="EnemyWipe" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 visible = false
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 5 )
 
 [node name="Outline" type="MeshInstance" parent="."]
 visible = false

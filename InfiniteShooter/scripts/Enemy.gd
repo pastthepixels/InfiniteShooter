@@ -81,31 +81,26 @@ func initialize(difficulty):
 	# Kills ships that don't move out of the way fast enough
 	enemy_model.connect("area_entered", self, "collide_ship")
 	
-	# Adjusts the ShipDetection node's size
-	$ShipDetection/CollisionShape.shape.extents = enemy_model.get_child(0).shape.extents
-	$ShipDetection/CollisionShape.shape.extents.z *= 2
-	# Uncomment and add a cube MeshInstance to the ShipDetection node with dimensions (2, 2, 2) to have a visual helper
-#	$ShipDetection/MeshInstance.scale = $ShipDetection/CollisionShape.shape.extents
-	
 	# Moves health bar into position
 	$HealthBar.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
+	$HealthBar.max_health = max_health
 
 
 # Called to process health
 func _process(_delta):
 	# If the health is between 100% and 0%, show the health bar.
-	if health < max_health and health > 0:
-		$HealthBar.show()
+	if health < max_health and health > 0 and $HealthBar.health != health:
+		$HealthBar.visible = true
 		$HealthBar.health = health
-		$HealthBar.max_health = max_health
 	elif health <= 0:
-		$HealthBar.hide()
+		set_process(false)
+		$HealthBar.visible = false
 		explode_ship() # otherwise, explode the ship
 
 func move_down():
 	if freeze_movement: return
 	translation.z += .04 * speed_mult
-	# If it is such that the center of the ship moves past the center of the screen...
+	# If it is such that the center of the ship moves past the bottom of the screen...
 	if translation.z > Utils.screen_to_local(Vector2(0, Utils.screen_size.y)).z:
 		if has_node("../Player") and get_node("../Player").godmode == false:
 			get_node("../Player").health -= health  # deduct health from the player
@@ -113,8 +108,6 @@ func move_down():
 
 
 func explode_ship():
-	if $Explosion.exploding:
-		return  # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
 	$Explosion.explode()
 	$MovingTimer.stop()
 	$LaserTimer.stop()
@@ -142,8 +135,7 @@ func fire_laser():
 	laser.follow_player = homing_lasers
 	laser.sender = self
 
-	# Telling the laser that it is not from the player + sets its damage
-	laser.from_player = false
+	# Setting the laser's damage
 	laser.damage = damage
 
 	# Setting the laser's position

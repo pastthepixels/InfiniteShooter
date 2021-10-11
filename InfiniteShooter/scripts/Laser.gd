@@ -3,14 +3,11 @@ extends Area
 # How much damage the laser does
 var damage = 0
 
-# Whether or not it is from the player
-var from_player = true
-
-# Needs to be here for making the node still run while the laser explodes
-var freeze = false
-
 # A variable for... the "sender" of a laser
 var sender
+
+# Whether or not it is from the player
+onready var from_player = sender.is_in_group("players")
 
 # To stop ships from hurting themselves as soon as they shoot lasers
 var invincible = true
@@ -50,9 +47,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if freeze == true:
-		return
-
 	if from_player == true:
 		translation.z -= .4  # If the laser is from the player, move it up
 
@@ -103,24 +97,25 @@ func on_collision(area):
 				area.get_node("../LaserEffects").start_ice()
 		# End laser modifiers
 		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
-		remove_laser(true)  # and remove the laser
-
-	if area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
+		remove_laser(true)  # Removes the laser
+	elif area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		if area.godmode == false: area.set_health(area.health - damage)  # send it to BRAZIL
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
-		remove_laser(true)  # and remove the laser
+		remove_laser(true)  # Removes the laser
+	elif area.is_in_group("lasers"):
+		remove_laser(false)
 
 
 func remove_laser(hit_ship):
-	if freeze == true:  # The variable "freze" is a good indicator of whether this function was called or not. This function cannot be called twice!
-		return
-
-	freeze = true
+	set_process(false)
+	if has_node("CollisionShape") == false: return
+	$CollisionShape.queue_free()
+	$VisibilityNotifier.queue_free()
+	$FollowTimer.queue_free()
 	$Laser.hide()
 	if hit_ship == false:
 		set_laser()
 		$Particles.emitting = true
-	$CollisionShape.queue_free()
 	if hit_ship == true:
 		if has_node("/root/Main/ShakeCamera"):
 			get_node("/root/Main/ShakeCamera").add_trauma(.15)  # Shakes the screen a little bit
@@ -141,5 +136,5 @@ func _on_FollowTimer_timeout():
 	remove_laser(false)
 
 
-func _on_InvincibilityTimer_timeout():
-	invincible = false
+func _on_Laser_area_exited(area):
+	if area == sender or area.get_parent() == sender: invincible = false

@@ -40,6 +40,7 @@ func _on_Powerup_area_entered(area):
 					enemy.health = 0
 
 		$AnimationPlayer.play("use")
+		$AudioStreamPlayer.pitch_scale = rand_range(1, 1.1)
 		$AudioStreamPlayer.play()
 		$CollisionShape.set_deferred("disabled", true)
 
