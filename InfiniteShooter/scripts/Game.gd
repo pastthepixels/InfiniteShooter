@@ -28,6 +28,11 @@ export var waves_per_level = 5
 
 export var enemies_per_wave = 20
 
+# Laser "modifiers"
+enum MODIFIERS { fire, ice, corrosion, none }
+
+export (MODIFIERS) var modifier = MODIFIERS.none
+
 # Scripts
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
@@ -50,7 +55,7 @@ export var tutorial_script = [
 ]
 
 #
-# Countdown timers, initialization and music
+# Countdown timers, initialization, music, and _process
 #
 func _ready():
 	# Music stuff
@@ -61,6 +66,18 @@ func _ready():
 	$GameSpace/Player.update_hud()
 	# Loads tutorial information
 	load_tutorialcomplete()
+
+func _process(delta):
+	if has_node("GameSpace/Player"):
+		match($GameSpace/Player.modifier):
+			MODIFIERS.fire:
+				$HUD.update_gradient($HUD.TEXTURES.fire)
+			
+			MODIFIERS.ice:
+				$HUD.update_gradient($HUD.TEXTURES.ice)
+			
+			MODIFIERS.corrosion:
+				$HUD.update_gradient($HUD.TEXTURES.corrosion)
 
 func _on_Countdown_finished():
 	if show_tutorial == true:

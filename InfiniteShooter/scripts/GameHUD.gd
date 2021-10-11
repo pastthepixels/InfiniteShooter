@@ -10,6 +10,16 @@ var animated_ammo = 100
 
 var low_health = false
 
+# Textures vased on laser types
+enum TEXTURES { fire, ice, corrosion, default }
+
+export (GradientTexture) var default_gradient
+
+export (GradientTexture) var corrosion_gradient
+
+export (GradientTexture) var fire_gradient
+
+export (GradientTexture) var ice_gradient
 
 func _process(_delta):
 	$ProgressBars/HealthBar.value = animated_health
@@ -35,6 +45,21 @@ func update_wave(wave, progress):
 #
 # Updating the top bars
 #
+func update_gradient(texture):
+	match(texture):
+		TEXTURES.fire:
+			$ProgressBars.texture = fire_gradient
+		
+		TEXTURES.ice:
+			$ProgressBars.texture = ice_gradient
+		
+		TEXTURES.corrosion:
+			$ProgressBars.texture = corrosion_gradient
+		
+		TEXTURES.none:
+			$ProgressBars.texture = default_gradient
+
+
 func update_health(value):
 	$ProgressTween.interpolate_property(
 		self,
