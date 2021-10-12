@@ -1,22 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=2]
-[ext_resource path="res://scenes/ui/SelectSquare.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/Upgrades.gd" type="Script" id=4]
-[ext_resource path="res://scenes/ui/Alert.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=6]
+[ext_resource path="res://scenes/menus/leaderboard/Leaderboard.gd" type="Script" id=3]
+[ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 6 )
-shader_param/lod = 2.0
-shader_param/aberration_strength = 0.5
-
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 1 )
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "close"
 length = 0.2
 tracks/0/type = "value"
@@ -68,7 +58,7 @@ tracks/3/keys = {
 "values": [ 1.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -119,24 +109,38 @@ tracks/3/keys = {
 "values": [ 1.0 ]
 }
 
-[node name="Upgrades" type="Control"]
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/lod = 2.0
+shader_param/aberration_strength = 0.5
+
+[sub_resource type="DynamicFont" id=4]
+size = 64
+font_data = ExtResource( 1 )
+
+[node name="Leaderboard" type="Control"]
+light_mask = 524288
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/close = SubResource( 1 )
+anims/open = SubResource( 2 )
+
 [node name="Background" type="ColorRect" parent="."]
-material = SubResource( 1 )
+material = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
+[node name="BackgroundColor" type="ColorRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0.156863 )
@@ -144,7 +148,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Border" type="ReferenceRect" parent="."]
+[node name="Border" type="ReferenceRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 border_color = Color( 1, 1, 1, 0.588235 )
@@ -154,11 +158,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-options_path = NodePath("../VBoxContainer/Options")
+[node name="SelectSquare" parent="." instance=ExtResource( 4 )]
+options_path = NodePath("../Contents/Options")
 on_left = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Contents" type="VBoxContainer" parent="."]
 margin_left = 50.0
 margin_top = 40.0
 margin_right = 40.0
@@ -168,62 +172,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 250.0
+[node name="Title" type="Label" parent="Contents"]
+margin_right = 326.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 2 )
-text = "upgrades"
+custom_fonts/font = SubResource( 4 )
+text = "leaderboard"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Options" type="VBoxContainer" parent="Contents"]
 margin_top = 85.0
-margin_right = 250.0
+margin_right = 326.0
 margin_bottom = 102.0
 custom_constants/separation = 20
-
-[node name="Points" type="Label" parent="VBoxContainer/Stats"]
-margin_right = 53.0
-margin_bottom = 17.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "0 points"
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Stats/Points"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 5.0
-margin_bottom = 5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Damage" type="Label" parent="VBoxContainer/Stats"]
-margin_left = 73.0
-margin_right = 145.0
-margin_bottom = 17.0
-text = "30 damage"
-
-[node name="Health" type="Label" parent="VBoxContainer/Stats"]
-margin_left = 165.0
-margin_right = 233.0
-margin_bottom = 17.0
-text = "100 health"
-
-[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 122.0
-margin_right = 250.0
-margin_bottom = 139.0
-custom_constants/separation = 20
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 250.0
+[node name="Back" type="Label" parent="Contents/Options"]
+margin_right = 326.0
 margin_bottom = 17.0
 text = "back"
 valign = 1
@@ -231,11 +199,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Alert" parent="." instance=ExtResource( 5 )]
-visible = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/close = SubResource( 3 )
-anims/open = SubResource( 4 )
+[node name="Stats" type="VBoxContainer" parent="Contents"]
+margin_top = 122.0
+margin_right = 326.0
+margin_bottom = 122.0
 
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

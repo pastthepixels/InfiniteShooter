@@ -20,10 +20,10 @@ config/icon="res://assets/icon/icon.png"
 
 [autoload]
 
-GameVariables="*res://scripts/GameVariables.gd"
-SceneTransition="*res://scenes/ui/SceneTransition.tscn"
-GameMusic="*res://scenes/GameMusic.tscn"
-Utils="*res://scenes/Utils.tscn"
+GameVariables="*res://scenes/game/GameVariables.gd"
+SceneTransition="*res://scenes/ui-bits/SceneTransition.tscn"
+GameMusic="*res://scenes/game/GameMusic.tscn"
+Utils="*res://scenes/bits/Utils.gd"
 
 [display]
 

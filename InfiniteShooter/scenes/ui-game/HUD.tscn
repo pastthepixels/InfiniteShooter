@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=2]
 [ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
 [ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=6]
-[ext_resource path="res://scripts/GameHUD.gd" type="Script" id=7]
+[ext_resource path="res://scenes/ui-game/GameHUD.gd" type="Script" id=7]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 1, 0.304688, 0.304688, 0.304688, 0.0470588 )

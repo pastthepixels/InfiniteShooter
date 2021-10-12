@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scripts/GameMusic.gd" type="Script" id=1]
+[ext_resource path="res://scenes/game/GameMusic.gd" type="Script" id=1]
 [ext_resource path="res://sounds/soundtrack/game3.mp3" type="AudioStream" id=2]
 [ext_resource path="res://sounds/soundtrack/game2.mp3" type="AudioStream" id=3]
 [ext_resource path="res://sounds/soundtrack/main.mp3" type="AudioStream" id=4]
