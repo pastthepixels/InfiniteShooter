@@ -67,7 +67,7 @@ func _ready():
 	# Loads tutorial information
 	load_tutorialcomplete()
 
-func _process(delta):
+func _process(_delta):
 	if has_node("GameSpace/Player"):
 		match($GameSpace/Player.modifier):
 			MODIFIERS.fire:
