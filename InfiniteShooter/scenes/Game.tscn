@@ -23,14 +23,6 @@ bus = "SFX"
 [node name="GameSpace" parent="." instance=ExtResource( 1 )]
 
 [node name="Player" parent="GameSpace" instance=ExtResource( 3 )]
-godmode = false
-max_ammo = 20
-ammo_refills = 10
-max_health = 100
-speed = 14
-damage = 30
-player_rotation = 35
-modifier = 3
 
 [node name="TutorialAlert" parent="." instance=ExtResource( 9 )]
 visible = false

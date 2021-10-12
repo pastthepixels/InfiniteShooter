@@ -31,9 +31,9 @@ export var follow_player = false
 export var follow_speed = 0.05
 
 # Laser "modifiers"
-enum MODIFIERS { fire, ice, corrosion, none }
+var MODIFIERS = GameVariables.LASER_MODIFIERS
 
-export (MODIFIERS) var modifier = MODIFIERS.none
+var modifier = MODIFIERS.none
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

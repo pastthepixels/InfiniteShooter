@@ -138,16 +138,6 @@ ice_gradient = SubResource( 8 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeVignette = SubResource( 9 )
 
-[node name="Vignette" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 5 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="StatusBar" type="Control" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
@@ -307,6 +297,16 @@ margin_left = 10.0
 margin_right = 24.0
 margin_bottom = 1.0
 text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Vignette" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -56,7 +56,7 @@ func update_gradient(texture):
 		TEXTURES.corrosion:
 			$ProgressBars.texture = corrosion_gradient
 		
-		TEXTURES.none:
+		TEXTURES.default:
 			$ProgressBars.texture = default_gradient
 
 

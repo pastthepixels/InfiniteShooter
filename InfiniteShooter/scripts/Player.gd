@@ -45,9 +45,9 @@ signal health_changed(value)
 signal ammo_changed(value, refills)
 
 # Laser "modifiers"
-enum MODIFIERS { fire, ice, corrosion, none }
+var MODIFIERS = GameVariables.LASER_MODIFIERS
 
-export (MODIFIERS) var modifier = MODIFIERS.none
+var modifier = MODIFIERS.none
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -103,10 +103,12 @@ func _input(event):
 	):
 		var laser = laser_scene.instance()
 		laser.sender = self
-		laser.modifier = modifier
 		laser.translation = translation
 		laser.translation.z -= 1  # To get the laser firing from the "top" of the ship instead of the center for added realism
 		laser.damage = damage
+		if modifier != MODIFIERS.none:
+			laser.modifier = modifier
+			laser.set_laser()
 		get_parent().add_child(laser)
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 		set_ammo(ammo - 1)
@@ -133,15 +135,16 @@ func reload():
 
 
 func die_already():
-	if ! $Explosion.exploding:  # If the explosion is exploding when this function is called, chances are it's being called twice. We don't want that.
-		emit_signal("died")
-		$Explosion.explode()
-		$PlayerModel.queue_free()
-		$CollisionShape.queue_free()
-		$RegenTimer.stop()
-		transform.basis = Basis()  # Resets the player's rotation
-		if has_node("/root/Main/ShakeCamera"):
-			get_node("/root/Main/ShakeCamera").add_trauma(rand_range(.6, .7))
+	set_process(false)
+	emit_signal("died")
+	$Explosion.explode()
+	$PlayerModel.queue_free()
+	$CollisionShape.queue_free()
+	$RegenTimer.stop()
+	$LaserEffects.reset()
+	transform.basis = Basis()  # Resets the player's rotation
+	if has_node("/root/Main/ShakeCamera"):
+		get_node("/root/Main/ShakeCamera").add_trauma(rand_range(.6, .7))
 
 
 func cleanup_player():

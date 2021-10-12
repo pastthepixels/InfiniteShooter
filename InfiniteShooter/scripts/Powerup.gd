@@ -7,9 +7,9 @@ export var ammo_increase = 10  # 10 bullets
 export var health_increase = 40  # 40 HP
 
 # Laser "modifiers"
-enum MODIFIERS { fire, ice, corrosion, none }
+var MODIFIERS = GameVariables.LASER_MODIFIERS
 
-export (MODIFIERS) var modifier = MODIFIERS.none
+var modifier = MODIFIERS.none
 
 
 func _ready():
@@ -53,6 +53,7 @@ func _on_Powerup_area_entered(area):
 						area.set_health(area.max_health)
 
 				3:
+					area.modifier = MODIFIERS.none
 					for enemy in get_tree().get_nodes_in_group("enemies"):
 						enemy.killed_from_player = true
 						enemy.health = 0

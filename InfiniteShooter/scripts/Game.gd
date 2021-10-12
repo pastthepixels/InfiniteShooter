@@ -21,17 +21,14 @@ var enemies_in_wave = 0
 
 export var show_tutorial = true
 
-# User-adjustable game mechanics variables
-export var enemy_difficulty = 1
+# User-adjustable game mechanics variables. Can be found in scripts/GameVariables.gd
+var enemy_difficulty = GameVariables.enemy_difficulty
 
-export var waves_per_level = 5
+var waves_per_level = GameVariables.waves_per_level
 
-export var enemies_per_wave = 20
+var enemies_per_wave = GameVariables.enemies_per_wave
 
-# Laser "modifiers"
-enum MODIFIERS { fire, ice, corrosion, none }
-
-export (MODIFIERS) var modifier = MODIFIERS.none
+var MODIFIERS = GameVariables.LASER_MODIFIERS
 
 # Scripts
 export var tutorial_script = [
@@ -78,6 +75,9 @@ func _process(_delta):
 			
 			MODIFIERS.corrosion:
 				$HUD.update_gradient($HUD.TEXTURES.corrosion)
+			
+			MODIFIERS.none:
+				$HUD.update_gradient($HUD.TEXTURES.default)
 
 func _on_Countdown_finished():
 	if show_tutorial == true:

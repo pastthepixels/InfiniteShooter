@@ -31,7 +31,7 @@ onready var laser_scene = load("res://scenes/Laser.tscn")
 var enemy_model
 
 # Laser stuff
-enum MODIFIERS { fire, ice, corrosion }
+var MODIFIERS = GameVariables.LASER_MODIFIERS
 
 var modifier = MODIFIERS.values()[randi() % MODIFIERS.size()]
 
@@ -152,13 +152,7 @@ func fire_laser():
 	
 	# Modifiers
 	if use_modifier:
-		match(modifier):
-			MODIFIERS.fire:
-				laser.modifier = laser.MODIFIERS.fire
-			MODIFIERS.ice:
-				laser.modifier = laser.MODIFIERS.ice
-			MODIFIERS.corrosion:
-				laser.modifier = laser.MODIFIERS.corrosion
+		laser.modifier = modifier
 		laser.set_laser()
 
 	# Setting the laser's position
