@@ -24,9 +24,9 @@ onready var homing_lasers = rand_range(0, 1) > .5
 
 # Scenes used
 
-onready var powerup_scene = load("res://scenes/enemies/Powerup.tscn")
+onready var powerup_scene = load("res://scenes/entities/powerups/Powerup.tscn")
 
-onready var laser_scene = load("res://scenes/Laser.tscn")
+onready var laser_scene = load("res://scenes/entities/lasers/Laser.tscn")
 
 var enemy_model
 

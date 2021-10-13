@@ -1,9 +1,9 @@
 extends Node
 
 # To do with creating enemies
-onready var enemy_scene = preload("res://scenes/enemies/Enemy.tscn")
+onready var enemy_scene = preload("res://scenes/entities/enemies/Enemy.tscn")
 
-onready var boss_scene = preload("res://scenes/bosses/Boss.tscn")
+onready var boss_scene = preload("res://scenes/entities/bosses/Boss.tscn")
 
 export (String) var game_space = "./GameSpace"
 

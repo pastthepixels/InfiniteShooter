@@ -69,7 +69,7 @@ func _on_SelectSquare_selected():
 func play_game():
 	queue_free()
 	get_node("../SkyScrolling").play("SkyRotate")
-	get_node("/root/Main/").add_child(load("res://scenes/Game.tscn").instance())
+	get_node("/root/Main/").add_child(load("res://scenes/game/Game.tscn").instance())
 
 
 func quit_game():

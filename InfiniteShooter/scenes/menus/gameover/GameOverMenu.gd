@@ -37,4 +37,4 @@ func quit_game():
 func main_menu():
 	game.queue_free()
 	main.remove_child(game)  # Removes the node "Game" from the main menu
-	main.add_child(load("res://scenes/ui/MainMenu.tscn").instance())  # adds a new menu node
+	main.add_child(load("res://scenes/menus/main/MainMenu.tscn").instance())  # adds a new menu node

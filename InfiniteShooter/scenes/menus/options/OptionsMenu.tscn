@@ -163,6 +163,10 @@ __meta__ = {
 [node name="Border" type="ReferenceRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
 border_color = Color( 1, 1, 1, 0.588235 )
 border_width = 2.0
 editor_only = false

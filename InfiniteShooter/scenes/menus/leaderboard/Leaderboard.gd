@@ -1,5 +1,8 @@
 extends Control
 
+export (PackedScene) var stats_label
+
+export var list_length = 16
 
 func show_animated():
 	show()
@@ -18,11 +21,14 @@ func _on_SelectSquare_selected():
 
 func _ready():
 	var scores = read_scores()
-	for i in range(0, 12):
+	for i in range(0, list_length):
 		if scores.size() > i:
-			create_label(
-				("%s. " + scores[i][0] + " with a score of " + scores[i][1]) % (i + 1), scores[i][2]
+			var label = create_label(
+				scores[i][0] + " with a score of " + scores[i][1],
+				scores[i][2],
+				i + 1
 			)
+
 	if scores.size() == 0:
 		create_label(
 			"There are no scores yet!",
@@ -50,9 +56,20 @@ func score_sorter(a, b):  # Think of this like a JS sort function
 	return false
 
 
-func create_label(text, tooltip):
-	var label = Label.new()
-	label.text = text
-	label.hint_tooltip = tooltip
-	label.mouse_filter = Control.MOUSE_FILTER_PASS  # <-- In order for the tooltip to work
-	$VBoxContainer.add_child(label)
+func create_label(text, tooltip, number=null):
+	var label = stats_label.instance()
+	label.get_node("Text").text = text
+	label.get_node("Text/Background").hint_tooltip = tooltip
+	# Custom backgrounds
+	label.get_node("Text/Background").color = Color(1, 1, 1, 1 - float(number)/list_length)
+	if float(number)/list_length < .5:
+		label.get_node("Text").set("custom_colors/font_color", Color(0, 0, 0))
+	# Numbers with more custom backgrounds
+	if number != null:
+		if number == 1: label.get_node("Number/Background").color = Color(.8, .64, .2)
+		if number == 2: label.get_node("Number/Background").color = Color(1, 1, 1, .6)
+		if number == 3: label.get_node("Number/Background").color = Color(.8, .4, .2)
+		if number <= 3: label.get_node("Number").set("custom_colors/font_color", Color(0, 0, 0))
+		label.get_node("Number").text = "%02d" % number
+	$Content/Stats.add_child(label)
+	return label
