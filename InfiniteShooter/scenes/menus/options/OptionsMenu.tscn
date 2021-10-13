@@ -119,7 +119,7 @@ size = 64
 font_data = ExtResource( 2 )
 
 [sub_resource type="Gradient" id=5]
-colors = PoolColorArray( 0, 0, 0, 1, 0.078125, 0.078125, 0.078125, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0.509804 )
 
 [sub_resource type="GradientTexture" id=6]
 gradient = SubResource( 5 )
@@ -175,6 +175,8 @@ __meta__ = {
 }
 
 [node name="SelectSquare" parent="." instance=ExtResource( 3 )]
+margin_top = -1.0
+margin_bottom = 15.0
 options_path = NodePath("../VBoxContainer/Options")
 on_left = true
 
@@ -189,7 +191,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 204.0
+margin_right = 356.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 4 )
 text = "options"
@@ -199,15 +201,15 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 85.0
-margin_right = 204.0
-margin_bottom = 250.0
+margin_right = 356.0
+margin_bottom = 324.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 204.0
+margin_right = 356.0
 margin_bottom = 17.0
 text = "back"
 valign = 1
@@ -215,10 +217,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AntiAliasing" type="Label" parent="VBoxContainer/Options"]
+[node name="Graphics" type="Label" parent="VBoxContainer/Options" groups=[
+"selectsquare_ignore",
+]]
 margin_top = 37.0
-margin_right = 204.0
+margin_right = 356.0
 margin_bottom = 54.0
+custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
+text = "Graphics"
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Options/Graphics"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -5.0
+margin_right = 8.0
+margin_bottom = 5.0
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AntiAliasing" type="HBoxContainer" parent="VBoxContainer/Options"]
+margin_top = 74.0
+margin_right = 356.0
+margin_bottom = 91.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="VBoxContainer/Options/AntiAliasing"]
+margin_right = 85.0
+margin_bottom = 17.0
 mouse_default_cursor_shape = 16
 custom_colors/font_color = Color( 0, 1, 0, 1 )
 text = "anti-aliasing"
@@ -227,21 +256,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer/Options/AntiAliasing"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -110.0
-margin_right = 150.0
-text = "> smoothens out sharp lines (MSAA 4x)"
+[node name="Separator" type="ColorRect" parent="VBoxContainer/Options/AntiAliasing"]
+margin_left = 95.0
+margin_right = 97.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bloom" type="Label" parent="VBoxContainer/Options"]
-margin_top = 74.0
-margin_right = 204.0
-margin_bottom = 91.0
+[node name="Description" type="Label" parent="VBoxContainer/Options/AntiAliasing"]
+margin_left = 107.0
+margin_right = 356.0
+margin_bottom = 17.0
+text = "smoothens out sharp lines (MSAA 4x)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bloom" type="HBoxContainer" parent="VBoxContainer/Options"]
+margin_top = 111.0
+margin_right = 356.0
+margin_bottom = 128.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="VBoxContainer/Options/Bloom"]
+margin_right = 42.0
+margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 1, 0, 1 )
 text = "bloom"
 valign = 1
@@ -249,21 +291,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer/Options/Bloom"]
-anchor_left = 1.0
+[node name="Separator" type="ColorRect" parent="VBoxContainer/Options/Bloom"]
+margin_left = 52.0
+margin_right = 54.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="VBoxContainer/Options/Bloom"]
+margin_left = 64.0
+margin_right = 317.0
+margin_bottom = 17.0
+text = "makes bright parts of the screen glow"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="Label" parent="VBoxContainer/Options" groups=[
+"selectsquare_ignore",
+]]
+margin_top = 148.0
+margin_right = 356.0
+margin_bottom = 165.0
+custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
+text = "Sound"
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Options/Sound"]
+show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -153.0
-margin_right = 111.0
-text = "> makes bright parts of the screen glow"
+margin_left = -8.0
+margin_top = -5.0
+margin_right = 8.0
+margin_bottom = 5.0
+color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
-margin_top = 111.0
-margin_right = 204.0
-margin_bottom = 128.0
+margin_top = 185.0
+margin_right = 356.0
+margin_bottom = 202.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -285,9 +357,9 @@ nine_patch_stretch = true
 stretch_margin_right = 100
 
 [node name="SFXVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
-margin_top = 148.0
-margin_right = 204.0
-margin_bottom = 165.0
+margin_top = 222.0
+margin_right = 356.0
+margin_bottom = 239.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false

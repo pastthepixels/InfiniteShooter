@@ -1,6 +1,6 @@
 extends Control
 
-export (NodePath) var options_path
+export (NodePath) var options_path # Use the group "selectsquare_ignore" to ignore certain nodes
 
 # Whether or not the square is on the left (e.g. upgrades screen)
 export var on_left = false
@@ -24,14 +24,18 @@ func _input(event):
 
 	if event.is_action_pressed("ui_up"):
 		index -= 1
+		if 0 < index and index < options.get_child_count() and options.get_child(index).is_in_group("selectsquare_ignore"):
+			index -= 1
 
 	if event.is_action_pressed("ui_down"):
 		index += 1
+		if 0 < index and index < options.get_child_count() and options.get_child(index).is_in_group("selectsquare_ignore"):
+			index += 1
 
-	if index == options.get_child_count():
+	if index >= options.get_child_count():
 		index = 0
 
-	if index == -1:
+	if index <= -1:
 		index = options.get_child_count() - 1  # because zero indexing rules
 	
 	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down"):

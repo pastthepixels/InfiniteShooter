@@ -28,14 +28,14 @@ func _on_SelectSquare_selected():
 
 		"AntiAliasing":
 			settings["antialiasing"] = ! settings["antialiasing"]
-			$VBoxContainer/Options/AntiAliasing.set(
+			$VBoxContainer/Options/AntiAliasing/Title.set(
 				"custom_colors/font_color",
 				Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
 			)
 
 		"Bloom":
 			settings["bloom"] = ! settings["bloom"]
-			$VBoxContainer/Options/Bloom.set(
+			$VBoxContainer/Options/Bloom/Title.set(
 				"custom_colors/font_color",
 				Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
 			)
