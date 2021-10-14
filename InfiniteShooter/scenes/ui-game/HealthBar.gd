@@ -7,10 +7,6 @@ export var health = 1
 export var max_health = 1
 
 
-func _ready():
-	texture = $Viewport.get_texture()
-
-
 func _process(_delta):
-	$Viewport/HealthBar2D.value = health
-	$Viewport/HealthBar2D.max_value = max_health
+	$Viewport/EnemyHealth2D/HealthBar.value = health
+	$Viewport/EnemyHealth2D/HealthBar.max_value = max_health

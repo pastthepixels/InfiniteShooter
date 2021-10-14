@@ -21,7 +21,7 @@ var skip_process = true
 export var homing_lasers = true
 
 # Scenes used
-onready var laser_scene = load("res://scenes/Laser.tscn")
+onready var laser_scene = load("res://scenes/entities/lasers/Laser.tscn")
 
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 

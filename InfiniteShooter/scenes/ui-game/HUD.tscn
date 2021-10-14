@@ -267,11 +267,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="ProgressBars/HealthBar"]
+[node name="Blur" type="ColorRect" parent="ProgressBars/HealthBar"]
 show_behind_parent = true
 material = SubResource( 21 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Highlight" type="ColorRect" parent="ProgressBars/HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 0.02
+color = Color( 1, 1, 1, 0.156863 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

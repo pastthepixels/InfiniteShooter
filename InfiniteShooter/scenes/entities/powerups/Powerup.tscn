@@ -189,9 +189,6 @@ visible = false
 mesh = SubResource( 11 )
 material/0 = SubResource( 12 )
 
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.597849, 0.801609, 0, -0.801609, -0.597849, 0, 1.73689, -2.44951 )
-
 [connection signal="area_entered" from="." to="." method="_on_Powerup_area_entered"]
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_CountdownTimer_timeout"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

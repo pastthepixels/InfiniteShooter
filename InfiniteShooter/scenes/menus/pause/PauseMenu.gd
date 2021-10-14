@@ -59,7 +59,7 @@ func toggle_pause(toggle_smoothly):
 func restart_game():
 	game.queue_free()
 	main.remove_child(game)  # Removes the node "Game" from the main menu
-	main.add_child(load("res://scenes/Game.tscn").instance())  # adds a new game node
+	main.add_child(load("res://scenes/game/Game.tscn").instance())  # adds a new game node
 
 
 func quit_game():
