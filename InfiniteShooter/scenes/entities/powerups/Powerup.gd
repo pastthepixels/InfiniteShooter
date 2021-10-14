@@ -60,7 +60,7 @@ func _on_Powerup_area_entered(area):
 		else:
 			area.modifier = modifier
 
-		$AnimationPlayer.play("use")
+		$MainAnimations.play("use")
 		$AudioStreamPlayer.pitch_scale = rand_range(1, 1.1)
 		$AudioStreamPlayer.play()
 		$CollisionShape.set_deferred("disabled", true)
@@ -71,7 +71,7 @@ func _on_AudioStreamPlayer_finished():
 
 
 func _on_CountdownTimer_timeout():
-	$AnimationPlayer.play("hide")
+	$MainAnimations.play("hide")
 	$CollisionShape.set_deferred("disabled", true)
 
 func _process(_delta):
