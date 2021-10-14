@@ -20,7 +20,7 @@ func hide_animated():
 
 
 func _on_SelectSquare_selected():
-	match $VBoxContainer/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
+	match $Content/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"Back":
 			hide_animated()
 			get_node("../SelectSquare").show()
@@ -28,17 +28,32 @@ func _on_SelectSquare_selected():
 
 		"AntiAliasing":
 			settings["antialiasing"] = ! settings["antialiasing"]
-			$VBoxContainer/Options/AntiAliasing/Title.set(
+			$Content/Options/AntiAliasing/Title.set(
 				"custom_colors/font_color",
 				Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
 			)
 
 		"Bloom":
 			settings["bloom"] = ! settings["bloom"]
-			$VBoxContainer/Options/Bloom/Title.set(
+			$Content/Options/Bloom/Title.set(
 				"custom_colors/font_color",
 				Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
 			)
+		
+		"Up":
+			$KeyPopup.set_key("move_up")
+		
+		"Down":
+			$KeyPopup.set_key("move_down")
+		
+		"Left":
+			$KeyPopup.set_key("move_left")
+		
+		"Right":
+			$KeyPopup.set_key("move_right")
+		
+		"Confirm":
+			$KeyPopup.set_key("shoot_laser")
 
 
 # To handle percentage inputs/save settings on input
@@ -46,29 +61,42 @@ func _input(event):
 	if visible == true:
 		set_settings()
 		
-	match $VBoxContainer/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
+	match $Content/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"MusicVolume":
 			if event.is_action_pressed("ui_left"):
-				$VBoxContainer/Options/MusicVolume/TextureProgress.value -= 10
+				$Content/Options/MusicVolume/TextureProgress.value -= 10
 				$SelectSquare/AcceptSound.play()
 			if event.is_action_pressed("ui_right"):
-				$VBoxContainer/Options/MusicVolume/TextureProgress.value += 10
+				$Content/Options/MusicVolume/TextureProgress.value += 10
 				$SelectSquare/AcceptSound.play()
 
 		"SFXVolume":
 			if event.is_action_pressed("ui_left"):
-				$VBoxContainer/Options/SFXVolume/TextureProgress.value -= 10
+				$Content/Options/SFXVolume/TextureProgress.value -= 10
 				$SelectSquare/AcceptSound.play()
 			if event.is_action_pressed("ui_right"):
-				$VBoxContainer/Options/SFXVolume/TextureProgress.value += 10
+				$Content/Options/SFXVolume/TextureProgress.value += 10
 				$SelectSquare/AcceptSound.play()
+
+# To set the labels for the key mapping stuff
+func set_key_labels():
+	var keys = {}
+	for action in $KeyPopup.ACTIONS:
+		for key in InputMap.get_action_list(action):
+			if key is InputEventKey:
+				keys[action] = key.as_text()
+	$Content/Options/Up/Key.text = keys["move_up"]
+	$Content/Options/Down/Key.text = keys["move_down"]
+	$Content/Options/Left/Key.text = keys["move_left"]
+	$Content/Options/Right/Key.text = keys["move_right"]
+	$Content/Options/Confirm/Key.text = keys["shoot_laser"]
 
 
 # To save/set settings
 func set_settings():
 	# Updates music/sound effects volume
-	settings["musicvol"] = $VBoxContainer/Options/MusicVolume/TextureProgress.value
-	settings["sfxvol"] = $VBoxContainer/Options/SFXVolume/TextureProgress.value
+	settings["musicvol"] = $Content/Options/MusicVolume/TextureProgress.value
+	settings["sfxvol"] = $Content/Options/SFXVolume/TextureProgress.value
 
 	# Tells the node MainMenu that settings have changed and it needs to set them
 	emit_signal("settings_changed", settings)
@@ -95,14 +123,14 @@ func get_settings():
 		settings[key] = loaded_settings[key]
 
 	# Now we set colors/values of elements
-	$VBoxContainer/Options/AntiAliasing.set(
+	$Content/Options/AntiAliasing.set(
 		"custom_colors/font_color", Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
 	)
-	$VBoxContainer/Options/Bloom.set(
+	$Content/Options/Bloom.set(
 		"custom_colors/font_color", Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
 	)
-	$VBoxContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
-	$VBoxContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
+	$Content/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
+	$Content/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
 
 	# Lastly we tell the parent node, MainMenu, to update everything
 

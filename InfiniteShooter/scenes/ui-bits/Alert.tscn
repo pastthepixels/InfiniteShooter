@@ -71,6 +71,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AlertTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="ColorRect" type="ColorRect" parent="."]
 show_behind_parent = true
 anchor_right = 1.0
@@ -148,3 +151,5 @@ margin_left = 90.0
 margin_right = 171.0
 margin_bottom = 17.0
 text = "  to continue"
+
+[connection signal="timeout" from="AlertTimer" to="." method="_on_AlertTimer_timeout"]

@@ -21,6 +21,10 @@ signal selected
 func _input(event):
 	if visible == false or get_parent().visible == false:
 		return  # If the select square is not visible, don't use it
+	
+	if ignore_hits > 0:
+		ignore_hits -= 1
+		return
 
 	if event.is_action_pressed("ui_up"):
 		index -= 1
@@ -43,11 +47,9 @@ func _input(event):
 		$SelectSound.play()
 		$AnimationPlayer.play("Fade")
 	
-	if event.is_action_released("ui_accept") and ignore_hits == 0:
+	if event.is_action_released("ui_accept"):
 		$AcceptSound.play()
 		emit_signal("selected")
-	elif event.is_action_released("ui_accept"):
-		ignore_hits -= 1
 
 
 

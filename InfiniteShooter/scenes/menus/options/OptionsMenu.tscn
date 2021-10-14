@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/menus/options/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
+[ext_resource path="res://scenes/menus/options/KeyPopup.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "close"
@@ -152,7 +153,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
+[node name="BackgroundColor" type="ColorRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0.156863 )
@@ -160,7 +161,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Border" type="ReferenceRect" parent="."]
+[node name="Border" type="ReferenceRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
@@ -177,21 +178,21 @@ __meta__ = {
 [node name="SelectSquare" parent="." instance=ExtResource( 3 )]
 margin_top = -1.0
 margin_bottom = 15.0
-options_path = NodePath("../VBoxContainer/Options")
+options_path = NodePath("../Content/Options")
 on_left = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Content" type="VBoxContainer" parent="."]
 margin_left = 50.0
 margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 443.0
+margin_bottom = 586.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 356.0
+[node name="Title" type="Label" parent="Content"]
+margin_right = 398.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 4 )
 text = "options"
@@ -199,17 +200,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Options" type="VBoxContainer" parent="Content"]
 margin_top = 85.0
-margin_right = 356.0
-margin_bottom = 324.0
+margin_right = 398.0
+margin_bottom = 546.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Label" parent="VBoxContainer/Options"]
-margin_right = 356.0
+[node name="Back" type="Label" parent="Content/Options"]
+margin_right = 398.0
 margin_bottom = 17.0
 text = "back"
 valign = 1
@@ -217,16 +218,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Graphics" type="Label" parent="VBoxContainer/Options" groups=[
+[node name="Graphics" type="Label" parent="Content/Options" groups=[
 "selectsquare_ignore",
 ]]
 margin_top = 37.0
-margin_right = 356.0
+margin_right = 398.0
 margin_bottom = 54.0
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Graphics"
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Options/Graphics"]
+[node name="ColorRect" type="ColorRect" parent="Content/Options/Graphics"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -239,13 +240,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AntiAliasing" type="HBoxContainer" parent="VBoxContainer/Options"]
+[node name="AntiAliasing" type="HBoxContainer" parent="Content/Options"]
 margin_top = 74.0
-margin_right = 356.0
+margin_right = 398.0
 margin_bottom = 91.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="VBoxContainer/Options/AntiAliasing"]
+[node name="Title" type="Label" parent="Content/Options/AntiAliasing"]
 margin_right = 85.0
 margin_bottom = 17.0
 mouse_default_cursor_shape = 16
@@ -256,7 +257,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="VBoxContainer/Options/AntiAliasing"]
+[node name="Separator" type="ColorRect" parent="Content/Options/AntiAliasing"]
 margin_left = 95.0
 margin_right = 97.0
 margin_bottom = 17.0
@@ -266,7 +267,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="VBoxContainer/Options/AntiAliasing"]
+[node name="Description" type="Label" parent="Content/Options/AntiAliasing"]
 margin_left = 107.0
 margin_right = 356.0
 margin_bottom = 17.0
@@ -275,13 +276,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bloom" type="HBoxContainer" parent="VBoxContainer/Options"]
+[node name="Bloom" type="HBoxContainer" parent="Content/Options"]
 margin_top = 111.0
-margin_right = 356.0
+margin_right = 398.0
 margin_bottom = 128.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="VBoxContainer/Options/Bloom"]
+[node name="Title" type="Label" parent="Content/Options/Bloom"]
 margin_right = 42.0
 margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 1, 0, 1 )
@@ -291,7 +292,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="VBoxContainer/Options/Bloom"]
+[node name="Separator" type="ColorRect" parent="Content/Options/Bloom"]
 margin_left = 52.0
 margin_right = 54.0
 margin_bottom = 17.0
@@ -301,7 +302,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="VBoxContainer/Options/Bloom"]
+[node name="Description" type="Label" parent="Content/Options/Bloom"]
 margin_left = 64.0
 margin_right = 317.0
 margin_bottom = 17.0
@@ -310,16 +311,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sound" type="Label" parent="VBoxContainer/Options" groups=[
+[node name="Sound" type="Label" parent="Content/Options" groups=[
 "selectsquare_ignore",
 ]]
 margin_top = 148.0
-margin_right = 356.0
+margin_right = 398.0
 margin_bottom = 165.0
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Sound"
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Options/Sound"]
+[node name="ColorRect" type="ColorRect" parent="Content/Options/Sound"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -332,21 +333,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MusicVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
+[node name="MusicVolume" type="HBoxContainer" parent="Content/Options"]
 margin_top = 185.0
-margin_right = 356.0
+margin_right = 398.0
 margin_bottom = 202.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer/Options/MusicVolume"]
+[node name="Label" type="Label" parent="Content/Options/MusicVolume"]
 margin_right = 94.0
 margin_bottom = 17.0
 text = "music volume"
 
-[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/Options/MusicVolume"]
+[node name="TextureProgress" type="TextureProgress" parent="Content/Options/MusicVolume"]
 margin_left = 104.0
 margin_right = 204.0
 margin_bottom = 17.0
@@ -356,21 +357,21 @@ texture_progress = SubResource( 8 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
-[node name="SFXVolume" type="HBoxContainer" parent="VBoxContainer/Options"]
+[node name="SFXVolume" type="HBoxContainer" parent="Content/Options"]
 margin_top = 222.0
-margin_right = 356.0
+margin_right = 398.0
 margin_bottom = 239.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer/Options/SFXVolume"]
+[node name="Label" type="Label" parent="Content/Options/SFXVolume"]
 margin_right = 73.0
 margin_bottom = 17.0
 text = "sfx volume"
 
-[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer/Options/SFXVolume"]
+[node name="TextureProgress" type="TextureProgress" parent="Content/Options/SFXVolume"]
 margin_left = 83.0
 margin_right = 183.0
 margin_bottom = 17.0
@@ -379,5 +380,206 @@ texture_under = SubResource( 6 )
 texture_progress = SubResource( 8 )
 nine_patch_stretch = true
 stretch_margin_right = 100
+
+[node name="Input" type="HBoxContainer" parent="Content/Options" groups=[
+"selectsquare_ignore",
+]]
+margin_top = 259.0
+margin_right = 398.0
+margin_bottom = 276.0
+custom_constants/separation = 21
+
+[node name="Title" type="Label" parent="Content/Options/Input"]
+margin_right = 126.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
+text = "Keyboard Controls"
+
+[node name="ColorRect" type="ColorRect" parent="Content/Options/Input/Title"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -5.0
+margin_right = 8.0
+margin_bottom = 5.0
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Warning" type="Label" parent="Content/Options/Input"]
+margin_left = 147.0
+margin_right = 398.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
+text = "Warning: Keys will be immediatly set."
+
+[node name="ColorRect" type="ColorRect" parent="Content/Options/Input/Warning"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -5.0
+margin_right = 8.0
+margin_bottom = 5.0
+color = Color( 1, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Up" type="HBoxContainer" parent="Content/Options"]
+margin_top = 296.0
+margin_right = 398.0
+margin_bottom = 313.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Content/Options/Up"]
+margin_right = 216.0
+margin_bottom = 17.0
+text = "Move Up/Select Previous Option"
+
+[node name="Separator" type="ColorRect" parent="Content/Options/Up"]
+margin_left = 226.0
+margin_right = 228.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Content/Options/Up"]
+margin_left = 238.0
+margin_right = 256.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Up"
+
+[node name="Down" type="HBoxContainer" parent="Content/Options"]
+margin_top = 333.0
+margin_right = 398.0
+margin_bottom = 350.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/Options/Down"]
+margin_right = 208.0
+margin_bottom = 17.0
+text = "Move Down/Select Next Option"
+
+[node name="Separator" type="ColorRect" parent="Content/Options/Down"]
+margin_left = 218.0
+margin_right = 220.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Content/Options/Down"]
+margin_left = 230.0
+margin_right = 268.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Down"
+
+[node name="Left" type="HBoxContainer" parent="Content/Options"]
+margin_top = 370.0
+margin_right = 398.0
+margin_bottom = 387.0
+rect_pivot_offset = Vector2( -702.202, -279 )
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/Options/Left"]
+margin_right = 66.0
+margin_bottom = 17.0
+text = "Move Left"
+
+[node name="Separator" type="ColorRect" parent="Content/Options/Left"]
+margin_left = 76.0
+margin_right = 78.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Content/Options/Left"]
+margin_left = 88.0
+margin_right = 115.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Left"
+
+[node name="Right" type="HBoxContainer" parent="Content/Options"]
+margin_top = 407.0
+margin_right = 398.0
+margin_bottom = 424.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/Options/Right"]
+margin_right = 75.0
+margin_bottom = 17.0
+text = "Move Right"
+
+[node name="Label" type="Label" parent="Content/Options/Right/Title"]
+margin_right = 40.0
+margin_bottom = 17.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Separator" type="ColorRect" parent="Content/Options/Right"]
+margin_left = 85.0
+margin_right = 87.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Content/Options/Right"]
+margin_left = 97.0
+margin_right = 133.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Right"
+
+[node name="Confirm" type="HBoxContainer" parent="Content/Options"]
+margin_top = 444.0
+margin_right = 398.0
+margin_bottom = 461.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/Options/Confirm"]
+margin_right = 99.0
+margin_bottom = 17.0
+text = "Shoot/Confirm"
+
+[node name="Separator" type="ColorRect" parent="Content/Options/Confirm"]
+margin_left = 109.0
+margin_right = 111.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Content/Options/Confirm"]
+margin_left = 121.0
+margin_right = 162.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Space"
+
+[node name="KeyPopup" parent="." instance=ExtResource( 6 )]
+visible = false
 
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

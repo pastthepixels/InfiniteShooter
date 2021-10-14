@@ -6,6 +6,8 @@ export var user_confirmation = false
 
 export var confirmation_key = "ui_dismiss"
 
+var alerting = false
+
 var waiting = false
 
 func _input(event):
@@ -14,6 +16,7 @@ func _input(event):
 		fade_out()
 
 func alert(alert_text, duration=1):
+	alerting = true
 	# user confirmation stuff
 	$UserInputWarning.visible = user_confirmation and confirmation_key == "ui_dismiss"
 	if Input.get_joy_name(0) != "":
@@ -30,8 +33,8 @@ func alert(alert_text, duration=1):
 	show()
 	# Fading out
 	if user_confirmation == false:
-		yield(Utils.timeout(duration), "timeout")
-		fade_out()
+		$AlertTimer.wait_time = duration
+		$AlertTimer.start()
 	else:
 		waiting = true
 
@@ -45,3 +48,7 @@ func error(error_text):
 	alert(error_text)
 	$ErrorSound.play()
 	Input.start_joy_vibration(0, 0.6, 1, .2)  # Vibrates a controller if you have one
+
+
+func _on_AlertTimer_timeout():
+	fade_out()

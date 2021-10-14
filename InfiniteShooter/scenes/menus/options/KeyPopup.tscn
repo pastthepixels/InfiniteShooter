@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=1]
+[ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=2]
+[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scenes/menus/options/KeyPopup.gd" type="Script" id=4]
+[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/lod = 2.0
+shader_param/aberration_strength = 0.1
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 3 )
+
+[node name="KeyPopup" type="Control"]
+pause_mode = 2
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 3 )
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+rect = Rect2( 0, 0, 600, 800 )
+
+[node name="Blur" type="ColorRect" parent="BackBufferCopy"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.196078 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Foreground" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -100.0
+margin_right = 200.0
+margin_bottom = 100.0
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="VBoxContainer" parent="Foreground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Warning" type="Label" parent="Foreground/Content"]
+margin_right = 400.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Press the escape key to cancel this menu"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="Foreground/Content/Warning"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Foreground/Content"]
+margin_top = 40.0
+margin_right = 400.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "NO CHANGE SET"
+align = 1
+valign = 1
+
+[node name="Alert" parent="." instance=ExtResource( 5 )]
+visible = false
