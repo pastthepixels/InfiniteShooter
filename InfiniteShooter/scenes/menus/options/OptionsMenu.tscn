@@ -192,7 +192,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="Content"]
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 4 )
 text = "options"
@@ -202,15 +202,15 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="Content"]
 margin_top = 85.0
-margin_right = 398.0
-margin_bottom = 546.0
+margin_right = 393.0
+margin_bottom = 583.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="Content/Options"]
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 17.0
 text = "back"
 valign = 1
@@ -222,7 +222,7 @@ __meta__ = {
 "selectsquare_ignore",
 ]]
 margin_top = 37.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 54.0
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Graphics"
@@ -242,7 +242,7 @@ __meta__ = {
 
 [node name="AntiAliasing" type="HBoxContainer" parent="Content/Options"]
 margin_top = 74.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 91.0
 custom_constants/separation = 10
 
@@ -278,7 +278,7 @@ __meta__ = {
 
 [node name="Bloom" type="HBoxContainer" parent="Content/Options"]
 margin_top = 111.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 128.0
 custom_constants/separation = 10
 
@@ -315,7 +315,7 @@ __meta__ = {
 "selectsquare_ignore",
 ]]
 margin_top = 148.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 165.0
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Sound"
@@ -335,7 +335,7 @@ __meta__ = {
 
 [node name="MusicVolume" type="HBoxContainer" parent="Content/Options"]
 margin_top = 185.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 202.0
 custom_constants/separation = 10
 __meta__ = {
@@ -359,7 +359,7 @@ stretch_margin_right = 100
 
 [node name="SFXVolume" type="HBoxContainer" parent="Content/Options"]
 margin_top = 222.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 239.0
 custom_constants/separation = 10
 __meta__ = {
@@ -381,21 +381,16 @@ texture_progress = SubResource( 8 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
-[node name="Input" type="HBoxContainer" parent="Content/Options" groups=[
+[node name="Input" type="Label" parent="Content/Options" groups=[
 "selectsquare_ignore",
 ]]
 margin_top = 259.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 276.0
-custom_constants/separation = 21
-
-[node name="Title" type="Label" parent="Content/Options/Input"]
-margin_right = 126.0
-margin_bottom = 17.0
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Keyboard Controls"
 
-[node name="ColorRect" type="ColorRect" parent="Content/Options/Input/Title"]
+[node name="ColorRect" type="ColorRect" parent="Content/Options/Input"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -408,29 +403,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Warning" type="Label" parent="Content/Options/Input"]
-margin_left = 147.0
-margin_right = 398.0
-margin_bottom = 17.0
-custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
-text = "Warning: Keys will be immediatly set."
-
-[node name="ColorRect" type="ColorRect" parent="Content/Options/Input/Warning"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -8.0
-margin_top = -5.0
-margin_right = 8.0
-margin_bottom = 5.0
-color = Color( 1, 1, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Up" type="HBoxContainer" parent="Content/Options"]
 margin_top = 296.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 313.0
 custom_constants/separation = 10
 __meta__ = {
@@ -461,7 +436,7 @@ text = "Up"
 
 [node name="Down" type="HBoxContainer" parent="Content/Options"]
 margin_top = 333.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 350.0
 custom_constants/separation = 10
 
@@ -489,7 +464,7 @@ text = "Down"
 
 [node name="Left" type="HBoxContainer" parent="Content/Options"]
 margin_top = 370.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 387.0
 rect_pivot_offset = Vector2( -702.202, -279 )
 custom_constants/separation = 10
@@ -518,7 +493,7 @@ text = "Left"
 
 [node name="Right" type="HBoxContainer" parent="Content/Options"]
 margin_top = 407.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 424.0
 custom_constants/separation = 10
 
@@ -553,7 +528,7 @@ text = "Right"
 
 [node name="Confirm" type="HBoxContainer" parent="Content/Options"]
 margin_top = 444.0
-margin_right = 398.0
+margin_right = 393.0
 margin_bottom = 461.0
 custom_constants/separation = 10
 
@@ -578,6 +553,13 @@ margin_right = 162.0
 margin_bottom = 17.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
+
+[node name="SaveKeys" type="Label" parent="Content/Options"]
+margin_top = 481.0
+margin_right = 393.0
+margin_bottom = 498.0
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+text = "Save/Set Key Bindings"
 
 [node name="KeyPopup" parent="." instance=ExtResource( 6 )]
 visible = false

@@ -54,6 +54,10 @@ func _on_SelectSquare_selected():
 		
 		"Confirm":
 			$KeyPopup.set_key("shoot_laser")
+			
+		"SaveKeys":
+			print(true)
+			$KeyPopup.set_keys()
 
 
 # To handle percentage inputs/save settings on input
@@ -80,16 +84,11 @@ func _input(event):
 
 # To set the labels for the key mapping stuff
 func set_key_labels():
-	var keys = {}
-	for action in $KeyPopup.ACTIONS:
-		for key in InputMap.get_action_list(action):
-			if key is InputEventKey:
-				keys[action] = key.as_text()
-	$Content/Options/Up/Key.text = keys["move_up"]
-	$Content/Options/Down/Key.text = keys["move_down"]
-	$Content/Options/Left/Key.text = keys["move_left"]
-	$Content/Options/Right/Key.text = keys["move_right"]
-	$Content/Options/Confirm/Key.text = keys["shoot_laser"]
+	if "move_up" in $KeyPopup.set_actions: $Content/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
+	if "move_down" in $KeyPopup.set_actions: $Content/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
+	if "move_left" in $KeyPopup.set_actions: $Content/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
+	if "move_right" in $KeyPopup.set_actions: $Content/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
+	if "shoot_laser" in $KeyPopup.set_actions: $Content/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
 
 
 # To save/set settings

@@ -4,6 +4,8 @@ enum ACTIONS { ui_accept, ui_up, ui_down, move_up, move_down, move_left, move_ri
 
 export var action_string = "ui_accept"
 
+export var set_actions = {} # Format: { "action": [old_key, new_key] }
+
 
 # Whether this is ready to set the mapped key or not
 var check_for_keys = true
@@ -28,16 +30,12 @@ func _change_key(new_key):
 			old_key = key
 	
 	#Check if new key was assigned somewhere
-	for i in ACTIONS:
-		if InputMap.action_has_event(i, new_key):
+	for key in set_actions:
+		if set_actions[key][1].as_text() == new_key.as_text():
 			$Alert.error("This key already being used! Try a different one.")
 			return
 	
-	# Removes the old key and adds a new one
-	for i in ACTIONS:
-		if InputMap.action_has_event(i, old_key):
-			InputMap.action_erase_event(i, old_key)
-			InputMap.action_add_event(i, new_key)
+	set_actions[action_string] = [old_key, new_key]
 	
 	# Shows the player the new key they pressed
 	$Foreground/Content/Key.text = new_key.as_text()
@@ -56,3 +54,11 @@ func set_key(action):
 	$AnimationPlayer.play("fade")
 	action_string = action
 	get_tree().paused = true
+
+func set_keys():
+	# Removes the old key and adds a new one for each action
+	for action in set_actions:
+		print(action)
+		if InputMap.action_has_event(action, set_actions[action][0]):
+			InputMap.action_erase_event(action, set_actions[action][0])
+			InputMap.action_add_event(action, set_actions[action][1])

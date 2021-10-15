@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/menus/options/KeyPopup.gd" type="Script" id=4]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=5]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "fade"
 length = 0.3
 tracks/0/type = "value"
@@ -22,12 +22,12 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
 shader_param/lod = 2.0
 shader_param/aberration_strength = 0.1
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 font_data = ExtResource( 3 )
 
@@ -43,14 +43,14 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade = SubResource( 3 )
+anims/fade = SubResource( 1 )
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 copy_mode = 2
 rect = Rect2( 0, 0, 600, 800 )
 
 [node name="Blur" type="ColorRect" parent="BackBufferCopy"]
-material = SubResource( 1 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -111,7 +111,7 @@ margin_right = 400.0
 margin_bottom = 200.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "NO CHANGE SET"
 align = 1
