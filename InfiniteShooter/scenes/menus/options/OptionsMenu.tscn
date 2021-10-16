@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/menus/options/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=5]
 [ext_resource path="res://scenes/menus/options/KeyPopup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/ui-bits/Confirmation.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "close"
@@ -162,6 +164,7 @@ __meta__ = {
 }
 
 [node name="Border" type="ReferenceRect" parent="Background"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
@@ -203,7 +206,7 @@ __meta__ = {
 [node name="Options" type="VBoxContainer" parent="Content"]
 margin_top = 85.0
 margin_right = 393.0
-margin_bottom = 583.0
+margin_bottom = 657.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -561,7 +564,43 @@ margin_bottom = 498.0
 custom_colors/font_color = Color( 1, 1, 0, 1 )
 text = "Save/Set Key Bindings"
 
+[node name="BadStuff" type="Label" parent="Content/Options" groups=[
+"selectsquare_ignore",
+]]
+margin_top = 518.0
+margin_right = 393.0
+margin_bottom = 535.0
+custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
+text = "Dangerous Options"
+
+[node name="ColorRect" type="ColorRect" parent="Content/Options/BadStuff"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -5.0
+margin_right = 8.0
+margin_bottom = 5.0
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetGame" type="Label" parent="Content/Options"]
+margin_top = 555.0
+margin_right = 393.0
+margin_bottom = 572.0
+custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
+text = "Reset EVERYTHING"
+
 [node name="KeyPopup" parent="." instance=ExtResource( 6 )]
 visible = false
 
+[node name="ResetConfirmation" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[node name="Alert" parent="." instance=ExtResource( 7 )]
+visible = false
+
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
+[connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]

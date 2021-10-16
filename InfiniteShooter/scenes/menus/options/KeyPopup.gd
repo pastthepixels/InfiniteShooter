@@ -23,20 +23,28 @@ func _input(event):
 # Modified from https://www.gotut.net/godot-key-bindings-tutorial/
 # Changes a key based on an action which uses it.
 func _change_key(new_key):
-	# Gets the old mapped key
-	var old_key
-	for key in InputMap.get_action_list(action_string):
-		if key is InputEventKey:
-			old_key = key
-	
 	#Check if new key was assigned somewhere
 	for key in set_actions:
 		if set_actions[key][1].as_text() == new_key.as_text():
 			$Alert.error("This key already being used! Try a different one.")
 			return
 	
-	set_actions[action_string] = [old_key, new_key]
+	for action in ACTIONS:
+		if InputMap.action_has_event(action, new_key) and (action in set_actions) == false:
+			$Alert.error("This key already being used! Try a different one.")
+			return
 	
+	# For all the actions to set...
+	for action_string in actions_to_set:
+		# Gets the old mapped key
+		var old_key
+		for key in InputMap.get_action_list(action_string):
+			if key is InputEventKey:
+				old_key = key
+		
+		# Switch it for the new one
+		set_actions[action_string] = [old_key, new_key]
+		
 	# Shows the player the new key they pressed
 	$Foreground/Content/Key.text = new_key.as_text()
 	
@@ -49,16 +57,49 @@ func _change_key(new_key):
 	get_tree().paused = false
 	get_parent().set_key_labels()
 
-func set_key(action):
+func map_actions(actions):
 	show()
+	$Foreground/Content/Key.text = "No change set"
 	$AnimationPlayer.play("fade")
-	action_string = action
+	actions_to_set = actions
 	get_tree().paused = true
 
+# Actually *doing* the stuff.
+func _ready():
+	load_keys()
+	set_keys()
+	
 func set_keys():
 	# Removes the old key and adds a new one for each action
 	for action in set_actions:
-		print(action)
 		if InputMap.action_has_event(action, set_actions[action][0]):
 			InputMap.action_erase_event(action, set_actions[action][0])
 			InputMap.action_add_event(action, set_actions[action][1])
+
+func save_keys():
+	# Converts InputEventKey --> Scancode
+	var stored_variable = {}
+	for action in set_actions:
+		stored_variable[action] = [set_actions[action][0].scancode, set_actions[action][1].scancode]
+	# Stores key bindings
+	var file = File.new()
+	file.open("user://keybindings.json", File.WRITE)
+	file.store_line(to_json(stored_variable))
+	file.close()
+
+func load_keys():
+	# Loads key bindings
+	var file = File.new()
+	if file.file_exists("user://keybindings.json") == false: return # Returns if keybindings.json doesn't exist
+	file.open("user://keybindings.json", File.READ)
+	var stored_variable = parse_json(file.get_line())
+	
+	# Converts Scancode --> InputEventKey
+	for action in stored_variable:
+		var old_key = InputEventKey.new()
+		var new_key = InputEventKey.new()
+		old_key.scancode = stored_variable[action][0]
+		new_key.scancode = stored_variable[action][1]
+		set_actions[action] = [old_key, new_key]
+	
+	get_parent().set_key_labels()

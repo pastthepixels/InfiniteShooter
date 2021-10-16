@@ -61,15 +61,18 @@ func create_label(text, tooltip, number=null):
 	label.get_node("Text").text = text
 	label.get_node("Text/Background").hint_tooltip = tooltip
 	# Custom backgrounds
-	label.get_node("Text/Background").color = Color(1, 1, 1, 1 - float(number)/list_length)
-	if float(number)/list_length < .5:
-		label.get_node("Text").set("custom_colors/font_color", Color(0, 0, 0))
-	# Numbers with more custom backgrounds
 	if number != null:
+		label.get_node("Text/Background").color = Color(1, 1, 1, 1 - float(number)/list_length)
+		if float(number)/list_length < .5:
+			label.get_node("Text").set("custom_colors/font_color", Color(0, 0, 0))
+		# More specific custom backgrounds
 		if number == 1: label.get_node("Number/Background").color = Color(.8, .64, .2)
 		if number == 2: label.get_node("Number/Background").color = Color(1, 1, 1, .6)
 		if number == 3: label.get_node("Number/Background").color = Color(.8, .4, .2)
 		if number <= 3: label.get_node("Number").set("custom_colors/font_color", Color(0, 0, 0))
 		label.get_node("Number").text = "%02d" % number
+	else:
+		label.get_node("Number").hide()
+	
 	$Content/Stats.add_child(label)
 	return label

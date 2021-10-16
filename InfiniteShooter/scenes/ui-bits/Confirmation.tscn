@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=1]
-[ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=2]
-[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://scenes/menus/options/KeyPopup.gd" type="Script" id=4]
-[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/ui-bits/Confirmation.gd" type="Script" id=3]
+[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=4]
+[ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
@@ -23,21 +22,20 @@ tracks/0/keys = {
 }
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
+shader = ExtResource( 4 )
 shader_param/lod = 2.0
 shader_param/aberration_strength = 0.1
 
 [sub_resource type="DynamicFont" id=3]
 size = 40
-font_data = ExtResource( 3 )
+font_data = ExtResource( 1 )
 
-[node name="KeyPopup" type="Control"]
+[node name="Confirmation" type="Control"]
 pause_mode = 2
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
-script = ExtResource( 4 )
+theme = ExtResource( 5 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -92,7 +90,7 @@ margin_right = 400.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Press the escape key to cancel this menu"
+text = "Press the escape key to cancel this operation"
 align = 1
 valign = 1
 
@@ -105,7 +103,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Foreground/Content"]
+[node name="Warning2" type="Label" parent="Foreground/Content"]
 margin_top = 40.0
 margin_right = 400.0
 margin_bottom = 200.0
@@ -113,9 +111,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "No change set"
+text = "Hit any key to confirm"
 align = 1
 valign = 1
-
-[node name="Alert" parent="." instance=ExtResource( 5 )]
-visible = false

@@ -41,23 +41,27 @@ func _on_SelectSquare_selected():
 			)
 		
 		"Up":
-			$KeyPopup.set_key("move_up")
+			$KeyPopup.map_actions(["move_up", "ui_up"])
 		
 		"Down":
-			$KeyPopup.set_key("move_down")
+			$KeyPopup.map_actions(["move_down", "ui_down"])
 		
 		"Left":
-			$KeyPopup.set_key("move_left")
+			$KeyPopup.map_actions(["move_left", "ui_left"])
 		
 		"Right":
-			$KeyPopup.set_key("move_right")
+			$KeyPopup.map_actions(["move_right", "ui_right"])
 		
 		"Confirm":
-			$KeyPopup.set_key("shoot_laser")
+			$KeyPopup.map_actions(["shoot_laser", "ui_accept"])
 			
 		"SaveKeys":
-			print(true)
+			$Alert.alert("Key bindings saved and set!")
 			$KeyPopup.set_keys()
+			$KeyPopup.save_keys()
+		
+		"ResetGame":
+			$ResetConfirmation.open()
 
 
 # To handle percentage inputs/save settings on input
@@ -134,3 +138,15 @@ func get_settings():
 	# Lastly we tell the parent node, MainMenu, to update everything
 
 	emit_signal("settings_changed", settings)
+
+# To reset settings
+func _on_ResetConfirmation_confirmed():
+	var dir = Directory.new()
+	if dir.open("user://") == OK: # Modified from https://docs.godotengine.org/en/stable/classes/class_directory.html?highlight=directory
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir() == false:
+				dir.remove("user://" + file_name)
+			file_name = dir.get_next()
+	$Alert.alert("Game reset! Restart it for changes to take effect.")
