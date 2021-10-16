@@ -1,11 +1,13 @@
+# Note:
+# Requires the parent node to have the function "set_key_labels"
+
 extends Control
 
 enum ACTIONS { ui_accept, ui_up, ui_down, move_up, move_down, move_left, move_right, shoot_laser, pause, ui_dismiss }
 
-export var action_string = "ui_accept"
-
 export var set_actions = {} # Format: { "action": [old_key, new_key] }
 
+export (Array, String) var actions_to_set = []
 
 # Whether this is ready to set the mapped key or not
 var check_for_keys = true
