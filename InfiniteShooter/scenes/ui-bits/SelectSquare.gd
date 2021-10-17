@@ -19,10 +19,10 @@ signal selected
 
 
 func _input(event):
-	if visible == false or get_parent().visible == false:
+	if visible == false or get_parent().visible == false or event.is_echo():
 		return  # If the select square is not visible, don't use it
 	
-	if ignore_hits > 0:
+	if ignore_hits > 0 and (event is InputEventKey or event is InputEventJoypadButton):
 		ignore_hits -= 1
 		return
 
@@ -50,7 +50,7 @@ func _input(event):
 	if event.is_action_released("ui_accept"):
 		$AcceptSound.play()
 		emit_signal("selected")
-
+	
 
 
 func update():

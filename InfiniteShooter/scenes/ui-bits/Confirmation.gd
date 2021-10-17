@@ -3,7 +3,7 @@ extends Control
 signal confirmed
 
 func _input(event):
-	if visible == true:
+	if visible == true and (event is InputEventKey or event is InputEventJoypadButton):
 		if event.is_action_pressed("ui_cancel"):
 			hide()
 			get_tree().paused = false

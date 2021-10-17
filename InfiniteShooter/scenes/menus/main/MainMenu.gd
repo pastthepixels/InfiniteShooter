@@ -39,7 +39,7 @@ func _input(event):
 		
 		# Allows things to be selected
 		$Menu/SelectSquare.show()
-		$Menu/SelectSquare.ignore_hits += 1
+		$Menu/SelectSquare.ignore_hits = 1
 
 func _on_SelectSquare_selected():
 	match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...

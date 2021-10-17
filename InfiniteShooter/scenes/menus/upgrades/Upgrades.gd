@@ -57,7 +57,7 @@ func _on_SelectSquare_selected():
 			var upgrade = upgrade_lookup_table[name]
 			if upgrade.purchased == true:
 				$Alert.error("You have already purchased this upgrade.")
-			elif points - upgrade.cost > 0:
+			elif points - upgrade.cost >= 0:
 				$Alert.alert("Upgrade purchased!")
 				set_health( health + upgrade.health )
 				set_damage( damage + upgrade.damage )

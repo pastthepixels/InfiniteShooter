@@ -56,8 +56,8 @@ func _on_SelectSquare_selected():
 		"Confirm":
 			$KeyPopup.map_actions(["shoot_laser", "ui_accept"])
 			
-		"SaveKeys":
-			$Alert.alert("Key bindings saved and set!")
+		"ApplyKeyBindings":
+			$Alert.alert("Key bindings saved and applied!")
 			$KeyPopup.set_keys()
 			$KeyPopup.save_keys()
 		

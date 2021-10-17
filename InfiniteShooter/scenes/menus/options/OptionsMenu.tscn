@@ -557,12 +557,12 @@ margin_bottom = 17.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
-[node name="SaveKeys" type="Label" parent="Content/Options"]
+[node name="ApplyKeyBindings" type="Label" parent="Content/Options"]
 margin_top = 481.0
 margin_right = 393.0
 margin_bottom = 498.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
-text = "Save/Set Key Bindings"
+text = "Apply Key Bindings"
 
 [node name="BadStuff" type="Label" parent="Content/Options" groups=[
 "selectsquare_ignore",

@@ -1,6 +1,6 @@
 extends Node
 
-export (Array, String) var name_bases = [
+export (Array, String) var nouns = [
 	"eviction notice",
 	"lamp",
 	"spoon",
@@ -37,10 +37,11 @@ export (Array, String) var name_bases = [
 	"explanation",
 	"improvement",
 	"exam",
-	"excitement"
+	"excitement",
+	"tapistry"
 ]
 
-export (Array, String) var name_adjectives = [
+export (Array, String) var adjectives = [
 	"robust",
 	"bland",
 	"tense",
@@ -59,9 +60,58 @@ export (Array, String) var name_adjectives = [
 	"clean",
 	"embarrassing",
 	"fancy",
-	"expensive"
+	"expensive",
+	"wholesale",
+	"neighborly",
+	"null",
+	"handsome",
+	"combative",
+	"old",
+	"aromatic",
+	"tasteless",
+	"frightened",
+	"hazardous",
+	"decent",
+	"important",
+	"hot",
+	"lamentable",
+	"responsible",
+	"abashed",
+	"remarkable",
+	"legal",
+	"unaccountable",
+	"lying" # to go with cake
+]
+
+export(Array, String) var adverbs = [
+	"remarkably",
+	"frighteningly",
+	"unhealthily",
+	"questionably",
+	"dangerously",
+	"psychologically",
+	"needlessly",
+	"deeply",
+	"nicely",
+	"purely",
+	"reasonably",
+	"elegantly",
+	"wisely",
+	"delightfully",
+	"solidly",
+	"uselessly",
+	"innocently",
+	"sometimes",
+	"coolly",
+	"neatly",
+	"willfully",
+	"mostly",
+	"sternly",
+	"angrily",
+	"actually",
+	"slightly"
 ]
 
 
 func generate_upgrade_name():
-	return ("the " + name_adjectives[randi() % name_adjectives.size()] + " " + name_bases[randi() % name_bases.size()]).capitalize()
+	return ("the " + adverbs[randi() % adverbs.size()] + " " + adjectives[randi() % adjectives.size()] + " " + nouns[randi() % nouns.size()]).capitalize()

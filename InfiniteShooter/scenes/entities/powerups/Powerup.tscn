@@ -7,8 +7,7 @@
 [ext_resource path="res://sounds/powerup.wav" type="AudioStream" id=5]
 [ext_resource path="res://models/powerups/template.glb" type="PackedScene" id=6]
 
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -24,7 +23,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "use"
 length = 0.1
 step = 0.01
@@ -41,7 +40,7 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 1.2, 1.2, 1.2 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "warning"
 loop = true
 tracks/0/type = "value"
@@ -57,7 +56,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 0.0392157 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "creation"
 length = 0.5
 tracks/0/type = "value"
@@ -73,8 +72,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "hide"
+[sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -126,18 +124,18 @@ script = ExtResource( 4 )
 
 [node name="SpinAnimation" type="AnimationPlayer" parent="."]
 autoplay = "spin"
-anims/spin = SubResource( 2 )
-anims/use = SubResource( 3 )
+anims/spin = SubResource( 1 )
+anims/use = SubResource( 2 )
 
 [node name="WarningAnimation" type="AnimationPlayer" parent="."]
 autoplay = "warning"
-anims/warning = SubResource( 4 )
+anims/warning = SubResource( 3 )
 
 [node name="MainAnimations" type="AnimationPlayer" parent="."]
 autoplay = "creation"
-anims/creation = SubResource( 5 )
-anims/hide = SubResource( 1 )
-anims/use = SubResource( 3 )
+anims/creation = SubResource( 4 )
+anims/hide = SubResource( 5 )
+anims/use = SubResource( 2 )
 
 [node name="CountdownTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -191,9 +189,6 @@ material/0 = SubResource( 10 )
 visible = false
 mesh = SubResource( 11 )
 material/0 = SubResource( 12 )
-
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.597849, 0.801609, 0, -0.801609, -0.597849, 0, 1.73689, -2.44951 )
 
 [connection signal="area_entered" from="." to="." method="_on_Powerup_area_entered"]
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_CountdownTimer_timeout"]
