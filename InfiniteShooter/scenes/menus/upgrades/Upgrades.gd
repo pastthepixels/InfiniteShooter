@@ -17,6 +17,12 @@ export var health = 100
 # Damage/bullet, in HP/100
 export var damage = 20
 
+# Template for an upgrade label
+export(PackedScene) var upgrade_label
+
+# Name generator
+export(Script) var name_generator
+
 
 # Shows and hides the menu with FADING
 func show_animated():
@@ -40,7 +46,7 @@ func _ready():
 
 
 func _on_SelectSquare_selected():
-	match $VBoxContainer/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
+	match $Content/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 		
 		"Back":
 			hide_animated()
@@ -56,7 +62,7 @@ func _on_SelectSquare_selected():
 				set_health( health + upgrade.health )
 				set_damage( damage + upgrade.damage )
 				set_points( points - upgrade.cost )
-				get_node("VBoxContainer/Options/" + name).set("custom_colors/font_color", inactive_color)
+				get_node("Content/Options/" + name).modulate = Color(1, 1, 1, .5)
 				upgrade.purchased = true
 			else:
 				$Alert.error( "%s points needed." % ( upgrade.cost - points ) )
@@ -66,36 +72,40 @@ func _on_SelectSquare_selected():
 
 
 # Creating a label (pretty straightforward)
-func create_label( text, tooltip ):
-	var label = Label.new()
-	label.text = text
-	label.hint_tooltip = tooltip
-	label.mouse_filter = Control.MOUSE_FILTER_PASS # <-- In order for the tooltip to work
-	$VBoxContainer/Options.add_child( label )
+func create_label(text, cost, damage, health):
+	var label = upgrade_label.instance()
+	label.get_node("Name").text = text
+	label.get_node("Cost").text = str(cost)
+	label.get_node("Damage").text = "+" + str(damage)
+	label.get_node("Health").text = "+" + str(health)
+	$Content/Options.add_child(label)
 	return label
 
 
 # Creating an array of upgrades
 func create_upgrades():
-	
 	upgrades = []
 	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
 		var upgrade_damage = randi() % 100
 		var upgrade_health = randi() % 100
 		upgrades.append( {
+			"name": name_generator.new().generate_upgrade_name(),
 			"cost": 10 * (upgrade_damage + upgrade_health),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false
 		} )
 
+func random_name():
+	pass
+
 
 # Creates labels from the upgrades array
 func read_upgrades():
-	for i in upgrades:
-		var label = create_label( "+{damage} damage, +{health} health [{cost} PTS]".format( i ), "" )
-		if i.purchased == true: label.set("custom_colors/font_color", inactive_color)
-		upgrade_lookup_table[label.name] = i
+	for upgrade in upgrades:
+		var label = create_label(upgrade["name"], upgrade["cost"], upgrade["damage"], upgrade["health"])
+		if upgrade["purchased"] == true: label.modulate = Color(1, 1, 1, .5)
+		upgrade_lookup_table[label.name] = upgrade
 
 
 # Creating a new list of upgrades if all are purchased
@@ -110,7 +120,7 @@ func reroll_upgrades():
 		# Resets labels + variables related to them
 		$SelectSquare.index = 0
 		for label_name in upgrade_lookup_table.keys():
-			get_node( "VBoxContainer/Options/" + label_name ).queue_free()
+			get_node( "Content/Options/" + label_name ).queue_free()
 		upgrade_lookup_table = {}
 		# Creates new ones
 		read_upgrades()
@@ -119,19 +129,19 @@ func reroll_upgrades():
 # Updates the labels
 func set_health( value ):
 	health = value
-	$VBoxContainer/Stats/Health.text = "%s health" % health
+	$Content/Stats/Health.text = "%s health" % health
 
 
 func set_damage( value ):
 	damage = value
-	$VBoxContainer/Stats/Damage.text = "%s damage" % damage
+	$Content/Stats/Damage.text = "%s damage" % damage
 
 
 func set_points( value ):
 	
 	points = value
-	$VBoxContainer/Stats/Points.text = "%s points" % points
-	if points == 1: $VBoxContainer/Stats/Points.text = "1 point"
+	$Content/Stats/Points.text = "%s points" % points
+	if points == 1: $Content/Stats/Points.text = "1 point"
 
 
 # Saving and loading upgrades/player stats onto a file
