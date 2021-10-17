@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/enemies/black_ship.material" type="Material" id=1]
-[ext_resource path="res://assets/enemies/Material_001.material" type="Material" id=2]
+[ext_resource path="res://models/enemies/black_ship.material" type="Material" id=1]
+[ext_resource path="res://models/enemies/Material_001.material" type="Material" id=2]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.7666, 0.0638833, 0.85303 )

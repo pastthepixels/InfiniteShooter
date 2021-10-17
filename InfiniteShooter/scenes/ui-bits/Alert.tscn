@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/ui-bits/Alert.gd" type="Script" id=1]
 [ext_resource path="res://sounds/error.wav" type="AudioStream" id=2]
-[ext_resource path="res://scenes/effects/theme-submenu.tres" type="Theme" id=3]
+[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "slide"

@@ -1,12 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/game/GameMusic.gd" type="Script" id=1]
-[ext_resource path="res://sounds/soundtrack/game3.mp3" type="AudioStream" id=2]
-[ext_resource path="res://sounds/soundtrack/game2.mp3" type="AudioStream" id=3]
-[ext_resource path="res://sounds/soundtrack/main.mp3" type="AudioStream" id=4]
-[ext_resource path="res://sounds/soundtrack/game1.mp3" type="AudioStream" id=5]
-[ext_resource path="res://sounds/soundtrack/game6.mp3" type="AudioStream" id=6]
-[ext_resource path="res://sounds/soundtrack/game7.mp3" type="AudioStream" id=7]
+[ext_resource path="res://music/game3.mp3" type="AudioStream" id=2]
+[ext_resource path="res://music/game2.mp3" type="AudioStream" id=3]
+[ext_resource path="res://music/main.mp3" type="AudioStream" id=4]
+[ext_resource path="res://music/game1.mp3" type="AudioStream" id=5]
+[ext_resource path="res://music/game6.mp3" type="AudioStream" id=6]
+[ext_resource path="res://music/game7.mp3" type="AudioStream" id=7]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"

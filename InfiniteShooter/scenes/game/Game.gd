@@ -34,7 +34,7 @@ var MODIFIERS = GameVariables.LASER_MODIFIERS
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
 	"begin_wait",
-	"Use the arrow keys/WASD to move around (left stick on a controller).",
+	"Use the arrow keys to move around (left stick on a controller).",
 	"wait_movement", # Command to wait for player movement
 	"Excellent work!",
 	"begin_wait_laser",

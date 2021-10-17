@@ -4,9 +4,10 @@
 [ext_resource path="res://scenes/ui-game/HealthBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/entities/enemies/Enemy1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/entities/enemies/Enemy.gd" type="Script" id=4]
-[ext_resource path="res://scenes/effects/Explosion.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/entities/enemies/Enemy3.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/entities/enemies/Enemy2.tscn" type="PackedScene" id=7]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "initiate"

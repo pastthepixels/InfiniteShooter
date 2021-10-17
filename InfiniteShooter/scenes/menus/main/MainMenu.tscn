@@ -1,12 +1,13 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/menus/main/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=2]
+[ext_resource path="res://resources/theme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/menus/leaderboard/Leaderboard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/options/OptionsMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/upgrades/Upgrades.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/title-infiniteshooter/title.glb" type="PackedScene" id=8]
+[ext_resource path="res://models/title-infiniteshooter/title.glb" type="PackedScene" id=8]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "introduce-title"

@@ -1,9 +1,9 @@
 [gd_scene load_steps=33 format=2]
 
-[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=2]
-[ext_resource path="res://assets/vignette/vignette.png" type="Texture" id=5]
-[ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=6]
+[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
+[ext_resource path="res://images/vignette.png" type="Texture" id=5]
+[ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-game/GameHUD.gd" type="Script" id=7]
 
 [sub_resource type="Gradient" id=1]

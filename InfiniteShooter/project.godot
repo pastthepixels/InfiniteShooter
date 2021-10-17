@@ -16,7 +16,7 @@ run/main_scene="res://Main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="InfiniteShooter"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/icon/icon.png"
+config/icon="res://resources/icon.png"
 
 [autoload]
 
@@ -34,8 +34,8 @@ window/vsync/vsync_via_compositor=true
 
 [gui]
 
-theme/custom="res://scenes/effects/theme.tres"
-theme/custom_font="res://scenes/effects/default_font.tres"
+theme/custom="res://resources/theme.tres"
+theme/custom_font="res://resources/default_font.tres"
 
 [input]
 

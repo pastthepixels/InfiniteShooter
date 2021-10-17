@@ -59,7 +59,7 @@ func score_sorter(a, b):  # Think of this like a JS sort function
 func create_label(text, tooltip, number=null):
 	var label = stats_label.instance()
 	label.get_node("Text").text = text
-	label.get_node("Text/Background").hint_tooltip = tooltip
+	label.hint_tooltip = tooltip
 	# Custom backgrounds
 	if number != null:
 		label.get_node("Text/Background").color = Color(1, 1, 1, 1 - float(number)/list_length)

@@ -1,6 +1,7 @@
 extends Control
 
 signal settings_changed
+export var colors = { "red": Color(1, .27, .27), "green": Color(.27, 1, .27) }
 var settings = {"antialiasing": true, "bloom": true, "musicvol": 100, "sfxvol": 100}
 
 
@@ -30,14 +31,14 @@ func _on_SelectSquare_selected():
 			settings["antialiasing"] = ! settings["antialiasing"]
 			$Content/Options/AntiAliasing/Title.set(
 				"custom_colors/font_color",
-				Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
+				colors.green if settings["antialiasing"] else colors.red
 			)
 
 		"Bloom":
 			settings["bloom"] = ! settings["bloom"]
 			$Content/Options/Bloom/Title.set(
 				"custom_colors/font_color",
-				Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
+				colors.green if settings["bloom"] else colors.red
 			)
 		
 		"Up":
@@ -127,10 +128,10 @@ func get_settings():
 
 	# Now we set colors/values of elements
 	$Content/Options/AntiAliasing.set(
-		"custom_colors/font_color", Color(0, 1, 0) if settings["antialiasing"] else Color(1, 0, 0)
+		"custom_colors/font_color", colors.green if settings["antialiasing"] else colors.red
 	)
 	$Content/Options/Bloom.set(
-		"custom_colors/font_color", Color(0, 1, 0) if settings["bloom"] else Color(1, 0, 0)
+		"custom_colors/font_color", colors.green if settings["bloom"] else colors.red
 	)
 	$Content/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
 	$Content/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]

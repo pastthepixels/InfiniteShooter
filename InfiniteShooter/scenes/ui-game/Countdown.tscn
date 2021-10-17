@@ -1,11 +1,12 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/font/font.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scenes/effects/theme.tres" type="Theme" id=2]
+[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/theme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/ui-game/Countdown.gd" type="Script" id=3]
 [ext_resource path="res://sounds/gui-select.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/gui-use.wav" type="AudioStream" id=5]
-[ext_resource path="res://scenes/effects/BackgroundBlur.gdshader" type="Shader" id=6]
+[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=6]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 6 )
