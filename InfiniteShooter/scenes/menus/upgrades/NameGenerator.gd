@@ -80,6 +80,7 @@ export (Array, String) var adjectives = [
 	"remarkable",
 	"legal",
 	"unaccountable",
+	"vengeful",
 	"lying" # to go with cake
 ]
 
