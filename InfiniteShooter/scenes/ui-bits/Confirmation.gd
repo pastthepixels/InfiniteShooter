@@ -8,7 +8,7 @@ func _input(event):
 			hide()
 			get_tree().paused = false
 			return
-		else:
+		if event.is_action_pressed("ui_accept"):
 			$AnimationPlayer.play_backwards("fade")
 			yield($AnimationPlayer, "animation_finished")
 			get_tree().paused = false

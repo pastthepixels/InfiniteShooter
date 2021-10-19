@@ -27,7 +27,7 @@ shader_param/lod = 2.0
 shader_param/aberration_strength = 0.1
 
 [sub_resource type="DynamicFont" id=3]
-size = 40
+size = 35
 font_data = ExtResource( 1 )
 
 [node name="Confirmation" type="Control"]
@@ -111,6 +111,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Hit any key to confirm"
+text = "Press the confirm key
+again to contiue"
 align = 1
 valign = 1
