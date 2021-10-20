@@ -1,32 +1,35 @@
 extends Spatial
 
-# Variables related to enemy properties
+# Health, damage, & misc
+var damage = 10
+
+export var max_health = 2000
+
+var health = max_health
+
+export var explosions = 10
+
+# Dying
 
 signal died(current_ship)
 
 var killed_from_player = false
 
-var damage = 10
+# Moving around
+export (Array, Curve3D) var paths
 
-var max_health = 2000
+# Laser mechanics
+var freeze_movement = false
 
-var health = max_health
-
-var bounding_box
-
-var freeze_movement = false # Important for laser effects
-
-var skip_process = true
-
+# Homing lasers
 export var homing_lasers = true
-
-# Scenes used
-onready var laser_scene = load("res://scenes/entities/lasers/Laser.tscn")
 
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 
-# Paths
-export (Array, Curve3D) var paths
+# Scenes used
+export (PackedScene) var laser_scene
+
+export (PackedScene) var explosion_scene
 
 
 func initialize(difficulty):
@@ -34,11 +37,12 @@ func initialize(difficulty):
 	$Path.curve = paths[randi() % len(paths)]
 	$Path/PathFollow.unit_offset = 0
 	
-	# Gets the bounding box for the enemy ship model
-	bounding_box = $EnemyModel/Boss.get_child(0).get_aabb()
-
-	# Gets the health bar into position
-	$HealthBar.translation.z = -(bounding_box.size.z * $EnemyModel.scale.z) + .5
+	# Sets up explosions
+	for i in range(0, explosions):
+		var explosion = explosion_scene.instance()
+		explosion.hide()
+		explosion.translation = Vector3(rand_range(-1.5, 1.5), rand_range(-.5, .5), rand_range(-1.5, 1.5))
+		$Explosions.add_child(explosion)
 	
 	# Multiplies everything by the difficulty number for added difficulty (same as we would for Enemy.gd)
 	max_health *= difficulty
@@ -56,8 +60,7 @@ func initialize(difficulty):
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	
-	# Begins the stuff
-	skip_process = false
+	# Begins shooting fter the cutscene
 	$LaserTimer.start()
 
 
@@ -81,26 +84,27 @@ func _process(delta):
 		set_process(false)
 		$HealthBar.hide()
 		explode_ship() # otherwise, explode the ship
+		return
 	
 	# Moving around
-	if skip_process or freeze_movement: return
-	translation = $Path/PathFollow.translation
-	$Path/PathFollow.unit_offset += .05 * delta
+	if (freeze_movement or $Tween.is_active()) == false:
+		translation = $Path/PathFollow.translation
+		$Path/PathFollow.unit_offset += .05 * delta
 
 func explode_ship():
+	emit_signal("died", self)
+	remove_from_group("enemies")
+	$LaserTimer.stop()
+	$EnemyModel.queue_free()
+	$LaserEffects.reset()
+	$Explosions.show()
+	$Tween.stop_all()
 	for explosion in $Explosions.get_children():
 		explosion.explode()
 		yield(Utils.timeout(.1), "timeout")
-	$LaserTimer.stop()
-	$EnemyModel.queue_free()
-	remove_from_group("enemies")
-	$LaserEffects.reset()
-	emit_signal("died", self)
-	if has_node("/root/Main/ShakeCamera"):
-		get_node("/root/Main/ShakeCamera").add_trauma(.4)  # Shakes the screen
-
-
-func cleanup_ship():  # Used to "clean up" the ship for some event or something
+		if has_node("/root/Main/ShakeCamera"):
+			get_node("/root/Main/ShakeCamera").add_trauma(.05)  # Shakes the screen
+	yield($Explosions.get_child(explosions - 1), "exploded")
 	queue_free()
 
 
@@ -110,22 +114,13 @@ func fire_laser():
 	laser.follow_player = true
 	laser.followed_player = followed_player
 	laser.sender = self
-
-	# Telling the laser that it is not from the player + sets its damage
-	laser.from_player = false
 	laser.damage = damage
-
-	# Setting the laser's position
-	laser.translation = translation
-	laser.translation.z += 1  # Makes the laser come from the "top" of the ship instead of the center for added realism
 	
-	# Specific stuff to do with where lasers are firing from
-	var cannon = rand_range(0, 1) > .5
-	if cannon == false:
-		laser.translation = $EnemyModel/Boss/Cannon1.translation
+	# Specific stuff to do with where lasers are firing from (picks a random cannon)
+	if rand_range(0, 1) > .5:
+		laser.translation = $EnemyModel/Boss/Cannon1.translation + translation
 	else:
-		laser.translation = $EnemyModel/Boss/Cannon2.translation
-	laser.translation += translation
+		laser.translation = $EnemyModel/Boss/Cannon2.translation + translation
 
 	# Gets the scene that housed the enemy and adds to it the laser
 	get_parent().add_child(laser)

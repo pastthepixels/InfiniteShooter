@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/entities/enemies/Enemy3.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/entities/enemies/Enemy2.tscn" type="PackedScene" id=7]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "initiate"
 length = 0.2

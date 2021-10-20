@@ -66,13 +66,16 @@ func _on_Powerup_area_entered(area):
 		$CollisionShape.set_deferred("disabled", true)
 
 
+func _on_CountdownTimer_timeout():
+	$MainAnimations.play("hide")
+
+func _process(_delta):
+	$Outline.visible = $CountdownTimer.time_left < 3
+
+
 func _on_AudioStreamPlayer_finished():
 	queue_free()
 
 
-func _on_CountdownTimer_timeout():
-	$MainAnimations.play("hide")
-	$CollisionShape.set_deferred("disabled", true)
-
-func _process(_delta):
-	$Outline.visible = $CountdownTimer.time_left < 3
+func _on_MainAnimations_animation_finished(anim_name):
+	if anim_name == "hide": queue_free()
