@@ -34,13 +34,13 @@ animations = [ {
 [node name="Explosion" type="Spatial"]
 script = ExtResource( 22 )
 
-[node name="ExplosionAnimation" type="AnimatedSprite3D" parent="."]
-transform = Transform( 0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, 0 )
-frames = SubResource( 1 )
-
 [node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 21 )
 bus = "SFX"
 
-[connection signal="animation_finished" from="ExplosionAnimation" to="." method="hide_explosion"]
+[node name="ExplosionAnimation" type="AnimatedSprite3D" parent="."]
+transform = Transform( 0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, 0 )
+frames = SubResource( 1 )
+
 [connection signal="finished" from="ExplosionSound" to="." method="end_explosion"]
+[connection signal="animation_finished" from="ExplosionAnimation" to="." method="hide_explosion"]

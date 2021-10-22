@@ -25,7 +25,7 @@ export var damage = 30
 export var player_rotation = 35
 
 # Health (taken from the max health)
-var health = max_health
+var health = max_health setget set_health, get_health
 
 # Ammo (taken from the max ammo)
 var ammo = max_ammo
@@ -153,10 +153,7 @@ func cleanup_player():
 
 func heal():  # Regenerates a bit of health every time this function is called.
 	if health < max_health:
-		set_health(health + 1)
-
-	if health >= max_health:
-		set_health(max_health)
+		health += 1
 
 
 func set_ammo(new_ammo):
@@ -164,10 +161,12 @@ func set_ammo(new_ammo):
 	update_hud()
 
 
-func set_health(new_health):
-	health = new_health
+func set_health(value):
+	health = value
 	update_hud()
 
+func get_health():
+	return health
 
 func update_hud():
 	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)

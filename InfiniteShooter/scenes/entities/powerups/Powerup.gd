@@ -55,7 +55,7 @@ func _on_Powerup_area_entered(area):
 				3:
 					area.modifier = MODIFIERS.none
 					for enemy in get_tree().get_nodes_in_group("enemies"):
-						enemy.killed_from_player = true
+						enemy.last_hit_from = area
 						enemy.health = 0
 		else:
 			area.modifier = modifier
