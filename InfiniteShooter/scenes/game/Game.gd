@@ -205,12 +205,13 @@ func _on_boss_died(_boss):
 	level_up()
 
 func _on_enemy_died(_ship, _from_player):
-	if $EnemyTimer.paused == false and len(get_tree().get_nodes_in_group("enemies")) <= GameVariables.max_enemies_on_screen: make_enemy()
+	if $EnemyTimer.time_left > 0 and len(get_tree().get_nodes_in_group("enemies")) <= GameVariables.max_enemies_on_screen: make_enemy()
 
 func _on_enemy_died_score(enemy, from_player):
-	if from_player: score += enemy.max_health / 2
-	enemy.disconnect("died", self, "_on_enemy_died_score")
-	$HUD.update_score(score)
+	if $EnemyTimer.time_left > 0:
+		if from_player: score += enemy.max_health / 2
+		enemy.disconnect("died", self, "_on_enemy_died_score")
+		$HUD.update_score(score)
 
 # Makes the game harder with this complicated formula!
 func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_health, multiplier):
