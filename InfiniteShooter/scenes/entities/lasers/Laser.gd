@@ -3,16 +3,34 @@ extends Area
 # How much damage the laser does
 var damage = 0
 
-# A variable for... the "sender" of a laser
-var sender
+# Laser speed
 
-# Whether or not it is from the player
-onready var from_player = sender.is_in_group("players")
+export var speed = 0.4
+
+export var follow_speed = 0.05
 
 # To stop ships from hurting themselves as soon as they shoot lasers
 var invincible = true
 
-# Materials
+# A variable for... the "sender" of a laser
+var sender
+
+# Following the player
+
+onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
+
+export var follow_player = false
+
+# Laser "modifiers"
+
+var MODIFIERS = GameVariables.LASER_MODIFIERS
+
+var modifier = MODIFIERS.none
+
+# Materials and extra stuff
+
+var alive = true
+
 export (SpatialMaterial) var enemy_material
 
 export (SpatialMaterial) var player_material
@@ -23,45 +41,28 @@ export (SpatialMaterial) var ice_material
 
 export (SpatialMaterial) var corrosion_material
 
-# Following the player
-onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
-
-export var follow_player = false
-
-export var follow_speed = 0.05
-
-# Laser "modifiers"
-var MODIFIERS = GameVariables.LASER_MODIFIERS
-
-var modifier = MODIFIERS.none
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	set_laser()
 	
 	if follow_player == true: $FollowTimer.start()
+	if sender.is_in_group("players"): speed *= -1 # Goes up if from player
 	
 	$LaserSound.pitch_scale = rand_range(0.9, 1.1)
 	$LaserSound.play()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if from_player == true:
-		translation.z -= .4  # If the laser is from the player, move it up
-
+func _process(delta):
+	if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
+		$Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
+		if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed): translation.z += follow_speed*delta if stepify(translation.z, follow_speed) < stepify(followed_player.translation.z, follow_speed) else -follow_speed*delta
+		if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed): translation.x += follow_speed*delta if stepify(translation.x, follow_speed) < stepify(followed_player.translation.x, follow_speed) else -follow_speed*delta
 	else:
-		if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
-			$Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
-			if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed): translation.z += follow_speed if stepify(translation.z, follow_speed) < stepify(followed_player.translation.z, follow_speed) else -follow_speed
-			if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed): translation.x += follow_speed if stepify(translation.x, follow_speed) < stepify(followed_player.translation.x, follow_speed) else -follow_speed
-		else:
-			translation.z += .4  # otherwise, it's from an enemy ship, so move it down.
+		translation.z += speed * delta # otherwise, it's from an enemy ship, so move it down.
 
 # Called to set the laser's material
 func set_laser():
 	# Sets the material of the laser
-	if from_player == false:
+	if sender.is_in_group("players") == false:
 		$Laser.set_surface_material(0, enemy_material)
 	else:
 		$Laser.set_surface_material(0, player_material)
@@ -81,45 +82,45 @@ func set_laser():
 	$Particles.draw_pass_1.surface_set_material(0, $Laser.get_surface_material(0))
 
 # Called when the laser collides with objects
-func on_collision(area):
+func _on_Laser_area_entered(area):
 	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().health -= damage # subtract health from the enemy
 		area.get_parent().last_hit_from = sender
 		# Laser modifiers
-		match modifier:
-			MODIFIERS.fire:
-				area.get_node("../LaserEffects").bleed(.5, 3)
-				area.get_node("../LaserEffects").start_fire()
-				area.get_node("../LaserEffects").sender = sender
-			MODIFIERS.corrosion:
-				area.get_node("../LaserEffects").bleed(2, 20)
-				area.get_node("../LaserEffects").start_corrosion()
-				area.get_node("../LaserEffects").sender = sender
-			MODIFIERS.ice:
-				area.get_node("../LaserEffects").freeze(3)
-				area.get_node("../LaserEffects").start_ice()
-				area.get_node("../LaserEffects").sender = sender
+		handle_modifiers(area.get_parent())
 		remove_laser(true)  # Removes the laser
 	elif area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		if area.godmode == false: area.health -= damage  # send it to BRAZIL
 		# Laser modifiers
-		match modifier:
-			MODIFIERS.fire:
-				area.get_node("LaserEffects").bleed(.5, 3)
-				area.get_node("LaserEffects").start_fire()
-			MODIFIERS.corrosion:
-				area.get_node("LaserEffects").bleed(2, 20)
-				area.get_node("LaserEffects").start_corrosion()
-			MODIFIERS.ice:
-				area.get_node("LaserEffects").freeze(5)
-				area.get_node("LaserEffects").start_ice()
+		handle_modifiers(area)
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
 		remove_laser(true)  # Removes the laser
 
 
-func remove_laser(hit_ship):
+func handle_modifiers(ship):
+	match modifier:
+		MODIFIERS.fire:
+			ship.get_node("LaserEffects").bleed(.5, 3)
+			ship.get_node("LaserEffects").start_fire()
+			ship.get_node("LaserEffects").sender = sender
+		MODIFIERS.corrosion:
+			ship.get_node("LaserEffects").bleed(2, 20)
+			ship.get_node("LaserEffects").start_corrosion()
+			ship.get_node("LaserEffects").sender = sender
+		MODIFIERS.ice:
+			ship.get_node("LaserEffects").freeze(3)
+			ship.get_node("LaserEffects").start_ice()
+			ship.get_node("LaserEffects").sender = sender
+
+
+func remove_laser(hit_ship=false):
+	if not alive:
+		return
+	else:
+		alive = false
+	
+	# Stops and removes stuff
 	set_process(false)
-	if has_node("CollisionShape") == false: return
 	$CollisionShape.queue_free()
 	$VisibilityNotifier.queue_free()
 	$FollowTimer.queue_free()
@@ -133,6 +134,7 @@ func remove_laser(hit_ship):
 		$HitSound.pitch_scale = rand_range(0.9, 1.1) # and plays a sound
 		$HitSound.play()
 	
+	# Waits a bit before queue_free-ing
 	if $HitSound.playing == true: yield($HitSound, "finished")
 	if $LaserSound.playing == true: yield($LaserSound, "finished")
 	if $Particles.emitting == true: yield(Utils.timeout(.5), "timeout")
@@ -148,4 +150,4 @@ func _on_FollowTimer_timeout():
 
 
 func _on_Laser_area_exited(area):
-	if area == sender or area.get_parent() == sender: invincible = false
+	if area == sender or area.get_parent() == sender: invincible = false # Removes invincibility once exiting a node

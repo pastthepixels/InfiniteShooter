@@ -99,7 +99,7 @@ func _input(event):
 		event.is_action_pressed("shoot_laser")
 		and ammo > 0
 		and $ReloadTimer.time_left == 0
-		and $Explosion.exploding != true
+		and health > 0
 	):
 		var laser = laser_scene.instance()
 		laser.sender = self

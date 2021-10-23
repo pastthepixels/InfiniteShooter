@@ -118,7 +118,7 @@ visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
 process_material = SubResource( 11 )
 draw_pass_1 = SubResource( 13 )
 
-[connection signal="area_entered" from="." to="." method="on_collision"]
+[connection signal="area_entered" from="." to="." method="_on_Laser_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Laser_area_exited"]
 [connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
