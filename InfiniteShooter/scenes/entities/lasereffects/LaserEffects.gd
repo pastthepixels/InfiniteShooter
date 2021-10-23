@@ -4,6 +4,8 @@ export (NodePath) var ship
 
 export var emission_radius = .8
 
+var sender
+
 func _ready():
 	$Fire.process_material.emission_sphere_radius = emission_radius
 	$Corrosion.process_material.emission_sphere_radius = emission_radius
@@ -38,6 +40,8 @@ func start_ice():
 func _on_BleedTimer_timeout():
 	if get_node(ship).health > 0:
 		get_node(ship).health -= 5
+		if sender != null and get_node(ship).is_in_group("enemies"):
+			get_node(ship).last_hit_from = sender
 	if get_node(ship).is_in_group("players"):
 		get_node(ship).update_hud()
 
@@ -51,3 +55,4 @@ func reset():
 	$Fire.emitting = false
 	$Corrosion.emitting = false
 	$Ice.emitting = false
+	sender = null

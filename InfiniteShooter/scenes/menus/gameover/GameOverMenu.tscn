@@ -6,8 +6,7 @@
 [ext_resource path="res://resources/theme.tres" type="Theme" id=4]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=5]
 
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Options/Retry:modulate")
@@ -58,7 +57,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Labels:modulate")
+tracks/4/path = NodePath("Titles:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -94,12 +93,12 @@ tracks/6/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
-shader_param/lod = 0.0
+shader_param/lod = 0.75
 shader_param/aberration_strength = 0.5
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 1 )
 
@@ -113,7 +112,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeAll = SubResource( 3 )
+anims/FadeAll = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -122,8 +121,8 @@ copy_mode = 2
 rect = Rect2( 0, 0, 600, 800 )
 
 [node name="Background" type="ColorRect" parent="BackBufferCopy"]
-modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 1 )
+modulate = Color( 1, 1, 1, 0.75 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -138,8 +137,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Labels" type="HBoxContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+[node name="Titles" type="HBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0.375 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -152,22 +151,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="game" type="Label" parent="Labels"]
-margin_right = 164.0
+[node name="game" type="Label" parent="Titles"]
+margin_right = 150.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 2 )
-text = "game "
+custom_fonts/font = SubResource( 3 )
+text = "game"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="over" type="Label" parent="Labels"]
-margin_left = 168.0
-margin_right = 288.0
+[node name="over" type="Label" parent="Titles"]
+margin_left = 154.0
+margin_right = 274.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "over"
 align = 1
@@ -195,7 +194,6 @@ __meta__ = {
 }
 
 [node name="Retry" type="Label" parent="Options"]
-modulate = Color( 1, 1, 1, 0 )
 margin_right = 144.0
 margin_bottom = 15.0
 text = "replay"
@@ -203,7 +201,7 @@ align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.5 )
 margin_top = 30.0
 margin_right = 144.0
 margin_bottom = 45.0

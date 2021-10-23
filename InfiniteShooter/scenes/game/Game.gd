@@ -136,7 +136,7 @@ func wave_up():
 	if has_node("GameSpace/Player") == false: return
 	# Stops enemies from spawning and waits until they all die.
 	$EnemyTimer.paused = true
-	while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout") # Simply wait until all enemies die
+	while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout")
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
@@ -194,7 +194,6 @@ func make_enemy(spawn_more=true):
 	return enemy
 
 func make_boss():
-	print(true)
 	# Creates a boss
 	var boss = boss_scene.instance()
 	boss.translation.z = Utils.screen_to_local(Vector2()).z - 5
@@ -205,15 +204,13 @@ func make_boss():
 func _on_boss_died(_boss):
 	level_up()
 
-func _on_enemy_died(_enemy):
-	if $EnemyTimer.time_left > 0 and len(get_tree().get_nodes_in_group("enemies")) <= 10:
-		make_enemy()
+func _on_enemy_died(_ship, _from_player):
+	if $EnemyTimer.paused == false and len(get_tree().get_nodes_in_group("enemies")) <= GameVariables.max_enemies_on_screen: make_enemy()
 
-func _on_enemy_died_score(enemy):
-	if $EnemyTimer.time_left > 0:
-		if enemy.killed_from_player: score += enemy.max_health / 2
-		enemy.disconnect("died", self, "_on_enemy_died_score")
-		$HUD.update_score(score)
+func _on_enemy_died_score(enemy, from_player):
+	if from_player: score += enemy.max_health / 2
+	enemy.disconnect("died", self, "_on_enemy_died_score")
+	$HUD.update_score(score)
 
 # Makes the game harder with this complicated formula!
 func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_health, multiplier):

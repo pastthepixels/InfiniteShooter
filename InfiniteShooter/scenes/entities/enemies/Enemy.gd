@@ -1,74 +1,69 @@
 extends Spatial
 
-# Variables related to enemy properties
-
-signal died(current_ship)
-
-var killed_from_player = false
+# Damage, health, and enemy type
+var enemy_type = GameVariables.ENEMY_TYPES.values()[randi() % GameVariables.ENEMY_TYPES.size()]
 
 var damage
 
 var max_health = 100
 
-var health = max_health
+var health = max_health setget set_health, get_health
 
-var enemy_type
-
-var bounding_box
-
-var freeze_movement = false # Important for laser effects
+# Enemy modifiers
 
 var speed_mult = 1 # Multiplier for speed (pretty straightforward)
 
-onready var homing_lasers = rand_range(0, 1) > .5
+onready var use_homing_lasers = rand_range(0, 1) > .5
+
+var use_laser_modifiers = randi() % 10 == 1
+
+var last_hit_from
+
+# Death
+
+signal died(this, from_player)
+
+# Laser modifiers
+var freeze_movement = false
+
+var laser_modifier = GameVariables.LASER_MODIFIERS.values()[randi() % GameVariables.LASER_MODIFIERS.size()]
+
+# Bounding box stuff
+var bounding_box
 
 # Scenes used
 
-onready var powerup_scene = load("res://scenes/entities/powerups/Powerup.tscn")
+export(PackedScene) var powerup_scene
 
-onready var laser_scene = load("res://scenes/entities/lasers/Laser.tscn")
+export(PackedScene) var laser_scene
 
 var enemy_model
 
-# Laser stuff
-var MODIFIERS = GameVariables.LASER_MODIFIERS
-
-var modifier = MODIFIERS.values()[randi() % MODIFIERS.size()]
-
-var use_modifier = randi() % 10 == 1
-
 
 func initialize(difficulty):
-	# Adds an enemy
-	randomize()
-	enemy_type = randi() % 3 + 1  # Generates either a 1, 2, or 3
+	# Adds an enemy model and sets stats for that model
 	match enemy_type:
-		1:
-			enemy_model = $Enemy1
-			$Enemy2.queue_free()
-			$Enemy3.queue_free()
+		GameVariables.ENEMY_TYPES.normal:
+			enemy_model = $Normal
 			# Sets enemy stats
 			max_health = 80
 			damage = 30
 			speed_mult = 1
 
-		2:
-			enemy_model = $Enemy2
-			$Enemy1.queue_free()
-			$Enemy3.queue_free()
+		GameVariables.ENEMY_TYPES.small:
+			enemy_model = $Small
 			# Sets enemy stats
 			max_health = 20
 			damage = 40
 			speed_mult = 1.5
 
-		3:
-			enemy_model = $Enemy3
-			$Enemy1.queue_free()
-			$Enemy2.queue_free()
+		GameVariables.ENEMY_TYPES.tank:
+			enemy_model = $Tank
 			# Sets enemy stats
 			max_health = 100
 			damage = 20
 			speed_mult = .8
+	
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
 	max_health *= clamp(mult / 2, .5, 512)
@@ -82,7 +77,6 @@ func initialize(difficulty):
 	bounding_box = enemy_model.get_child(1).get_aabb()
 
 	# Starts all timers
-	$MovingTimer.start()
 	$LaserTimer.start()
 	
 	# Kills ships that don't move out of the way fast enough
@@ -91,22 +85,15 @@ func initialize(difficulty):
 	# Moves health bar into position
 	$HealthBar.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
 	$HealthBar.max_health = max_health
+	
+	# LASTLY makes the current ship visible
+	enemy_model.show()
 
 
-# Called to process health
-func _process(_delta):
-	# If the health is between 100% and 0%, show the health bar.
-	if health < max_health and health > 0 and $HealthBar.health != health:
-		$HealthBar.visible = true
-		$HealthBar.health = health
-	elif health <= 0:
-		set_process(false)
-		$HealthBar.visible = false
-		explode_ship() # otherwise, explode the ship
-
-func move_down():
+# To move the ship
+func _process(delta):
 	if freeze_movement: return
-	translation.z += .04 * speed_mult
+	translation.z += 3 * speed_mult * delta
 	# If it is such that the center of the ship moves past the bottom of the screen...
 	if translation.z > Utils.screen_to_local(Vector2(0, Utils.screen_size.y)).z:
 		if has_node("../Player") and get_node("../Player").godmode == false:
@@ -114,45 +101,44 @@ func move_down():
 		health = 0  # and kill this ship
 
 
-func explode_ship():
+func explode_ship(from_player=false):
+	# Explodes and resets, emitting a signal at the end
 	$Explosion.explode()
-	$MovingTimer.stop()
 	$LaserTimer.stop()
+	$LaserEffects.reset()
 	enemy_model.queue_free()
 	remove_from_group("enemies")
-	$LaserEffects.reset()
-	emit_signal("died", self)
-	if randi() % 4 == 1 and use_modifier == false:  # 1/4 chance to create a powerup
+	set_process(false)
+	emit_signal("died", self, from_player)
+
+	# Powerups (1/4 chance to create a powerup)
+	if randi() % 4 == 1 and use_laser_modifiers == false:
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
 		get_parent().add_child(powerup)
-	elif use_modifier == true:
+	elif use_laser_modifiers == true:
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
-		powerup.modifier = modifier
+		powerup.modifier = laser_modifier
 		get_parent().add_child(powerup)
 
 
-func cleanup_ship():  # Used to "clean up" the ship for some event or something
+func _on_Explosion_exploded():
 	queue_free()
 
 
 func fire_laser():
-	# If the player is not close to the enemy (5 metres in this case), why shoot a laser? This helps with performance and also with basic logic
-	if has_node("../Player") and abs(get_node("../Player").translation.x - translation.x) > 5:
-		return
-
 	# Creating the laser
 	var laser = laser_scene.instance()
-	laser.follow_player = homing_lasers
+	laser.follow_player = use_homing_lasers
 	laser.sender = self
 
 	# Setting the laser's damage
 	laser.damage = damage
 	
 	# Modifiers
-	if use_modifier:
-		laser.modifier = modifier
+	if use_laser_modifiers:
+		laser.modifier = laser_modifier
 		laser.set_laser()
 
 	# Setting the laser's position
@@ -161,6 +147,9 @@ func fire_laser():
 
 	# Gets the scene that housed the enemy and adds to it the laser
 	get_parent().add_child(laser)
+
+func _on_LaserTimer_timeout():
+	fire_laser()
 
 
 func _on_ShipDetection_area_entered(area):
@@ -183,6 +172,24 @@ func _on_ShipDetection_area_entered(area):
 
 func collide_ship(area):
 	# Kills the ship if it collides with other enemy ships
-	if area.get_parent().is_in_group("enemies") and area.get_parent().health > 0 and area.get_parent() != self and area.name != "ShipDetection":
+	if area.get_parent().is_in_group("enemies") and area.get_parent().health > 0 and area != enemy_model and area == area.get_parent().enemy_model:
 		area.get_parent().health -= health
 		health = 0
+
+# Affecting health by adding/subtracting an amount
+func set_health(value):
+	health = value
+	if health > 0:
+		$HealthBar.visible = true
+		$HealthBar.health = health
+	elif is_in_group("enemies"):
+		$HealthBar.visible = false
+		if last_hit_from != null && last_hit_from.is_in_group("players"):
+			explode_ship(true)
+		else:
+			explode_ship()
+	last_hit_from = null
+
+
+func get_health():
+	return health

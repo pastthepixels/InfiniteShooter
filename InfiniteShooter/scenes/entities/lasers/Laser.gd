@@ -82,23 +82,26 @@ func set_laser():
 
 # Called when the laser collides with objects
 func on_collision(area):
-	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
-		area.get_parent().health -= damage  # subtract health from the enemy
+	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
+		area.get_parent().health -= damage # subtract health from the enemy
+		area.get_parent().last_hit_from = sender
 		# Laser modifiers
 		match modifier:
 			MODIFIERS.fire:
 				area.get_node("../LaserEffects").bleed(.5, 3)
 				area.get_node("../LaserEffects").start_fire()
+				area.get_node("../LaserEffects").sender = sender
 			MODIFIERS.corrosion:
 				area.get_node("../LaserEffects").bleed(2, 20)
 				area.get_node("../LaserEffects").start_corrosion()
+				area.get_node("../LaserEffects").sender = sender
 			MODIFIERS.ice:
-				area.get_node("../LaserEffects").freeze(5)
+				area.get_node("../LaserEffects").freeze(3)
 				area.get_node("../LaserEffects").start_ice()
-		if area.get_parent().health <= 0: area.get_parent().killed_from_player = true
+				area.get_node("../LaserEffects").sender = sender
 		remove_laser(true)  # Removes the laser
 	elif area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
-		if area.godmode == false: area.set_health(area.health - damage)  # send it to BRAZIL
+		if area.godmode == false: area.health -= damage  # send it to BRAZIL
 		# Laser modifiers
 		match modifier:
 			MODIFIERS.fire:
