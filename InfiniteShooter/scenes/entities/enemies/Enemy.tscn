@@ -37,8 +37,9 @@ tracks/1/keys = {
 "values": [ Vector3( 20, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 1, 0.118345, 1.20537 )
+[sub_resource type="CapsuleShape" id=2]
+radius = 1.05
+height = 3.2
 
 [sub_resource type="ArrayMesh" id=3]
 resource_name = "Plane"

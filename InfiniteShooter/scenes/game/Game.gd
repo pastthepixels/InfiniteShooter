@@ -225,7 +225,7 @@ func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_
 #
 func _on_Player_died():
 	$HUD.update_health(0)
-	$HUD.hide()
+	$HUD/AnimationPlayer.play("fade_out")
 	$EnemyTimer.stop()
 	store_score()
 	save_game()

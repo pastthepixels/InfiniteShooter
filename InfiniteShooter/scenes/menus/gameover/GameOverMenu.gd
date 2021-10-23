@@ -9,7 +9,9 @@ onready var main = get_node("/root/Main")
 func fade_show():
 	show()
 	$AnimationPlayer.play("FadeAll")
-	$SelectSquare.update()
+	yield($AnimationPlayer, "animation_finished")
+	$SelectSquare/AnimationPlayer.play("Fade")
+	$SelectSquare.show()
 
 
 func _on_SelectSquare_selected():

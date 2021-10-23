@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -43,6 +43,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 2, 2 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.54902 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="ShaderMaterial" id=10]
@@ -137,6 +153,7 @@ ice_gradient = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeVignette = SubResource( 9 )
+anims/fade_out = SubResource( 28 )
 
 [node name="StatusBar" type="Control" parent="."]
 anchor_top = 1.0

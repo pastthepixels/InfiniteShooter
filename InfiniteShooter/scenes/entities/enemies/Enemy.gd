@@ -95,7 +95,7 @@ func _process(delta):
 	if freeze_movement: return
 	translation.z += 3 * speed_mult * delta
 	# If it is such that the center of the ship moves past the bottom of the screen...
-	if translation.z > Utils.screen_to_local(Vector2(0, Utils.screen_size.y)).z:
+	if translation.z > Utils.bottom_left.z:
 		if has_node("../Player") and get_node("../Player").godmode == false:
 			get_node("../Player").health -= health  # deduct health from the player
 		health = 0  # and kill this ship
@@ -184,7 +184,8 @@ func set_health(value):
 		$HealthBar.health = health
 	elif is_in_group("enemies"):
 		$HealthBar.visible = false
-		if last_hit_from != null && last_hit_from.is_in_group("players"):
+		print(last_hit_from)
+		if last_hit_from != null and is_instance_valid(last_hit_from) and last_hit_from.is_in_group("players"):
 			explode_ship(true)
 		else:
 			explode_ship()
