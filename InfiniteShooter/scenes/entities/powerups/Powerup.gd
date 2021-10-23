@@ -47,10 +47,10 @@ func _on_Powerup_area_entered(area):
 
 				2:
 					if area.health + health_increase <= area.max_health:
-						area.set_health(area.health + health_increase)
+						area.health += health_increase
 
 					else:
-						area.set_health(area.max_health)
+						area.health = area.max_health
 
 				3:
 					area.modifier = MODIFIERS.none

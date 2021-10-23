@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/menus/main/MainMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -6,7 +6,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "SkyRotate"
-length = 4.0
+length = 8.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("WorldEnvironment:environment:background_sky_rotation_degrees")
@@ -15,16 +15,33 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 4, 8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -180, 0 ), Vector3( 360, -180, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( -180, 0, 0 ), Vector3( -360, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "intro"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:background_sky_custom_fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 0.2, 0.2 ),
+"update": 0,
+"values": [ 180.0, 50.0 ]
 }
 
 [node name="Main" type="Node"]
 
-[node name="SkyScrolling" type="AnimationPlayer" parent="."]
+[node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/SkyRotate = SubResource( 1 )
+anims/intro = SubResource( 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 2 )

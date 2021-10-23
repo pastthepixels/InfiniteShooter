@@ -3,7 +3,7 @@ extends Node
 
 func _ready():
 	GameMusic.play_main()
-	get_node("../SkyScrolling").stop(true)
+	get_node("../SkyAnimations").play("intro")
 	$AnimationPlayer.play("introduce-title")
 	yield($AnimationPlayer, "animation_finished")
 	$Menu/StartScreen/AnimationPlayer.play("flash_text")
@@ -68,7 +68,7 @@ func _on_SelectSquare_selected():
 
 func play_game():
 	queue_free()
-	get_node("../SkyScrolling").play("SkyRotate")
+	get_node("../SkyAnimations").play("SkyRotate")
 	get_node("/root/Main/").add_child(load("res://scenes/game/Game.tscn").instance())
 
 

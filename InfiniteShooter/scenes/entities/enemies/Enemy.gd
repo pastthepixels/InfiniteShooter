@@ -7,7 +7,9 @@ var damage
 
 var max_health = 100
 
-var health = max_health setget set_health, get_health
+var health = max_health
+
+var alive = true
 
 # Enemy modifiers
 
@@ -71,7 +73,7 @@ func initialize(difficulty):
 	speed_mult *= clamp(mult / 5, 1, 3)
 
 	# Sets the current health as the new max health
-	health = max_health
+	self.health = max_health
 	
 	# Gets the bounding box for the enemy ship model
 	bounding_box = enemy_model.get_child(1).get_aabb()
@@ -90,23 +92,34 @@ func initialize(difficulty):
 	enemy_model.show()
 
 
-# To move the ship
-func _process(delta):
+# To move the ship/calculate health
+var previous_health
+func _process(_delta):
+	if health != previous_health:
+		previous_health = health
+		update_health()
 	if freeze_movement: return
-	translation.z += 3 * speed_mult * delta
+	translation.z += .05 * speed_mult
 	# If it is such that the center of the ship moves past the bottom of the screen...
-	if translation.z > Utils.bottom_left.z:
+	if translation.z >= Utils.bottom_left.z:
 		if has_node("../Player") and get_node("../Player").godmode == false:
 			get_node("../Player").health -= health  # deduct health from the player
-		health = 0  # and kill this ship
+		explode_ship() # and kill this ship
 
 
 func explode_ship(from_player=false):
+	# Ensures last_hit_from is null
+	last_hit_from = null
+	alive = false
+	
 	# Explodes and resets, emitting a signal at the end
 	$Explosion.explode()
 	$LaserTimer.stop()
 	$LaserEffects.reset()
-	enemy_model.queue_free()
+	$HealthBar.queue_free()
+	for node in get_children():
+		if node is Area:
+			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
 	emit_signal("died", self, from_player)
@@ -167,30 +180,23 @@ func _on_ShipDetection_area_entered(area):
 		elif (area.get_parent().translation.x + (common_formula*direction)) < Utils.bottom_left.x:
 			direction = 1
 		# Uses the Tween node to smoothly move around the other ship, preventing a collision
-		$Tween.interpolate_property(self, "translation:x", translation.x, area.get_parent().translation.x + (common_formula*direction), 1/speed_mult, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		$Tween.interpolate_property(self, "translation:x", translation.x, area.get_parent().translation.x + (common_formula*direction), 1 * speed_mult, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		$Tween.start()
 
 func collide_ship(area):
 	# Kills the ship if it collides with other enemy ships
 	if area.get_parent().is_in_group("enemies") and area.get_parent().health > 0 and area != enemy_model and area == area.get_parent().enemy_model:
 		area.get_parent().health -= health
-		health = 0
+		explode_ship()
 
-# Affecting health by adding/subtracting an amount
-func set_health(value):
-	health = value
-	if health > 0:
+# Updating health-related info
+func update_health():
+	if health > 0 and health < max_health:
 		$HealthBar.visible = true
 		$HealthBar.health = health
-	elif is_in_group("enemies"):
-		$HealthBar.visible = false
-		print(last_hit_from)
+	if health <= 0 and alive == true:
 		if last_hit_from != null and is_instance_valid(last_hit_from) and last_hit_from.is_in_group("players"):
 			explode_ship(true)
 		else:
 			explode_ship()
 	last_hit_from = null
-
-
-func get_health():
-	return health

@@ -25,7 +25,7 @@ export var damage = 30
 export var player_rotation = 35
 
 # Health (taken from the max health)
-var health = max_health setget set_health, get_health
+var health = max_health
 
 # Ammo (taken from the max ammo)
 var ammo = max_ammo
@@ -49,12 +49,17 @@ var MODIFIERS = GameVariables.LASER_MODIFIERS
 
 var modifier = MODIFIERS.none
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+var previous_health
 func _process(delta):
+	# HEALTH
+	if health != previous_health:
+		previous_health = health
+		update_hud()
+	
+	# INPUT
 	if $Explosion.visible == true:
 		return  # If the player is dying, don't bother about input stuff
 
-	# Handling input
 	var velocity = Vector3()  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
 	var delta_rotation = Vector3()  # The new rotation the player will have (NORMALIZED VECTOR)
 	if Input.is_action_pressed("move_right"):  # If a key is pressed (e.g. the right arrow key)
@@ -123,7 +128,7 @@ func _input(event):
 # When the player collides with enemies
 func on_collision(area):
 	if godmode == false and (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and area.get_parent().health > 0:
-		set_health(health - area.get_parent().health)
+		self.health -= area.get_parent().health
 		area.get_parent().health -= area.get_parent().health
 
 
@@ -152,21 +157,14 @@ func cleanup_player():
 
 
 func heal():  # Regenerates a bit of health every time this function is called.
-	if health < max_health:
-		health += 1
+	if self.health < max_health:
+		self.health += 1
 
 
 func set_ammo(new_ammo):
 	ammo = new_ammo
 	update_hud()
 
-
-func set_health(value):
-	health = value
-	update_hud()
-
-func get_health():
-	return health
 
 func update_hud():
 	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)

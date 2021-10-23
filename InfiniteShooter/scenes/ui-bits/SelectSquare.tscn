@@ -28,7 +28,6 @@ colors = PoolColorArray( 1, 1, 1, 0.27451, 1, 1, 1, 0 )
 gradient = SubResource( 2 )
 
 [node name="SelectSquare" type="Control"]
-modulate = Color( 1, 1, 1, 0 )
 margin_right = 30.0
 margin_bottom = 16.0
 script = ExtResource( 1 )

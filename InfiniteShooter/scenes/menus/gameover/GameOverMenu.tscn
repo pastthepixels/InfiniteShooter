@@ -129,10 +129,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -144.0
+margin_left = -145.0
 margin_top = -32.5
-margin_right = 144.0
+margin_right = 145.0
 margin_bottom = 32.5
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -149,8 +150,8 @@ __meta__ = {
 }
 
 [node name="over" type="Label" parent="Titles"]
-margin_left = 154.0
-margin_right = 274.0
+margin_left = 170.0
+margin_right = 290.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )

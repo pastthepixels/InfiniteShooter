@@ -5,8 +5,10 @@ export (Array, AudioStream) var game_songs
 export var game_running = false
 
 func _ready(): # Ensuring that NO SONG loops
+	randomize()
 	main_menu_song.set_loop(false)
 	for song in game_songs: song.set_loop(false)
+
 
 func play_main():
 	game_running = false
@@ -15,7 +17,6 @@ func play_main():
 
 
 func start_game():
-	randomize()
 	crossfade(game_songs[randi() % game_songs.size()])
 	game_running = true
 

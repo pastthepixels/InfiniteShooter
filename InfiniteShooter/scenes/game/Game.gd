@@ -19,6 +19,8 @@ var wave = 1
 
 var enemies_in_wave = 0
 
+var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
+
 export var show_tutorial = true
 
 # User-adjustable game mechanics variables. Can be found in scripts/GameVariables.gd
@@ -136,7 +138,7 @@ func wave_up():
 	if has_node("GameSpace/Player") == false: return
 	# Stops enemies from spawning and waits until they all die.
 	$EnemyTimer.paused = true
-	while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout")
+	if is_instance_valid(self): while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout")
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
@@ -155,7 +157,7 @@ func level_up():
 	if has_node("GameSpace/Player") == false: return
 	level += 1
 	wave = 1
-	if $EnemyTimer.wait_time > 2: $EnemyTimer.wait_time -= 0.2
+	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
 	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
@@ -166,7 +168,6 @@ func level_up():
 #
 # Making enemies
 #
-var last_enemy_position = Vector3()
 func make_enemy(spawn_more=true):
 	# Ensures no enemy ships have the ability to create a new enemy when they die
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -175,15 +176,11 @@ func make_enemy(spawn_more=true):
 	var enemy = enemy_scene.instance()
 	if spawn_more == true: enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
 	enemy.connect("died", self, "_on_enemy_died_score")
-	get_node(game_space).add_child(enemy) # adds it to the scene
-	enemy.initialize(level * enemy_difficulty) # Initializes the enemy
 	
-	# Sets the enemy ship's position to a random X point and just above the screen
-	enemy.translation.x = Utils.random_screen_point().x
-	enemy.translation.z = Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 1.0)
-	if enemy.translation.distance_to(last_enemy_position) < 1:
-		enemy.translation.x = Utils.random_screen_point().x
-	last_enemy_position = enemy.translation
+	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
+	enemy.translation = set_random_enemy_position()
+	get_node(game_space).add_child(enemy)
+	enemy.initialize(level * enemy_difficulty)
 	
 	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1
@@ -192,6 +189,17 @@ func make_enemy(spawn_more=true):
 		wave_up()
 	
 	return enemy
+
+
+func _on_EnemyTimer_timeout():
+	if len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen: make_enemy()
+
+func set_random_enemy_position(times_ran=0):
+	var position = Vector3(Utils.random_screen_point().x, 0, Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 1.0) - (.2 * times_ran))
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if position.distance_to(enemy.translation) < 4:
+			return set_random_enemy_position(times_ran + 1)
+	return position
 
 func make_boss():
 	# Creates a boss
@@ -205,20 +213,13 @@ func _on_boss_died(_boss):
 	level_up()
 
 func _on_enemy_died(_ship, _from_player):
-	if $EnemyTimer.time_left > 0 and len(get_tree().get_nodes_in_group("enemies")) <= GameVariables.max_enemies_on_screen: make_enemy()
+	if $EnemyTimer.time_left > 0 and $EnemyTimer.paused == false: _on_EnemyTimer_timeout()
 
-func _on_enemy_died_score(enemy, from_player):
+func _on_enemy_died_score(ship, from_player):
 	if $EnemyTimer.time_left > 0:
-		if from_player: score += enemy.max_health / 2
-		enemy.disconnect("died", self, "_on_enemy_died_score")
+		if from_player: score += ship.max_health / 2
+		ship.disconnect("died", self, "_on_enemy_died_score")
 		$HUD.update_score(score)
-
-# Makes the game harder with this complicated formula!
-func dynamic_enemy_interval(min_interval_time, max_interval_time, typical_enemy_health, multiplier):
-	if has_node(game_space + "/Player"):
-		return clamp(max_interval_time - (float(get_node(game_space + "/Player").damage) / typical_enemy_health * max_interval_time / multiplier ), min_interval_time, max_interval_time )
-	else:
-		return 0
 
 #
 # Player stuff
@@ -266,12 +267,11 @@ func get_datetime():
 
 # Loading/saving damage/health stats
 func load_game():
-	
 	var file = File.new() # Creates a new File object, for handling file operations
 	if not file.file_exists("user://userdata.txt"): return # If there is no file containing these stats, don't worry because we have defaults.
 	file.open( "user://userdata.txt", File.READ ) # Opens the userdata file for reading
 	save_data = file.get_var(true)
-	$GameSpace/Player.set_health(save_data.health)
+	$GameSpace/Player.health = save_data.health
 	$GameSpace/Player.damage = save_data.damage
 	file.close()
 

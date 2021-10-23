@@ -8,7 +8,6 @@
 [ext_resource path="res://music/game6.mp3" type="AudioStream" id=6]
 [ext_resource path="res://music/game7.mp3" type="AudioStream" id=7]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
 length = 0.5

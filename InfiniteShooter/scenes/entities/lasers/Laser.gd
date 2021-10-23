@@ -5,9 +5,9 @@ var damage = 0
 
 # Laser speed
 
-export var speed = 0.4
+export var speed = .4
 
-export var follow_speed = 0.05
+export var follow_speed = .07
 
 # To stop ships from hurting themselves as soon as they shoot lasers
 var invincible = true
@@ -54,10 +54,10 @@ func _ready():
 func _process(delta):
 	if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
 		$Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
-		if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed): translation.z += follow_speed*delta if stepify(translation.z, follow_speed) < stepify(followed_player.translation.z, follow_speed) else -follow_speed*delta
-		if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed): translation.x += follow_speed*delta if stepify(translation.x, follow_speed) < stepify(followed_player.translation.x, follow_speed) else -follow_speed*delta
+		if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed): translation.z += follow_speed if stepify(translation.z, follow_speed) < stepify(followed_player.translation.z, follow_speed) else -follow_speed
+		if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed): translation.x += follow_speed if stepify(translation.x, follow_speed) < stepify(followed_player.translation.x, follow_speed) else -follow_speed
 	else:
-		translation.z += speed * delta # otherwise, it's from an enemy ship, so move it down.
+		translation.z += speed # otherwise, it's from an enemy ship, so move it down.
 
 # Called to set the laser's material
 func set_laser():
