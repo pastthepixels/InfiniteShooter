@@ -19,9 +19,6 @@ func _on_SelectSquare_selected():
 	get_node("../SelectSquare").show()
 	get_node("../SelectSquare").ignore_hits += 1
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		_on_SelectSquare_selected()
 
 func _ready():
 	var scores = read_scores()

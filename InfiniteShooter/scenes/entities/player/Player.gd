@@ -4,7 +4,7 @@ extends Area
 export var godmode = false
 
 # Scenes
-onready var laser_scene = load("res://scenes/entities/lasers/Laser.tscn")
+export(PackedScene) var laser_scene
 
 # Ammunition (in bullets)
 export var max_ammo = 20

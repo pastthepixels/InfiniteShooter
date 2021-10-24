@@ -1,14 +1,14 @@
 extends Node
 
 # To do with creating enemies
-onready var enemy_scene = preload("res://scenes/entities/enemies/Enemy.tscn")
+export(PackedScene) var enemy_scene
 
-onready var boss_scene = preload("res://scenes/entities/bosses/Boss.tscn")
+export(PackedScene) var boss_scene
 
-export (String) var game_space = "./GameSpace"
+export(NodePath) var game_space
 
 # Data used when saving the game
-export onready var save_data = { "points": 0, "damage": get_node(game_space + "/Player").damage, "health": get_node(game_space + "/Player").max_health }
+export onready var save_data = { "points": 0, "damage": get_node(game_space).get_node("Player").damage, "health": get_node(game_space).get_node("Player").max_health }
 
 # Game mechanics variables
 var score = 0
@@ -57,6 +57,8 @@ export var tutorial_script = [
 # Countdown timers, initialization, music, and _process
 #
 func _ready():
+	# Starts spinning the sky
+	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
 	# Music stuff
 	GameMusic.start_game() # Fade to a game song
 	load_game() # Load save data (player damage/health)

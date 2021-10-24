@@ -1,26 +1,58 @@
 extends Control
 
+onready var root = get_tree().get_root()
+
+enum CALLBACKS { quit_game, start_game, return_to_menu, restart_game }
+
 var callback
 
+var current_scene = null
 
 func _ready():
+	current_scene = root.get_child(root.get_child_count() - 1)
+	hide()
 	VisualServer.canvas_item_set_z_index(get_canvas_item(), 100)  # Tells Godot that this will be drawn over absolutely anything and everything else -- this is a transition, after all.
 
 
-# Called when the node enters the scene tree for the first time.
-func play(callback_object, callback_function):
+func animate():
 	show()
-	callback = funcref(callback_object, callback_function)
 	$SoundEffect.pitch_scale = rand_range(0.9, 1.1)
 	$SoundEffect.play()
-	$AnimationPlayer.play("Wipe1")
+	$AnimationPlayer.play("In")
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "Wipe1":
-		yield(get_tree().create_timer(.1), "timeout") # Waits to ensure the animation has finished
-		callback.call_func()
-		$AnimationPlayer.play("Wipe2")
+	match anim_name:
+		"In":
+			match callback:
+				CALLBACKS.start_game:
+					call_deferred("_switch_scene", "res://scenes/game/Game.tscn")
+				CALLBACKS.return_to_menu:
+					call_deferred("_switch_scene", "res://scenes/menus/main/MainMenu.tscn")
+				CALLBACKS.quit_game:
+					get_tree().quit()
+				CALLBACKS.restart_game:
+					get_tree().reload_current_scene()
+			$AnimationPlayer.play("Out")
+		"Out":
+			hide()
 
-	if anim_name == "Wipe2":
-		hide()
+func _switch_scene(path):
+	get_tree().change_scene(path)
+
+# Functions to actually switch scenes and stuff
+func quit_game():
+	callback = CALLBACKS.quit_game
+	animate()
+
+func start_game():
+	callback = CALLBACKS.start_game
+	animate()
+
+func restart_game():
+	callback = CALLBACKS.restart_game
+	animate()
+
+func main_menu():
+	callback = CALLBACKS.return_to_menu
+	animate()

@@ -68,10 +68,6 @@ func _on_SelectSquare_selected():
 func _input(event):
 	if visible == true:
 		set_settings()
-	
-	if event.is_action_pressed("ui_cancel"):
-		$SelectSquare.index = 0
-		_on_SelectSquare_selected()
 		
 	match $Content/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"MusicVolume":

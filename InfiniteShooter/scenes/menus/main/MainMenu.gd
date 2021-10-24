@@ -3,7 +3,7 @@ extends Node
 
 func _ready():
 	GameMusic.play_main()
-	get_node("../SkyAnimations").play("intro")
+	CameraEquipment.get_node("SkyAnimations").play("intro")
 	$AnimationPlayer.play("introduce-title")
 	yield($AnimationPlayer, "animation_finished")
 	$Menu/StartScreen/AnimationPlayer.play("flash_text")
@@ -44,7 +44,7 @@ func _input(event):
 func _on_SelectSquare_selected():
 	match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...
 		"Play":  # If it is the one named "play", play the game.
-			SceneTransition.play(self, "play_game")
+			SceneTransition.start_game()
 
 		"Leaderboard":  # Same with selecting the leaderboard
 			if $Menu/Leaderboard.visible == false:
@@ -63,17 +63,7 @@ func _on_SelectSquare_selected():
 			$Menu/SelectSquare.hide()
 
 		"Quit":  # Otherwise, quit the game
-			SceneTransition.play(self, "quit_game")
-
-
-func play_game():
-	queue_free()
-	get_node("../SkyAnimations").play("SkyRotate")
-	get_node("/root/Main/").add_child(load("res://scenes/game/Game.tscn").instance())
-
-
-func quit_game():
-	get_tree().quit()
+			SceneTransition.quit_game()
 
 
 func _on_OptionsMenu_settings_changed(settings):
@@ -87,7 +77,7 @@ func _on_OptionsMenu_settings_changed(settings):
 		AudioServer.get_bus_index("SFX"), linear2db(float(settings["sfxvol"]) / 100)
 	)
 	# Sets bloom
-	get_node("../WorldEnvironment").environment.glow_enabled = settings["bloom"]
+	CameraEquipment.get_node("WorldEnvironment").environment.glow_enabled = settings["bloom"]
 
 	# Sets anti-aliasing (with the strangest ternary operator)
 	get_viewport().msaa = (

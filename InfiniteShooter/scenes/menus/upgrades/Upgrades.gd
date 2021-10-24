@@ -44,11 +44,6 @@ func _ready():
 	read_upgrades() # <-- turns them into labels
 	reroll_upgrades() # <-- Does not nessecarilary reroll upgrades but checks first
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		$SelectSquare.index = 0
-		_on_SelectSquare_selected()
-
 
 func _on_SelectSquare_selected():
 	match $Content/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...

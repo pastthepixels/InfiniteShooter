@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/menus/main/MainMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
-[ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "SkyRotate"
@@ -37,7 +36,17 @@ tracks/0/keys = {
 "values": [ 180.0, 50.0 ]
 }
 
-[node name="Main" type="Node"]
+[node name="CameraEquipment" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0 )
+
+[node name="ShakeCamera" type="Camera2D" parent="."]
+pause_mode = 2
+position = Vector2( 300, 400 )
+current = true
+script = ExtResource( 1 )
+three_camera = NodePath("../Camera")
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/SkyRotate = SubResource( 1 )
@@ -45,15 +54,3 @@ anims/intro = SubResource( 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 2 )
-
-[node name="ShakeCamera" type="Camera2D" parent="."]
-pause_mode = 2
-position = Vector2( 300, 400 )
-current = true
-script = ExtResource( 4 )
-three_camera = NodePath("../Camera")
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0 )
-
-[node name="MainMenu" parent="." instance=ExtResource( 1 )]

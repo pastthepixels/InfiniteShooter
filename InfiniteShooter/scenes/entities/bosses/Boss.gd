@@ -9,6 +9,10 @@ var health = max_health
 
 export var explosions = 10
 
+onready var enemy_model = $EnemyModel
+
+var last_hit_from
+
 # Dying
 
 signal died(current_ship)

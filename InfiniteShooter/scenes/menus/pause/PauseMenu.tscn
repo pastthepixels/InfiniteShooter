@@ -8,8 +8,7 @@
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=7]
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=8]
 
-
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 resource_name = "BorderPulse"
 length = 1.4
 loop = true
@@ -26,7 +25,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -41,7 +40,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -56,12 +55,12 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 7 )
 shader_param/lod = 1.0
 shader_param/aberration_strength = 0.5
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=5]
 size = 64
 font_data = ExtResource( 8 )
 
@@ -77,11 +76,11 @@ __meta__ = {
 
 [node name="BorderPulse" type="AnimationPlayer" parent="."]
 autoplay = "BorderPulse"
-anims/BorderPulse = SubResource( 5 )
+anims/BorderPulse = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 3 )
-anims/FadeOut = SubResource( 4 )
+anims/FadeIn = SubResource( 2 )
+anims/FadeOut = SubResource( 3 )
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -96,7 +95,7 @@ copy_mode = 2
 rect = Rect2( 0, 0, 600, 800 )
 
 [node name="Background" type="ColorRect" parent="BackBufferCopy"]
-material = SubResource( 1 )
+material = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -129,7 +128,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -32.5
 margin_bottom = 32.5
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 5 )
 text = "paused"
 align = 1
 valign = 1
