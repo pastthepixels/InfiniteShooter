@@ -1,5 +1,6 @@
 extends Control
 
+signal closed
 signal settings_changed
 export var colors = { "red": Color(1, .27, .27), "green": Color(.27, 1, .27) }
 var settings = {"antialiasing": true, "bloom": true, "musicvol": 100, "sfxvol": 100}
@@ -15,6 +16,7 @@ func show_animated():
 
 
 func hide_animated():
+	emit_signal("closed")
 	$AnimationPlayer.play("close")
 	yield($AnimationPlayer, "animation_finished")
 	hide()
@@ -23,8 +25,6 @@ func _on_SelectSquare_selected():
 	match $Content/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"Back":
 			hide_animated()
-			get_node("../SelectSquare").show()
-			get_node("../SelectSquare").ignore_hits += 1
 
 		"AntiAliasing":
 			settings["antialiasing"] = ! settings["antialiasing"]

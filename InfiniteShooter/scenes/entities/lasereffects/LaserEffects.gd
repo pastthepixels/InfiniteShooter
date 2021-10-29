@@ -1,10 +1,10 @@
 extends Spatial
 
-export (NodePath) var ship
+export(NodePath) var ship
 
 export var emission_radius = .8
 
-var sender
+var sender # The sender of the laser that hits `ship`
 
 func _ready():
 	$Fire.process_material.emission_sphere_radius = emission_radius
@@ -36,7 +36,7 @@ func start_ice():
 	$Ice.emitting = true
 
 
-# Timer stuff
+# Timer stuff and resetting
 func _on_BleedTimer_timeout():
 	if get_node(ship).health > 0:
 		get_node(ship).health -= 5

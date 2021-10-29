@@ -3,26 +3,23 @@ extends Area
 # For debugging
 export var godmode = false
 
-# Scenes
+# Scenes used
 export(PackedScene) var laser_scene
 
-# Ammunition (in bullets)
-export var max_ammo = 20
+# Saving stuff
+var max_ammo = Saving.default_userdata.max_ammo
 
-# Ammo refills
-export var ammo_refills = 10
+var ammo_refills = Saving.default_userdata.ammo_refills
 
-# Health (in HP/100)
-export var max_health = 100
+var max_health = Saving.default_userdata.health
+
+var damage = Saving.default_userdata.damage
 
 # Speed
-export var speed = 14
-
-# Damage per bullet (in HP/100)
-export var damage = 30
+var speed = 14
 
 # How much the player rotates when you use the arrow keys
-export var player_rotation = 35
+var player_rotation = 35
 
 # Health (taken from the max health)
 var health = max_health
@@ -30,7 +27,7 @@ var health = max_health
 # Ammo (taken from the max ammo)
 var ammo = max_ammo
 
-# Freezing movement
+# Laser modifier stuff
 var freeze_movement = false
 
 # Signals
@@ -127,7 +124,7 @@ func _input(event):
 
 # When the player collides with enemies
 func on_collision(area):
-	if godmode == false and (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area.name != "ShipDetection" and area.get_parent().health > 0:
+	if godmode == false and (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and area.get_parent().health > 0:
 		self.health -= area.get_parent().health
 		area.get_parent().health -= area.get_parent().health
 

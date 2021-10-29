@@ -9,7 +9,7 @@
 [ext_resource path="res://models/title-infiniteshooter/title.glb" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
-resource_name = "introduce-title"
+resource_name = "introduce_title"
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Title:translation")
@@ -25,22 +25,21 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-resource_name = "switch"
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Title:translation")
-tracks/0/interp = 2
+tracks/0/path = NodePath("Menu/Options:modulate")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 2.79397e-07, 1.5 ),
+"times": PoolRealArray( 0, 1.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector3( 0, 8, 0 ), Vector3( 0, 6, -2 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Menu/Options:modulate")
+tracks/1/path = NodePath("Menu/SelectSquare:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -51,21 +50,8 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Menu/SelectSquare:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=3]
-resource_name = "flash_text"
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -85,7 +71,7 @@ tracks/0/keys = {
 script = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/introduce-title = SubResource( 1 )
+anims/introduce_title = SubResource( 1 )
 anims/switch = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
@@ -97,13 +83,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
 [node name="Direct Light" type="SpotLight" parent="Title"]
 transform = Transform( -0.479384, -0.674061, 0.56199, -0.341905, 0.733218, 0.587785, -0.808264, 0.0896274, -0.581958, 2.70917, 1.52453, -1.62942 )
-light_energy = 5.0
+light_energy = 25.0
+light_indirect_energy = 2.0
 spot_range = 6.67086
 spot_angle = 49.3769
 
 [node name="Indirect Light" type="SpotLight" parent="Title"]
 transform = Transform( 0.36223, 0.679974, -0.637514, -0.341905, 0.733218, 0.587785, 0.867116, 0.00505608, 0.498081, -5, 2.8375, 2 )
-light_energy = 4.0
+light_energy = 15.0
+light_indirect_energy = 2.0
 spot_range = 8.75525
 spot_angle = 45.5262
 
@@ -117,6 +105,7 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="Menu"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -174,6 +163,7 @@ __meta__ = {
 
 [node name="SelectSquare" parent="Menu" instance=ExtResource( 4 )]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 options_path = NodePath("../Options")
 
 [node name="StartScreen" type="Control" parent="Menu"]
@@ -202,14 +192,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Leaderboard" parent="Menu" instance=ExtResource( 3 )]
+[node name="OptionsMenu" parent="." instance=ExtResource( 5 )]
 visible = false
 
-[node name="Upgrades" parent="Menu" instance=ExtResource( 6 )]
+[node name="Upgrades" parent="." instance=ExtResource( 6 )]
 visible = false
 
-[node name="OptionsMenu" parent="Menu" instance=ExtResource( 5 )]
+[node name="Leaderboard" parent="." instance=ExtResource( 3 )]
 visible = false
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="selected" from="Menu/SelectSquare" to="." method="_on_SelectSquare_selected"]
-[connection signal="settings_changed" from="Menu/OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]
+[connection signal="closed" from="OptionsMenu" to="." method="_on_OptionsMenu_closed"]
+[connection signal="settings_changed" from="OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]
+[connection signal="closed" from="Upgrades" to="." method="_on_Upgrades_closed"]
+[connection signal="closed" from="Leaderboard" to="." method="_on_Leaderboard_closed"]

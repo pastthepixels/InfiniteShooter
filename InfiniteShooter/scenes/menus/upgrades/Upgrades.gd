@@ -1,5 +1,7 @@
 extends Control
 
+signal closed
+
 # Something that should NOT be saved but that is used at runtime
 var upgrade_lookup_table = {}
 
@@ -31,6 +33,7 @@ func show_animated():
 
 
 func hide_animated():
+	emit_signal("closed")
 	$AnimationPlayer.play("close")
 	yield($AnimationPlayer, "animation_finished")
 	hide()
@@ -50,8 +53,6 @@ func _on_SelectSquare_selected():
 		
 		"Back":
 			hide_animated()
-			get_node("../SelectSquare").show()
-			get_node("../SelectSquare").ignore_hits += 1
 		
 		var name:
 			var upgrade = upgrade_lookup_table[name]
@@ -138,7 +139,6 @@ func set_damage( value ):
 
 
 func set_points( value ):
-	
 	points = value
 	$Content/Stats/Points.text = "%s points" % points
 	if points == 1: $Content/Stats/Points.text = "1 point"
@@ -146,7 +146,6 @@ func set_points( value ):
 
 # Saving and loading upgrades/player stats onto a file
 func save_upgrades():
-	
 	var file = File.new() # Creates a new File object, for handling file operations
 	file.open( "user://upgrades.txt", File.WRITE )
 	file.store_var( upgrades )
@@ -154,7 +153,6 @@ func save_upgrades():
 
 
 func load_upgrades():
-	
 	var file = File.new() # Creates a new File object, for handling file operations
 	if not file.file_exists("user://upgrades.txt"): # If the file `upgrades.txt` does not exist, create a batch of upgrades and save them. Then proceed to read them.
 		create_upgrades()
@@ -164,20 +162,16 @@ func load_upgrades():
 	file.close()
 	
 func save_stats():
-	
-	var file = File.new() # Creates a new File object, for handling file operations
-	file.open( "user://userdata.txt", File.WRITE )
-	file.store_var( { "points": points, "health": health, "damage": damage } )
-	file.close()
+	var data = Saving.load_userdata()
+	data.points = points
+	data.health = health
+	data.damage = damage
+	Saving.save_userdata(data)
 
 
 func load_stats():
-	
-	var file = File.new() # Creates a new File object, for handling file operations
-	if not file.file_exists("user://userdata.txt"): return # If there is no file containing these stats, don't worry because we have defaults.
-	file.open( "user://userdata.txt", File.READ ) # Opens the userdata file for reading
-	var data = file.get_var( true )
+	var data = Saving.load_userdata()
+	print(data)
 	set_points(data.points)
 	set_health(data.health)
 	set_damage(data.damage)
-	file.close()

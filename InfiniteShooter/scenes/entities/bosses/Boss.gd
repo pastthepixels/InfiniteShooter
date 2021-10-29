@@ -20,7 +20,7 @@ signal died(current_ship)
 var killed_from_player = false
 
 # Moving around
-export (Array, Curve3D) var paths
+export(Array, Curve3D) var paths
 
 # Laser mechanics
 var freeze_movement = false
@@ -31,9 +31,9 @@ export var homing_lasers = true
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 
 # Scenes used
-export (PackedScene) var laser_scene
+export(PackedScene) var laser_scene
 
-export (PackedScene) var explosion_scene
+export(PackedScene) var explosion_scene
 
 
 func initialize(difficulty):

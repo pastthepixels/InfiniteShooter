@@ -7,9 +7,6 @@ export(PackedScene) var boss_scene
 
 export(NodePath) var game_space
 
-# Data used when saving the game
-export onready var save_data = { "points": 0, "damage": get_node(game_space).get_node("Player").damage, "health": get_node(game_space).get_node("Player").max_health }
-
 # Game mechanics variables
 var score = 0
 
@@ -23,14 +20,7 @@ var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
 export var show_tutorial = true
 
-# User-adjustable game mechanics variables. Can be found in scripts/GameVariables.gd
-var enemy_difficulty = GameVariables.enemy_difficulty
-
-var waves_per_level = GameVariables.waves_per_level
-
-var enemies_per_wave = GameVariables.enemies_per_wave
-
-var MODIFIERS = GameVariables.LASER_MODIFIERS
+export var autospawn_enemies = false # Whether or not to spawn new enemies when they die
 
 # Scripts
 export var tutorial_script = [
@@ -59,36 +49,35 @@ export var tutorial_script = [
 func _ready():
 	# Starts spinning the sky
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
-	# Music stuff
+	# Music stuff and save stuff
 	GameMusic.start_game() # Fade to a game song
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
-	$HUD.update_level(level, 100 * wave/waves_per_level)
+	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
 	$GameSpace/Player.update_hud()
 	# Loads tutorial information
-	load_tutorialcomplete()
+	show_tutorial = not Saving.is_tutorial_complete()
 
 func _process(_delta):
 	if has_node("GameSpace/Player"):
 		match($GameSpace/Player.modifier):
-			MODIFIERS.fire:
+			GameVariables.LASER_MODIFIERS.fire:
 				$HUD.update_gradient($HUD.TEXTURES.fire)
 			
-			MODIFIERS.ice:
+			GameVariables.LASER_MODIFIERS.ice:
 				$HUD.update_gradient($HUD.TEXTURES.ice)
 			
-			MODIFIERS.corrosion:
+			GameVariables.LASER_MODIFIERS.corrosion:
 				$HUD.update_gradient($HUD.TEXTURES.corrosion)
 			
-			MODIFIERS.none:
+			GameVariables.LASER_MODIFIERS.none:
 				$HUD.update_gradient($HUD.TEXTURES.default)
 
 func _on_Countdown_finished():
 	if show_tutorial == true:
 		activate_tutorial()
 	else:
-		make_enemy()
-		$EnemyTimer.start()
+		make_enemies()
 
 #
 # the Tutorial
@@ -100,37 +89,34 @@ func activate_tutorial():
 			"begin_wait":
 				$TutorialAlert.waiting = false
 				$TutorialAlert.user_confirmation = false
+			
 			"begin_wait_laser":
 				$TutorialAlert.confirmation_key = "shoot_laser"
 				$TutorialAlert.user_confirmation = true
+			
 			"wait_enemy":
-				yield(make_enemy(false), "died")
+				yield(make_enemy(), "died")
 				$TutorialAlert.user_confirmation = true
+			
 			"wait_movement":
 				yield($GameSpace/Player, "moved")
 				$TutorialAlert.user_confirmation = true
+			
 			"wait_laser":
 				$TutorialAlert.confirmation_key = "ui_dismiss"
+			
 			_:
 				$TutorialAlert.alert(line, len(line) * .05)
 				yield($TutorialAlert, "finished")
 	yield(Utils.timeout(1), "timeout")
-	make_enemy()
-	$EnemyTimer.start()
+	make_enemies()
 	save_tutorialcomplete()
-
-func load_tutorialcomplete():
-	
-	var file = File.new() # Creates a new File object, for handling file operations
-	show_tutorial = not file.file_exists("user://tutorial-complete")
-	file.close()
 
 
 func save_tutorialcomplete():
-	
 	var file = File.new() # Creates a new File object, for handling file operations
 	file.open( "user://tutorial-complete", File.WRITE )
-	file.store_line( "true" )
+	file.store_line("true")
 	file.close()
 
 #
@@ -138,22 +124,19 @@ func save_tutorialcomplete():
 #
 func wave_up():
 	if has_node("GameSpace/Player") == false: return
-	# Stops enemies from spawning and waits until they all die.
-	$EnemyTimer.paused = true
-	if is_instance_valid(self): while len(get_tree().get_nodes_in_group("enemies")) > 0: yield(Utils.timeout(.05), "timeout")
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
-	if wave == waves_per_level + 1:
+	if wave == GameVariables.waves_per_level + 1:
 		yield(Utils.timeout(1), "timeout") # Waits exactly one second
 		make_boss() # then initiates a boss battle
 	else:
 		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
 		# Resumes enemy spawning after the popup
-		$EnemyTimer.paused = false
+		make_enemies()
 		# Updates the HUD
 		$HUD.update_wave(wave, 0)
-		$HUD.update_level(level, 100 * wave/waves_per_level)
+		$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
 
 func level_up():
 	if has_node("GameSpace/Player") == false: return
@@ -165,36 +148,34 @@ func level_up():
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
 	# Resumes enemy spawning after the popup
-	$EnemyTimer.paused = false
+	make_enemies()
 
 #
 # Making enemies
 #
-func make_enemy(spawn_more=true):
-	# Ensures no enemy ships have the ability to create a new enemy when they die
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if enemy.has_user_signal("died"): enemy.disconnect("died", self, "_on_enemy_died")
+func make_enemies():
+	autospawn_enemies = true
+	for enemy in max_enemies_on_screen:
+		make_enemy()
+		yield(Utils.timeout(.5), "timeout")
+
+func make_enemy():
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
-	if spawn_more == true: enemy.connect("died", self, "_on_enemy_died") # Basically says that if you kill this enemy dies before the next one spawns automatically, spawn it now
-	enemy.connect("died", self, "_on_enemy_died_score")
+	enemy.connect("died", self, "_on_Enemy_died")
 	
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = set_random_enemy_position()
 	get_node(game_space).add_child(enemy)
-	enemy.initialize(level * enemy_difficulty)
+	enemy.initialize(level * GameVariables.enemy_difficulty)
 	
 	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1
-	$HUD.update_wave(wave, 100 * enemies_in_wave/enemies_per_wave)
-	if enemies_in_wave == enemies_per_wave:
-		wave_up()
+	$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
+	if enemies_in_wave == GameVariables.enemies_per_wave:
+		autospawn_enemies = false
 	
 	return enemy
-
-
-func _on_EnemyTimer_timeout():
-	if len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen: make_enemy()
 
 func set_random_enemy_position(times_ran=0):
 	var position = Vector3(Utils.random_screen_point().x, 0, Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 1.0) - (.2 * times_ran))
@@ -207,21 +188,28 @@ func make_boss():
 	# Creates a boss
 	var boss = boss_scene.instance()
 	boss.translation.z = Utils.screen_to_local(Vector2()).z - 5
-	boss.connect("died", self, "_on_boss_died")
+	boss.connect("died", self, "_on_Boss_died")
 	get_node(game_space).add_child(boss) # adds it to the scene
-	boss.initialize(level * enemy_difficulty) # Initializes the enemy
+	boss.initialize(level * GameVariables.enemy_difficulty) # Initializes the enemy
 
-func _on_boss_died(_boss):
+func _on_Boss_died(_boss):
 	level_up()
 
-func _on_enemy_died(_ship, _from_player):
-	if $EnemyTimer.time_left > 0 and $EnemyTimer.paused == false: _on_EnemyTimer_timeout()
-
-func _on_enemy_died_score(ship, from_player):
-	if $EnemyTimer.time_left > 0:
+func _on_Enemy_died(ship, from_player):
+	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
+		# Score
 		if from_player: score += ship.max_health / 2
 		ship.disconnect("died", self, "_on_enemy_died_score")
 		$HUD.update_score(score)
+		
+		# Wave progression
+		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:
+			wave_up()
+		
+		# Spawning new enemies
+		if autospawn_enemies == true and\
+			len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen:
+			make_enemy()
 
 #
 # Player stuff
@@ -229,7 +217,6 @@ func _on_enemy_died_score(ship, from_player):
 func _on_Player_died():
 	$HUD.update_health(0)
 	$HUD/AnimationPlayer.play("fade_out")
-	$EnemyTimer.stop()
 	store_score()
 	save_game()
 	
@@ -269,19 +256,11 @@ func get_datetime():
 
 # Loading/saving damage/health stats
 func load_game():
-	var file = File.new() # Creates a new File object, for handling file operations
-	if not file.file_exists("user://userdata.txt"): return # If there is no file containing these stats, don't worry because we have defaults.
-	file.open( "user://userdata.txt", File.READ ) # Opens the userdata file for reading
-	save_data = file.get_var(true)
+	var save_data = Saving.load_userdata()
 	$GameSpace/Player.health = save_data.health
 	$GameSpace/Player.damage = save_data.damage
-	file.close()
-
 
 func save_game():
-	
-	var file = File.new() # Creates a new File object, for handling file operations
-	file.open( "user://userdata.txt", File.WRITE )
+	var save_data = Saving.load_userdata()
 	save_data.points += score
-	file.store_var( save_data )
-	file.close()
+	Saving.save_userdata(save_data)

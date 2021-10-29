@@ -1,5 +1,7 @@
 extends Control
 
+signal closed
+
 export (PackedScene) var stats_label
 
 export var list_length = 16
@@ -10,14 +12,13 @@ func show_animated():
 
 
 func hide_animated():
+	emit_signal("closed")
 	$AnimationPlayer.play("close")
 	yield($AnimationPlayer, "animation_finished")
 	hide()
 
 func _on_SelectSquare_selected():
 	hide_animated()
-	get_node("../SelectSquare").show()
-	get_node("../SelectSquare").ignore_hits += 1
 
 
 func _ready():

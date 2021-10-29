@@ -25,6 +25,7 @@ SceneTransition="*res://scenes/ui-bits/SceneTransition.tscn"
 GameVariables="*res://scenes/game/GameVariables.gd"
 GameMusic="*res://scenes/game/GameMusic.tscn"
 Utils="*res://scenes/bits/Utils.gd"
+Saving="*res://scenes/bits/Saving.gd"
 
 [display]
 

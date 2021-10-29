@@ -19,9 +19,6 @@ enemy_scene = ExtResource( 12 )
 boss_scene = ExtResource( 11 )
 game_space = NodePath("GameSpace")
 
-[node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 4.0
-
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "SFX"
@@ -49,7 +46,6 @@ visible = false
 [node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false
 
-[connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
 [connection signal="ammo_changed" from="GameSpace/Player" to="." method="_on_Player_ammo_changed"]
 [connection signal="died" from="GameSpace/Player" to="." method="_on_Player_died"]
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]

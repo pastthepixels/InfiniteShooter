@@ -4,9 +4,13 @@ extends Node
 func _ready():
 	GameMusic.play_main()
 	CameraEquipment.get_node("SkyAnimations").play("intro")
-	$AnimationPlayer.play("introduce-title")
-	yield($AnimationPlayer, "animation_finished")
-	$Menu/StartScreen/AnimationPlayer.play("flash_text")
+	$AnimationPlayer.play("introduce_title")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"introduce_title":
+			$Menu/StartScreen/AnimationPlayer.play("flash_text")
 
 
 func _input(event):
@@ -23,9 +27,10 @@ func _input(event):
 		$Menu/StartScreen.hide()
 		$Menu/Options.show()
 		
-
 		# Animations
 		$AnimationPlayer.play("switch")
+		
+		# We need the tween so we can animate the position of the title no matter where it is
 		$Tween.interpolate_property(
 			$Title,
 			"translation",
@@ -47,19 +52,15 @@ func _on_SelectSquare_selected():
 			SceneTransition.start_game()
 
 		"Leaderboard":  # Same with selecting the leaderboard
-			if $Menu/Leaderboard.visible == false:
-				$Menu/Leaderboard.show_animated()
-				$Menu/SelectSquare.hide()
-			else:
-				$Menu/Leaderboard.hide_animated()
-				$Menu/SelectSquare.show()
+			$Leaderboard.show_animated()
+			$Menu/SelectSquare.hide()
 
 		"Upgrades":  # Same with selecting the upgrades screen
-			$Menu/Upgrades.show_animated()
+			$Upgrades.show_animated()
 			$Menu/SelectSquare.hide()
 
 		"Options":  # /options screen
-			$Menu/OptionsMenu.show_animated()
+			$OptionsMenu.show_animated()
 			$Menu/SelectSquare.hide()
 
 		"Quit":  # Otherwise, quit the game
@@ -85,3 +86,19 @@ func _on_OptionsMenu_settings_changed(settings):
 		if settings["antialiasing"] == true
 		else Viewport.MSAA_DISABLED
 	)
+
+
+func _on_OptionsMenu_closed():
+	return_from_submenu()
+
+
+func _on_Upgrades_closed():
+	return_from_submenu()
+
+
+func _on_Leaderboard_closed():
+	return_from_submenu()
+
+func return_from_submenu():
+	$Menu/SelectSquare.show()
+	$Menu/SelectSquare.ignore_hits += 1
