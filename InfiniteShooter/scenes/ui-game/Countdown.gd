@@ -1,14 +1,14 @@
 signal finished
 extends Control
 
-export var starting_number = 3
+export var duration = 3
 
 
-func _ready():
+func start():
 	get_node("../PauseMenu").disabled = true
 	show()
-	for i in range(0, starting_number + 1): # Counts like this: 1, 2, 3
-		$Label.text = str(starting_number - i) # Because we count up, we need to turn that into counting down by subtracting i from the starting number
+	for i in range(0, duration + 1): # Counts like this: 1, 2, 3
+		$Label.text = str(duration - i) # Because we count up, we need to turn that into counting down by subtracting i from the starting number
 		if $Label.text != "0":
 			$AnimationPlayer.play("show") # Now we fade in the text
 			$CountdownSound.play()

@@ -163,8 +163,8 @@ __meta__ = {
 
 [node name="SelectSquare" parent="Menu" instance=ExtResource( 4 )]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 options_path = NodePath("../Options")
+auto_show = false
 
 [node name="StartScreen" type="Control" parent="Menu"]
 anchor_right = 1.0

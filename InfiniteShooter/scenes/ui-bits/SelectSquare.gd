@@ -2,8 +2,8 @@ extends Control
 
 export (NodePath) var options_path # Use the group "selectsquare_ignore" to ignore certain nodes
 
-# Whether or not the square is on the left (e.g. upgrades screen)
-export var on_left = false
+# Whether or not to automatically show
+export var auto_show = true
 
 # Index of the vbox of labels (options)
 export var index = 0
@@ -16,6 +16,10 @@ export var margin = 2
 var ignore_hits = 0 # Fixes a bug where, if you press space, multiple select squares work at the same time on the main menu
 
 signal selected
+
+func _ready():
+	if auto_show == true:
+		$AnimationPlayer.play("Fade")
 
 
 func _input(event):
@@ -69,3 +73,7 @@ func _process(_delta):
 		$Square.color = Color(.8, .8, .8)
 	elif $Square.color == Color(.8, .8, .8):
 		$Square.color = Color(1, 1, 1)
+
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	visible = true

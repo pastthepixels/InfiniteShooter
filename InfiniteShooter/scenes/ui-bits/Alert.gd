@@ -10,6 +10,7 @@ var alerting = false
 
 var waiting = false
 
+
 func _input(event):
 	if event.is_action_pressed(confirmation_key) and waiting == true:
 		waiting = false
@@ -30,7 +31,6 @@ func alert(alert_text, duration=1):
 	hide()
 	text = alert_text
 	$AnimationPlayer.play("slide")
-	show()
 	# Fading out
 	if user_confirmation == false:
 		$AlertTimer.wait_time = duration
@@ -52,3 +52,7 @@ func error(error_text):
 
 func _on_AlertTimer_timeout():
 	fade_out()
+
+
+func _on_AnimationPlayer_animation_started(_anim_name):
+	visible = true

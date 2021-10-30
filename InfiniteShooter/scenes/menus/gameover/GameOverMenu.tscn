@@ -83,7 +83,7 @@ tracks/5/keys = {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
-shader_param/lod = 1.0
+shader_param/lod = 0.0
 shader_param/aberration_strength = 0.5
 
 [sub_resource type="DynamicFont" id=3]
@@ -109,6 +109,7 @@ copy_mode = 2
 rect = Rect2( 0, 0, 600, 800 )
 
 [node name="Background" type="ColorRect" parent="BackBufferCopy"]
+modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -125,6 +126,7 @@ __meta__ = {
 }
 
 [node name="Titles" type="HBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -165,6 +167,7 @@ __meta__ = {
 [node name="SelectSquare" parent="." instance=ExtResource( 3 )]
 visible = false
 options_path = NodePath("../Options")
+auto_show = false
 
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -181,6 +184,7 @@ __meta__ = {
 }
 
 [node name="Retry" type="Label" parent="Options"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 144.0
 margin_bottom = 15.0
 text = "replay"
@@ -188,6 +192,7 @@ align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 30.0
 margin_right = 144.0
 margin_bottom = 45.0
@@ -199,6 +204,7 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Label" parent="Options"]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 60.0
 margin_right = 144.0
 margin_bottom = 75.0
@@ -209,4 +215,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

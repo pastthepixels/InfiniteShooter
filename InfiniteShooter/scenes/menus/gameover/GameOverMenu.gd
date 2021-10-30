@@ -10,11 +10,9 @@ onready var main = get_node("/root/Main")
 # Called when the node enters the scene tree for the first time.
 func fade_show():
 	if visible == true: return
-	show()
 	$AnimationPlayer.play("FadeAll")
 	yield($AnimationPlayer, "animation_finished")
 	$SelectSquare/AnimationPlayer.play("Fade")
-	$SelectSquare.show()
 
 
 func _on_SelectSquare_selected():
@@ -27,3 +25,7 @@ func _on_SelectSquare_selected():
 
 		"MainMenu":  # or return to the main menu
 			SceneTransition.main_menu()
+
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	visible = true

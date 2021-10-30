@@ -18,14 +18,11 @@ var enemies_in_wave = 0
 
 var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
-export var show_tutorial = true
-
 export var autospawn_enemies = false # Whether or not to spawn new enemies when they die
 
 # Scripts
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
-	"begin_wait",
 	"Use the arrow keys to move around (left stick on a controller).",
 	"wait_movement", # Command to wait for player movement
 	"Excellent work!",
@@ -54,9 +51,12 @@ func _ready():
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
-	$GameSpace/Player.update_hud()
-	# Loads tutorial information
-	show_tutorial = not Saving.is_tutorial_complete()
+	$GameSpace/Player.update_hud() 
+	# Begins the countdown/shows the tutorial
+	if Saving.is_tutorial_complete():
+		$Countdown.start()
+	else:
+		activate_tutorial()
 
 func _process(_delta):
 	if has_node("GameSpace/Player"):
@@ -74,10 +74,7 @@ func _process(_delta):
 				$HUD.update_gradient($HUD.TEXTURES.default)
 
 func _on_Countdown_finished():
-	if show_tutorial == true:
-		activate_tutorial()
-	else:
-		make_enemies()
+	make_enemies()
 
 #
 # the Tutorial
@@ -108,9 +105,8 @@ func activate_tutorial():
 			_:
 				$TutorialAlert.alert(line, len(line) * .05)
 				yield($TutorialAlert, "finished")
-	yield(Utils.timeout(1), "timeout")
-	make_enemies()
 	save_tutorialcomplete()
+	SceneTransition.restart_game()
 
 
 func save_tutorialcomplete():
