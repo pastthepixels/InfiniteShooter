@@ -43,7 +43,6 @@ func _on_Powerup_area_entered(area):
 			match type:
 				1:
 					area.ammo_refills += 1
-					area.update_hud()
 
 				2:
 					if area.health + health_increase <= area.max_health:

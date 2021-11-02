@@ -32,10 +32,10 @@ autostart = true
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.05
 
-[node name="PlayerModel" parent="." instance=ExtResource( 2 )]
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
+
+[node name="PlayerModel" parent="." instance=ExtResource( 2 )]
 
 [node name="Explosion" parent="." instance=ExtResource( 4 )]
 visible = false

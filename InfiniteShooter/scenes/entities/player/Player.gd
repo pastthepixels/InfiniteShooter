@@ -6,36 +6,31 @@ export var godmode = false
 # Scenes used
 export(PackedScene) var laser_scene
 
-# Saving stuff
+# Userdata (set to the defaults)
 var max_ammo = Saving.default_userdata.max_ammo
 
-var ammo_refills = Saving.default_userdata.ammo_refills
+var ammo_refills = Saving.default_userdata.ammo_refills setget _update_ammo_refills
 
 var max_health = Saving.default_userdata.health
 
 var damage = Saving.default_userdata.damage
 
-# Speed
+# Movement variables
 var speed = 14
 
-# How much the player rotates when you use the arrow keys
-var player_rotation = 35
+var player_rotation = 35 # How much the player rotates when you use the arrow keys
 
 # Health (taken from the max health)
-var health = max_health
+var health = max_health setget _update_health
 
 # Ammo (taken from the max ammo)
-var ammo = max_ammo
+var ammo = max_ammo setget _update_ammo
 
-# Laser modifier stuff
+# Laser modifiers
 var freeze_movement = false
 
 # Signals
-signal moved
-
 signal died
-
-signal laser_fired(laser)
 
 signal health_changed(value)
 
@@ -46,13 +41,20 @@ var MODIFIERS = GameVariables.LASER_MODIFIERS
 
 var modifier = MODIFIERS.none
 
-var previous_health
+# Setters and getters before we begin
+func _update_health(new_value):
+	health = clamp(new_value, 0, max_health)
+	emit_signal("health_changed", float(health) / float(max_health))
+
+func _update_ammo(new_value):
+	ammo = clamp(new_value, 0, max_ammo)
+	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
+
+func _update_ammo_refills(new_value):
+	ammo_refills = new_value
+	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
+
 func _process(delta):
-	# HEALTH
-	if health != previous_health:
-		previous_health = health
-		update_hud()
-	
 	# INPUT
 	if $Explosion.visible == true:
 		return  # If the player is dying, don't bother about input stuff
@@ -78,8 +80,6 @@ func _process(delta):
 	# Sets position
 	if freeze_movement == false:
 		translation += velocity * delta * speed
-		if velocity * delta * speed != Vector3():
-			emit_signal("moved")
 
 	# Sets rotation
 	rotation = delta_rotation * deg2rad(player_rotation)
@@ -91,7 +91,7 @@ func _process(delta):
 		translation.x = Utils.top_left.x
 
 	# Killing the player when it should die
-	if health <= 0.0:
+	if self.health == 0:
 		die_already()
 
 
@@ -99,10 +99,11 @@ func _process(delta):
 func _input(event):
 	if (
 		event.is_action_pressed("shoot_laser")
-		and ammo > 0
+		and self.ammo > 0
 		and $ReloadTimer.time_left == 0
-		and health > 0
+		and self.health > 0
 	):
+		self.ammo -= 1
 		var laser = laser_scene.instance()
 		laser.sender = self
 		laser.translation = translation
@@ -113,11 +114,9 @@ func _input(event):
 			laser.set_laser()
 		get_parent().add_child(laser)
 		Input.start_joy_vibration(0, 0.7, 1, .1)
-		set_ammo(ammo - 1)
-		emit_signal("laser_fired", laser)
 
-		if ammo <= 0 and ammo_refills > 0:
-			ammo_refills -= 1
+		if self.ammo == 0 and self.ammo_refills > 0:
+			self.ammo_refills -= 1
 			$ReloadTimer.start()
 			$ReloadStart.play()
 
@@ -130,9 +129,9 @@ func on_collision(area):
 
 
 func reload():
-	set_ammo(ammo + 1)
+	self.ammo += 1
 	$ReloadBoop.play()
-	if ammo >= max_ammo:
+	if self.ammo == max_ammo:
 		$ReloadTimer.stop()
 
 
@@ -156,13 +155,3 @@ func cleanup_player():
 func heal():  # Regenerates a bit of health every time this function is called.
 	if self.health < max_health:
 		self.health += 1
-
-
-func set_ammo(new_ammo):
-	ammo = new_ammo
-	update_hud()
-
-
-func update_hud():
-	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
-	emit_signal("health_changed", float(health) / float(max_health))

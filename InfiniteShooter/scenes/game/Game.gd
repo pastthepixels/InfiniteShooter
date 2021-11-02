@@ -28,7 +28,7 @@ export var tutorial_script = [
 	"Excellent work!",
 	"begin_wait_laser",
 	"Now press space or A on a controller to fire a laser.",
-	"wait_laser", # Command to wait for the player to fire a laser
+	"end_wait_laser", # Command to wait for the player to fire a laser
 	"begin_wait",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen!",
 	"wait_enemy", # Command to spawn an enemy
@@ -51,7 +51,6 @@ func _ready():
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
-	$GameSpace/Player.update_hud() 
 	# Begins the countdown/shows the tutorial
 	if Saving.is_tutorial_complete():
 		$Countdown.start()
@@ -99,27 +98,19 @@ func activate_tutorial():
 				yield($GameSpace/Player, "moved")
 				$TutorialAlert.user_confirmation = true
 			
-			"wait_laser":
+			"end_wait_laser":
 				$TutorialAlert.confirmation_key = "ui_dismiss"
 			
 			_:
 				$TutorialAlert.alert(line, len(line) * .05)
 				yield($TutorialAlert, "finished")
-	save_tutorialcomplete()
+	Saving.complete_tutorial()
 	SceneTransition.restart_game()
-
-
-func save_tutorialcomplete():
-	var file = File.new() # Creates a new File object, for handling file operations
-	file.open( "user://tutorial-complete", File.WRITE )
-	file.store_line("true")
-	file.close()
 
 #
 # Waves, levels, and score
 #
 func wave_up():
-	if has_node("GameSpace/Player") == false: return
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
@@ -135,10 +126,10 @@ func wave_up():
 		$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
 
 func level_up():
-	if has_node("GameSpace/Player") == false: return
 	level += 1
 	wave = 1
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
+	# GUI stuff
 	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
@@ -189,7 +180,7 @@ func make_boss():
 	boss.initialize(level * GameVariables.enemy_difficulty) # Initializes the enemy
 
 func _on_Boss_died(_boss):
-	level_up()
+	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0: level_up()
 
 func _on_Enemy_died(ship, from_player):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
@@ -213,9 +204,8 @@ func _on_Enemy_died(ship, from_player):
 func _on_Player_died():
 	$HUD.update_health(0)
 	$HUD/AnimationPlayer.play("fade_out")
-	store_score()
+	Saving.create_leaderboard_entry(score)
 	save_game()
-	
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield(Utils.timeout(1), "timeout") # AFTER waiting for a bit
 	$GameOverMenu.fade_show()
@@ -225,32 +215,12 @@ func _on_Player_ammo_changed(value, refills):
 	$HUD.update_ammo(value, refills)
 
 
-func _on_Player_health_changed( value ):
-	$HUD.update_health( value )
+func _on_Player_health_changed(value):
+	$HUD.update_health(value)
 
 #
 # Saving and loading data
 #
-func store_score():
-	
-	var file = File.new() # Creates a new File object, for handling file operations
-	if file.file_exists("user://scores.txt") == false: 
-		file.open( "user://scores.txt", File.WRITE ) # This creates a new file if there is none but truncates (writes over) existing files
-	else:
-		file.open( "user://scores.txt", File.READ_WRITE ) # This does NOT create a new file if there is none but also does NOT truncate existing files
-		file.seek_end() # Goes to the end of the file to write a new line
-	file.store_line( ( OS.get_environment("USERNAME") + " ~> %s" % score ) + " ~> " + get_datetime() ) # Writes a new line that looks like this: "$USERNAME ~> $SCORE ~> $DATE"
-	file.close()
-	
-
-func get_datetime():
-	var datetime = OS.get_datetime()
-	var time = str(datetime.hour) + ":" + str(datetime.minute) + ":" + str(datetime.second) + " " + OS.get_time_zone_info().name
-	var date = str(datetime.day) + "/" + str(datetime.month) + "/" + str(datetime.year)
-	return time + " " + date
-	
-
-# Loading/saving damage/health stats
 func load_game():
 	var save_data = Saving.load_userdata()
 	$GameSpace/Player.health = save_data.health
