@@ -11,20 +11,14 @@ func _ready():
 
 
 func show_animated():
-	show()
 	$AnimationPlayer.play("open")
 
-
-func hide_animated():
-	emit_signal("closed")
-	$AnimationPlayer.play("close")
-	yield($AnimationPlayer, "animation_finished")
-	hide()
 
 func _on_SelectSquare_selected():
 	match $Content/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 		"Back":
-			hide_animated()
+			emit_signal("closed")
+			$AnimationPlayer.play("close")
 
 		"AntiAliasing":
 			settings["antialiasing"] = ! settings["antialiasing"]
@@ -150,3 +144,13 @@ func _on_ResetConfirmation_confirmed():
 				dir.remove("user://" + file_name)
 			file_name = dir.get_next()
 	$Alert.alert("Game reset! Restart it for changes to take effect.")
+
+
+func _on_AnimationPlayer_animation_started(_anim_name):
+	show()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"close":
+			hide()

@@ -4,7 +4,7 @@
 [ext_resource path="res://resources/theme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/menus/leaderboard/Leaderboard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/menus/options/OptionsMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/settings/Settings.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/upgrades/Upgrades.tscn" type="PackedScene" id=6]
 [ext_resource path="res://models/title-infiniteshooter/title.glb" type="PackedScene" id=8]
 
@@ -142,11 +142,11 @@ text = "upgrades"
 align = 1
 valign = 1
 
-[node name="Options" type="Label" parent="Menu/Options"]
+[node name="Settings" type="Label" parent="Menu/Options"]
 margin_top = 90.0
 margin_right = 81.0
 margin_bottom = 105.0
-text = "options"
+text = "settings"
 align = 1
 valign = 1
 
@@ -192,7 +192,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionsMenu" parent="." instance=ExtResource( 5 )]
+[node name="Settings" parent="." instance=ExtResource( 5 )]
 visible = false
 
 [node name="Upgrades" parent="." instance=ExtResource( 6 )]
@@ -203,7 +203,7 @@ visible = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="selected" from="Menu/SelectSquare" to="." method="_on_SelectSquare_selected"]
-[connection signal="closed" from="OptionsMenu" to="." method="_on_OptionsMenu_closed"]
-[connection signal="settings_changed" from="OptionsMenu" to="." method="_on_OptionsMenu_settings_changed"]
+[connection signal="closed" from="Settings" to="." method="_on_OptionsMenu_closed"]
+[connection signal="settings_changed" from="Settings" to="." method="_on_OptionsMenu_settings_changed"]
 [connection signal="closed" from="Upgrades" to="." method="_on_Upgrades_closed"]
 [connection signal="closed" from="Leaderboard" to="." method="_on_Leaderboard_closed"]

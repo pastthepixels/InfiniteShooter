@@ -44,6 +44,6 @@ visible = false
 ship = NodePath("..")
 
 [connection signal="area_entered" from="." to="." method="on_collision"]
-[connection signal="timeout" from="RegenTimer" to="." method="heal"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
 [connection signal="timeout" from="ReloadTimer" to="." method="reload"]
-[connection signal="exploded" from="Explosion" to="." method="cleanup_player"]
+[connection signal="exploded" from="Explosion" to="." method="_on_Explosion_exploded"]

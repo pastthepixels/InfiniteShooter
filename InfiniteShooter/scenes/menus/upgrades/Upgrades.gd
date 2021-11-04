@@ -28,15 +28,7 @@ export(Script) var name_generator
 
 # Shows and hides the menu with FADING
 func show_animated():
-	show()
 	$AnimationPlayer.play("open")
-
-
-func hide_animated():
-	emit_signal("closed")
-	$AnimationPlayer.play("close")
-	yield($AnimationPlayer, "animation_finished")
-	hide()
 
 
 # Loads and reads upgrades
@@ -52,7 +44,8 @@ func _on_SelectSquare_selected():
 	match $Content/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 		
 		"Back":
-			hide_animated()
+			emit_signal("closed")
+			$AnimationPlayer.play("close")
 		
 		var name:
 			var upgrade = upgrade_lookup_table[name]
@@ -175,3 +168,13 @@ func load_stats():
 	set_points(data.points)
 	set_health(data.health)
 	set_damage(data.damage)
+
+
+func _on_AnimationPlayer_animation_started(_anim_name):
+	show()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"close":
+			hide()

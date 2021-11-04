@@ -20,11 +20,13 @@ func screen_to_local(vector2):
 
 
 # Gets a random screen point and converts it to 3d coordinates
+# Note that this depends on top_left.x < top_right.x and top_left.z < bottom_left.z
 func random_screen_point():
-	var screenPoint = Vector2(
-		rand_range(screen_size.x - 50, 50), rand_range(50, screen_size.y - 50)
+	return Vector3(
+		rand_range(top_left.x, top_right.x), # X values
+		0, # Y values
+		rand_range(top_left.z, bottom_left.z)
 	)
-	return screen_to_local(screenPoint)
 
 
 # Setting timeouts

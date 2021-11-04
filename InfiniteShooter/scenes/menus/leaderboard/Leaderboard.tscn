@@ -167,7 +167,6 @@ __meta__ = {
 
 [node name="SelectSquare" parent="." instance=ExtResource( 4 )]
 options_path = NodePath("../Content/Options")
-on_left = true
 
 [node name="Content" type="VBoxContainer" parent="."]
 margin_left = 50.0
@@ -212,4 +211,6 @@ margin_right = 326.0
 margin_bottom = 122.0
 custom_constants/separation = 20
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

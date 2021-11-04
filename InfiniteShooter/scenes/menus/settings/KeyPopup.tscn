@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=1]
+[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=2]
-[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://scenes/menus/options/KeyPopup.gd" type="Script" id=4]
-[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/settings/KeyPopup.gd" type="Script" id=4]
+[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
@@ -23,13 +23,13 @@ tracks/0/keys = {
 }
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
+shader = ExtResource( 5 )
 shader_param/lod = 2.0
 shader_param/aberration_strength = 0.1
 
 [sub_resource type="DynamicFont" id=3]
 size = 40
-font_data = ExtResource( 3 )
+font_data = ExtResource( 1 )
 
 [node name="KeyPopup" type="Control"]
 pause_mode = 2
@@ -117,5 +117,5 @@ text = "No change set"
 align = 1
 valign = 1
 
-[node name="Alert" parent="." instance=ExtResource( 5 )]
+[node name="Alert" parent="." instance=ExtResource( 3 )]
 visible = false

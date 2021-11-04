@@ -94,7 +94,6 @@ func update_ammo(value, refills):
 # Alerting text to the player
 #
 func alert(text, duration, switchto_text=""):
-	get_node("../PauseMenu").disabled = true
 	# Sets text and shows the label
 	$Alert/Label.text = text
 	$Alert.show()
@@ -110,4 +109,3 @@ func alert(text, duration, switchto_text=""):
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
 	$Alert.hide()
-	get_node("../PauseMenu").disabled = false

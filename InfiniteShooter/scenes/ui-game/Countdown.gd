@@ -5,7 +5,6 @@ export var duration = 3
 
 
 func start():
-	get_node("../PauseMenu").disabled = true
 	show()
 	for i in range(0, duration + 1): # Counts like this: 1, 2, 3
 		$Label.text = str(duration - i) # Because we count up, we need to turn that into counting down by subtracting i from the starting number
@@ -21,6 +20,5 @@ func start():
 				$AnimationPlayer.stop(true)
 				$AnimationPlayer.play("show") # Now we fade in the text
 				yield(get_tree().create_timer(.3), "timeout")  # and then wait a bit for you to be able to read the text
-	get_node("../PauseMenu").disabled = false
 	emit_signal("finished") # Once we are done the loop, we signal that we are done the countdown
 	queue_free() # and then remove the countdown node

@@ -165,7 +165,7 @@ func make_enemy():
 	return enemy
 
 func set_random_enemy_position(times_ran=0):
-	var position = Vector3(Utils.random_screen_point().x, 0, Utils.screen_to_local(Vector2()).z - rand_range(-2.0, 1.0) - (.2 * times_ran))
+	var position = Vector3(Utils.random_screen_point().x, 0, Utils.top_left.z - (.2 * times_ran))
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if position.distance_to(enemy.translation) < 4:
 			return set_random_enemy_position(times_ran + 1)
@@ -202,13 +202,14 @@ func _on_Enemy_died(ship, from_player):
 # Player stuff
 #
 func _on_Player_died():
+	$PauseMenu.set_process_input(false)
 	$HUD.update_health(0)
 	$HUD/AnimationPlayer.play("fade_out")
 	Saving.create_leaderboard_entry(score)
 	save_game()
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield(Utils.timeout(1), "timeout") # AFTER waiting for a bit
-	$GameOverMenu.fade_show()
+	$GameOverMenu.start()
 
 
 func _on_Player_ammo_changed(value, refills):

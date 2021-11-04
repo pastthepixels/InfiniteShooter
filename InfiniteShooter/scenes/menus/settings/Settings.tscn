@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://scenes/menus/options/OptionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/menus/settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=4]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=5]
-[ext_resource path="res://scenes/menus/options/KeyPopup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/settings/KeyPopup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui-bits/Confirmation.tscn" type="PackedScene" id=8]
 
@@ -134,7 +134,7 @@ colors = PoolColorArray( 0.133333, 1, 0.133333, 1, 0.27451, 1, 0.27451, 1 )
 [sub_resource type="GradientTexture" id=8]
 gradient = SubResource( 7 )
 
-[node name="OptionsMenu" type="Control"]
+[node name="Settings" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
@@ -197,7 +197,7 @@ __meta__ = {
 margin_right = 393.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 4 )
-text = "options"
+text = "settings"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -601,5 +601,7 @@ visible = false
 [node name="Alert" parent="." instance=ExtResource( 7 )]
 visible = false
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
 [connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]

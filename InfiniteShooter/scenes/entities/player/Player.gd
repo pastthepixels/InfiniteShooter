@@ -18,8 +18,6 @@ var damage = Saving.default_userdata.damage
 # Movement variables
 var speed = 14
 
-var player_rotation = 35 # How much the player rotates when you use the arrow keys
-
 # Health (taken from the max health)
 var health = max_health setget _update_health
 
@@ -69,11 +67,11 @@ func _process(delta):
 		delta_rotation.z += 1
 		velocity.x -= 1
 
-	if Input.is_action_pressed("move_down") and (translation.z < Utils.bottom_left.z):
+	if Input.is_action_pressed("move_down"):
 		delta_rotation.x += 1
 		velocity.z += 1
 
-	if Input.is_action_pressed("move_up") and (translation.z > Utils.top_left.z):
+	if Input.is_action_pressed("move_up"):
 		delta_rotation.x -= 1
 		velocity.z -= 1
 
@@ -82,13 +80,11 @@ func _process(delta):
 		translation += velocity * delta * speed
 
 	# Sets rotation
-	rotation = delta_rotation * deg2rad(player_rotation)
-
-	# If the player goes out of bounds (x axis only; see above for y)
-	if translation.x < Utils.top_left.x:
-		translation.x = Utils.top_right.x
-	if translation.x > Utils.top_right.x:
-		translation.x = Utils.top_left.x
+	rotation = delta_rotation * .6
+	
+	# Clamping z positions and wrapping around the screen
+	translation.z = clamp(translation.z, Utils.top_left.z, Utils.bottom_left.z)
+	translation.x = wrapf(translation.x, Utils.top_left.x, Utils.top_right.x)
 
 	# Killing the player when it should die
 	if self.health == 0:
@@ -101,13 +97,11 @@ func _input(event):
 		event.is_action_pressed("shoot_laser")
 		and self.ammo > 0
 		and $ReloadTimer.time_left == 0
-		and self.health > 0
 	):
 		self.ammo -= 1
 		var laser = laser_scene.instance()
 		laser.sender = self
-		laser.translation = translation
-		laser.translation.z -= 1  # To get the laser firing from the "top" of the ship instead of the center for added realism
+		laser.translation = translation - Vector3(0, 0, 1)
 		laser.damage = damage
 		if modifier != MODIFIERS.none:
 			laser.modifier = modifier
@@ -128,6 +122,7 @@ func on_collision(area):
 		area.get_parent().health -= area.get_parent().health
 
 
+# Reloading
 func reload():
 	self.ammo += 1
 	$ReloadBoop.play()
@@ -137,6 +132,7 @@ func reload():
 
 func die_already():
 	set_process(false)
+	set_process_input(false)
 	emit_signal("died")
 	$Explosion.explode()
 	$PlayerModel.queue_free()
@@ -148,10 +144,11 @@ func die_already():
 		get_node("/root/Main/ShakeCamera").add_trauma(rand_range(.6, .7))
 
 
-func cleanup_player():
-	queue_free()
-
-
-func heal():  # Regenerates a bit of health every time this function is called.
+ # Regenerates a bit of health every time this function is called.
+func _on_RegenTimer_timeout():
 	if self.health < max_health:
 		self.health += 1
+
+
+func _on_Explosion_exploded():
+	queue_free()

@@ -59,8 +59,8 @@ func _on_SelectSquare_selected():
 			$Upgrades.show_animated()
 			$Menu/SelectSquare.hide()
 
-		"Options":  # /options screen
-			$OptionsMenu.show_animated()
+		"Settings":  # settings screen
+			$Settings.show_animated()
 			$Menu/SelectSquare.hide()
 
 		"Quit":  # Otherwise, quit the game
