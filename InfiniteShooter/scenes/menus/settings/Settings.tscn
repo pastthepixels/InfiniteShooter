@@ -604,4 +604,6 @@ visible = false
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
+[connection signal="key_set" from="KeyPopup" to="." method="_on_KeyPopup_key_set"]
+[connection signal="opened" from="KeyPopup" to="." method="_on_KeyPopup_opened"]
 [connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]

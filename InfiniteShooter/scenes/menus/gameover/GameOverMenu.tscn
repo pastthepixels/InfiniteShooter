@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menus/gameover/GameOverMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=4]
-[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=5]
 
 [sub_resource type="Animation" id=1]
 length = 3.0
@@ -56,35 +55,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("BackBufferCopy/Background:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("BackBufferCopy/Background:material:shader_param/lod")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 5 )
-shader_param/lod = 0.0
-shader_param/aberration_strength = 0.5
 
 [sub_resource type="DynamicFont" id=3]
 size = 64
@@ -104,20 +74,7 @@ anims/FadeAll = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-copy_mode = 2
-rect = Rect2( 0, 0, 600, 800 )
-
-[node name="Background" type="ColorRect" parent="BackBufferCopy"]
-modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 2 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background Color" type="ColorRect" parent="BackBufferCopy/Background"]
+[node name="Background Color" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.666667, 0.666667, 0.666667, 0.0392157 )
@@ -217,4 +174,5 @@ __meta__ = {
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

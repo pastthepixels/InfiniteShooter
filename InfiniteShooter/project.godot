@@ -23,7 +23,6 @@ config/icon="res://resources/icon.png"
 CameraEquipment="*res://CameraEquipment.tscn"
 SceneTransition="*res://scenes/ui-bits/SceneTransition.tscn"
 GameVariables="*res://scenes/game/GameVariables.gd"
-GameMusic="*res://scenes/game/GameMusic.tscn"
 Utils="*res://scenes/bits/Utils.gd"
 Saving="*res://scenes/bits/Saving.gd"
 
@@ -101,7 +100,9 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 threads/thread_model=2
+quality/shading/force_vertex_shading.mobile=false
 quality/filters/use_nearest_mipmap_filter=true
+quality/voxel_cone_tracing/high_quality=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 quality/filters/msaa=3
 environment/default_environment="res://MainEnvironment.tres"

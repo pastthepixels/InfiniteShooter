@@ -24,8 +24,6 @@ export var autospawn_enemies = false # Whether or not to spawn new enemies when 
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
 	"Use the arrow keys to move around (left stick on a controller).",
-	"wait_movement", # Command to wait for player movement
-	"Excellent work!",
 	"begin_wait_laser",
 	"Now press space or A on a controller to fire a laser.",
 	"end_wait_laser", # Command to wait for the player to fire a laser
@@ -47,7 +45,7 @@ func _ready():
 	# Starts spinning the sky
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
 	# Music stuff and save stuff
-	GameMusic.start_game() # Fade to a game song
+	$GameMusic.start_game() # Fade to a game song
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
@@ -92,10 +90,6 @@ func activate_tutorial():
 			
 			"wait_enemy":
 				yield(make_enemy(), "died")
-				$TutorialAlert.user_confirmation = true
-			
-			"wait_movement":
-				yield($GameSpace/Player, "moved")
 				$TutorialAlert.user_confirmation = true
 			
 			"end_wait_laser":

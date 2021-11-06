@@ -7,10 +7,9 @@
 [ext_resource path="res://sounds/gui-use.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=6]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 6 )
-shader_param/lod = 1.0
+shader_param/lod = 1.5
 shader_param/aberration_strength = 0.5
 
 [sub_resource type="DynamicFont" id=2]
@@ -22,7 +21,7 @@ font_data = ExtResource( 1 )
 resource_name = "fade-background"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("BackBufferCopy/Background:modulate")
+tracks/0/path = NodePath("Background:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -65,7 +64,7 @@ tracks/1/keys = {
 resource_name = "fade-background"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("BackBufferCopy/Background:modulate")
+tracks/0/path = NodePath("Background:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -102,11 +101,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-copy_mode = 2
-rect = Rect2( 0, 0, 600, 800 )
-
-[node name="Background" type="ColorRect" parent="BackBufferCopy"]
+[node name="Background" type="ColorRect" parent="."]
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -116,6 +116,11 @@ colors = PoolColorArray( 0.2, 0.2, 0.2, 1, 0.266667, 0.266667, 0.266667, 1 )
 
 [sub_resource type="GradientTexture" id=26]
 gradient = SubResource( 25 )
+
+[sub_resource type="ShaderMaterial" id=29]
+shader = ExtResource( 2 )
+shader_param/lod = 1.5
+shader_param/aberration_strength = 0.5
 
 [sub_resource type="DynamicFont" id=27]
 size = 64
@@ -329,10 +334,18 @@ __meta__ = {
 }
 
 [node name="Alert" type="ColorRect" parent="."]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="Alert"]
+material = SubResource( 29 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

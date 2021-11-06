@@ -68,11 +68,12 @@ func update():
 	set_position(select_child.get_global_position() - Vector2(margin/2, margin/2))
 
 func _process(_delta):
-	update()
-	if Input.is_action_pressed("ui_accept"):
-		$Square.color = Color(.8, .8, .8)
-	elif $Square.color == Color(.8, .8, .8):
-		$Square.color = Color(1, 1, 1)
+	if visible == true and get_parent().visible == true:
+		update()
+		if Input.is_action_pressed("ui_accept"):
+			$Square.color = Color(.8, .8, .8)
+		elif $Square.color == Color(.8, .8, .8):
+			$Square.color = Color(1, 1, 1)
 
 
 func _on_AnimationPlayer_animation_started(anim_name):

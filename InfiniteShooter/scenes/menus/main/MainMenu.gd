@@ -2,9 +2,7 @@ extends Node
 
 
 func _ready():
-	GameMusic.play_main()
 	CameraEquipment.get_node("SkyAnimations").play("intro")
-	$AnimationPlayer.play("introduce_title")
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -65,27 +63,6 @@ func _on_SelectSquare_selected():
 
 		"Quit":  # Otherwise, quit the game
 			SceneTransition.quit_game()
-
-
-func _on_OptionsMenu_settings_changed(settings):
-	# Sets music volume
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Music"), linear2db(float(settings["musicvol"]) / 100)
-	)
-
-	# Sets sound effect volume
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("SFX"), linear2db(float(settings["sfxvol"]) / 100)
-	)
-	# Sets bloom
-	CameraEquipment.get_node("WorldEnvironment").environment.glow_enabled = settings["bloom"]
-
-	# Sets anti-aliasing (with the strangest ternary operator)
-	get_viewport().msaa = (
-		Viewport.MSAA_4X
-		if settings["antialiasing"] == true
-		else Viewport.MSAA_DISABLED
-	)
 
 
 func _on_OptionsMenu_closed():
