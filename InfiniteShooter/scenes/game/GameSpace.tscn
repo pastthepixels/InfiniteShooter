@@ -4,7 +4,7 @@
 
 [node name="MainLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 25, -30 )
-light_energy = 3.0
+light_energy = 2.0
 
 [node name="OrangeLight" type="SpotLight" parent="."]
 transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 20, 0, -20 )

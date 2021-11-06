@@ -14,7 +14,6 @@ fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 1, 1, 1, 1 )
 fog_sun_amount = 0.24
 tonemap_mode = 2
-tonemap_white = 6.0
 ss_reflections_max_steps = 128
 dof_blur_far_distance = 99.0
 dof_blur_far_quality = 2

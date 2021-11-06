@@ -90,14 +90,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0 )
 
 [node name="Direct Light" type="SpotLight" parent="Title"]
 transform = Transform( -0.479384, -0.674061, 0.56199, -0.341905, 0.733218, 0.587785, -0.808264, 0.0896274, -0.581958, 2.70917, 1.52453, -1.62942 )
-light_energy = 25.0
+light_energy = 15.0
 light_indirect_energy = 2.0
 spot_range = 6.67086
 spot_angle = 49.3769
 
 [node name="Indirect Light" type="SpotLight" parent="Title"]
 transform = Transform( 0.36223, 0.679974, -0.637514, -0.341905, 0.733218, 0.587785, 0.867116, 0.00505608, 0.498081, -5, 2.8375, 2 )
-light_energy = 15.0
+light_energy = 6.0
 light_indirect_energy = 2.0
 spot_range = 8.75525
 spot_angle = 45.5262
