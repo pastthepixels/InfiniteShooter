@@ -20,9 +20,21 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
+"transitions": PoolRealArray( -2, -2 ),
 "update": 0,
-"values": [ Vector3( 0, 16, 0 ), Vector3( 0, 8, 0 ) ]
+"values": [ Vector3( 0, 15, 0 ), Vector3( 0, 8, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Title:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector3( -45, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -83,24 +95,8 @@ anims/switch = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Title" type="Spatial" parent="."]
+[node name="Title" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0 )
-
-[node name="title" parent="Title" instance=ExtResource( 8 )]
-
-[node name="Direct Light" type="SpotLight" parent="Title"]
-transform = Transform( -0.479384, -0.674061, 0.56199, -0.341905, 0.733218, 0.587785, -0.808264, 0.0896274, -0.581958, 2.70917, 1.52453, -1.62942 )
-light_energy = 15.0
-light_indirect_energy = 2.0
-spot_range = 6.67086
-spot_angle = 49.3769
-
-[node name="Indirect Light" type="SpotLight" parent="Title"]
-transform = Transform( 0.36223, 0.679974, -0.637514, -0.341905, 0.733218, 0.587785, 0.867116, 0.00505608, 0.498081, -5, 2.8375, 2 )
-light_energy = 6.0
-light_indirect_energy = 2.0
-spot_range = 8.75525
-spot_angle = 45.5262
 
 [node name="Menu" type="Control" parent="."]
 anchor_right = 1.0
@@ -207,6 +203,10 @@ visible = false
 
 [node name="Leaderboard" parent="." instance=ExtResource( 3 )]
 visible = false
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 0 )
+light_energy = 0.6
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="selected" from="Menu/SelectSquare" to="." method="_on_SelectSquare_selected"]
