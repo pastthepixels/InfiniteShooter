@@ -24,9 +24,7 @@ export var autospawn_enemies = false # Whether or not to spawn new enemies when 
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
 	"Use the arrow keys to move around (left stick on a controller).",
-	"begin_wait_laser",
-	"Now press space or A on a controller to fire a laser.",
-	"end_wait_laser", # Command to wait for the player to fire a laser
+	"and press space or A on a controller to fire a laser.",
 	"begin_wait",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen!",
 	"wait_enemy", # Command to spawn an enemy
@@ -84,16 +82,9 @@ func activate_tutorial():
 				$TutorialAlert.waiting = false
 				$TutorialAlert.user_confirmation = false
 			
-			"begin_wait_laser":
-				$TutorialAlert.confirmation_key = "shoot_laser"
-				$TutorialAlert.user_confirmation = true
-			
 			"wait_enemy":
 				yield(make_enemy(), "died")
 				$TutorialAlert.user_confirmation = true
-			
-			"end_wait_laser":
-				$TutorialAlert.confirmation_key = "ui_dismiss"
 			
 			_:
 				$TutorialAlert.alert(line, len(line) * .05)

@@ -5,17 +5,21 @@ signal confirmed
 func _input(event):
 	if visible == true and (event is InputEventKey or event is InputEventJoypadButton):
 		if event.is_action_pressed("ui_cancel"):
-			hide()
-			get_tree().paused = false
-			return
-		if event.is_action_pressed("ui_accept"):
 			$AnimationPlayer.play_backwards("fade")
-			yield($AnimationPlayer, "animation_finished")
-			get_tree().paused = false
+		if event.is_action_pressed("ui_accept"):
 			emit_signal("confirmed")
-			hide()
+			$AnimationPlayer.play_backwards("fade")
 
 func open():
-	show()
 	$AnimationPlayer.play("fade")
 	get_tree().paused = true
+
+
+func _on_AnimationPlayer_animation_started(_anim_name):
+	show()
+
+
+func _on_AnimationPlayer_animation_finished(_anim_name):
+	if $AnimationPlayer.current_animation_position == 0: # Quick way to check if an animation finished playing backwards
+		hide()
+		get_tree().paused = false

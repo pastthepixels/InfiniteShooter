@@ -33,7 +33,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 3 ),
 "transitions": PoolRealArray( 0.4, -2 ),
 "update": 0,
-"values": [ 179.0, 50.0 ]
+"values": [ 179.0, 40.0 ]
 }
 
 [node name="CameraEquipment" type="Spatial"]

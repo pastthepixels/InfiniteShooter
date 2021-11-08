@@ -4,28 +4,27 @@ signal finished
 
 export var user_confirmation = false
 
-export var confirmation_key = "ui_dismiss"
-
 var alerting = false
 
 var waiting = false
 
-
-func _input(event):
-	if event.is_action_pressed(confirmation_key) and waiting == true:
-		waiting = false
-		fade_out()
-
-func alert(alert_text, duration=1):
-	alerting = true
-	# user confirmation stuff
-	$UserInputWarning.visible = user_confirmation and confirmation_key == "ui_dismiss"
+func _ready():
 	if Input.get_joy_name(0) != "":
 		$UserInputWarning/Keyboard.hide()
 		$UserInputWarning/Controller.show()
 	else:
 		$UserInputWarning/Keyboard.show()
 		$UserInputWarning/Controller.hide()
+
+func _input(event):
+	if event.is_action_pressed("ui_dismiss") and waiting == true:
+		waiting = false
+		fade_out()
+
+func alert(alert_text, duration=1):
+	alerting = true
+	# user confirmation stuff
+	$UserInputWarning.visible = user_confirmation
 	
 	# everything else
 	hide()
@@ -47,7 +46,7 @@ func fade_out():
 func error(error_text):
 	alert(error_text)
 	$ErrorSound.play()
-	Input.start_joy_vibration(0, 0.6, 1, .2)  # Vibrates a controller if you have one
+	Input.start_joy_vibration(0, 0.6, 1, .2) # Vibrates a controller if you have one
 
 
 func _on_AlertTimer_timeout():

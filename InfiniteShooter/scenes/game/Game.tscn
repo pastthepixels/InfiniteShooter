@@ -41,7 +41,6 @@ margin_bottom = -16.0
 user_confirmation = true
 
 [node name="Countdown" parent="." instance=ExtResource( 8 )]
-visible = false
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 visible = false

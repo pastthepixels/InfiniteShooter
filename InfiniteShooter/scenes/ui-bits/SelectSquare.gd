@@ -1,6 +1,7 @@
 extends Control
 
-export (NodePath) var options_path # Use the group "selectsquare_ignore" to ignore certain nodes
+# Use the group "selectsquare_ignore" to ignore certain nodes
+export (NodePath) var options_path
 
 # Whether or not to automatically show
 export var auto_show = true

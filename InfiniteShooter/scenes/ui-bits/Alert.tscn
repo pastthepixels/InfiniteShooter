@@ -73,8 +73,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "SFX"
+
 [node name="AlertTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/slide = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 show_behind_parent = true
@@ -87,13 +94,6 @@ margin_bottom = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/slide = SubResource( 1 )
-
-[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
-bus = "SFX"
 
 [node name="UserInputWarning" type="HBoxContainer" parent="."]
 margin_left = -9.0

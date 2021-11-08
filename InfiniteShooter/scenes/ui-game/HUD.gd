@@ -10,6 +10,10 @@ var animated_ammo = 100
 
 var low_health = false
 
+var _previous_health = 0
+
+var _previous_ammo = 0
+
 # Textures vased on laser types
 enum TEXTURES { fire, ice, corrosion, default }
 
@@ -22,9 +26,13 @@ export (GradientTexture) var fire_gradient
 export (GradientTexture) var ice_gradient
 
 func _process(_delta):
-	$ProgressBars/HealthBar.value = animated_health
-	$ProgressBars/AmmoBar.value = animated_ammo
 	$StatusBar/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
+	if _previous_health != animated_health:
+		_previous_health = animated_health
+		$ProgressBars/HealthBar.value = animated_health
+	if _previous_ammo != animated_ammo:
+		_previous_ammo = animated_ammo
+		$ProgressBars/AmmoBar.value = animated_ammo
 
 #
 # Updating the status bar
@@ -81,14 +89,19 @@ func update_health(value):
 		$AnimationPlayer.play_backwards("FadeVignette")
 
 func update_ammo(value, refills):
-	
 	$ProgressTween.interpolate_property(
-		self, "animated_ammo", animated_ammo, value * 100, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN
+		self,
+		"animated_ammo",
+		animated_ammo,
+		value * 100,
+		0.1,
+		Tween.TRANS_LINEAR,
+		Tween.EASE_IN
 	)
-	$ProgressBars/AmmoBar/Refills.text = str(refills)
-	$ProgressBars/AmmoBar/Refills.visible = not refills == 0
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
+	$ProgressBars/AmmoBar/Refills.text = str(refills)
+	$ProgressBars/AmmoBar/Refills.visible = not refills == 0
 
 #
 # Alerting text to the player
