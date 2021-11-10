@@ -26,6 +26,7 @@ func _input(event):
 		$Menu/Options.show()
 		
 		# Animations
+		$Title.rotation.x = 0
 		$AnimationPlayer.play("switch")
 		
 		# We need the tween so we can animate the position of the title no matter where it is
