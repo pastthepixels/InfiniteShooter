@@ -3,6 +3,7 @@ extends Node
 
 func _ready():
 	CameraEquipment.get_node("SkyAnimations").play("intro")
+	$Music.play() # Autoplay actually enables looping so we have this instead.
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

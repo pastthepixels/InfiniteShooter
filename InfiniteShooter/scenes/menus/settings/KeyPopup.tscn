@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=2]
@@ -28,13 +28,24 @@ shader = ExtResource( 5 )
 shader_param/lod = 2.0
 shader_param/aberration_strength = 0.1
 
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 0.784314 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
 [sub_resource type="DynamicFont" id=3]
-size = 40
+size = 32
 font_data = ExtResource( 1 )
 
 [node name="KeyPopup" type="Control"]
 pause_mode = 2
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
@@ -69,7 +80,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Foreground" type="ColorRect" parent="."]
+[node name="Foreground" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -78,7 +89,7 @@ margin_left = -200.0
 margin_top = -100.0
 margin_right = 200.0
 margin_bottom = 100.0
-color = Color( 1, 1, 1, 0.784314 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -100,11 +111,11 @@ text = "Press the escape key to cancel this menu"
 align = 1
 valign = 1
 
-[node name="ColorRect" type="ColorRect" parent="Foreground/Content/Warning"]
+[node name="Background" type="Panel" parent="Foreground/Content/Warning"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 1, 1, 1, 0.784314 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

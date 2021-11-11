@@ -51,6 +51,7 @@ func _ready():
 	if Saving.is_tutorial_complete():
 		$Countdown.start()
 	else:
+		$Countdown.queue_free()
 		activate_tutorial()
 
 func _process(_delta):
