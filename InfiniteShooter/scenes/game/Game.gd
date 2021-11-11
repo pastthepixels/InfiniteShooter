@@ -151,7 +151,7 @@ func make_enemy():
 	return enemy
 
 func set_random_enemy_position(times_ran=0):
-	var position = Vector3(Utils.random_screen_point().x, 0, Utils.top_left.z - (.2 * times_ran))
+	var position = Vector3(Utils.random_screen_point(2).x, 0, Utils.top_left.z - (.2 * times_ran))
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if position.distance_to(enemy.translation) < 4:
 			return set_random_enemy_position(times_ran + 1)

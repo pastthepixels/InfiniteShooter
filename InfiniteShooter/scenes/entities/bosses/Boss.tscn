@@ -13,9 +13,7 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 2.2, 0.2, 1.6 )
 
-[node name="Boss" type="Spatial" groups=[
-"bosses",
-]]
+[node name="Boss" type="Spatial" groups=["bosses"]]
 script = ExtResource( 3 )
 paths = [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]
 laser_scene = ExtResource( 9 )

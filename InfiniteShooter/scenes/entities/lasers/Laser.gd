@@ -7,7 +7,7 @@ var damage = 0
 
 export var speed = .4
 
-export var follow_speed = .07
+export var follow_speed = .05
 
 # To stop ships from hurting themselves as soon as they shoot lasers
 var invincible = true

@@ -220,9 +220,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Graphics" type="Label" parent="Content/Options" groups=[
-"selectsquare_ignore",
-]]
+[node name="Graphics" type="Label" parent="Content/Options" groups=["selectsquare_ignore"]]
 margin_top = 37.0
 margin_right = 393.0
 margin_bottom = 54.0
@@ -249,19 +247,19 @@ margin_bottom = 91.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/Options/AntiAliasing"]
-margin_right = 85.0
+margin_right = 89.0
 margin_bottom = 17.0
 mouse_default_cursor_shape = 16
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
-text = "anti-aliasing"
+text = "Anti-Aliasing"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Separator" type="ColorRect" parent="Content/Options/AntiAliasing"]
-margin_left = 95.0
-margin_right = 97.0
+margin_left = 99.0
+margin_right = 101.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
@@ -270,10 +268,10 @@ __meta__ = {
 }
 
 [node name="Description" type="Label" parent="Content/Options/AntiAliasing"]
-margin_left = 107.0
-margin_right = 356.0
+margin_left = 111.0
+margin_right = 361.0
 margin_bottom = 17.0
-text = "smoothens out sharp lines (MSAA 4x)"
+text = "Smoothens out sharp lines (MSAA 8x)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -285,18 +283,18 @@ margin_bottom = 128.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/Options/Bloom"]
-margin_right = 42.0
+margin_right = 44.0
 margin_bottom = 17.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
-text = "bloom"
+text = "Bloom"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Separator" type="ColorRect" parent="Content/Options/Bloom"]
-margin_left = 52.0
-margin_right = 54.0
+margin_left = 54.0
+margin_right = 56.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
@@ -305,17 +303,15 @@ __meta__ = {
 }
 
 [node name="Description" type="Label" parent="Content/Options/Bloom"]
-margin_left = 64.0
-margin_right = 317.0
+margin_left = 66.0
+margin_right = 318.0
 margin_bottom = 17.0
-text = "makes bright parts of the screen glow"
+text = "Makes bright parts of the screen glow"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sound" type="Label" parent="Content/Options" groups=[
-"selectsquare_ignore",
-]]
+[node name="Sound" type="Label" parent="Content/Options" groups=["selectsquare_ignore"]]
 margin_top = 148.0
 margin_right = 393.0
 margin_bottom = 165.0
@@ -347,7 +343,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="Content/Options/MusicVolume"]
 margin_right = 94.0
 margin_bottom = 17.0
-text = "music volume"
+text = "Music Volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="Content/Options/MusicVolume"]
 margin_left = 104.0
@@ -369,13 +365,13 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Content/Options/SFXVolume"]
-margin_right = 73.0
+margin_right = 147.0
 margin_bottom = 17.0
-text = "sfx volume"
+text = "Sound Effects Volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="Content/Options/SFXVolume"]
-margin_left = 83.0
-margin_right = 183.0
+margin_left = 157.0
+margin_right = 257.0
 margin_bottom = 17.0
 value = 100.0
 texture_under = SubResource( 6 )
@@ -383,9 +379,7 @@ texture_progress = SubResource( 8 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
-[node name="Input" type="Label" parent="Content/Options" groups=[
-"selectsquare_ignore",
-]]
+[node name="Input" type="Label" parent="Content/Options" groups=["selectsquare_ignore"]]
 margin_top = 259.0
 margin_right = 393.0
 margin_bottom = 276.0
@@ -563,9 +557,7 @@ margin_bottom = 498.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
 text = "Apply Key Bindings"
 
-[node name="BadStuff" type="Label" parent="Content/Options" groups=[
-"selectsquare_ignore",
-]]
+[node name="BadStuff" type="Label" parent="Content/Options" groups=["selectsquare_ignore"]]
 margin_top = 518.0
 margin_right = 393.0
 margin_bottom = 535.0

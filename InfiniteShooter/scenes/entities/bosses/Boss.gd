@@ -116,6 +116,7 @@ func fire_laser():
 	# Creating the laser
 	var laser = laser_scene.instance()
 	laser.follow_player = true
+	laser.follow_speed = .07
 	laser.followed_player = followed_player
 	laser.sender = self
 	laser.damage = damage

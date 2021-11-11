@@ -100,14 +100,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.06222, 0 )
 
 [node name="SpotLight" type="SpotLight" parent="Title"]
 transform = Transform( 0.967396, 1.10707e-08, -0.253268, 0.251038, -0.132429, 0.958875, -0.0335402, -0.991192, -0.128112, -2.70012, 3.61548, -1.15619 )
-light_energy = 0.8
+light_energy = 0.6
 light_specular = 1.0
 spot_range = 13.711
 spot_angle = 38.7542
 
 [node name="SpotLight2" type="SpotLight" parent="Title"]
 transform = Transform( 0.958556, -0.0353307, 0.282704, -0.281074, -0.279396, 0.918115, 0.0465488, -0.959525, -0.277748, 2.08223, 3.63313, -1.09902 )
-light_energy = 0.8
+light_energy = 0.5
 light_specular = 2.0
 spot_range = 40.4068
 spot_angle = 39.6595

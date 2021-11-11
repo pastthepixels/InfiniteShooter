@@ -108,9 +108,8 @@ surfaces/0 = {
 radius = 1.05
 height = 3.2
 
-[node name="Enemy" type="Spatial" groups=[
-"enemies",
-]]
+[node name="Enemy" type="Spatial" groups=["enemies"]]
+transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 script = ExtResource( 4 )
 powerup_scene = ExtResource( 7 )
 laser_scene = ExtResource( 8 )

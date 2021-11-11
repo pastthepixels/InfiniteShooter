@@ -110,7 +110,7 @@ func save_settings(settings):
 
 	# Sets anti-aliasing (with the strangest ternary operator)
 	get_viewport().msaa = (
-		Viewport.MSAA_4X
+		Viewport.MSAA_8X
 		if settings["antialiasing"] == true
 		else Viewport.MSAA_DISABLED
 	)

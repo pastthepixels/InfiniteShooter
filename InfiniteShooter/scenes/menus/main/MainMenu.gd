@@ -3,8 +3,8 @@ extends Node
 
 func _ready():
 	CameraEquipment.get_node("SkyAnimations").play("intro")
-	$Music.play() # Autoplay actually enables looping so we have this instead.
-
+	$Music.stream.loop = false
+	$Music.play() # Autoplay doesn't work with looping disabled.
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
@@ -29,6 +29,7 @@ func _input(event):
 		# Animations
 		$Title.rotation.x = 0
 		$AnimationPlayer.play("switch")
+		CameraEquipment.get_node("SkyAnimations").seek(CameraEquipment.get_node("SkyAnimations").current_animation_length, true)
 		
 		# We need the tween so we can animate the position of the title no matter where it is
 		$Tween.interpolate_property(
@@ -45,6 +46,7 @@ func _input(event):
 		# Allows things to be selected
 		$Menu/SelectSquare.show()
 		$Menu/SelectSquare.ignore_hits = 1
+
 
 func _on_SelectSquare_selected():
 	match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...
@@ -77,6 +79,7 @@ func _on_Upgrades_closed():
 
 func _on_Leaderboard_closed():
 	return_from_submenu()
+
 
 func return_from_submenu():
 	$Menu/SelectSquare.show()

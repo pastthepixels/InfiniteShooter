@@ -21,11 +21,11 @@ func screen_to_local(vector2):
 
 # Gets a random screen point and converts it to 3d coordinates
 # Note that this depends on top_left.x < top_right.x and top_left.z < bottom_left.z
-func random_screen_point():
+func random_screen_point(margin=0):
 	return Vector3(
-		rand_range(top_left.x, top_right.x), # X values
+		rand_range(top_left.x+margin, top_right.x-margin), # X values
 		0, # Y values
-		rand_range(top_left.z, bottom_left.z)
+		rand_range(top_left.z+margin, bottom_left.z-margin)
 	)
 
 

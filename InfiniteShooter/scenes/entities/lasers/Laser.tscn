@@ -76,9 +76,7 @@ vertex_color_use_as_albedo = true
 material = SubResource( 12 )
 size = Vector2( 0.05, 0.05 )
 
-[node name="Laser" type="Area" groups=[
-"lasers",
-]]
+[node name="Laser" type="Area" groups=["lasers"]]
 script = ExtResource( 2 )
 enemy_material = SubResource( 1 )
 player_material = SubResource( 2 )
