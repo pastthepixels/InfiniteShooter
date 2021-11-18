@@ -51,7 +51,7 @@ func _on_SelectSquare_selected():
 			Saving.save_keys($KeyPopup.set_actions)
 		
 		"ResetGame":
-			$ResetConfirmation.open()
+			$ResetConfirmation.alert("Press the confirm key to reset all userdata", true)
 
 
 # To handle percentage inputs/save settings on input

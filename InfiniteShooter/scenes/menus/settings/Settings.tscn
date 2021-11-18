@@ -7,7 +7,7 @@
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=5]
 [ext_resource path="res://scenes/menus/settings/KeyPopup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/ui-bits/Confirmation.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "close"
