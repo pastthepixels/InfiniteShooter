@@ -96,7 +96,7 @@ anims/switch = SubResource( 2 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Title" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.06222, 0 )
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 0 )
 
 [node name="SpotLight" type="SpotLight" parent="Title"]
 transform = Transform( 0.967396, 1.10707e-08, -0.253268, 0.251038, -0.132429, 0.958875, -0.0335402, -0.991192, -0.128112, -2.70012, 3.61548, -1.15619 )

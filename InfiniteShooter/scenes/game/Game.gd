@@ -23,17 +23,20 @@ export var autospawn_enemies = false # Whether or not to spawn new enemies when 
 # Scripts
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
-	"Use the arrow keys to move around (left stick on a controller).",
-	"and press space or A on a controller to fire a laser.",
-	"begin_wait",
-	"Here comes an enemy ship; don't let it reach the bottom of the screen!",
+	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser.",
+	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
 	"wait_enemy", # Command to spawn an enemy
 	"Next, let's talk about the in-game HUD.",
-	"Your health is the green bar in the top left corner.",
-	"The grey bar is your ammo (the number beside it notes your refills).",
-	"On the bottom, we have the current level, wave, score, and frame rate.",
-	"And that's all you need to know about InfiniteShooter!",
-	"Let's see if you can keep up with the game... good luck!",
+	"Your health is the green bar in the top left corner. The grey bar is your ammo (the number beside it notes your refills).",
+	"On the bottom, we have the current level, wave, score, and frame rate, respectively.",
+	"And that's all you need to know about InfiniteShooter! Thank you for playing and good luck!",
+]
+
+export var tutorial_elemental_script = [
+	"On this level, we'll introduce elemental damage, where different enemy ships have a chance of using a different type of laser.",
+	"You may now be familiar with the concpet of powerups. Now, evey time you destroy a ship that uses elemental damage, it will drop a powerup which gives you its elemental ability when collected.",
+	"However, the white and red powerup you may have previously used to destroy all enemies on the screen actually resets the screen, killing all enemies but resetting your elemental ability.",
+	"Lastly, while dealing with elemental damage, make sure you don't get hit yourself!"
 ]
 
 #
@@ -77,22 +80,23 @@ func _on_Countdown_finished():
 #
 func activate_tutorial():
 	yield(Utils.timeout(.5), "timeout")
-	for line in tutorial_script:
-		match line:
-			"begin_wait":
-				$TutorialAlert.waiting = false
-				$TutorialAlert.user_confirmation = false
-			
-			"wait_enemy":
-				yield(make_enemy(), "died")
-				$TutorialAlert.user_confirmation = true
-			
-			_:
-				$TutorialAlert.alert(line, len(line) * .05)
-				yield($TutorialAlert, "finished")
+	parse_tutorial(tutorial_script)
 	Saving.complete_tutorial()
 	SceneTransition.restart_game()
 
+func activate_tutorial_elemental():
+	parse_tutorial(tutorial_elemental_script)
+
+func parse_tutorial(script):
+	for line in script:
+		match line:
+			"wait_enemy":
+				yield(make_enemy(), "died")
+				yield(Utils.timeout(2), "timeout")
+			
+			_:
+				$TutorialAlert.alert(line)
+				yield($TutorialAlert, "confirmed")
 #
 # Waves, levels, and score
 #
@@ -120,6 +124,12 @@ func level_up():
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
+	# Game mechanics stuff (introducing new features on certain levels)
+	match level:
+		2:
+			yield(Utils.timeout(1), "timeout")
+			GameVariables.use_laser_modifiers = true
+			activate_tutorial_elemental()
 	# Resumes enemy spawning after the popup
 	make_enemies()
 
@@ -130,7 +140,7 @@ func make_enemies():
 	autospawn_enemies = true
 	for enemy in max_enemies_on_screen:
 		make_enemy()
-		yield(Utils.timeout(.5), "timeout")
+		yield(Utils.timeout(1), "timeout")
 
 func make_enemy():
 	# Creates an enemy

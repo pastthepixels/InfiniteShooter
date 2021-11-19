@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/ui-game/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://sounds/levelup.wav" type="AudioStream" id=7]
 [ext_resource path="res://scenes/ui-game/Countdown.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=9]
 [ext_resource path="res://CameraEquipment.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/entities/bosses/Boss.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/entities/enemies/Enemy.tscn" type="PackedScene" id=12]
@@ -36,9 +36,6 @@ bus = "SFX"
 
 [node name="TutorialAlert" parent="." instance=ExtResource( 9 )]
 visible = false
-margin_top = -33.0
-margin_bottom = -16.0
-user_confirmation = true
 
 [node name="Countdown" parent="." instance=ExtResource( 8 )]
 

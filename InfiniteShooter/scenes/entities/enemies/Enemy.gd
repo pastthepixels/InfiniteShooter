@@ -17,7 +17,7 @@ var speed_mult = 1 # Multiplier for speed (pretty straightforward)
 
 onready var use_homing_lasers = rand_range(0, 1) > .5
 
-var use_laser_modifiers = randi() % 10 == 1
+var use_laser_modifiers = (randi() % 10 == 1) and GameVariables.use_laser_modifiers
 
 var last_hit_from
 
