@@ -23,7 +23,8 @@ export var autospawn_enemies = false # Whether or not to spawn new enemies when 
 # Scripts
 export var tutorial_script = [
 	"Welcome to InfniteShooter!",
-	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser.",
+	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser. Try it out!",
+	"wait_5",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
 	"wait_enemy", # Command to spawn an enemy
 	"Next, let's talk about the in-game HUD.",
@@ -45,16 +46,17 @@ export var tutorial_elemental_script = [
 func _ready():
 	# Starts spinning the sky
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
-	# Music stuff and save stuff
-	$GameMusic.start_game() # Fade to a game song
+	# save stuff
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
-	# Begins the countdown/shows the tutorial
+	# Begins the countdown/shows the tutorial/plays appropiate music
 	if Saving.get_tutorial_progress()["initial"] == true:
 		$Countdown.start()
+		$GameMusic.start_game()
 	else:
 		$Countdown.queue_free()
+		$TutorialMusic.play()
 		activate_tutorial()
 
 func _process(_delta):
@@ -98,6 +100,9 @@ func parse_tutorial(script):
 			"wait_enemy":
 				yield(make_enemy(), "died")
 				yield(Utils.timeout(2), "timeout")
+			
+			"wait_5":
+				yield(Utils.timeout(5), "timeout")
 			
 			_:
 				$TutorialAlert.alert(line)
