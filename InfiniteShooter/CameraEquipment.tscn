@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -17,6 +17,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 40.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky_orientation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -48,6 +60,35 @@ tracks/1/keys = {
 "values": [ 40.0 ]
 }
 
+[sub_resource type="Animation" id=4]
+resource_name = "Wander"
+length = 32.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:background_sky_rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 16, 32 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -180, 30, 0 ), Vector3( -360, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky_custom_fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 40.0 ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "intro"
 length = 3.0
@@ -62,6 +103,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 0.4, -2 ),
 "update": 0,
 "values": [ 179.0, 40.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky_orientation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 
 [node name="CameraEquipment" type="Spatial"]
@@ -80,6 +133,7 @@ three_camera = NodePath("../Camera")
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/SkyRotate = SubResource( 1 )
+anims/Wander = SubResource( 4 )
 anims/intro = SubResource( 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

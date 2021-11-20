@@ -29,6 +29,7 @@ func _input(event):
 		# Animations
 		$Title.rotation.x = 0
 		$AnimationPlayer.play("switch")
+		CameraEquipment.get_node("SkyAnimations").play("Wander")
 		
 		# We need the tween so we can animate the position of the title no matter where it is
 		$Tween.interpolate_property(

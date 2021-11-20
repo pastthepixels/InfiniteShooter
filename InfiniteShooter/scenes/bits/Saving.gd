@@ -6,7 +6,7 @@ onready var dir = Directory.new()
 
 var PATHS = {
 	"userdata": "user://userdata.txt",
-	"tutorial_complete": "user://tutorial-complete",
+	"tutorial_complete": "user://tutorial-progress.json",
 	"leaderboard": "user://scores.txt",
 	"settings": "user://settings.json",
 	"keybindings": "user://keybindings.json",
@@ -28,6 +28,11 @@ var default_settings = {
 	"bloom": true,
 	"musicvol": 100,
 	"sfxvol": 100
+}
+
+var default_tutorial_progress = {
+	"initial": false,
+	"elemental": false
 }
 
 #
@@ -52,13 +57,17 @@ func save_userdata(userdata):
 #
 # Tutorial information
 #
-func is_tutorial_complete():
-	return file.file_exists(PATHS.tutorial_complete)
+func get_tutorial_progress():
+	file.open(PATHS.tutorial_complete, File.READ)
+	var line = file.get_line()
+	if line == "":
+		return Saving.default_tutorial_progress
+	else:
+		return parse_json(line)
 
-func complete_tutorial():
-	var file = File.new() # Creates a new File object, for handling file operations
+func set_tutorial_progress(progress):
 	file.open(PATHS.tutorial_complete, File.WRITE)
-	file.store_line("true")
+	file.store_line(to_json(progress))
 
 #
 # Scores + getting the current date/time into a readable string

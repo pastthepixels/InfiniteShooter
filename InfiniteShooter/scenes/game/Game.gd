@@ -51,7 +51,7 @@ func _ready():
 	# HUD stuff
 	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
 	# Begins the countdown/shows the tutorial
-	if Saving.is_tutorial_complete():
+	if Saving.get_tutorial_progress()["initial"] == true:
 		$Countdown.start()
 	else:
 		$Countdown.queue_free()
@@ -80,12 +80,17 @@ func _on_Countdown_finished():
 #
 func activate_tutorial():
 	yield(Utils.timeout(.5), "timeout")
-	parse_tutorial(tutorial_script)
-	Saving.complete_tutorial()
+	yield(parse_tutorial(tutorial_script), "completed")
+	var progress = Saving.get_tutorial_progress()
+	progress["initial"] = true
+	Saving.set_tutorial_progress(progress)
 	SceneTransition.restart_game()
 
 func activate_tutorial_elemental():
-	parse_tutorial(tutorial_elemental_script)
+	yield(parse_tutorial(tutorial_elemental_script), "completed")
+	var progress = Saving.get_tutorial_progress()
+	progress["elemental"] = true
+	Saving.set_tutorial_progress(progress)
 
 func parse_tutorial(script):
 	for line in script:
@@ -129,7 +134,7 @@ func level_up():
 		2:
 			yield(Utils.timeout(1), "timeout")
 			GameVariables.use_laser_modifiers = true
-			activate_tutorial_elemental()
+			if Saving.get_tutorial_progress()["elemental"] == false: activate_tutorial_elemental()
 	# Resumes enemy spawning after the popup
 	make_enemies()
 
