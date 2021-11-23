@@ -19,7 +19,14 @@ InfiniteShooter Sounds To Do List
 [ ] Explosions
 ## Soundtrack
 [ ] Game soundtrack
-[ ] Main menu soundtrack
+    [ ] 1/6
+    [ ] 2/6
+    [ ] 3/6
+    [ ] 4/6
+    [ ] 5/6
+    [ ] 6/6
+[.] Main menu soundtrack
+[.] Tutorial screen soundtrack
 ## GUI
 [ ] Alerts
 [ ] Confirmation dialog (e.g. resetting)
