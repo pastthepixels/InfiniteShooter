@@ -11,8 +11,7 @@ func explode():
 
 		# Vibrates the first controller and shakes the screen
 		Input.start_joy_vibration(0, 0.5, 0.7, .2)
-		if has_node("/root/Main/ShakeCamera"):
-			get_node("/root/Main/ShakeCamera").add_trauma(.2)
+		CameraEquipment.get_node("ShakeCamera").add_trauma(.4)
 		
 		# Plays an explosion sound at a random pitch
 		$ExplosionSound.pitch_scale = rand_range(0.8, 1.2)

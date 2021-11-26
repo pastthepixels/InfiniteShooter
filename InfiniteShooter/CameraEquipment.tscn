@@ -128,7 +128,7 @@ pause_mode = 2
 position = Vector2( 300, 400 )
 current = true
 script = ExtResource( 1 )
-three_camera = NodePath("../Camera")
+max_trauma = 0.6
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )

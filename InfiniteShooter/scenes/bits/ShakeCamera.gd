@@ -3,8 +3,6 @@
 #
 extends Camera2D
 
-export (NodePath) var three_camera # Any 3D camera that also needs to be shaken.
-
 export var decay = 0.8  # How quickly the shaking stops [0, 1].
 
 export var max_offset = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
@@ -15,13 +13,13 @@ export (NodePath) var target  # Assign the node this camera will follow.
 
 var trauma = 0.0  # Current shake strength.
 
+export var max_trauma = 1.0 # Max shake strength.
+
 var trauma_power = 2  # Trauma exponent. Use [2, 3].
 
 onready var noise = OpenSimplexNoise.new()
 
 var noise_y = 0
-
-var threecam_default_translation = Vector3()
 
 
 func _ready():
@@ -29,12 +27,11 @@ func _ready():
 	noise.seed = randi()
 	noise.period = 4
 	noise.octaves = 2
-	if three_camera:
-		threecam_default_translation = get_node(three_camera).translation
 
 
 func add_trauma(amount):
-	trauma = min(trauma + amount, 1.0)
+	print(amount)
+	trauma = min(trauma + amount, max_trauma)
 
 
 func _process(delta):
@@ -43,10 +40,6 @@ func _process(delta):
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
-	if three_camera and trauma:
-		get_node(three_camera).translation = threecam_default_translation
-		get_node(three_camera).translation = Utils.screen_to_local(global_position+offset) + threecam_default_translation
-		get_node(three_camera).rotation.y = rotation
 
 
 func shake():
@@ -58,3 +51,8 @@ func shake():
 	rotation = max_roll * amount * noise.get_noise_2d(noise.seed, noise_y)
 	offset.x = max_offset.x * amount * noise.get_noise_2d(noise.seed * 2, noise_y)
 	offset.y = max_offset.y * amount * noise.get_noise_2d(noise.seed * 3, noise_y)
+	
+	# Added code to work with 3d stuff
+	get_parent().translation = Vector3()
+	get_parent().translation = Utils.screen_to_local(global_position+offset) + Vector3()
+	get_parent().rotation.y = rotation
