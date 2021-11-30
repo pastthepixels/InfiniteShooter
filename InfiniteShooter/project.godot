@@ -31,7 +31,6 @@ Saving="*res://scenes/bits/Saving.gd"
 window/size/width=600
 window/size/height=800
 window/size/resizable=false
-window/vsync/vsync_via_compositor=true
 
 [gui]
 

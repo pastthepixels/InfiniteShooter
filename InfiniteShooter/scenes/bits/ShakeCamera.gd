@@ -30,7 +30,6 @@ func _ready():
 
 
 func add_trauma(amount):
-	print(amount)
 	trauma = min(trauma + amount, max_trauma)
 
 

@@ -192,7 +192,6 @@ func _on_Enemy_died(ship, from_player):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Score
 		if from_player: score += ship.max_health / 2
-		ship.disconnect("died", self, "_on_enemy_died_score")
 		$HUD.update_score(score)
 		
 		# Wave progression

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/ui-bits/SceneTransition.gd" type="Script" id=1]
 [ext_resource path="res://sounds/scene-switch.wav" type="AudioStream" id=2]
@@ -83,6 +83,9 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=3]
+length = 0.001
+
 [node name="SceneTransition" type="Control"]
 pause_mode = 2
 anchor_right = 1.0
@@ -106,5 +109,6 @@ bus = "SFX"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/In = SubResource( 1 )
 anims/Out = SubResource( 2 )
+anims/RESET = SubResource( 3 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
