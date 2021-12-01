@@ -68,7 +68,7 @@ func set_keys():
 		if InputMap.action_has_event(action, set_actions[action][0]):
 			InputMap.action_erase_event(action, set_actions[action][0])
 			InputMap.action_add_event(action, set_actions[action][1])
-
+# The pizza is a lie!
 
 func _on_AnimationPlayer_animation_started(_anim_name):
 	show()
