@@ -99,7 +99,7 @@ func _process(delta):
 		previous_health = health
 		update_health()
 	if freeze_movement: return
-	translation.z += 3 * speed_mult * delta
+	translation.z += 2 * speed_mult * delta
 	# If it is such that the center of the ship moves past the bottom of the screen...
 	if translation.z >= Utils.bottom_left.z:
 		if has_node("../Player") and get_node("../Player").godmode == false:
