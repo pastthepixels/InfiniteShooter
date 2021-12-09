@@ -54,9 +54,9 @@ func _ready():
 func _process(delta):
 	if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
 		$Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
-		if stepify(translation.z, follow_speed) != stepify(followed_player.translation.z, follow_speed):
+		if stepify(translation.z, follow_speed/2) != stepify(followed_player.translation.z, follow_speed/2):
 			translation.z += (follow_speed*delta) if stepify(translation.z, (follow_speed*delta)) < stepify(followed_player.translation.z, (follow_speed*delta)) else -(follow_speed*delta)
-		if stepify(translation.x, follow_speed) != stepify(followed_player.translation.x, follow_speed):
+		if stepify(translation.x, follow_speed/2) != stepify(followed_player.translation.x, follow_speed/2):
 			translation.x += (follow_speed*delta) if stepify(translation.x, (follow_speed*delta)) < stepify(followed_player.translation.x, (follow_speed*delta)) else -(follow_speed*delta)
 	else:
 		translation.z += speed * delta

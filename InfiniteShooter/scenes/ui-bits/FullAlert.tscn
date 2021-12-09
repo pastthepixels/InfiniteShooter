@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/ui-bits/FullAlert.gd" type="Script" id=2]
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=3]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=4]
+[ext_resource path="res://sounds-new/alert.mp3" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -94,6 +95,10 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 6 )
 anims/fade = SubResource( 1 )
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 copy_mode = 2

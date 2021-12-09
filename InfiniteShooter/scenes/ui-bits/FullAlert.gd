@@ -33,6 +33,7 @@ func alert(text, can_be_exited=false):
 	$Foreground/PanelContainer/Content/MarginContainer/Alert.text = text
 	$AnimationPlayer.play("RESET")
 	$AnimationPlayer.play("fade")
+	$Sound.play()
 
 
 func _on_AnimationPlayer_animation_started(anim_name):

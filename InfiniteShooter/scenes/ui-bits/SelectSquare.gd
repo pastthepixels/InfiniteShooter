@@ -52,6 +52,9 @@ func _input(event):
 		$SelectSound.play()
 		$AnimationPlayer.play("Fade")
 	
+	if event.is_action_pressed("ui_accept"):
+		$KeyDownSound.play()
+	
 	if event.is_action_released("ui_accept"):
 		$AcceptSound.play()
 		emit_signal("selected")

@@ -116,6 +116,7 @@ func alert(text, duration, switchto_text=""):
 	# Waits
 	yield(Utils.timeout(duration/2), "timeout")
 	if switchto_text != "": # This variable is for animations like when the level is increased, showing the previous and new level.
+		$Alert/Sound.play()
 		$Alert/Label.text = switchto_text
 	yield(Utils.timeout(duration/2), "timeout")
 	# Fades out

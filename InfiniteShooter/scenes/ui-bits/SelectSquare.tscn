@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/ui-bits/SelectSquare.gd" type="Script" id=1]
-[ext_resource path="res://sounds/gui-select.wav" type="AudioStream" id=2]
-[ext_resource path="res://sounds/gui-use.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds-new/select-option.mp3" type="AudioStream" id=2]
+[ext_resource path="res://sounds-new/use-option.mp3" type="AudioStream" id=3]
+[ext_resource path="res://sounds-new/button-down-action.mp3" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
@@ -46,6 +47,10 @@ bus = "SFX"
 
 [node name="SelectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+bus = "SFX"
+
+[node name="KeyDownSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 bus = "SFX"
 
 [node name="Background" type="TextureRect" parent="."]

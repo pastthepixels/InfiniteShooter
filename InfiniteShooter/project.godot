@@ -37,6 +37,12 @@ window/size/resizable=false
 theme/custom="res://resources/theme.tres"
 theme/custom_font="res://resources/default_font.tres"
 
+[importer_defaults]
+
+mp3={
+"loop": false
+}
+
 [input]
 
 ui_accept={
