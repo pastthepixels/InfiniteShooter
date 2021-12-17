@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/pause.mp3-b77078bc9c2c4ae104d59adaf2973ce2.mp3str"
+
+[deps]
+
+source_file="res://sounds/pause.mp3"
+dest_files=[ "res://.import/pause.mp3-b77078bc9c2c4ae104d59adaf2973ce2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

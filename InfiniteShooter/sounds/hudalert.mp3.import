@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hudalert.mp3-fa08367a9f86e91deb597401fea58621.mp3str"
+
+[deps]
+
+source_file="res://sounds/hudalert.mp3"
+dest_files=[ "res://.import/hudalert.mp3-fa08367a9f86e91deb597401fea58621.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

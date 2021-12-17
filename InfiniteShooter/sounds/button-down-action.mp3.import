@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/button-down-action.mp3-13dd6ea998cb5122544c9d321ff82338.mp3str"
+
+[deps]
+
+source_file="res://sounds/button-down-action.mp3"
+dest_files=[ "res://.import/button-down-action.mp3-13dd6ea998cb5122544c9d321ff82338.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

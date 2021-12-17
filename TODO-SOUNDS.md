@@ -10,16 +10,14 @@ InfiniteShooter Sounds To Do List
 ## Game stuff
 [.] Wave/leveling up
 [.] Countdown
-## Enemy ships
-[ ] Moving
 ## Lasers
 [ ] Firing
-[ ] Hitting ships
-[ ] Burning
-[ ] Freezing
-[ ] Corrosion
+[.] Hitting ships
+[.] Burning (https://freesound.org/people/midimagician/sounds/249418/)
+[.] Freezing (https://freesound.org/people/td6d/sounds/184225/)
+[.] Corrosion (https://freesound.org/people/td6d/sounds/184225/, edited)
 ## Ships
-[ ] Explosions
+[.] Explosions
 ## Soundtrack
 [.] Game soundtrack
     [.] 1/6

@@ -60,7 +60,6 @@ func _on_Powerup_area_entered(area):
 			area.modifier = modifier
 
 		$MainAnimations.play("use")
-		$AudioStreamPlayer.pitch_scale = rand_range(1, 1.1)
 		$AudioStreamPlayer.play()
 		$CollisionShape.set_deferred("disabled", true)
 
@@ -78,3 +77,4 @@ func _on_AudioStreamPlayer_finished():
 
 func _on_MainAnimations_animation_finished(anim_name):
 	if anim_name == "hide": queue_free()
+	if anim_name != "creation": hide()

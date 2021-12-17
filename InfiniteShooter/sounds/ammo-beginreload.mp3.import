@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ammo-beginreload.mp3-4b7ae20b10eb9a909bb4f6f2853b0d10.mp3str"
+
+[deps]
+
+source_file="res://sounds/ammo-beginreload.mp3"
+dest_files=[ "res://.import/ammo-beginreload.mp3-4b7ae20b10eb9a909bb4f6f2853b0d10.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

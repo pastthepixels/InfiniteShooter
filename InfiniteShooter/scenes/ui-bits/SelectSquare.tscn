@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/ui-bits/SelectSquare.gd" type="Script" id=1]
-[ext_resource path="res://sounds-new/select-option.mp3" type="AudioStream" id=2]
-[ext_resource path="res://sounds-new/use-option.mp3" type="AudioStream" id=3]
-[ext_resource path="res://sounds-new/button-down-action.mp3" type="AudioStream" id=4]
+[ext_resource path="res://sounds/select-option.mp3" type="AudioStream" id=2]
+[ext_resource path="res://sounds/use-option.mp3" type="AudioStream" id=3]
+[ext_resource path="res://sounds/button-down-action.mp3" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"

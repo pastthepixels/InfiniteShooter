@@ -1,6 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/entities/lasereffects/LaserEffects.gd" type="Script" id=1]
+[ext_resource path="res://sounds/corrosion.mp3" type="AudioStream" id=2]
+[ext_resource path="res://sounds/fire.mp3" type="AudioStream" id=3]
+[ext_resource path="res://sounds/ice.mp3" type="AudioStream" id=4]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.503876, 1 )
@@ -112,6 +115,15 @@ lifetime = 2.0
 speed_scale = 0.5
 process_material = SubResource( 13 )
 draw_pass_1 = SubResource( 15 )
+
+[node name="IceSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="FireSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="CorrosionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="BleedTimer" to="." method="_on_BleedTimer_timeout"]

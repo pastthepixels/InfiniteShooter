@@ -20,7 +20,7 @@
 [ext_resource path="res://images/explosion/0016.png" type="Texture" id=18]
 [ext_resource path="res://images/explosion/0014.png" type="Texture" id=19]
 [ext_resource path="res://images/explosion/0001.png" type="Texture" id=20]
-[ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=21]
+[ext_resource path="res://sounds/explosion.mp3" type="AudioStream" id=21]
 [ext_resource path="res://scenes/entities/explosions/Explosion.gd" type="Script" id=22]
 
 [sub_resource type="SpriteFrames" id=1]

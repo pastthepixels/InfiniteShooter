@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/menus/pause/PauseMenu.gd" type="Script" id=1]
-[ext_resource path="res://sounds/unpause.wav" type="AudioStream" id=3]
-[ext_resource path="res://sounds/pause.wav" type="AudioStream" id=4]
+[ext_resource path="res://music/paused.mp3" type="AudioStream" id=2]
+[ext_resource path="res://sounds/resume.mp3" type="AudioStream" id=3]
+[ext_resource path="res://sounds/pause.mp3" type="AudioStream" id=4]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=7]
@@ -66,6 +67,7 @@ font_data = ExtResource( 8 )
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 6 )
@@ -81,6 +83,11 @@ anims/BorderPulse = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 2 )
 anims/FadeOut = SubResource( 3 )
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -10.0
+bus = "Music"
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/corrosion.mp3-325617e07052d00acf085fc460addc72.mp3str"
+
+[deps]
+
+source_file="res://sounds/corrosion.mp3"
+dest_files=[ "res://.import/corrosion.mp3-325617e07052d00acf085fc460addc72.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

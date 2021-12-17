@@ -4,7 +4,7 @@
 [ext_resource path="res://models/powerups/medkit.glb" type="PackedScene" id=2]
 [ext_resource path="res://models/powerups/ammo.glb" type="PackedScene" id=3]
 [ext_resource path="res://scenes/entities/powerups/Powerup.gd" type="Script" id=4]
-[ext_resource path="res://sounds/powerup.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/use-powerup.mp3" type="AudioStream" id=5]
 [ext_resource path="res://models/powerups/template.glb" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
@@ -116,9 +116,8 @@ flags_unshaded = true
 flags_world_triplanar = true
 albedo_color = Color( 1, 0, 0, 0 )
 
-[node name="Powerup" type="Area" groups=[
-"powerups",
-]]
+[node name="Powerup" type="Area" groups=["powerups"]]
+transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 script = ExtResource( 4 )
 
 [node name="SpinAnimation" type="AnimationPlayer" parent="."]

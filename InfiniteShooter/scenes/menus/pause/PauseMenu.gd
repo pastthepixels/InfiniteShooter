@@ -35,6 +35,8 @@ func toggle_pause():
 	get_tree().paused = visible
 	
 	if get_tree().paused == true:
+		$Ambience.play()
 		$PauseSound.play()
 	else:
+		$Ambience.stop()
 		$ResumeSound.play()

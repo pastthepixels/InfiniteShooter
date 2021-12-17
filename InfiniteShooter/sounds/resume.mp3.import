@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/resume.mp3-985aa59b4f22ac4c9bfafc157caeaad1.mp3str"
+
+[deps]
+
+source_file="res://sounds/resume.mp3"
+dest_files=[ "res://.import/resume.mp3-985aa59b4f22ac4c9bfafc157caeaad1.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

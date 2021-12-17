@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ammo-reloadboop.mp3-f9b5c170306e044149b3f36ab9c38806.mp3str"
+
+[deps]
+
+source_file="res://sounds/ammo-reloadboop.mp3"
+dest_files=[ "res://.import/ammo-reloadboop.mp3-f9b5c170306e044149b3f36ab9c38806.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

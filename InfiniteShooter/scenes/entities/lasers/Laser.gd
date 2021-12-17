@@ -102,7 +102,7 @@ func _on_Laser_area_entered(area):
 func handle_modifiers(ship):
 	match modifier:
 		MODIFIERS.fire:
-			ship.get_node("LaserEffects").bleed(.5, 3)
+			ship.get_node("LaserEffects").bleed(.5, 10)
 			ship.get_node("LaserEffects").start_fire()
 			ship.get_node("LaserEffects").sender = sender
 		MODIFIERS.corrosion:
@@ -138,6 +138,7 @@ func remove_laser(hit_ship=false):
 	
 	# Waits a bit before queue_free-ing
 	if $HitSound.playing == true: yield($HitSound, "finished")
+	if $EOLSound.playing == true: yield($EOLSound, "finished")
 	if $LaserSound.playing == true: yield($LaserSound, "finished")
 	if $Particles.emitting == true: yield(Utils.timeout(.5), "timeout")
 	queue_free()
@@ -148,6 +149,7 @@ func _on_VisibilityNotifier_screen_exited():
 
 
 func _on_FollowTimer_timeout():
+	$EOLSound.play()
 	remove_laser(false)
 
 

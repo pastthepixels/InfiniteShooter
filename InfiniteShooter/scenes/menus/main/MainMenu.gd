@@ -46,6 +46,11 @@ func _input(event):
 		# Allows things to be selected
 		$Menu/SelectSquare.show()
 		$Menu/SelectSquare.ignore_hits = 1
+		
+		# Alerts new players of what buttons to press
+		if Saving.get_tutorial_progress()["initial"] == false:
+			yield(Utils.timeout(1), "timeout")
+			$Alert.alert("Welcome to InfiniteShooter! Press the spacebar or A on a controller to start.", 5)
 
 
 func _on_SelectSquare_selected():

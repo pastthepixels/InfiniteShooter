@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/paused.mp3-aee77f1bb0fd2a0bd74f6115b7793695.mp3str"
+
+[deps]
+
+source_file="res://music/paused.mp3"
+dest_files=[ "res://.import/paused.mp3-aee77f1bb0fd2a0bd74f6115b7793695.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
