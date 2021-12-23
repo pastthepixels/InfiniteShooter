@@ -1,10 +1,10 @@
 app-id: com.pastthepixels.InfiniteShooter
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+runtime-version: 21.08
 sdk: org.freedesktop.Sdk
-command: infiniteshooter-launcher
+command: InfiniteShooter.x86_64
 modules:
-  # InfiniteShooter/shortcut/launcher
+  # InfiniteShooter
   - name: InfiniteShooter
     buildsystem: simple
     build-commands:
@@ -15,8 +15,7 @@ modules:
         path: game/InfiniteShooter.x86_64
       - type: file
         path: game/InfiniteShooter.pck
-      - type: file
-        path: set-gtk-dark-theme.py
+  # InfiniteShooter's .desktop shortcut
   - name: InfiniteShooterShortcut
     buildsystem: simple
     build-commands:
@@ -27,18 +26,16 @@ modules:
         path: com.pastthepixels.InfiniteShooter.desktop
       - type: file
         path: com.pastthepixels.InfiniteShooter.png
+  # InfiniteShooter's launcher script
   - name: InfiniteShooterLauncher
     buildsystem: simple
     build-commands:
-      - install -Dm755 set-gtk-dark-theme.py /app/bin
       - install -D infiniteshooter-launcher /app/bin
     sources:
-      - type: file
-        path: set-gtk-dark-theme.py
       - type: file
         path: infiniteshooter-launcher
 finish-args:
   - --share=ipc
-  - --socket=x11
+  - --socket=x11 # <-- Godot needs X11
   - --socket=pulseaudio
   - --device=all # <-- This flag enables controller support
