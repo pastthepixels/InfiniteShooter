@@ -1,0 +1,3 @@
+#!/bin/bash
+set-gtk-dark-theme.py &
+InfiniteShooter.x86_64

@@ -1,5 +1,0 @@
-#!/bin/bash
-godot-runner &
-sleep 10
-set-gtk-dark-theme.py
-echo true

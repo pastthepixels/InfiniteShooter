@@ -1,0 +1,44 @@
+app-id: com.pastthepixels.InfiniteShooter
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+command: infiniteshooter-launcher
+modules:
+  # InfiniteShooter/shortcut/launcher
+  - name: InfiniteShooter
+    buildsystem: simple
+    build-commands:
+      - install -D InfiniteShooter.x86_64 /app/bin/InfiniteShooter.x86_64
+      - install -D InfiniteShooter.pck /app/bin/InfiniteShooter.pck
+    sources:
+      - type: file
+        path: game/InfiniteShooter.x86_64
+      - type: file
+        path: game/InfiniteShooter.pck
+      - type: file
+        path: set-gtk-dark-theme.py
+  - name: InfiniteShooterShortcut
+    buildsystem: simple
+    build-commands:
+      - install -D com.pastthepixels.InfiniteShooter.desktop /app/share/applications/com.pastthepixels.InfiniteShooter.desktop
+      - install -D com.pastthepixels.InfiniteShooter.png /app/share/icons/hicolor/256x256/apps/com.pastthepixels.InfiniteShooter.png
+    sources:
+      - type: file
+        path: com.pastthepixels.InfiniteShooter.desktop
+      - type: file
+        path: com.pastthepixels.InfiniteShooter.png
+  - name: InfiniteShooterLauncher
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 set-gtk-dark-theme.py /app/bin
+      - install -D infiniteshooter-launcher /app/bin
+    sources:
+      - type: file
+        path: set-gtk-dark-theme.py
+      - type: file
+        path: infiniteshooter-launcher
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=all # <-- This flag enables controller support

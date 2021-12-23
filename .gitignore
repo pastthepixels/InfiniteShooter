@@ -1,3 +1,2 @@
 # Compiled files for building Flatpaks
-Production/.flatpak-builder/*
-Production/Flatpak/.flatpak-builder/*
+Flatpak/build/*

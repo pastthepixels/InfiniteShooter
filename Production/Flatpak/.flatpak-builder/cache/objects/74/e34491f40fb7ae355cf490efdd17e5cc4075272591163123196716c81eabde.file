@@ -1,5 +1,0 @@
-[Application]
-name=com.pastthepixels.InfiniteShooter
-runtime=org.freedesktop.Platform/x86_64/20.08
-sdk=org.freedesktop.Sdk/x86_64/20.08
-base=app/org.godotengine.godot.BaseApp/x86_64/3.3
