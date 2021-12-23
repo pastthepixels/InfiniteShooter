@@ -79,9 +79,6 @@ func set_laser():
 		
 		MODIFIERS.corrosion:
 			$Laser.set_surface_material(0, corrosion_material)
-	
-	# Sets the material of the particle thing
-	$Particles.draw_pass_1.surface_set_material(0, $Laser.get_surface_material(0))
 
 # Called when the laser collides with objects
 func _on_Laser_area_entered(area):

@@ -18,7 +18,7 @@ var enemies_in_wave = 0
 
 var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
-export var autospawn_enemies = false # Whether or not to spawn new enemies when they die
+var autospawn_enemies = false # Whether or not to spawn new enemies when they die (used within this script)
 
 # Scripts
 export var tutorial_script = [

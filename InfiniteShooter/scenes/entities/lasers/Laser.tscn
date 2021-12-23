@@ -72,6 +72,7 @@ color_ramp = SubResource( 10 )
 [sub_resource type="SpatialMaterial" id=12]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
+albedo_color = Color( 0.705882, 0.705882, 0.705882, 1 )
 
 [sub_resource type="PlaneMesh" id=13]
 material = SubResource( 12 )

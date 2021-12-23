@@ -3,8 +3,7 @@ extends Node
 
 func _ready():
 	CameraEquipment.get_node("SkyAnimations").play("intro")
-	$Music.stream.loop = false
-	$Music.play() # Autoplay doesn't work with looping disabled.
+
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:

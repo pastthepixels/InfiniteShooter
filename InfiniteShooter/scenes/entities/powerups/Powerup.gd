@@ -58,10 +58,10 @@ func _on_Powerup_area_entered(area):
 						enemy.health = 0
 		else:
 			area.modifier = modifier
-
+	
+		$CollisionShape.set_deferred("disabled", true)
 		$MainAnimations.play("use")
 		$AudioStreamPlayer.play()
-		$CollisionShape.set_deferred("disabled", true)
 
 
 func _on_CountdownTimer_timeout():

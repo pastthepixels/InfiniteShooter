@@ -10,7 +10,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:volume_db")
 tracks/0/interp = 1
@@ -18,14 +18,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -80.0, 0.0 ]
+"values": [ -20.0, 0.0 ]
 }
 
 [node name="GameMusic" type="AudioStreamPlayer"]
-volume_db = -80.0
+volume_db = -20.0
 bus = "Music"
 script = ExtResource( 1 )
 game_songs = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ) ]
