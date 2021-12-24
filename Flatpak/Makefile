@@ -29,7 +29,7 @@ flatpak:
 	# Installing dependences
 	echo "Let's make sure you have the right Flatpaks installed to compile InfiniteShooter with flatpak-builder."
 	flatpak install org.freedesktop.Sdk/x86_64/20.08
-	
+
 	# Creates a "repo", whatever that means. Modified from https://github.com/scx/qalculate-flatpak#create-repo
 	flatpak-builder --repo="repo" --force-clean "build" "com.pastthepixels.InfiniteShooter.yml"
 

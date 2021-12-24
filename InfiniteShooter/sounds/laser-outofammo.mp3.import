@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/laser-outofammo.mp3-4a1d3b588e5f3dbab1ed8e30abef14b0.mp3str"
+
+[deps]
+
+source_file="res://sounds/laser-outofammo.mp3"
+dest_files=[ "res://.import/laser-outofammo.mp3-4a1d3b588e5f3dbab1ed8e30abef14b0.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

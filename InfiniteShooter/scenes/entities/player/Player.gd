@@ -93,6 +93,8 @@ func _process(delta):
 
 # Firing lasers
 func _input(event):
+	if event.is_action_pressed("shoot_laser") and self.ammo == 0:
+		$AmmoClick.play()
 	if (
 		event.is_action_pressed("shoot_laser")
 		and self.ammo > 0

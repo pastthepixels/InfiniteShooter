@@ -21,19 +21,14 @@ modules:
     build-commands:
       - install -D com.pastthepixels.InfiniteShooter.desktop /app/share/applications/com.pastthepixels.InfiniteShooter.desktop
       - install -D com.pastthepixels.InfiniteShooter.png /app/share/icons/hicolor/256x256/apps/com.pastthepixels.InfiniteShooter.png
+      - install -D com.pastthepixels.InfiniteShooter.appdata.xml /app/share/metainfo/com.pastthepixels.InfiniteShooter.appdata.xml
     sources:
       - type: file
         path: com.pastthepixels.InfiniteShooter.desktop
       - type: file
         path: com.pastthepixels.InfiniteShooter.png
-  # InfiniteShooter's launcher script
-  - name: InfiniteShooterLauncher
-    buildsystem: simple
-    build-commands:
-      - install -D infiniteshooter-launcher /app/bin
-    sources:
       - type: file
-        path: infiniteshooter-launcher
+        path: com.pastthepixels.InfiniteShooter.appdata.xml
 finish-args:
   - --share=ipc
   - --socket=x11 # <-- Godot needs X11

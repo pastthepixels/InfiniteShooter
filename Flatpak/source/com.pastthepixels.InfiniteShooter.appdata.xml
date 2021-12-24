@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>com.pastthepixels.InfiniteShooter.desktop</id>
+    <project_license>GPL-3.0</project_license>
+    <metadata_license>CC0-1.0</metadata_license>
+    <name>InfiniteShooter</name>
+    <summary>A shooter game.</summary>
+    <description>
+        <p>
+            InfiniteShooter is a simple shooter game made in the Godot game engine.
+        </p>
+    </description>
+    <url type="homepage">https://github.com/pastthepixels/InfiniteShooter</url>
+    <content_rating type="oars-1.1" />
+    <releases>
+        <release version="3.0" date="2021-12-24"/>
+    </releases>
+</component>

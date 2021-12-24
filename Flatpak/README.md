@@ -1,20 +1,17 @@
-InfiniteShooter "Production" files
-==================================
-This contains all the files required to create packages for InfiniteShooter. I am currently supplying Flatpaks because they are WAY easier than compiling disto-specific packages. If more people use InfiniteShooter I might publish it to Steam, mitigating the need for compiling it... or I could publish it to Flathub, or both. Also publishing InfiniteShooter to Steam will enable better Windows support.
-  
-The main reason for having this folder though was because Godot _exports_ InfiniteShooter, but doesn't make it "deployable" as an installable program on other systems.  
-  
---> Note: Type `make compile` to compile InfiniteShooter from Godot to the folder "sources".
+InfiniteShooter Flatpak stuff
+=============================
+This contains all the files required to create a Flatpak for InfiniteShooter.
 
 ## Prerequisites
 - Godot (flatpak/native)
 - flatpak-builder
 - Export templates for Godot 
+- Linux
 
-## To fully compile a new package...
-1. Ensure Godot has the correct libraries to compile releases
-2. Clone this repository somewhere.
-3. Open up a console. Type "make compile".
-4. Once this has finished, ensure you have `flatpak-builder` installed.
-5. Type "make flatpak".
-6. Type "flatpak install Flatpak/InfiniteShooter.flatpak" to install InfiniteShooter or "make clean" to clean up everything.
+## The Steps
+1. Open a terminal in this folder.
+2. Type `make setup`
+3. Type `make compile`
+4. OPTIONAL: Type `make test` to install the flatpak without fully building it yet. Once you are happy with this, move on to step 5.
+5. Type `make flatpak` and install any dependencies.
+6. Done! The compiled file should be in `build/`. Optionally, you can type `make clean` to clean up that folder.

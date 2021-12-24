@@ -3,8 +3,7 @@
 Name=InfiniteShooter
 GenericName=InfiniteShooter
 Comment=A shooter game
-Exec=infiniteshooter-launcher
+Exec=InfiniteShooter.x86_64
 Icon=com.pastthepixels.InfiniteShooter
 Type=Application
 Categories=Game
-Version=2.0

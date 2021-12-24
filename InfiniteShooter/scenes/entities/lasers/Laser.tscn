@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
 [ext_resource path="res://sounds/laser-hit.mp3" type="AudioStream" id=3]
 [ext_resource path="res://sounds/laser-fire.mp3" type="AudioStream" id=4]
+[ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -121,6 +122,14 @@ explosiveness = 1.0
 visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
 process_material = SubResource( 11 )
 draw_pass_1 = SubResource( 13 )
+
+[node name="Explosion" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+auto_explode = true
+static_position = true
+only_visuals = true
+speed_scale = 3
+opacity = 0.05
 
 [connection signal="area_entered" from="." to="." method="_on_Laser_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Laser_area_exited"]
