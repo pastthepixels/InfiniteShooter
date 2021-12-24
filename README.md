@@ -5,10 +5,14 @@
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/52388215/129511743-27d02377-09ac-4049-b95f-f6897b9aed73.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/129511793-54980456-60b3-41dd-98e3-4a04623ef549.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/129511813-6946f627-a090-41ec-8811-20e91e3a460e.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/147332184-7c2262d3-b041-420f-8051-5298ad01fb7a.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/147332236-6412a332-5ab9-4a66-818d-feb85b3e29f3.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/147332784-9d79dab5-10ce-4260-8121-8c918758fb7c.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/147332909-21ba5ab9-3838-4515-8dfc-7a558980df6c.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/147332310-53d4d3fb-4b13-476b-9961-f2fa91c698ca.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/147332459-4156d2dc-448f-4767-b2bb-b955777920fc.png" width="200">
 </p>
+
 
 # Installation
 ## GNU/Linux
