@@ -46,5 +46,9 @@ But expect more changes to come! You can see my port of InfiniteShooter to the G
 - Instancing scenes for the first time can be very slow, especially on older hardware. This is because Godot is compiling shaders for each scene when it instances for the first time. There should be a fix in Godot 4.0 (but the chances of that releasing soon are as slim as HL3 releasing soon). All issues related to slowness should also be fixed in Godot 4.
 
 # Credits
-All assets are made by me using Blender/Illustrator/Inkscape/GIMP/LMMS/Audacity.  
-Except for two: The laser sounds are from user Defunct3 right [here](https://freesound.org/people/Defunct3/sounds/77172/) and the sound effect for transitions is from user qubodup and you can find it [here](https://freesound.org/people/qubodup/sounds/60013/), both on freesound.org.
+EXTERNAL ASSETS FROM FREESOUND.ORG:
+- Burning: https://freesound.org/people/midimagician/sounds/249418/
+- Freezing/corrosion: https://freesound.org/people/td6d/sounds/184225/
+- Firing lasers: https://freesound.org/people/Defunct3/sounds/77172/
+- Transitioning between scenes (ex. from the main menu to the game): https://freesound.org/people/qubodup/sounds/60013/
+All other assets are made by me using Blender/Inkscape/GIMP/LMMS/Audacity.
