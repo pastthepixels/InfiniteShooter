@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/menus/main/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=2]
@@ -65,6 +65,16 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="GIProbeData" id=4]
+bounds = AABB( -4.37999, -2.27912, -2.39022, 8.75999, 4.55825, 4.78044 )
+cell_size = 0.136875
+to_cell_xform = Transform( 7.30594, 0, 0, 0, 7.30594, 0, 0, 0, 7.30594, 32, 16.6512, 17.4628 )
+dynamic_data = PoolIntArray( 0, 7, 64, 64, 64, 1, 0, 1056964608, 1057199622, 1057199622, 1057199622, 1056964608, 1057199622, 1057199622, 1057199622, 1056964608, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_range = 4
+bias = 1.5
+normal_bias = 0.0
+propagation = 0.7
+
 [sub_resource type="Animation" id=3]
 length = 1.2
 loop = true
@@ -100,19 +110,15 @@ anims/switch = SubResource( 2 )
 [node name="Title" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 0 )
 
-[node name="SpotLight" type="SpotLight" parent="Title"]
-transform = Transform( 0.967396, 1.10707e-08, -0.253268, 0.251038, -0.132429, 0.958875, -0.0335402, -0.991192, -0.128112, -2.70012, 3.61548, -1.15619 )
-light_energy = 0.6
+[node name="DirectionalLight" type="DirectionalLight" parent="Title"]
+transform = Transform( -0.397252, -0.903025, 0.163512, -0.274139, 0.286807, 0.917926, -0.875807, 0.319823, -0.361489, 0.362646, 3.34107, -1.42993 )
+light_energy = 0.4
 light_specular = 1.0
-spot_range = 13.711
-spot_angle = 38.7542
 
-[node name="SpotLight2" type="SpotLight" parent="Title"]
-transform = Transform( 0.958556, -0.0353307, 0.282704, -0.281074, -0.279396, 0.918115, 0.0465488, -0.959525, -0.277748, 2.08223, 3.63313, -1.09902 )
-light_energy = 0.5
-light_specular = 2.0
-spot_range = 40.4068
-spot_angle = 39.6595
+[node name="GIProbe" type="GIProbe" parent="Title"]
+subdiv = 0
+extents = Vector3( 4.37999, 2.27912, 2.39022 )
+data = SubResource( 4 )
 
 [node name="Menu" type="Control" parent="."]
 anchor_right = 1.0
