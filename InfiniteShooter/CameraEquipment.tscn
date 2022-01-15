@@ -62,7 +62,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "Wander"
-length = 32.0
+length = 128.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("WorldEnvironment:environment:background_sky_rotation_degrees")
@@ -71,7 +71,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 16, 32 ),
+"times": PoolRealArray( 0, 64, 128 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( -180, 30, 0 ), Vector3( -360, 0, 0 ) ]
