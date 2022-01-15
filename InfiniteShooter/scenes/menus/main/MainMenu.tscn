@@ -66,10 +66,10 @@ tracks/1/keys = {
 }
 
 [sub_resource type="GIProbeData" id=4]
-bounds = AABB( -4.37999, -2.27912, -2.39022, 8.75999, 4.55825, 4.78044 )
-cell_size = 0.136875
-to_cell_xform = Transform( 7.30594, 0, 0, 0, 7.30594, 0, 0, 0, 7.30594, 32, 16.6512, 17.4628 )
-dynamic_data = PoolIntArray( 0, 7, 64, 64, 64, 1, 0, 1056964608, 1057199622, 1057199622, 1057199622, 1056964608, 1057199622, 1057199622, 1057199622, 1056964608, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+bounds = AABB( -5, -5, -2, 10, 10, 4 )
+cell_size = 0.15625
+to_cell_xform = Transform( 6.4, 0, 0, 0, 6.4, 0, 0, 0, 6.4, 32, 32, 12.8 )
+dynamic_data = PoolIntArray( 0, 7, 64, 64, 32, 1, 0, 0, 1086324736, 1110966272, 0, 0, 1102053376, 1110966272, 1065353216, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
 dynamic_range = 4
 bias = 1.5
 normal_bias = 0.0
@@ -107,18 +107,29 @@ anims/switch = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Title" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 0 )
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+extents = Vector3( 25, 25, 25 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="Title"]
-transform = Transform( -0.397252, -0.903025, 0.163512, -0.274139, 0.286807, 0.917926, -0.875807, 0.319823, -0.361489, 0.362646, 3.34107, -1.42993 )
-light_energy = 0.4
-light_specular = 1.0
-
-[node name="GIProbe" type="GIProbe" parent="Title"]
+[node name="GIProbe" type="GIProbe" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6537, 0 )
+visible = false
 subdiv = 0
-extents = Vector3( 4.37999, 2.27912, 2.39022 )
+extents = Vector3( 5, 5, 2 )
 data = SubResource( 4 )
+
+[node name="Indirect Lighting" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.78326, 0.621695, 0, -0.621695, -0.78326, 0, 11.6537, -8.32371 )
+light_energy = 2.0
+
+[node name="Title" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
+
+[node name="Light" type="SpotLight" parent="Title"]
+transform = Transform( 1, 0, 0, 0, -0.642787, 0.766044, 0, -0.766044, -0.642787, 0, 2.255, -2 )
+light_energy = 3.0
+light_indirect_energy = 1.5
+spot_range = 17.0
+spot_angle = 60.0
 
 [node name="Menu" type="Control" parent="."]
 anchor_right = 1.0

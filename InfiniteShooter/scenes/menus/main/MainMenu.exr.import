@@ -1,0 +1,25 @@
+[remap]
+
+importer="texture_array"
+type="TextureArray"
+path="res://.import/MainMenu.exr-adbc2dd8691253aea932de6bfe774160.texarr"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://scenes/menus/main/MainMenu.exr"
+dest_files=[ "res://.import/MainMenu.exr-adbc2dd8691253aea932de6bfe774160.texarr" ]
+
+[params]
+
+compress/mode=0
+compress/no_bptc_if_rgb=false
+flags/repeat=false
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=false
+slices/horizontal=1
+slices/vertical=1

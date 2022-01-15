@@ -106,6 +106,7 @@ common/enable_pause_aware_picking=true
 
 threads/thread_model=2
 quality/shading/force_vertex_shading.mobile=false
+quality/shading/use_physical_light_attenuation=true
 quality/filters/use_nearest_mipmap_filter=true
 quality/voxel_cone_tracing/high_quality=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
