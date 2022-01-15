@@ -110,5 +110,5 @@ quality/shading/use_physical_light_attenuation=true
 quality/filters/use_nearest_mipmap_filter=true
 quality/voxel_cone_tracing/high_quality=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
-quality/filters/msaa=3
+quality/filters/msaa=4
 environment/default_environment="res://MainEnvironment.tres"
