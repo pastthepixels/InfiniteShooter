@@ -6,18 +6,6 @@
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 25, -30 )
 light_energy = 2.0
 
-[node name="OrangeLight" type="SpotLight" parent="."]
-transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 20, 0, -20 )
-light_color = Color( 1, 0.686275, 0.352941, 1 )
-spot_range = 58.0
-spot_angle = 29.0037
-
-[node name="BlueLight" type="SpotLight" parent="."]
-transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -20, 5, 20 )
-light_color = Color( 0.470588, 0.470588, 1, 1 )
-spot_range = 58.0
-spot_angle = 29.0037
-
 [node name="ReflectionProbe" type="ReflectionProbe" parent="."]
 extents = Vector3( 20, 10, 20 )
 cull_mask = 1048574
