@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
+[ext_resource path="res://CameraEquipment.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=3]
 resource_name = "RESET"
@@ -118,6 +119,7 @@ tracks/1/keys = {
 }
 
 [node name="CameraEquipment" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1.91069e-15, 0, 15, 0 )
