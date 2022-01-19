@@ -45,6 +45,8 @@ func _on_BleedTimer_timeout():
 		get_node(ship).health -= 5
 		if sender != null and get_node(ship).is_in_group("enemies"):
 			get_node(ship).last_hit_from = sender
+	else:
+		$AnimationPlayer.play("fade_sounds")
 
 
 func _on_Timer_timeout():
