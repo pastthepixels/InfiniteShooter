@@ -16,7 +16,7 @@ func start():
 			yield($AnimationPlayer, "animation_finished") # wait until that's done
 			yield(get_tree().create_timer(popup_duration), "timeout")  # and then wait a bit for you to be able to read the text
 		else: # Special flashing of text if we reach zero
-			$BackgroundFade.play("fade-background") # We also fade out the background
+			$BackgroundFade.play("fade")
 			for _flash in range(0, 3): # number of flashes
 				$FinishedSound.play()
 				$AnimationPlayer.stop(true)

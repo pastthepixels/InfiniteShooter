@@ -144,7 +144,10 @@ func load_settings():
 		return default_settings
 	else:
 		file.open(PATHS.settings, File.READ)
-		return parse_json(file.get_line())
+		var settings = parse_json(file.get_line())
+		if settings == null:
+			return default_settings
+		return settings
 
 #
 # Key mapping
