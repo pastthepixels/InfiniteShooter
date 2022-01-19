@@ -1,6 +1,5 @@
 extends Node
 
-
 func _ready():
 	CameraEquipment.get_node("SkyAnimations").play("intro")
 
@@ -81,7 +80,7 @@ func _on_SelectSquare_selected():
 			SceneTransition.quit_game()
 
 
-func _on_OptionsMenu_closed():
+func _on_Settings_closed():
 	return_from_submenu()
 
 

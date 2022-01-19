@@ -69,7 +69,7 @@ tracks/1/keys = {
 bounds = AABB( -5, -5, -2, 10, 10, 4 )
 cell_size = 0.15625
 to_cell_xform = Transform( 6.4, 0, 0, 0, 6.4, 0, 0, 0, 6.4, 32, 32, 12.8 )
-dynamic_data = PoolIntArray( 0, 7, 64, 64, 32, 1, 0, 0, 0, 0, 456139520, 0, 1086324736, 1110966272, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_data = PoolIntArray( 0, 7, 64, 64, 32, 1, 0, 0, 1086324736, 1110966272, 0, 0, 1102053376, 1110966272, 1065353216, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
 dynamic_range = 4
 bias = 1.5
 normal_bias = 0.0
@@ -223,19 +223,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Leaderboard" parent="." instance=ExtResource( 3 )]
+visible = false
+
 [node name="Settings" parent="." instance=ExtResource( 5 )]
 visible = false
 
 [node name="Upgrades" parent="." instance=ExtResource( 6 )]
 visible = false
 
-[node name="Leaderboard" parent="." instance=ExtResource( 3 )]
-visible = false
-
 [node name="Alert" parent="." instance=ExtResource( 9 )]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="selected" from="Menu/SelectSquare" to="." method="_on_SelectSquare_selected"]
-[connection signal="closed" from="Settings" to="." method="_on_OptionsMenu_closed"]
-[connection signal="closed" from="Upgrades" to="." method="_on_Upgrades_closed"]
 [connection signal="closed" from="Leaderboard" to="." method="_on_Leaderboard_closed"]
+[connection signal="closed" from="Settings" to="." method="_on_Settings_closed"]
+[connection signal="closed" from="Upgrades" to="." method="_on_Upgrades_closed"]

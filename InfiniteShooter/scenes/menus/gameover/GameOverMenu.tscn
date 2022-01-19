@@ -74,14 +74,6 @@ anims/FadeAll = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Background Color" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.666667, 0.666667, 0.666667, 0.0392157 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Titles" type="HBoxContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
@@ -112,8 +104,8 @@ __meta__ = {
 margin_left = 170.0
 margin_right = 290.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
 text = "over"
 align = 1
 valign = 1

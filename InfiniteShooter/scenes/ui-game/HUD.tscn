@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
 [ext_resource path="res://sounds/hudalert.mp3" type="AudioStream" id=3]
+[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=4]
 [ext_resource path="res://images/vignette.png" type="Texture" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-game/HUD.gd" type="Script" id=7]
@@ -88,6 +89,14 @@ colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
 gradient = SubResource( 16 )
 width = 32
 
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 0.0784314 )
+
 [sub_resource type="Gradient" id=18]
 colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 0.313726, 1, 1, 1, 0.313726 )
 
@@ -132,11 +141,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-
-[sub_resource type="ShaderMaterial" id=29]
-shader = ExtResource( 2 )
-shader_param/lod = 1.5
-shader_param/aberration_strength = 0.5
 
 [sub_resource type="DynamicFont" id=27]
 size = 64
@@ -266,6 +270,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Highlight" type="Panel" parent="StatusBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ProgressBars" type="TextureRect" parent="."]
 margin_left = 40.0
 margin_top = 30.0
@@ -299,6 +311,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Highlight" type="Panel" parent="ProgressBars/HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AmmoBar" type="TextureProgress" parent="ProgressBars"]
 margin_left = 5.0
 margin_top = 23.0
@@ -324,8 +344,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Highlight" type="Panel" parent="ProgressBars/AmmoBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Vignette" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.00244009 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
@@ -335,7 +363,7 @@ __meta__ = {
 }
 
 [node name="Alert" type="ColorRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
@@ -346,25 +374,11 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Alert"]
 anims/fade_alert = SubResource( 28 )
 
+[node name="Blur" parent="Alert" instance=ExtResource( 4 )]
+
 [node name="Sound" type="AudioStreamPlayer" parent="Alert"]
 stream = ExtResource( 3 )
 bus = "SFX"
-
-[node name="Blur" type="ColorRect" parent="Alert"]
-material = SubResource( 29 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="Alert"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.666667, 0.666667, 0.666667, 0.156863 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Alert"]
 anchor_top = 0.5
