@@ -97,6 +97,11 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 1, 1, 1, 0.0784314 )
 
+[sub_resource type="ShaderMaterial" id=22]
+shader = ExtResource( 2 )
+shader_param/lod = 2.0
+shader_param/aberration_strength = 0.5
+
 [sub_resource type="Gradient" id=18]
 colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 0.313726, 1, 1, 1, 0.313726 )
 
@@ -109,11 +114,6 @@ colors = PoolColorArray( 0.266667, 0.784314, 0.254902, 1, 0, 1, 0.115, 1 )
 [sub_resource type="GradientTexture" id=21]
 gradient = SubResource( 20 )
 width = 512
-
-[sub_resource type="ShaderMaterial" id=22]
-shader = ExtResource( 2 )
-shader_param/lod = 2.0
-shader_param/aberration_strength = 0.5
 
 [sub_resource type="Gradient" id=23]
 colors = PoolColorArray( 0.560784, 0.560784, 0.560784, 0.588235, 0.627451, 0.627451, 0.627451, 0.627451 )
@@ -282,9 +282,22 @@ __meta__ = {
 margin_left = 40.0
 margin_top = 30.0
 margin_right = 220.0
-margin_bottom = 62.0
+margin_bottom = 72.0
 texture = SubResource( 2 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="ProgressBars"]
+show_behind_parent = true
+material = SubResource( 22 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = -5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -293,20 +306,11 @@ __meta__ = {
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 185.0
-margin_bottom = 37.0
+margin_bottom = 23.0
 value = 50.0
 texture_under = SubResource( 19 )
 texture_progress = SubResource( 21 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Blur" type="ColorRect" parent="ProgressBars/HealthBar"]
-show_behind_parent = true
-material = SubResource( 22 )
-anchor_right = 1.0
-anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
