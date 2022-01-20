@@ -39,6 +39,8 @@ margin_right = 99.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 34, 16 )
 size_flags_vertical = 7
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "+99"
 align = 1
 valign = 1
@@ -50,17 +52,7 @@ __meta__ = {
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.392157 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Border" type="ReferenceRect" parent="Damage"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-border_color = Color( 1, 0.27451, 0.27451, 1 )
-border_width = 2.0
-editor_only = false
+color = Color( 1, 0.27451, 0.27451, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -71,6 +63,8 @@ margin_right = 148.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 34, 16 )
 size_flags_vertical = 7
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
 text = "+99"
 align = 1
 valign = 1
@@ -82,17 +76,7 @@ __meta__ = {
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.392157 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Border" type="ReferenceRect" parent="Health"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-border_color = Color( 0.27451, 1, 0.27451, 1 )
-border_width = 2.0
-editor_only = false
+color = Color( 0.27451, 1, 0.27451, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
