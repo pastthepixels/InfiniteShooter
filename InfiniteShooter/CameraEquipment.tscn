@@ -34,7 +34,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=1]
 resource_name = "SkyRotate"
-length = 8.0
+length = 16.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("WorldEnvironment:environment:background_sky_rotation_degrees")
@@ -43,7 +43,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 4, 8 ),
+"times": PoolRealArray( 0, 8, 16 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( -180, 0, 0 ), Vector3( -360, 0, 0 ) ]
