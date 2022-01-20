@@ -74,10 +74,7 @@ func update():
 func _process(_delta):
 	if visible == true and get_parent().visible == true:
 		update()
-		if Input.is_action_pressed("ui_accept"):
-			$Square.color = Color(.8, .8, .8)
-		elif $Square.color == Color(.8, .8, .8):
-			$Square.color = Color(1, 1, 1)
+		$Highlight.visible = Input.is_action_pressed("ui_accept")
 
 
 func _on_AnimationPlayer_animation_started(anim_name):

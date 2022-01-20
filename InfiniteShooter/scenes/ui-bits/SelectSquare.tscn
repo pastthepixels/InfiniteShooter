@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/ui-bits/SelectSquare.gd" type="Script" id=1]
 [ext_resource path="res://sounds/select-option.mp3" type="AudioStream" id=2]
@@ -7,7 +7,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
-length = 0.1
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -21,6 +21,33 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 1, 1, 1, 0.27451, 1, 1, 1, 0 )
@@ -28,8 +55,25 @@ colors = PoolColorArray( 1, 1, 1, 0.27451, 1, 1, 1, 0 )
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
 
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 1, 1, 0 )
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 0.196078 )
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_detail = 7
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 0.784314 )
+
 [node name="SelectSquare" type="Control"]
-modulate = Color( 1, 1, 1, 0 )
 margin_right = 30.0
 margin_bottom = 16.0
 script = ExtResource( 1 )
@@ -40,6 +84,7 @@ margin = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fade = SubResource( 1 )
+anims/RESET = SubResource( 5 )
 
 [node name="AcceptSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
@@ -62,9 +107,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Square" type="ColorRect" parent="."]
+[node name="Highlight" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Square" type="Panel" parent="."]
 anchor_bottom = 1.0
 margin_left = -6.0
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
