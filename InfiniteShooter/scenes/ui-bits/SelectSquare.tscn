@@ -74,6 +74,7 @@ border_width_bottom = 1
 border_color = Color( 1, 1, 1, 0.784314 )
 
 [node name="SelectSquare" type="Control"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 30.0
 margin_bottom = 16.0
 script = ExtResource( 1 )

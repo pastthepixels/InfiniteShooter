@@ -74,12 +74,13 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 2, 2, 2 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.02 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.01 ), Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=7]
 resource_name = "open"
 length = 0.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -102,7 +103,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 0.5, 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1, 0.02 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0.01 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="DynamicFont" id=4]
