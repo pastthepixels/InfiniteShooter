@@ -6,7 +6,7 @@
 [ext_resource path="res://sounds/pause.mp3" type="AudioStream" id=4]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
-[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=7]
+[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="Animation" id=1]
@@ -14,7 +14,7 @@ resource_name = "BorderPulse"
 length = 1.4
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background/Border:modulate")
+tracks/0/path = NodePath("Background2/Border:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -27,7 +27,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -35,14 +35,26 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.3, 2 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -2, -2 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 0.97, 0.97 ), Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=3]
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 2
@@ -50,16 +62,38 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 3, 0.5 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -0.5, -0.5 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.97, 0.97 ) ]
+}
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = ExtResource( 7 )
-shader_param/lod = 1.0
-shader_param/aberration_strength = 0.5
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="DynamicFont" id=5]
 size = 64
@@ -70,6 +104,7 @@ pause_mode = 2
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 300, 400 )
 theme = ExtResource( 6 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -83,6 +118,7 @@ anims/BorderPulse = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 2 )
 anims/FadeOut = SubResource( 3 )
+anims/RESET = SubResource( 6 )
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -97,15 +133,10 @@ bus = "SFX"
 stream = ExtResource( 3 )
 bus = "SFX"
 
-[node name="Background" type="ColorRect" parent="."]
-material = SubResource( 4 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Background2" parent="." instance=ExtResource( 7 )]
 
-[node name="Border" type="ReferenceRect" parent="Background"]
+[node name="Border" type="ReferenceRect" parent="Background2"]
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.05
 anchor_top = 0.05
 anchor_right = 0.95
@@ -113,14 +144,6 @@ anchor_bottom = 0.95
 border_color = Color( 1, 1, 1, 0.588235 )
 border_width = 2.0
 editor_only = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background Color" type="ColorRect" parent="Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.666667, 0.666667, 0.666667, 0.129412 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
