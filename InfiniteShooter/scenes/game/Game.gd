@@ -229,10 +229,12 @@ func _on_Player_health_changed(value):
 #
 func load_game():
 	var save_data = Saving.load_userdata()
+	$GameSpace/Player.max_health = save_data.health
 	$GameSpace/Player.health = save_data.health
 	$GameSpace/Player.damage = save_data.damage
+
 
 func save_game():
 	var save_data = Saving.load_userdata()
 	save_data.points += score
-	Saving.save_userdata(save_data)
+	print(save_data)
