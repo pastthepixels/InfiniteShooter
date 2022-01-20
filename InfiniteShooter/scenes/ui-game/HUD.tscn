@@ -343,6 +343,7 @@ anchor_bottom = 1.0
 margin_left = 10.0
 margin_right = 24.0
 margin_bottom = 1.0
+custom_colors/font_color_shadow = Color( 0.286275, 0.286275, 0.286275, 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
