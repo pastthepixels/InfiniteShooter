@@ -51,7 +51,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( -2, -2 ),
 "update": 0,
-"values": [ Vector2( 0.7, 0.7 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -124,6 +124,9 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 300, 400 )
 custom_colors/font_color = Color( 1, 1, 1, 0.941176 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 0.0784314 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
 custom_fonts/font = SubResource( 2 )
 text = "3"
 align = 1
