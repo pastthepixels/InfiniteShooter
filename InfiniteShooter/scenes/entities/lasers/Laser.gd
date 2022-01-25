@@ -63,6 +63,8 @@ func _process(delta):
 
 # Called to set the laser's material
 func set_laser():
+	if is_instance_valid(sender) == false: return
+	
 	# Sets the material of the laser
 	if sender.is_in_group("players") == false:
 		$Laser.set_surface_material(0, enemy_material)

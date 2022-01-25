@@ -1,13 +1,13 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/entities/lasereffects/LaserEffects.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/ui-game/HealthBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://models/enemies/Material_001.material" type="Material" id=3]
 [ext_resource path="res://scenes/entities/enemies/Enemy.gd" type="Script" id=4]
 [ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://models/enemies/black_ship.material" type="Material" id=6]
 [ext_resource path="res://scenes/entities/powerups/Powerup.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/entities/lasers/Laser.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/ui-game/HealthBar2D.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "initiate"
@@ -166,8 +166,7 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
 shape = SubResource( 8 )
 
-[node name="HealthBar" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+[node name="HealthBar2D" parent="." instance=ExtResource( 9 )]
 visible = false
 
 [node name="Explosion" parent="." instance=ExtResource( 5 )]

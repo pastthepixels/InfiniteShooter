@@ -18,6 +18,10 @@ onready var bottom_right = screen_to_local(Vector2(screen_size.x, screen_size.y)
 func screen_to_local(vector2):
 	return viewport.get_camera().project_position(vector2, viewport.get_camera().translation.y)
 
+# Converts a local coordinate to a screen one
+func local_to_screen(vector3):
+	return viewport.get_camera().unproject_position(vector3)
+
 
 # Gets a random screen point and converts it to 3d coordinates
 # Note that this depends on top_left.x < top_right.x and top_left.z < bottom_left.z

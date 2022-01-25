@@ -39,15 +39,12 @@ func explode():
 		# Plays an explosion sound at a random pitch
 		$ExplosionSound.pitch_scale = rand_range(0.8, 1.2)
 		if only_visuals == false: $ExplosionSound.play()
+		
+		# Waits for animations/sounds to finish
+		if $ExplosionSound.playing == true: yield($ExplosionSound, "finished")
+		if $ExplosionAnimation.playing == true: yield($ExplosionAnimation, "animation_finished")
+		emit_signal("exploded")
 
 
 func _on_ExplosionAnimation_animation_finished():
 	hide()
-	emit_signal_on_finish()
-
-
-func _on_ExplosionSound_finished():
-	emit_signal_on_finish()
-
-func emit_signal_on_finish(): # Emits the "exploded" signal when both the animation and sound are finished
-	if $ExplosionAnimation.playing == false and $ExplosionSound.playing == false:  emit_signal("exploded")

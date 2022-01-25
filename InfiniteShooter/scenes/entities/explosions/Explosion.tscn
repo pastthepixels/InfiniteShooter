@@ -42,5 +42,4 @@ bus = "SFX"
 transform = Transform( 0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, 0 )
 frames = SubResource( 1 )
 
-[connection signal="finished" from="ExplosionSound" to="." method="_on_ExplosionSound_finished"]
 [connection signal="animation_finished" from="ExplosionAnimation" to="." method="_on_ExplosionAnimation_animation_finished"]

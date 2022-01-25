@@ -85,8 +85,9 @@ func initialize(difficulty):
 	enemy_model.connect("area_entered", self, "collide_ship")
 	
 	# Moves health bar into position
-	$HealthBar.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
-	$HealthBar.max_health = max_health
+	$HealthBar2D.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
+	$HealthBar2D.max_health = max_health
+	$HealthBar2D.health = health
 	
 	# LASTLY makes the current ship visible
 	enemy_model.show()
@@ -112,18 +113,16 @@ func explode_ship(from_player=false):
 	last_hit_from = null
 	alive = false
 	
-	# Explodes and resets, emitting a signal at the end
-	$Explosion.explode()
+	# Resets, emitting a signal at the end
 	$LaserTimer.stop()
 	$LaserEffects.reset()
-	$HealthBar.queue_free()
+	$HealthBar2D.queue_free()
 	for node in get_children():
 		if node is Area:
 			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
 	emit_signal("died", self, from_player)
-
 	# Powerups (1/4 chance to create a powerup)
 	if randi() % 4 == 1 and use_laser_modifiers == false:
 		var powerup = powerup_scene.instance()
@@ -134,6 +133,9 @@ func explode_ship(from_player=false):
 		powerup.translation = translation
 		powerup.modifier = laser_modifier
 		get_parent().add_child(powerup)
+	
+	# then explodes
+	$Explosion.explode()
 
 
 func _on_Explosion_exploded():
@@ -192,8 +194,8 @@ func collide_ship(area):
 # Updating health-related info
 func update_health():
 	if health > 0 and health < max_health:
-		$HealthBar.visible = true
-		$HealthBar.health = health
+		$HealthBar2D.visible = true
+		$HealthBar2D.health = health
 	if health <= 0 and alive == true:
 		if last_hit_from != null and is_instance_valid(last_hit_from) and last_hit_from.is_in_group("players"):
 			explode_ship(true)
