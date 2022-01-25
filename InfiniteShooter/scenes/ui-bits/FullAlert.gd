@@ -1,5 +1,7 @@
 extends Control
 
+var pause_previous_state = false
+
 export var enable_exiting = false
 
 onready var initial_background_color = $Background.color
@@ -23,6 +25,7 @@ func _input(event):
 			$AnimationPlayer.play_backwards("fade")
 
 func alert(text, can_be_exited=false):
+	pause_previous_state = get_tree().paused
 	get_tree().paused = true
 	enable_exiting = can_be_exited
 	if can_be_exited == true:
@@ -46,6 +49,6 @@ func _on_AnimationPlayer_animation_started(anim_name):
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	set_process_input(true)
 	if $AnimationPlayer.current_animation_position == 0: # Quick way to check if an animation finished playing backwards
-		get_tree().paused = false
+		get_tree().paused = pause_previous_state
 		hide()
 		emit_signal(signal_to_emit)

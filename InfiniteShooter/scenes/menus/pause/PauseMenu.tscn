@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/menus/pause/PauseMenu.gd" type="Script" id=1]
 [ext_resource path="res://music/paused.mp3" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "BorderPulse"
@@ -222,4 +223,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FullAlert" parent="." instance=ExtResource( 9 )]
+visible = false
+enable_exiting = true
+
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
+[connection signal="confirmed" from="FullAlert" to="." method="_on_FullAlert_confirmed"]
+[connection signal="exited" from="FullAlert" to="." method="_on_FullAlert_exited"]

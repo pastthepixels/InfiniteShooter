@@ -41,6 +41,7 @@ func explode():
 		if only_visuals == false: $ExplosionSound.play()
 		
 		# Waits for animations/sounds to finish
-		if $ExplosionSound.playing == true: yield($ExplosionSound, "finished")
 		if $ExplosionAnimation.playing == true: yield($ExplosionAnimation, "animation_finished")
+		hide()
+		if $ExplosionSound.playing == true: yield($ExplosionSound, "finished")
 		emit_signal("exploded")
