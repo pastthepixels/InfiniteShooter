@@ -1,6 +1,8 @@
 extends AudioStreamPlayer
 
-export (Array, AudioStream) var game_songs
+export(Array, AudioStream) var game_songs
+
+export(bool) var autoswitch = true
 
 func _ready(): # Ensuring that NO SONG loops the same
 	randomize()
@@ -32,4 +34,4 @@ func crossfade(audiostream):
 
 # Switch game soundtrack (like looping for the game) if the user wants it
 func _on_GameMusic_finished():
-	switch_game()
+	if autoswitch == true: switch_game()
