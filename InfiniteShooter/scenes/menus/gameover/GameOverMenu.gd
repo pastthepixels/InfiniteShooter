@@ -3,7 +3,6 @@ extends Control
 func start():
 	if visible == true: return
 	$AnimationPlayer.play("FadeAll")
-	print(CameraEquipment.get_node("SkyAnimations").playback_speed)
 	$Tween.interpolate_property(
 		CameraEquipment.get_node("SkyAnimations"),
 		"playback_speed",

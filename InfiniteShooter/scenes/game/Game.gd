@@ -237,4 +237,4 @@ func load_game():
 func save_game():
 	var save_data = Saving.load_userdata()
 	save_data.points += score
-	print(save_data)
+	Saving.save_userdata(save_data)
