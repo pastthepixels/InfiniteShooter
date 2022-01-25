@@ -43,7 +43,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0, 1 )
 [node name="Cannon2" type="Spatial" parent="EnemyModel/Boss"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0, 1 )
 
-[node name="HealthBar2D" parent="." instance=ExtResource( 2 )]
+[node name="HealthBar" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 
 [node name="Explosions" type="Spatial" parent="."]
