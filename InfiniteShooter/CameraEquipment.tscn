@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -118,17 +118,146 @@ tracks/1/keys = {
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 70.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky_custom_fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 40.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ShakeCamera:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ShakeCamera:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Camera:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -90, -4.78528e-21, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "ZoomOut"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
+"update": 0,
+"values": [ 1.0, 70.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:background_sky_custom_fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
+"update": 0,
+"values": [ 0.0, 40.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ShakeCamera:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ShakeCamera:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.4, 0.4 ),
+"update": 0,
+"values": [ -10.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Camera:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.4, 0.4 ),
+"update": 0,
+"values": [ Vector3( -90, 10, 0 ), Vector3( -90, -4.78528e-21, 0 ) ]
+}
+
 [node name="CameraEquipment" type="Spatial"]
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1.91069e-15, 0, 15, 0 )
+transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 15, 0 )
 current = true
 
 [node name="ShakeCamera" type="Camera2D" parent="."]
 pause_mode = 2
 position = Vector2( 300, 400 )
+rotating = true
 current = true
+smoothing_enabled = true
 script = ExtResource( 1 )
 max_trauma = 0.6
 
@@ -137,6 +266,10 @@ anims/RESET = SubResource( 3 )
 anims/SkyRotate = SubResource( 1 )
 anims/Wander = SubResource( 4 )
 anims/intro = SubResource( 2 )
+
+[node name="CameraAnimations" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 5 )
+anims/ZoomOut = SubResource( 6 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 2 )

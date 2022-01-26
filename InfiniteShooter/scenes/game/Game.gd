@@ -46,8 +46,10 @@ export var tutorial_elemental_script = [
 # Countdown timers, initialization, music, and _process
 #
 func _ready():
-	# Starts spinning the sky
+	# Starts spinning the sky (and plays another cool animation)
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
+	CameraEquipment.get_node("CameraAnimations").stop()
+	CameraEquipment.get_node("CameraAnimations").play("ZoomOut")
 	# save stuff
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
@@ -171,7 +173,7 @@ func make_enemy():
 	if enemies_in_wave == GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
 		autospawn_enemies = false # Well, stop enemies from spawning
 		# but also set the position of the indicator arrow to let players know where the boss is coming from
-		$GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
+		if wave == GameVariables.waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
 	
 	return enemy
 
