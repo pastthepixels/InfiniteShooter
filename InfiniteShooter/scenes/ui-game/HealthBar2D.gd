@@ -1,9 +1,11 @@
 extends Spatial
 
-
 export var health = 100
 
 export var max_health = 100
+
+func _ready():
+	$Node2D.visible = visible
 
 func _process(_delta):
 	$Node2D.visible = visible
