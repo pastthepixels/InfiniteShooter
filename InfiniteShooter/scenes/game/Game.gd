@@ -7,6 +7,8 @@ export(PackedScene) var boss_scene
 
 export(NodePath) var game_space
 
+onready var next_enemy_position = set_random_enemy_position()
+
 # Game mechanics variables
 var score = 0
 
@@ -158,20 +160,25 @@ func make_enemy():
 	enemy.connect("died", self, "_on_Enemy_died")
 	
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
-	enemy.translation = set_random_enemy_position()
+	enemy.translation = next_enemy_position
 	get_node(game_space).add_child(enemy)
 	enemy.initialize(level * GameVariables.enemy_difficulty)
+	next_enemy_position = set_random_enemy_position()
 	
 	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1
 	$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
-	if enemies_in_wave == GameVariables.enemies_per_wave:
-		autospawn_enemies = false
+	if enemies_in_wave == GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
+		autospawn_enemies = false # Well, stop enemies from spawning
+		# but also set the position of the indicator arrow to let players know where the boss is coming from
+		$GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
 	
 	return enemy
 
 func set_random_enemy_position(times_ran=0):
 	var position = Vector3(Utils.random_screen_point(2).x, 0, Utils.top_left.z - (.2 * times_ran))
+	$GameSpace/IndicatorArrow.show()
+	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if position.distance_to(enemy.translation) < 4:
 			return set_random_enemy_position(times_ran + 1)
@@ -184,6 +191,9 @@ func make_boss():
 	boss.connect("died", self, "_on_Boss_died")
 	get_node(game_space).add_child(boss) # adds it to the scene
 	boss.initialize(level * GameVariables.enemy_difficulty) # Initializes the enemy
+	# Hides the indicator arrow after a while
+	yield(Utils.timeout(2), "timeout")
+	$GameSpace/IndicatorArrow.hide()
 
 func _on_Boss_died(_boss):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0: level_up()
