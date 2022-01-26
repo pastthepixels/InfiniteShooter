@@ -45,6 +45,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0, 1 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+visible = false
 
 [node name="Explosions" type="Spatial" parent="."]
 visible = false
