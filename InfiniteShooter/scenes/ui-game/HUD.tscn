@@ -1,10 +1,9 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
 [ext_resource path="res://sounds/hudalert.mp3" type="AudioStream" id=3]
 [ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=4]
-[ext_resource path="res://images/vignette.png" type="Texture" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-game/HUD.gd" type="Script" id=7]
 
@@ -35,16 +34,31 @@ gradient = SubResource( 7 )
 [sub_resource type="Animation" id=9]
 length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Vignette:modulate")
+tracks/0/path = NodePath("Vignette:material:shader_param/vignette_intensity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 2, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.54902 ) ]
+"values": [ 0.0, 0.4 ]
+}
+
+[sub_resource type="Animation" id=33]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vignette:material:shader_param/vignette_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -127,6 +141,35 @@ colors = PoolColorArray( 0.2, 0.2, 0.2, 1, 0.266667, 0.266667, 0.266667, 1 )
 [sub_resource type="GradientTexture" id=26]
 gradient = SubResource( 25 )
 
+[sub_resource type="Shader" id=31]
+code = "/* Modified from https://godotshaders.com/shader/color-vignetting/, by randomDam and licensed under CC0 */
+shader_type canvas_item;
+
+uniform float vignette_intensity = 0.4;
+uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 vignette_rgb : hint_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+float vignette(vec2 uv){
+	uv *= 1.0 - uv.xy;
+	float vignette = uv.x * uv.y * 15.0;
+	return pow(vignette, vignette_intensity * vignette_opacity);
+}
+
+void fragment(){
+	vec4 text = texture(TEXTURE, UV);
+	
+	text.rgba *= (vignette_rgb.rgba);
+	text.rgba *= (1.0 - vignette(UV));
+	
+	COLOR = vec4(text.rgb,text.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=32]
+shader = SubResource( 31 )
+shader_param/vignette_intensity = 0.0
+shader_param/vignette_opacity = 0.5
+shader_param/vignette_rgb = Color( 1, 0, 0, 1 )
+
 [sub_resource type="Animation" id=28]
 length = 0.5
 tracks/0/type = "value"
@@ -163,6 +206,7 @@ ice_gradient = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeVignette = SubResource( 9 )
+anims/RESET = SubResource( 33 )
 anims/fade_out = SubResource( 10 )
 
 [node name="StatusBar" type="Control" parent="."]
@@ -357,12 +401,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Vignette" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.00244009 )
+[node name="Vignette" type="ColorRect" parent="."]
+material = SubResource( 32 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 5 )
-expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
