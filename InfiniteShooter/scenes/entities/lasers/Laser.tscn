@@ -169,8 +169,9 @@ draw_pass_1 = SubResource( 15 )
 [node name="Explosion" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 auto_explode = true
+auto_delete = true
 static_position = true
-only_visuals = true
+no_sound = true
 speed_scale = 3
 opacity = 0.05
 
