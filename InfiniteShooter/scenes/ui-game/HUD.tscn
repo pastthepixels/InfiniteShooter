@@ -205,6 +205,7 @@ ice_gradient = SubResource( 8 )
 [node name="ProgressTween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
 anims/FadeVignette = SubResource( 9 )
 anims/RESET = SubResource( 33 )
 anims/fade_out = SubResource( 10 )
