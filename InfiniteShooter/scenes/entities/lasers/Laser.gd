@@ -9,6 +9,10 @@ export var speed = 24
 
 export var follow_speed = 3
 
+# Which direction the laser follows
+export var attack_direction = Vector3(0, 0, 1) # Goes up. Also, this is a normalized vector.
+# This is a variable used internally and you shouldn't have to use this. Instead, change the laser's y rotation.
+
 # To stop ships from hurting themselves as soon as they shoot lasers
 var invincible = true
 
@@ -44,8 +48,9 @@ export (SpatialMaterial) var corrosion_material
 func _ready():
 	set_laser()
 	
-	if follow_player == true: $FollowTimer.start()
-	if sender.is_in_group("players"): speed *= -1 # Goes up if from player
+	if follow_player == true:
+		speed /= 5 # <-- To make homing lasers go slower
+		$FollowTimer.start()
 	
 	$LaserSound.pitch_scale = rand_range(0.9, 1.1)
 	$LaserSound.play()
@@ -53,13 +58,9 @@ func _ready():
 
 func _process(delta):
 	if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
-		$Laser.look_at(followed_player.translation, Vector3(0, 1, 0))
-		if stepify(translation.z, follow_speed/2) != stepify(followed_player.translation.z, follow_speed/2):
-			translation.z += (follow_speed*delta) if stepify(translation.z, (follow_speed*delta)) < stepify(followed_player.translation.z, (follow_speed*delta)) else -(follow_speed*delta)
-		if stepify(translation.x, follow_speed/2) != stepify(followed_player.translation.x, follow_speed/2):
-			translation.x += (follow_speed*delta) if stepify(translation.x, (follow_speed*delta)) < stepify(followed_player.translation.x, (follow_speed*delta)) else -(follow_speed*delta)
-	else:
-		translation.z += speed * delta
+		look_at(followed_player.translation, Vector3(0, 1, 0))
+		rotation.y += deg2rad(180)# <-- To make homing lasers go TOWARD the player instead of away from them
+	translation += attack_direction.rotated(Vector3(0, 1, 0), rotation.y) * speed * delta
 
 # Called to set the laser's material
 func set_laser():
@@ -90,7 +91,7 @@ func _on_Laser_area_entered(area):
 		# Laser modifiers
 		handle_modifiers(area.get_parent())
 		remove_laser(true)  # Removes the laser
-	elif area.is_in_group("players") and area != sender:  # If the area this is colliding with is the PLAYER (and it is from the enemy)
+	elif area.is_in_group("players") and area != sender: # If the area this is colliding with is the PLAYER (and it is from the enemy)
 		if area.godmode == false: area.health -= damage  # send it to BRAZIL
 		# Laser modifiers
 		handle_modifiers(area)

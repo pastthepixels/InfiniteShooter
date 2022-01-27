@@ -103,6 +103,7 @@ func _input(event):
 		self.ammo -= 1
 		var laser = laser_scene.instance()
 		laser.sender = self
+		laser.rotation.y = deg2rad(180)
 		laser.translation = translation - Vector3(0, 0, 1)
 		laser.damage = damage
 		if modifier != MODIFIERS.none:
