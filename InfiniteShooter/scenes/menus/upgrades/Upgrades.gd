@@ -61,11 +61,11 @@ func _on_SelectSquare_selected():
 func create_upgrades():
 	upgrades = []
 	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
-		var upgrade_damage = randi() % 60 # <-- Max health/damage of an upgrade is 60
-		var upgrade_health = randi() % 60
+		var upgrade_damage = randi() % 50 # <-- Max health/damage of an upgrade is 50
+		var upgrade_health = randi() % 50
 		upgrades.append( {
 			"name": name_generator.new().generate_upgrade_name(),
-			"cost": 20 * (upgrade_damage + upgrade_health),
+			"cost": 30 * (upgrade_damage + upgrade_health),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false

@@ -60,7 +60,9 @@ func _ready():
 		$GameMusic.start_game()
 	else:
 		$Countdown.queue_free()
+		$GameSpace/IndicatorArrow.hide()
 		$TutorialMusic.play()
+		yield(CameraEquipment.get_node("CameraAnimations"), "animation_finished")
 		activate_tutorial()
 
 func _process(_delta):
@@ -203,7 +205,7 @@ func _on_Boss_died(_boss):
 func _on_Enemy_died(ship, from_player):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Score
-		if from_player: score += ship.max_health / 2
+		if from_player: score += round(ship.max_health / 10)
 		$HUD.update_score(score)
 		
 		# Wave progression
