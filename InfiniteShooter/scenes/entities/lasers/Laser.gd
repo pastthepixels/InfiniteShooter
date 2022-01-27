@@ -132,6 +132,7 @@ func remove_laser(hit_ship=false):
 	if hit_ship == true:
 		if has_node("/root/Main/ShakeCamera"):
 			get_node("/root/Main/ShakeCamera").add_trauma(.15)  # Shakes the screen a little bit
+		$HitParticles.emitting = true
 		$HitSound.pitch_scale = rand_range(0.9, 1.1) # and plays a sound
 		$HitSound.play()
 	

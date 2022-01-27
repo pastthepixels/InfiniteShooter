@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
@@ -51,17 +51,45 @@ emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
+[sub_resource type="Gradient" id=18]
+colors = PoolColorArray( 0.627451, 0.627451, 0.627451, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 18 )
+width = 512
+
+[sub_resource type="ParticlesMaterial" id=11]
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.2
+initial_velocity_random = 1.0
+angle = 20.0
+angle_random = 1.0
+scale = 1.1
+scale_random = 1.0
+color_ramp = SubResource( 19 )
+
+[sub_resource type="SpatialMaterial" id=16]
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.627451, 0.627451, 0.627451, 1 )
+
+[sub_resource type="PlaneMesh" id=17]
+material = SubResource( 16 )
+size = Vector2( 0.06, 0.06 )
+
 [sub_resource type="Gradient" id=9]
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+offsets = PoolRealArray( 0, 0.454918, 1 )
+colors = PoolColorArray( 1, 1, 0, 1, 1, 0.223529, 0, 1, 0, 0, 0, 0 )
 
 [sub_resource type="GradientTexture" id=10]
 gradient = SubResource( 9 )
 width = 512
 
-[sub_resource type="ParticlesMaterial" id=11]
-direction = Vector3( 0, 0, 0 )
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
+[sub_resource type="ParticlesMaterial" id=14]
+lifetime_randomness = 0.02
+direction = Vector3( 0, 0, 1 )
+spread = 60.0
+gravity = Vector3( 0, 0, 0.03 )
 initial_velocity = 0.2
 initial_velocity_random = 1.0
 angle = 20.0
@@ -71,13 +99,12 @@ scale_random = 1.0
 color_ramp = SubResource( 10 )
 
 [sub_resource type="SpatialMaterial" id=12]
-flags_unshaded = true
 vertex_color_use_as_albedo = true
-albedo_color = Color( 0.705882, 0.705882, 0.705882, 1 )
+albedo_color = Color( 0.392157, 0.392157, 0.392157, 1 )
 
-[sub_resource type="PlaneMesh" id=13]
+[sub_resource type="PlaneMesh" id=15]
 material = SubResource( 12 )
-size = Vector2( 0.05, 0.05 )
+size = Vector2( 0.06, 0.06 )
 
 [node name="Laser" type="Area" groups=["lasers"]]
 script = ExtResource( 1 )
@@ -121,7 +148,18 @@ speed_scale = 20.0
 explosiveness = 1.0
 visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
 process_material = SubResource( 11 )
-draw_pass_1 = SubResource( 13 )
+draw_pass_1 = SubResource( 17 )
+
+[node name="HitParticles" type="Particles" parent="."]
+emitting = false
+amount = 15
+lifetime = 5.0
+one_shot = true
+speed_scale = 20.0
+explosiveness = 1.0
+visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
+process_material = SubResource( 14 )
+draw_pass_1 = SubResource( 15 )
 
 [node name="Explosion" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )

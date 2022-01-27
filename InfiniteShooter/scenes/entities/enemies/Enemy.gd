@@ -76,7 +76,7 @@ func initialize(difficulty):
 	self.health = max_health
 	
 	# Gets the bounding box for the enemy ship model
-	bounding_box = enemy_model.get_child(1).get_aabb()
+	bounding_box = enemy_model.get_node("Ship").get_aabb()
 
 	# Starts all timers
 	$LaserTimer.start()
