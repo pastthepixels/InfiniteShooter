@@ -52,17 +52,19 @@ emission_operator = 0
 emission_on_uv2 = false
 
 [sub_resource type="Gradient" id=18]
-colors = PoolColorArray( 0.627451, 0.627451, 0.627451, 1, 0, 0, 0, 0 )
+colors = PoolColorArray( 0.627451, 0.627451, 0.627451, 0.392157, 0, 0, 0, 0 )
 
 [sub_resource type="GradientTexture" id=19]
 gradient = SubResource( 18 )
 width = 512
 
 [sub_resource type="ParticlesMaterial" id=11]
+flag_rotate_y = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.2
 initial_velocity_random = 1.0
+angular_velocity = 10.0
 angle = 20.0
 angle_random = 1.0
 scale = 1.1
@@ -70,8 +72,9 @@ scale_random = 1.0
 color_ramp = SubResource( 19 )
 
 [sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
 vertex_color_use_as_albedo = true
-albedo_color = Color( 0.627451, 0.627451, 0.627451, 1 )
+albedo_color = Color( 0.627451, 0.627451, 0.627451, 0.392157 )
 
 [sub_resource type="PlaneMesh" id=17]
 material = SubResource( 16 )
@@ -87,11 +90,12 @@ width = 512
 
 [sub_resource type="ParticlesMaterial" id=14]
 lifetime_randomness = 0.02
+flag_rotate_y = true
 direction = Vector3( 0, 0, 1 )
-spread = 60.0
 gravity = Vector3( 0, 0, 0.03 )
 initial_velocity = 0.2
 initial_velocity_random = 1.0
+angular_velocity = 180.0
 angle = 20.0
 angle_random = 1.0
 scale = 1.1
@@ -99,12 +103,13 @@ scale_random = 1.0
 color_ramp = SubResource( 10 )
 
 [sub_resource type="SpatialMaterial" id=12]
+flags_transparent = true
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.392157, 0.392157, 0.392157, 1 )
 
 [sub_resource type="PlaneMesh" id=15]
 material = SubResource( 12 )
-size = Vector2( 0.06, 0.06 )
+size = Vector2( 0.08, 0.08 )
 
 [node name="Laser" type="Area" groups=["lasers"]]
 script = ExtResource( 1 )
@@ -153,8 +158,7 @@ draw_pass_1 = SubResource( 17 )
 [node name="HitParticles" type="Particles" parent="."]
 emitting = false
 amount = 15
-lifetime = 5.0
-one_shot = true
+lifetime = 10.0
 speed_scale = 20.0
 explosiveness = 1.0
 visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
