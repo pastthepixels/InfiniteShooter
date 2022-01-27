@@ -26,6 +26,7 @@ game_space = NodePath("GameSpace")
 [node name="TutorialMusic" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 14 )
+bus = "Music"
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
