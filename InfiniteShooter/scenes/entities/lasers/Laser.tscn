@@ -167,13 +167,13 @@ process_material = SubResource( 14 )
 draw_pass_1 = SubResource( 15 )
 
 [node name="Explosion" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.31, 0, 0, 0 )
 auto_explode = true
 auto_delete = true
 static_position = true
 no_sound = true
 speed_scale = 3
-opacity = 0.05
+opacity = 0.1
 
 [connection signal="area_entered" from="." to="." method="_on_Laser_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Laser_area_exited"]
