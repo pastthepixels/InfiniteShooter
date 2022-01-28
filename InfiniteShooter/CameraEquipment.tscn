@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
 [ext_resource path="res://CameraEquipment.gd" type="Script" id=3]
+[ext_resource path="res://images/aberration-map.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=3]
 resource_name = "RESET"
@@ -252,33 +253,27 @@ colors = PoolColorArray( 1, 0, 0, 1, 0.0078125, 0, 1, 1 )
 gradient = SubResource( 9 )
 
 [sub_resource type="Shader" id=31]
-code = "/* Modified from https://godotshaders.com/shader/color-vignetting/, by randomDam and licensed under CC0 */
+code = "/* From https://godotshaders.com/shader/chromatic-abberation-with-offset/, by bkhan and licensed under CC0*/
 shader_type canvas_item;
 
-uniform float vignette_intensity = 0.4;
-uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
-uniform vec4 vignette_rgb : hint_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform sampler2D offset_image : hint_white;
+uniform float strength = 1.0;
 
-float vignette(vec2 uv){
-	uv *= 1.0 - uv.xy;
-	float vignette = uv.x * uv.y * 15.0;
-	return pow(vignette, vignette_intensity * vignette_opacity);
-}
-
-void fragment(){
-	vec4 text = texture(TEXTURE, UV);
+void fragment() {
+	vec4 output = texture(SCREEN_TEXTURE, SCREEN_UV);
 	
-	text.rgba *= (vignette_rgb.rgba);
-	text.rgba *= (1.0 - vignette(UV));
+	float shift = strength * texture(offset_image, SCREEN_UV).r / 100.0;
+	output.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + shift, SCREEN_UV.y)).r;
+	output.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
+	output.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - shift, SCREEN_UV.y)).b;
 	
-	COLOR = vec4(text.rgb,text.a);
+	COLOR = output;
 }"
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = SubResource( 31 )
-shader_param/vignette_intensity = 0.5
-shader_param/vignette_opacity = 0.1
-shader_param/vignette_rgb = Color( 0, 0, 0, 1 )
+shader_param/strength = 0.1
+shader_param/offset_image = ExtResource( 4 )
 
 [node name="CameraEquipment" type="Spatial"]
 script = ExtResource( 3 )
@@ -310,6 +305,7 @@ anims/ZoomOut = SubResource( 6 )
 environment = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = SubResource( 10 )
@@ -319,7 +315,7 @@ __meta__ = {
 }
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-z_index = 4096
+z_index = -1
 z_as_relative = false
 rect = Rect2( -50, -50, 700, 900 )
 
