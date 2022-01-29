@@ -35,20 +35,6 @@ var default_tutorial_progress = {
 	"elemental": false
 }
 
-#
-# The indicator -- Notifies players when they should not close their window
-#
-func notify_saving():
-	pass
-#	if $Indicator.visible == false:
-#		$AnimationPlayer.play("Pull")
-#		yield($AnimationPlayer, "animation_started")
-#		$Indicator.show()
-#	yield(Utils.timeout(1), "timeout") # We can't be certain how long it will take to save, but about a second seems like enough time.
-#	$AnimationPlayer.play_backwards("Pull")
-#	yield($AnimationPlayer, "animation_finished")
-#	$Indicator.hide()
-#	$AnimationPlayer.play("RESET")
 func _process(_delta):
 	$Indicator.visible = file.is_open()
 	
@@ -69,7 +55,6 @@ func load_userdata():
 		return Saving.default_userdata
 
 func save_userdata(userdata):
-	notify_saving()
 	file.open(PATHS.userdata, File.WRITE)
 	file.store_line(to_json(userdata)) # Converts the userdata file to a JSON for cheating--I mean user editing
 	file.close()
@@ -86,7 +71,6 @@ func get_tutorial_progress():
 		return parse_json(line)
 
 func set_tutorial_progress(progress):
-	notify_saving()
 	file.open(PATHS.tutorial_complete, File.WRITE)
 	file.store_line(to_json(progress))
 	file.close()
@@ -134,7 +118,6 @@ func get_datetime():
 # Settings
 #
 func save_settings(settings):
-	notify_saving()
 	# Sets music volume
 	AudioServer.set_bus_volume_db(
 		AudioServer.get_bus_index("Music"), linear2db(float(settings["musicvol"]) / 100)
@@ -177,7 +160,6 @@ func load_settings():
 # Key mapping
 #
 func save_keys(set_actions): # set_actions is from a KeyPopup scene instance
-	notify_saving()
 	# Converts InputEventKey --> Scancode
 	var stored_variable = {}
 	for action in set_actions:
@@ -210,7 +192,6 @@ func load_keys():
 # Upgrades
 #
 func save_upgrades(upgrades_list): # As defined in /scenes/menus/upgrades/Upgrades.gd
-	notify_saving()
 	file.open(PATHS.upgrades, File.WRITE)
 	file.store_var(upgrades_list)
 	file.close()
