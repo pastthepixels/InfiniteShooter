@@ -42,7 +42,7 @@ func initialize(difficulty):
 	$Path/PathFollow.unit_offset = 0
 	
 	# Sets up explosions
-	for i in range(0, explosions):
+	for _i in range(0, explosions):
 		var explosion = explosion_scene.instance()
 		explosion.hide()
 		explosion.translation = Vector3(rand_range(-1.5, 1.5), rand_range(-.5, .5), rand_range(-1.5, 1.5))

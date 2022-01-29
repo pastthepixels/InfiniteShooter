@@ -77,5 +77,5 @@ func _process(_delta):
 		$Highlight.visible = Input.is_action_pressed("ui_accept")
 
 
-func _on_AnimationPlayer_animation_started(anim_name):
+func _on_AnimationPlayer_animation_started(_anim_name):
 	visible = true

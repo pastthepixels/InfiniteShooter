@@ -27,7 +27,7 @@ func wait():
 	yield(get_tree(), "idle_frame")
 
 func _deferred_goto_scene(scene):
-	get_tree().change_scene_to(scene)
+	return get_tree().change_scene_to(scene)
 
 
 # Functions to actually switch scenes and stuff
@@ -45,7 +45,7 @@ func start_game():
 func restart_game():
 	open()
 	yield(wait(), "completed")
-	get_tree().reload_current_scene()
+	var _shut_up_about_return_values = get_tree().reload_current_scene()
 	close()
 
 func main_menu():

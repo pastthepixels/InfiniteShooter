@@ -110,5 +110,3 @@ bus = "SFX"
 anims/In = SubResource( 1 )
 anims/Out = SubResource( 2 )
 anims/RESET = SubResource( 3 )
-
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

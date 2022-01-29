@@ -8,8 +8,10 @@ onready var initial_background_color = $Background.color
 
 var signal_to_emit
 
+# warning-ignore:unused_signal
 signal exited
 
+# warning-ignore:unused_signal
 signal confirmed
 
 
