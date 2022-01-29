@@ -254,25 +254,45 @@ gradient = SubResource( 9 )
 
 [sub_resource type="Shader" id=31]
 code = "/* From https://godotshaders.com/shader/chromatic-abberation-with-offset/, by bkhan and licensed under CC0*/
+/* modified with some code from https://godotshaders.com/shader/vhs-and-crt-monitor-effect/, by pend00 and licensed under CC0*/
+
 shader_type canvas_item;
 
+// aberration vars
 uniform sampler2D offset_image : hint_white;
-uniform float strength = 1.0;
+uniform float aberration_strength = 1.0;
+
+// warp vars
+uniform float warp_amount = 1.0;
+uniform vec2 warp_scale = vec2(1.0, 1.0);
+
+
+vec2 warp(vec2 uv){
+	vec2 delta = uv - 0.5;
+	float delta2 = dot(delta.xy, delta.xy);
+	float delta4 = delta2 * delta2;
+	float delta_offset = delta4 * warp_amount;
+	
+	return uv + delta * delta_offset * warp_scale;
+}
 
 void fragment() {
-	vec4 output = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec2 uv = warp(SCREEN_UV);
+	vec4 output = texture(SCREEN_TEXTURE, uv);
 	
-	float shift = strength * texture(offset_image, SCREEN_UV).r / 100.0;
-	output.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + shift, SCREEN_UV.y)).r;
-	output.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
-	output.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - shift, SCREEN_UV.y)).b;
+	float shift = aberration_strength * texture(offset_image, uv).r / 100.0;
+	output.r = texture(SCREEN_TEXTURE, vec2(uv.x + shift, uv.y)).r;
+	output.g = texture(SCREEN_TEXTURE, uv).g;
+	output.b = texture(SCREEN_TEXTURE, vec2(uv.x - shift, uv.y)).b;
 	
 	COLOR = output;
 }"
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = SubResource( 31 )
-shader_param/strength = 0.1
+shader_param/aberration_strength = 0.15
+shader_param/warp_amount = 0.6
+shader_param/warp_scale = Vector2( 0.01, 0.01 )
 shader_param/offset_image = ExtResource( 4 )
 
 [node name="CameraEquipment" type="Spatial"]
