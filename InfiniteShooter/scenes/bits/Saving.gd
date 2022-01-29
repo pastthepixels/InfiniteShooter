@@ -36,6 +36,23 @@ var default_tutorial_progress = {
 }
 
 #
+# The indicator -- Notifies players when they should not close their window
+#
+func notify_saving():
+	pass
+#	if $Indicator.visible == false:
+#		$AnimationPlayer.play("Pull")
+#		yield($AnimationPlayer, "animation_started")
+#		$Indicator.show()
+#	yield(Utils.timeout(1), "timeout") # We can't be certain how long it will take to save, but about a second seems like enough time.
+#	$AnimationPlayer.play_backwards("Pull")
+#	yield($AnimationPlayer, "animation_finished")
+#	$Indicator.hide()
+#	$AnimationPlayer.play("RESET")
+func _process(_delta):
+	$Indicator.visible = file.is_open()
+	
+#
 # Userdata -- Player information and points (total score accumulated)
 #
 func load_userdata():
@@ -44,6 +61,7 @@ func load_userdata():
 		var line = file.get_line()
 		if line == "":
 			print("Something has gone very wrong with your userdata.txt file. A new one has been created.")
+			save_userdata(Saving.default_userdata)
 			return Saving.default_userdata
 		else:
 			return parse_json(line)
@@ -51,9 +69,11 @@ func load_userdata():
 		return Saving.default_userdata
 
 func save_userdata(userdata):
+	notify_saving()
 	file.open(PATHS.userdata, File.WRITE)
 	file.store_line(to_json(userdata)) # Converts the userdata file to a JSON for cheating--I mean user editing
-
+	file.close()
+	
 #
 # Tutorial information
 #
@@ -66,8 +86,10 @@ func get_tutorial_progress():
 		return parse_json(line)
 
 func set_tutorial_progress(progress):
+	notify_saving()
 	file.open(PATHS.tutorial_complete, File.WRITE)
 	file.store_line(to_json(progress))
+	file.close()
 
 #
 # Scores + getting the current date/time into a readable string
@@ -112,6 +134,7 @@ func get_datetime():
 # Settings
 #
 func save_settings(settings):
+	notify_saving()
 	# Sets music volume
 	AudioServer.set_bus_volume_db(
 		AudioServer.get_bus_index("Music"), linear2db(float(settings["musicvol"]) / 100)
@@ -136,6 +159,7 @@ func save_settings(settings):
 	# Stores settings
 	file.open(PATHS.settings, File.WRITE)
 	file.store_line(to_json(settings))
+	file.close()
 
 
 # To load settings
@@ -153,6 +177,7 @@ func load_settings():
 # Key mapping
 #
 func save_keys(set_actions): # set_actions is from a KeyPopup scene instance
+	notify_saving()
 	# Converts InputEventKey --> Scancode
 	var stored_variable = {}
 	for action in set_actions:
@@ -160,6 +185,7 @@ func save_keys(set_actions): # set_actions is from a KeyPopup scene instance
 	# Stores key bindings
 	file.open(PATHS.keybindings, File.WRITE)
 	file.store_line(to_json(stored_variable))
+	file.close()
 
 func load_keys():
 	var set_actions = {}
@@ -184,8 +210,10 @@ func load_keys():
 # Upgrades
 #
 func save_upgrades(upgrades_list): # As defined in /scenes/menus/upgrades/Upgrades.gd
+	notify_saving()
 	file.open(PATHS.upgrades, File.WRITE)
 	file.store_var(upgrades_list)
+	file.close()
 
 func load_upgrades():
 	if file.file_exists("user://upgrades.txt") == false: # If the file `upgrades.txt` does not exist, create a batch of upgrades and save them. Then proceed to read them.
