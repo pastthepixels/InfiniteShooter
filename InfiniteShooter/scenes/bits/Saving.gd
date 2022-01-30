@@ -35,9 +35,6 @@ var default_tutorial_progress = {
 	"elemental": false
 }
 
-func _process(_delta):
-	$Indicator.visible = file.is_open()
-	
 #
 # Userdata -- Player information and points (total score accumulated)
 #

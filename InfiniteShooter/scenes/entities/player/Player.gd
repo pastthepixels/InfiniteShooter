@@ -121,6 +121,7 @@ func _input(event):
 # When the player collides with enemies
 func on_collision(area):
 	if godmode == false and (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and area.get_parent().health > 0:
+		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		self.health -= area.get_parent().health
 		area.get_parent().health -= area.get_parent().health
 

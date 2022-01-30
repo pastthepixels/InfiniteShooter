@@ -11,6 +11,7 @@ export var max_roll = 0.1  # Maximum rotation in radians (use sparingly).
 
 export (NodePath) var target  # Assign the node this camera will follow.
 
+
 var trauma = 0.0  # Current shake strength.
 
 export var max_trauma = 1.0 # Max shake strength.
@@ -20,6 +21,10 @@ var trauma_power = 2  # Trauma exponent. Use [2, 3].
 onready var noise = OpenSimplexNoise.new()
 
 var noise_y = 0
+
+onready var initial_aberration_strength = get_node("../BackBufferCopy/LensDistortion").material.get_shader_param("aberration_strength") # <-- The initial strength of aberration in the LensDistortion node
+
+export var max_aberration_strength = 0.4
 
 
 func _ready():
@@ -55,3 +60,6 @@ func shake():
 	get_parent().translation = Vector3()
 	get_parent().translation = Utils.screen_to_local(global_position+offset) + Vector3()
 	get_parent().rotation.y = rotation
+	
+	# Added code to work with the LensDistortion node
+	get_node("../BackBufferCopy/LensDistortion").material.set_shader_param("aberration_strength", (trauma * max_aberration_strength) + initial_aberration_strength)

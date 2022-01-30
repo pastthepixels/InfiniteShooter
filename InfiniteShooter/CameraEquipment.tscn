@@ -290,9 +290,9 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = SubResource( 31 )
-shader_param/aberration_strength = 0.15
-shader_param/warp_amount = 0.6
-shader_param/warp_scale = Vector2( 0.01, 0.01 )
+shader_param/aberration_strength = 0.1
+shader_param/warp_amount = -0.2
+shader_param/warp_scale = Vector2( 1, 1 )
 shader_param/offset_image = ExtResource( 4 )
 
 [node name="CameraEquipment" type="Spatial"]
