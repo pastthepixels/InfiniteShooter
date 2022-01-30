@@ -1,6 +1,7 @@
 extends Spatial
 
 # Damage, health, and enemy type
+
 var enemy_type = GameVariables.ENEMY_TYPES.values()[randi() % GameVariables.ENEMY_TYPES.size()]
 
 var damage
@@ -26,18 +27,18 @@ var last_hit_from
 signal died(this, from_player)
 
 # Laser modifiers
+
 var freeze_movement = false
 
 var laser_modifier = GameVariables.LASER_MODIFIERS.values()[randi() % GameVariables.LASER_MODIFIERS.size()]
 
 # Bounding box stuff
+
 var bounding_box
 
 # Scenes used
 
 export(PackedScene) var powerup_scene
-
-export(PackedScene) var laser_scene
 
 var enemy_model
 
@@ -142,29 +143,13 @@ func _on_Explosion_exploded():
 	queue_free()
 
 
-func fire_laser():
-	# Creating the laser
-	var laser = laser_scene.instance()
-	laser.follow_player = use_homing_lasers
-	laser.sender = self
-
-	# Setting the laser's damage
-	laser.damage = damage
-	
-	# Modifiers
-	if use_laser_modifiers:
-		laser.modifier = laser_modifier
-		laser.set_laser()
-
-	# Setting the laser's position
-	laser.translation = translation
-	laser.translation.z += 1  # Makes the laser come from the "top" of the ship instead of the center for added realism
-
-	# Gets the scene that housed the enemy and adds to it the laser
-	get_parent().add_child(laser)
-
 func _on_LaserTimer_timeout():
-	fire_laser()
+	$LaserGun.damage = damage
+	$LaserGun.follow_player = use_homing_lasers
+	$LaserGun.use_laser_modifiers = use_laser_modifiers
+	if use_laser_modifiers:
+		$LaserGun.laser_modifier = laser_modifier
+	$LaserGun.fire()
 
 
 func _on_ShipDetection_area_entered(area):

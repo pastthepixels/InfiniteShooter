@@ -3,9 +3,6 @@ extends Area
 # For debugging
 export var godmode = false
 
-# Scenes used
-export(PackedScene) var laser_scene
-
 # Userdata (set to the defaults)
 var max_ammo = Saving.default_userdata.max_ammo
 
@@ -101,15 +98,12 @@ func _input(event):
 		and $ReloadTimer.time_left == 0
 	):
 		self.ammo -= 1
-		var laser = laser_scene.instance()
-		laser.sender = self
-		laser.rotation.y = deg2rad(180)
-		laser.translation = translation - Vector3(0, 0, 1)
-		laser.damage = damage
+		$LaserGun.damage = damage
 		if modifier != MODIFIERS.none:
-			laser.modifier = modifier
-			laser.set_laser()
-		get_parent().add_child(laser)
+			$LaserGun.set_modifier(modifier)
+		else:
+			$LaserGun.use_laser_modifiers = false
+		$LaserGun.fire()
 		Input.start_joy_vibration(0, 0.7, 1, .1)
 
 		if self.ammo == 0 and self.ammo_refills > 0:
