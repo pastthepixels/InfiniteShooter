@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -246,12 +246,6 @@ tracks/4/keys = {
 "values": [ Vector3( -90, 10, 0 ), Vector3( -90, -4.78528e-21, 0 ) ]
 }
 
-[sub_resource type="Gradient" id=9]
-colors = PoolColorArray( 1, 0, 0, 1, 0.0078125, 0, 1, 1 )
-
-[sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
-
 [sub_resource type="Shader" id=31]
 code = "/* From https://godotshaders.com/shader/chromatic-abberation-with-offset/, by bkhan and licensed under CC0*/
 /* modified with some code from https://godotshaders.com/shader/vhs-and-crt-monitor-effect/, by pend00 and licensed under CC0*/
@@ -326,30 +320,16 @@ anims/ZoomOut = SubResource( 6 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 2 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = SubResource( 10 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 z_index = -1
 z_as_relative = false
 rect = Rect2( -50, -50, 700, 900 )
 
-[node name="LensDistortion" type="ColorRect" parent="BackBufferCopy"]
+[node name="LensDistortion" type="ColorRect" parent="."]
 light_mask = 524289
 material = SubResource( 32 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -50.0
-margin_top = -50.0
-margin_right = -50.0
-margin_bottom = -50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
