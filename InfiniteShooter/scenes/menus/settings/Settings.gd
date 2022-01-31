@@ -30,6 +30,10 @@ func _on_SelectSquare_selected():
 			settings["bloom"] = ! settings["bloom"]
 			set_settings()
 		
+		"Fullscreen":
+			settings["fullscreen"] = ! settings["fullscreen"]
+			set_settings()
+		
 		"Up":
 			$KeyPopup.map_actions(["move_up", "ui_up"])
 		

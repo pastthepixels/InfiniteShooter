@@ -64,7 +64,6 @@ tracks/1/keys = {
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
 shader_param/lod = 2.0
-shader_param/aberration_strength = 0.1
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 1, 1, 1, 0.784314 )
@@ -104,7 +103,7 @@ bus = "SFX"
 copy_mode = 2
 rect = Rect2( 0, 0, 600, 800 )
 
-[node name="Blur" type="ColorRect" parent="BackBufferCopy"]
+[node name="Blur" type="ColorRect" parent="."]
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0

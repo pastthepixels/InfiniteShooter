@@ -13,7 +13,6 @@ border_color = Color( 1, 1, 1, 0.27451 )
 [sub_resource type="ShaderMaterial" id=12]
 shader = ExtResource( 1 )
 shader_param/lod = 2.0
-shader_param/aberration_strength = 0.5
 
 [node name="Background" type="Panel"]
 anchor_left = 0.5

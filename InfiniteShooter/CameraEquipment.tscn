@@ -323,7 +323,7 @@ environment = ExtResource( 2 )
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 z_index = -1
 z_as_relative = false
-rect = Rect2( -50, -50, 700, 900 )
+copy_mode = 2
 
 [node name="LensDistortion" type="ColorRect" parent="."]
 light_mask = 524289

@@ -32,6 +32,11 @@ func _ready():
 	noise.seed = randi()
 	noise.period = 4
 	noise.octaves = 2
+	get_tree().get_root().connect("size_changed", self, "center")
+	center()
+
+func center():
+	position = get_viewport().size / 2
 
 
 func add_trauma(amount):

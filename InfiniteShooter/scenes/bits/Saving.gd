@@ -26,6 +26,7 @@ var default_userdata = {
 var default_settings = {
 	"antialiasing": true,
 	"bloom": true,
+	"fullscreen": false,
 	"musicvol": 100,
 	"sfxvol": 100
 }
@@ -135,6 +136,10 @@ func save_settings(settings):
 		else Viewport.MSAA_DISABLED
 	)
 	
+	# Makes the window fullscreen if desired
+	OS.window_fullscreen = settings["fullscreen"]
+	if settings["fullscreen"] == false:
+		OS.window_size = Vector2(600, 800)
 	
 	# Stores settings
 	file.open(PATHS.settings, File.WRITE)

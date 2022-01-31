@@ -69,7 +69,7 @@ func update():
 	margin_right = select_child.margin_right + margin
 	margin_top = select_child.margin_top
 	margin_bottom = select_child.margin_bottom + margin
-	set_position(select_child.get_global_position() - Vector2(margin/2, margin/2))
+	set_global_position(select_child.get_global_position() - Vector2(margin/2, margin/2))
 
 func _process(_delta):
 	if visible == true and get_parent().visible == true:
