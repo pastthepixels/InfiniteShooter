@@ -25,6 +25,8 @@ export(Array, Curve3D) var paths
 # Laser mechanics
 var freeze_movement = false
 
+var cannon_alternation = false
+
 # Homing lasers
 export var homing_lasers = true
 
@@ -113,18 +115,20 @@ func explode_ship():
 
 
 func fire_laser():
-	# Creating the laser
-	var laser = laser_scene.instance()
-	laser.follow_player = true
-	laser.followed_player = followed_player
-	laser.sender = self
-	laser.damage = damage
+	$EnemyModel/Boss/Cannon1.damage = damage
+	$EnemyModel/Boss/Cannon2.damage = damage
 	
-	# Specific stuff to do with where lasers are firing from (picks a random cannon)
-	if rand_range(0, 1) > .5:
-		laser.translation = $EnemyModel/Boss/Cannon1.translation + translation
-	else:
-		laser.translation = $EnemyModel/Boss/Cannon2.translation + translation
-
-	# Gets the scene that housed the enemy and adds to it the laser
-	get_parent().add_child(laser)
+	if health <= max_health/3: # Stage 3
+		$EnemyModel/Boss/Cannon1.fire()
+		$EnemyModel/Boss/Cannon2.fire()
+	
+	if health <= 2 * max_health/3: # Stage 2
+		$EnemyModel/Boss/Cannon1.follow_player = true
+		$EnemyModel/Boss/Cannon2.follow_player = true
+	
+	if health > max_health/3: # Stage 1 (this applies to both stages 1&2)
+		cannon_alternation = !cannon_alternation
+		if cannon_alternation:
+			$EnemyModel/Boss/Cannon1.fire()
+		else:
+			$EnemyModel/Boss/Cannon2.fire()
