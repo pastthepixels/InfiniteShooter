@@ -156,6 +156,9 @@ func load_settings():
 		var settings = parse_json(file.get_line())
 		if settings == null:
 			return default_settings
+		for i in default_settings: # Goes through default_settings
+			if settings[i] == null:
+				settings[i] = default_settings[i] # and sets any missing variables
 		return settings
 
 #
