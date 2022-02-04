@@ -33,24 +33,12 @@ tracks/1/keys = {
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Camera:fov")
+tracks/2/path = NodePath("LensDistortion:material:shader_param/warp_amount")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 70.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("LensDistortion:material:shader_param/warp_amount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -153,18 +141,6 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 0.4, 0.4 ),
 "update": 0,
 "values": [ -0.5, -0.3 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Camera:fov")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ 1.0, 70.0 ]
 }
 
 [sub_resource type="Animation" id=5]
