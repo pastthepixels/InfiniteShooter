@@ -33,7 +33,7 @@ tracks/1/keys = {
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("LensDistortion:material:shader_param/warp_amount")
+tracks/2/path = NodePath("LensDistortion:material:shader_param/distort")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -131,7 +131,7 @@ tracks/1/keys = {
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("LensDistortion:material:shader_param/warp_amount")
+tracks/2/path = NodePath("LensDistortion:material:shader_param/distort")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -270,7 +270,7 @@ tracks/4/keys = {
 "values": [ Vector3( -90, 10, 0 ), Vector3( -90, -4.78528e-21, 0 ) ]
 }
 
-[sub_resource type="Shader" id=31]
+[sub_resource type="Shader" id=33]
 code = "/* From https://godotshaders.com/shader/chromatic-abberation-with-offset/, by bkhan and licensed under CC0*/
 /* modified with some code from https://godotshaders.com/shader/vhs-and-crt-monitor-effect/, by pend00 and licensed under CC0*/
 
@@ -278,10 +278,11 @@ shader_type canvas_item;
 
 // aberration vars
 uniform sampler2D offset_image : hint_white;
-uniform float aberration_strength = 1.0;
+uniform float dispersion = 1.0;
+uniform float blur_multiplier = 1.0;
 
 // warp vars
-uniform float warp_amount = 1.0;
+uniform float distort = 1.0;
 uniform vec2 warp_scale = vec2(1.0, 1.0);
 
 
@@ -289,7 +290,7 @@ vec2 warp(vec2 uv){
 	vec2 delta = uv - 0.5;
 	float delta2 = dot(delta.xy, delta.xy);
 	float delta4 = delta2 * delta2;
-	float delta_offset = delta4 * warp_amount;
+	float delta_offset = delta4 * distort;
 	
 	return uv + delta * delta_offset * warp_scale;
 }
@@ -297,19 +298,21 @@ vec2 warp(vec2 uv){
 void fragment() {
 	vec2 uv = warp(SCREEN_UV);
 	vec4 output = texture(SCREEN_TEXTURE, uv);
+	float shift = dispersion * texture(offset_image, uv).r / 100.0;
+	float blur = texture(offset_image, uv).r * blur_multiplier;
 	
-	float shift = aberration_strength * texture(offset_image, uv).r / 100.0;
-	output.r = texture(SCREEN_TEXTURE, vec2(uv.x + shift, uv.y)).r;
-	output.g = texture(SCREEN_TEXTURE, uv).g;
-	output.b = texture(SCREEN_TEXTURE, vec2(uv.x - shift, uv.y)).b;
+	output.r = texture(SCREEN_TEXTURE, vec2(uv.x - shift, uv.y), blur).r;
+	output.g = texture(SCREEN_TEXTURE, uv, blur).g;
+	output.b = texture(SCREEN_TEXTURE, vec2(uv.x + shift, uv.y), blur).b;
 	
 	COLOR = output;
 }"
 
 [sub_resource type="ShaderMaterial" id=32]
-shader = SubResource( 31 )
-shader_param/aberration_strength = 0.1
-shader_param/warp_amount = -0.3
+shader = SubResource( 33 )
+shader_param/dispersion = 0.1
+shader_param/blur_multiplier = 0.2
+shader_param/distort = -0.3
 shader_param/warp_scale = Vector2( 1, 1 )
 shader_param/offset_image = ExtResource( 4 )
 
@@ -329,7 +332,6 @@ smoothing_enabled = true
 script = ExtResource( 1 )
 max_roll = 0.15
 max_trauma = 0.6
-max_aberration_strength = 0.6
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )

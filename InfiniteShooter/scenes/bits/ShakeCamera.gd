@@ -22,9 +22,9 @@ onready var noise = OpenSimplexNoise.new()
 
 var noise_y = 0
 
-onready var initial_aberration_strength = get_node("../LensDistortion").material.get_shader_param("aberration_strength") # <-- The initial strength of aberration in the LensDistortion node
+onready var initial_dispersion = get_node("../LensDistortion").material.get_shader_param("dispersion") # <-- The initial strength of aberration in the LensDistortion node
 
-export var max_aberration_strength = 0.4
+export var max_dispersion = 0.4
 
 
 func _ready():
@@ -67,4 +67,4 @@ func shake():
 	get_parent().rotation.y = rotation
 	
 	# Added code to work with the LensDistortion node
-	get_node("../LensDistortion").material.set_shader_param("aberration_strength", (trauma * max_aberration_strength) + initial_aberration_strength)
+	get_node("../LensDistortion").material.set_shader_param("dispersion", (trauma * max_dispersion) + initial_dispersion)
