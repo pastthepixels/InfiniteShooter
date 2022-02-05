@@ -98,6 +98,10 @@ func update_gui():
 		"custom_colors/font_color",
 		colors.green if settings["bloom"] else colors.red
 	)
+	$Content/Options/Fullscreen/Title.set(
+		"custom_colors/font_color",
+		colors.green if settings["fullscreen"] else colors.red
+	)
 
 # To reset settings
 func _on_ResetConfirmation_confirmed():
