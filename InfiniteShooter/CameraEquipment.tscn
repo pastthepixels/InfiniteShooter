@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
 [ext_resource path="res://CameraEquipment.gd" type="Script" id=3]
-[ext_resource path="res://images/aberration-map.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=3]
 resource_name = "RESET"
@@ -31,18 +30,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("LensDistortion:material:shader_param/distort")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -0.3 ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -129,18 +116,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("LensDistortion:material:shader_param/distort")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 0.4, 0.4 ),
-"update": 0,
-"values": [ -0.5, -0.3 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -271,50 +246,48 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Shader" id=33]
-code = "/* From https://godotshaders.com/shader/chromatic-abberation-with-offset/, by bkhan and licensed under CC0*/
-/* modified with some code from https://godotshaders.com/shader/vhs-and-crt-monitor-effect/, by pend00 and licensed under CC0*/
+code = "/* Modified from https://www.shadertoy.com/view/4lSGRw, by spite */
 
 shader_type canvas_item;
 
 // aberration vars
-uniform sampler2D offset_image : hint_white;
 uniform float dispersion = 1.0;
-uniform float blur_multiplier = 1.0;
 
 // warp vars
 uniform float distort = 1.0;
 uniform vec2 warp_scale = vec2(1.0, 1.0);
 
 
-vec2 warp(vec2 uv){
-	vec2 delta = uv - 0.5;
-	float delta2 = dot(delta.xy, delta.xy);
-	float delta4 = delta2 * delta2;
-	float delta_offset = delta4 * distort;
-	
-	return uv + delta * delta_offset * warp_scale;
+vec2 distortUV( vec2 uv, float level ){ // Renamed `k` to `level` and `computeUV` to `distortUV`
+    
+	/* Magic code from shadertoy.com. Removed the variable `kcube` because I don't need it. */
+    vec2 t = uv - .5;
+    float r2 = t.x * t.x + t.y * t.y;
+	float f = 0.;
+    
+    f = 1. + r2 * level;
+    
+    vec2 nUv = f * t + .5;
+    nUv.y = 1. - nUv.y;
+ 
+	/* Returns the magic UV but flipped around right side up. */
+    return vec2(nUv.x, 1.0 - nUv.y) * warp_scale;
+    
 }
 
 void fragment() {
-	vec2 uv = warp(SCREEN_UV);
-	vec4 output = texture(SCREEN_TEXTURE, uv);
-	float shift = dispersion * texture(offset_image, uv).r / 100.0;
-	float blur = texture(offset_image, uv).r * blur_multiplier;
-	
-	output.r = texture(SCREEN_TEXTURE, vec2(uv.x - shift, uv.y), blur).r;
-	output.g = texture(SCREEN_TEXTURE, uv, blur).g;
-	output.b = texture(SCREEN_TEXTURE, vec2(uv.x + shift, uv.y), blur).b;
-	
-	COLOR = output;
+	// Splits colors into different variables. First we take a texture with SCREEN_TEXTURE and distortUV (factoring in `dispersion`) and then we combine them into a vec4
+	float red = texture( SCREEN_TEXTURE, distortUV( SCREEN_UV, distort + dispersion ) ).r;
+    float green = texture( SCREEN_TEXTURE, distortUV( SCREEN_UV, distort ) ).g; 
+    float blue = texture( SCREEN_TEXTURE, distortUV( SCREEN_UV, distort - dispersion ) ).b;
+	COLOR = vec4( red, green, blue, 1.0 );
 }"
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = SubResource( 33 )
-shader_param/dispersion = 0.1
-shader_param/blur_multiplier = 0.2
-shader_param/distort = -0.3
+shader_param/dispersion = 0.01
+shader_param/distort = -0.1
 shader_param/warp_scale = Vector2( 1, 1 )
-shader_param/offset_image = ExtResource( 4 )
 
 [node name="CameraEquipment" type="Spatial"]
 script = ExtResource( 3 )
@@ -332,6 +305,7 @@ smoothing_enabled = true
 script = ExtResource( 1 )
 max_roll = 0.15
 max_trauma = 0.6
+max_dispersion = 0.02
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
@@ -347,6 +321,7 @@ anims/ZoomOut = SubResource( 6 )
 environment = ExtResource( 2 )
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+visible = false
 z_index = -1
 z_as_relative = false
 copy_mode = 2
