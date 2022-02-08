@@ -157,7 +157,7 @@ func load_settings():
 		if settings == null:
 			return default_settings
 		for i in default_settings: # Goes through default_settings
-			if settings[i] == null:
+			if (i in settings) == false:
 				settings[i] = default_settings[i] # and sets any missing variables
 		return settings
 
