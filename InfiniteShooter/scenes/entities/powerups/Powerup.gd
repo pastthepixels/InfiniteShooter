@@ -69,7 +69,8 @@ func _on_CountdownTimer_timeout():
 
 func _process(_delta):
 	if $CountdownTimer.time_left <= 4:
-		$OutlineAnimations.play("warning")
+		$Outline.hide()
+		$WarningOutline.show()
 
 
 func _on_AudioStreamPlayer_finished():
