@@ -94,19 +94,18 @@ func _input(event):
 		$AmmoClick.play()
 	if (
 		event.is_action_pressed("shoot_laser")
-		and self.ammo > 0
 		and $ReloadTimer.time_left == 0
 	):
-		self.ammo -= 1
-		$LaserGun.damage = damage
-		if modifier != MODIFIERS.none:
-			$LaserGun.set_modifier(modifier)
-		else:
-			$LaserGun.use_laser_modifiers = false
-		$LaserGun.fire()
-		Input.start_joy_vibration(0, 0.7, 1, .1)
-
-		if self.ammo == 0 and self.ammo_refills > 0:
+		if self.ammo > 0:
+			self.ammo -= 1
+			$LaserGun.damage = damage
+			if modifier != MODIFIERS.none:
+				$LaserGun.set_modifier(modifier)
+			else:
+				$LaserGun.use_laser_modifiers = false
+			$LaserGun.fire()
+			Input.start_joy_vibration(0, 0.7, 1, .1)
+		if self.ammo <= 0 and self.ammo_refills > 0:
 			self.ammo_refills -= 1
 			$ReloadTimer.start()
 			$ReloadStart.play()
