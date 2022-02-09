@@ -66,11 +66,12 @@ tracks/1/keys = {
 }
 
 [sub_resource type="GIProbeData" id=4]
-bounds = AABB( -5, -5, -2, 10, 10, 4 )
-cell_size = 0.15625
-to_cell_xform = Transform( 6.4, 0, 0, 0, 6.4, 0, 0, 0, 6.4, 32, 32, 12.8 )
-dynamic_data = PoolIntArray( 0, 7, 64, 64, 32, 1, 0, 0, 1086324736, 1110966272, 0, 0, 1102053376, 1110966272, 1065353216, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+bounds = AABB( -5, -5.85031, -8.73882, 10, 11.7006, 17.4776 )
+cell_size = 0.273088
+to_cell_xform = Transform( 3.66182, 0, 0, 0, 3.66182, 0, 0, 0, 3.66182, 18.3091, 21.4228, 32 )
+dynamic_data = PoolIntArray( 0, 7, 64, 64, 64, 1, 0, 0, 0, 11, -1006591168, 32654, 1086324736, 1086324736, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
 dynamic_range = 4
+energy = 0.4
 bias = 1.5
 normal_bias = 0.0
 propagation = 0.7
@@ -108,10 +109,10 @@ anims/switch = SubResource( 2 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="GIProbe" type="GIProbe" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6537, 0 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.6211, -5.19127 )
 subdiv = 0
-extents = Vector3( 5, 5, 2 )
+extents = Vector3( 5, 5.85031, 8.73882 )
+energy = 0.4
 data = SubResource( 4 )
 
 [node name="Indirect Lighting" type="DirectionalLight" parent="."]
