@@ -17,24 +17,24 @@ func _ready():
 	if modifier == MODIFIERS.none:
 		match type:
 			1:
-				$Ammo.show()
+				$Meshes/Ammo.show()
 
 			2:
-				$Medkit.show()
+				$Meshes/Medkit.show()
 
 			3:
-				$EnemyWipe.show()
+				$Meshes/EnemyWipe.show()
 	else:
-		$LaserTypes.show()
+		$Meshes/LaserTypes.show()
 		match modifier:
 			MODIFIERS.fire:
-				$LaserTypes/Fire.show()
+				$Meshes/LaserTypes/Fire.show()
 			
 			MODIFIERS.ice:
-				$LaserTypes/Ice.show()
+				$Meshes/LaserTypes/Ice.show()
 			
 			MODIFIERS.corrosion:
-				$LaserTypes/Corrosion.show()
+				$Meshes/LaserTypes/Corrosion.show()
 
 
 func _on_Powerup_area_entered(area):
@@ -68,7 +68,8 @@ func _on_CountdownTimer_timeout():
 	$MainAnimations.play("hide")
 
 func _process(_delta):
-	$Outline.visible = $CountdownTimer.time_left < 3
+	if $CountdownTimer.time_left <= 4:
+		$OutlineAnimations.play("warning")
 
 
 func _on_AudioStreamPlayer_finished():
