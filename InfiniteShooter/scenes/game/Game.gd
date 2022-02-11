@@ -20,6 +20,8 @@ var enemies_in_wave = 0
 
 var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
+var use_laser_modifiers = false # Whether or not to use laser modifiers
+
 var autospawn_enemies = false # Whether or not to spawn new enemies when they die (used within this script)
 
 # Scripts
@@ -144,7 +146,7 @@ func level_up():
 	match level:
 		2:
 			yield(Utils.timeout(1), "timeout")
-			GameVariables.use_laser_modifiers = true
+			use_laser_modifiers = true
 			if Saving.get_tutorial_progress()["elemental"] == false: activate_tutorial_elemental()
 	# Resumes enemy spawning after the popup
 	make_enemies()
@@ -161,6 +163,7 @@ func make_enemies():
 func make_enemy():
 	# Creates an enemy
 	var enemy = enemy_scene.instance()
+	if use_laser_modifiers == false: enemy.use_laser_modifiers = false
 	enemy.connect("died", self, "_on_Enemy_died")
 	
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
