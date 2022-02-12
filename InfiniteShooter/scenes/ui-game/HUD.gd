@@ -25,8 +25,17 @@ export (GradientTexture) var fire_gradient
 
 export (GradientTexture) var ice_gradient
 
+func _ready():
+	if OS.window_fullscreen == false: # Moves the status bar to the bottom of the screen if the game is in windowed mode 
+		$StatusBar.anchor_top = 1
+		$StatusBar.margin_top *= -1
+		$StatusBar.margin_bottom *= -1
+		$StatusBar.margin_top += $ProgressBars.margin_bottom - $StatusBar.rect_size.y
+		$StatusBar.margin_bottom += $ProgressBars.margin_bottom
+		$StatusBar.margin_left = 15
+
 func _process(_delta):
-	$StatusBar/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
+	$StatusBar/MarginContainer/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
 	if _previous_health != animated_health:
 		_previous_health = animated_health
 		$ProgressBars/HealthBar.value = animated_health
@@ -38,17 +47,17 @@ func _process(_delta):
 # Updating the status bar
 #
 func update_score(score):
-	$StatusBar/Labels/Score.text = "Score: %s" % score
+	$StatusBar/MarginContainer/Labels/Score.text = "Score: %s" % score
 
 
 func update_level(level, progress):
-	$StatusBar/Labels/Level.text = "Level %s" % level
-	$StatusBar/Labels/Level/Progress.value = progress
+	$StatusBar/MarginContainer/Labels/Level/Label.text = "Level %s" % level
+	$StatusBar/MarginContainer/Labels/Level.value = progress
 
 
 func update_wave(wave, progress):
-	$StatusBar/Labels/Wave.text = "Wave %s" % wave
-	$StatusBar/Labels/Wave/Progress.value = progress
+	$StatusBar/MarginContainer/Labels/Wave/Label.text = "Wave %s" % wave
+	$StatusBar/MarginContainer/Labels/Wave.value = progress
 
 #
 # Updating the top bars

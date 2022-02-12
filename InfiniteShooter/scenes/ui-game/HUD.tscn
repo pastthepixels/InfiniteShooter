@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -77,17 +77,17 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="ShaderMaterial" id=11]
+[sub_resource type="StyleBoxFlat" id=34]
+bg_color = Color( 1, 1, 1, 0.156863 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 0.27451 )
+
+[sub_resource type="ShaderMaterial" id=35]
 shader = ExtResource( 2 )
 shader_param/lod = 2.0
-shader_param/aberration_strength = 0.5
-
-[sub_resource type="Gradient" id=12]
-colors = PoolColorArray( 1, 1, 1, 0.313726, 1, 1, 1, 0.117647 )
-
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
-width = 512
 
 [sub_resource type="Gradient" id=14]
 colors = PoolColorArray( 0, 0, 0, 0.392157, 0.2, 0.2, 0.2, 0.392157 )
@@ -103,18 +103,9 @@ colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
 gradient = SubResource( 16 )
 width = 32
 
-[sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0, 0, 0, 0 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 1, 1, 1, 0.0784314 )
-
 [sub_resource type="ShaderMaterial" id=22]
 shader = ExtResource( 2 )
 shader_param/lod = 2.0
-shader_param/aberration_strength = 0.5
 
 [sub_resource type="Gradient" id=18]
 colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 0.313726, 1, 1, 1, 0.313726 )
@@ -128,6 +119,14 @@ colors = PoolColorArray( 0.266667, 0.784314, 0.254902, 1, 0, 1, 0.115, 1 )
 [sub_resource type="GradientTexture" id=21]
 gradient = SubResource( 20 )
 width = 512
+
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 0.0784314 )
 
 [sub_resource type="Gradient" id=23]
 colors = PoolColorArray( 0.560784, 0.560784, 0.560784, 0.588235, 0.627451, 0.627451, 0.627451, 0.627451 )
@@ -210,59 +209,85 @@ anims/FadeVignette = SubResource( 9 )
 anims/RESET = SubResource( 33 )
 anims/fade_out = SubResource( 10 )
 
-[node name="StatusBar" type="Control" parent="."]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -30.0
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+position = Vector2( 153.5, 58 )
+scale = Vector2( 1.385, 1 )
+copy_mode = 2
+
+[node name="StatusBar" type="PanelContainer" parent="."]
+margin_left = 40.0
+margin_top = 85.0
+margin_right = 268.0
+margin_bottom = 119.0
+custom_styles/panel = SubResource( 34 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Blur" type="ColorRect" parent="StatusBar"]
-material = SubResource( 11 )
-anchor_right = 1.0
-anchor_bottom = 1.0
+show_behind_parent = true
+material = SubResource( 35 )
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 266.0
+margin_bottom = 43.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Gradient" type="TextureRect" parent="StatusBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = SubResource( 13 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="MarginContainer" type="MarginContainer" parent="StatusBar"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 266.0
+margin_bottom = 43.0
+custom_constants/margin_right = 6
+custom_constants/margin_top = 5
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 5
 
-[node name="Labels" type="HBoxContainer" parent="StatusBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+[node name="Labels" type="HBoxContainer" parent="StatusBar/MarginContainer"]
+margin_left = 6.0
+margin_top = 5.0
+margin_right = 259.0
+margin_bottom = 37.0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Level" type="Label" parent="StatusBar/Labels"]
-margin_top = 7.0
-margin_right = 40.0
-margin_bottom = 22.0
+[node name="Level" type="TextureProgress" parent="StatusBar/MarginContainer/Labels"]
+show_behind_parent = true
+margin_right = 64.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
+texture_under = SubResource( 15 )
+texture_progress = SubResource( 17 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="StatusBar/MarginContainer/Labels/Level"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.5
+margin_right = 20.0
+margin_bottom = 7.5
 text = "Level 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Progress" type="TextureProgress" parent="StatusBar/Labels/Level"]
+[node name="Wave" type="TextureProgress" parent="StatusBar/MarginContainer/Labels"]
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 5.0
-margin_bottom = 5.0
+margin_left = 79.0
+margin_right = 143.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
@@ -270,55 +295,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Wave" type="Label" parent="StatusBar/Labels"]
-margin_left = 55.0
-margin_top = 7.0
-margin_right = 98.0
-margin_bottom = 22.0
+[node name="Label" type="Label" parent="StatusBar/MarginContainer/Labels/Wave"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -21.5
+margin_top = -7.5
+margin_right = 21.5
+margin_bottom = 7.5
 text = "Wave 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Progress" type="TextureProgress" parent="StatusBar/Labels/Wave"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 5.0
-margin_bottom = 5.0
-texture_under = SubResource( 15 )
-texture_progress = SubResource( 17 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Score" type="Label" parent="StatusBar/Labels"]
-margin_left = 113.0
-margin_top = 7.0
-margin_right = 160.0
-margin_bottom = 22.0
+[node name="Score" type="Label" parent="StatusBar/MarginContainer/Labels"]
+margin_left = 158.0
+margin_top = 8.0
+margin_right = 205.0
+margin_bottom = 23.0
 text = "Score: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FPS" type="Label" parent="StatusBar/Labels"]
-margin_left = 175.0
-margin_top = 7.0
-margin_right = 208.0
-margin_bottom = 22.0
+[node name="FPS" type="Label" parent="StatusBar/MarginContainer/Labels"]
+margin_left = 220.0
+margin_top = 8.0
+margin_right = 253.0
+margin_bottom = 23.0
 text = "0 FPS"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Highlight" type="Panel" parent="StatusBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 30 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -403,6 +409,7 @@ __meta__ = {
 }
 
 [node name="Vignette" type="ColorRect" parent="."]
+visible = false
 material = SubResource( 32 )
 anchor_right = 1.0
 anchor_bottom = 1.0
