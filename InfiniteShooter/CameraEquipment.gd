@@ -7,6 +7,6 @@ func _ready():
 
 func _process(_delta):
 	if OS.window_fullscreen == true:
-		$LensDistortion.material.set_shader_param("distort", -0.001)
+		pass#$LensDistortion.material.set_shader_param("distort", -0.001)
 	elif $LensDistortion.material.get_shader_param("distort") == 0:
-		$LensDistortion.material.set_shader_param("distort", initial_warp_amount)
+		pass#$LensDistortion.material.set_shader_param("distort", initial_warp_amount)
