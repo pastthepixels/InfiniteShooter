@@ -120,7 +120,7 @@ transform = Transform( 1, 0, 0, 0, -0.78326, 0.621695, 0, -0.621695, -0.78326, 0
 light_energy = 2.0
 
 [node name="Title" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
 [node name="Light" type="SpotLight" parent="Title"]
 transform = Transform( 1, 0, 0, 0, -0.642787, 0.766044, 0, -0.766044, -0.642787, 0, 2.255, -2 )

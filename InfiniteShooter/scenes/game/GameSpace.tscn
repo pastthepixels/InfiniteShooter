@@ -1,4 +1,35 @@
-[gd_scene format=2]
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.127049, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.12549, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 128
+
+[sub_resource type="ParticlesMaterial" id=2]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_box_extents = Vector3( 20, 5, 20 )
+flag_rotate_y = true
+gravity = Vector3( 0, 0, 5 )
+angular_velocity = 200.0
+angular_velocity_random = 1.0
+linear_accel = 5.0
+linear_accel_random = 1.0
+color_ramp = SubResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="PlaneMesh" id=1]
+material = SubResource( 5 )
+size = Vector2( 0.05, 0.05 )
 
 [node name="GameSpace" type="Spatial"]
 
@@ -9,3 +40,12 @@ light_energy = 2.0
 [node name="ReflectionProbe" type="ReflectionProbe" parent="."]
 extents = Vector3( 20, 10, 20 )
 cull_mask = 1048574
+
+[node name="AmbientParticles" type="Particles" parent="."]
+amount = 16
+lifetime = 2.0
+preprocess = 600.0
+randomness = 1.0
+visibility_aabb = AABB( -20, -10, -20, 40, 20, 40 )
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 1 )

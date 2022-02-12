@@ -80,3 +80,7 @@ func _on_AudioStreamPlayer_finished():
 func _on_MainAnimations_animation_finished(anim_name):
 	if anim_name == "hide": queue_free()
 	if anim_name != "creation": hide()
+
+
+func _on_VisibilityNotifier_screen_exited():
+	hide()
