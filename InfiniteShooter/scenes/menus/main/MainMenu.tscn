@@ -146,6 +146,10 @@ extents = Vector3( 5, 5.85031, 8.73882 )
 energy = 0.4
 data = SubResource( 4 )
 
+[node name="Indirect Lighting" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.78326, 0.621695, 0, -0.621695, -0.78326, 0, 11.6537, -8.32371 )
+light_energy = 2.0
+
 [node name="Title" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
@@ -153,10 +157,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 transform = Transform( 1, 0, 0, 0, -0.642787, 0.766044, 0, -0.766044, -0.642787, 0, 2.255, -2 )
 spot_range = 17.0
 spot_angle = 60.0
-
-[node name="Indirect Lighting" type="DirectionalLight" parent="Title"]
-transform = Transform( 1, 0, 0, 0, -0.78326, 0.621695, 0, -0.621695, -0.78326, 0, 3.6537, -8.32371 )
-light_energy = 2.0
 
 [node name="AmbientParticles" type="Particles" parent="."]
 amount = 32
