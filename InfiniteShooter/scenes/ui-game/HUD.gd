@@ -40,8 +40,8 @@ func _ready():
 		status_bar.anchor_top = 1
 		status_bar.anchor_right = 1
 		status_bar.anchor_bottom = 1
-		status_bar.rect_size = Vector2(600, 44)
-		status_bar.rect_position = Vector2(0, 756)
+		status_bar.rect_size = Vector2(600, 36)
+		status_bar.rect_position = Vector2(0, 764)
 		
 
 func _process(_delta):

@@ -127,7 +127,8 @@ shader = ExtResource( 2 )
 shader_param/lod = 2.0
 
 [sub_resource type="Gradient" id=14]
-colors = PoolColorArray( 0, 0, 0, 0.392157, 0.2, 0.2, 0.2, 0.392157 )
+offsets = PoolRealArray( 0.00387597, 1 )
+colors = PoolColorArray( 0, 0, 0, 0.694118, 0, 0, 0, 0.45098 )
 
 [sub_resource type="GradientTexture" id=15]
 gradient = SubResource( 14 )
@@ -310,7 +311,7 @@ __meta__ = {
 [node name="StatusBar" type="PanelContainer" parent="HUD"]
 margin_top = 58.0
 margin_right = 267.0
-margin_bottom = 102.0
+margin_bottom = 94.0
 custom_styles/panel = SubResource( 34 )
 __meta__ = {
 "_edit_group_": true,
@@ -323,7 +324,7 @@ material = SubResource( 35 )
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 266.0
-margin_bottom = 43.0
+margin_bottom = 35.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -332,7 +333,7 @@ __meta__ = {
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 266.0
-margin_bottom = 43.0
+margin_bottom = 35.0
 custom_constants/margin_right = 6
 custom_constants/margin_top = 5
 custom_constants/margin_left = 6
@@ -342,7 +343,7 @@ custom_constants/margin_bottom = 5
 margin_left = 6.0
 margin_top = 5.0
 margin_right = 259.0
-margin_bottom = 37.0
+margin_bottom = 29.0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
@@ -351,8 +352,8 @@ __meta__ = {
 [node name="Level" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
 show_behind_parent = true
 margin_right = 64.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 32 )
+margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
@@ -378,8 +379,8 @@ __meta__ = {
 show_behind_parent = true
 margin_left = 79.0
 margin_right = 143.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 32 )
+margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
@@ -403,9 +404,9 @@ __meta__ = {
 
 [node name="Score" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_left = 158.0
-margin_top = 8.0
+margin_top = 4.0
 margin_right = 205.0
-margin_bottom = 23.0
+margin_bottom = 19.0
 text = "Score: 0"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -413,9 +414,9 @@ __meta__ = {
 
 [node name="FPS" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_left = 220.0
-margin_top = 8.0
+margin_top = 4.0
 margin_right = 253.0
-margin_bottom = 23.0
+margin_bottom = 19.0
 text = "0 FPS"
 __meta__ = {
 "_edit_use_anchors_": false
