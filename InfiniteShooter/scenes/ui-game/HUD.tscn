@@ -77,32 +77,6 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=34]
-bg_color = Color( 1, 1, 1, 0.156863 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 1, 1, 1, 0.27451 )
-
-[sub_resource type="ShaderMaterial" id=35]
-shader = ExtResource( 2 )
-shader_param/lod = 2.0
-
-[sub_resource type="Gradient" id=14]
-colors = PoolColorArray( 0, 0, 0, 0.392157, 0.2, 0.2, 0.2, 0.392157 )
-
-[sub_resource type="GradientTexture" id=15]
-gradient = SubResource( 14 )
-width = 64
-
-[sub_resource type="Gradient" id=16]
-colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=17]
-gradient = SubResource( 16 )
-width = 32
-
 [sub_resource type="ShaderMaterial" id=22]
 shader = ExtResource( 2 )
 shader_param/lod = 2.0
@@ -139,6 +113,32 @@ colors = PoolColorArray( 0.2, 0.2, 0.2, 1, 0.266667, 0.266667, 0.266667, 1 )
 
 [sub_resource type="GradientTexture" id=26]
 gradient = SubResource( 25 )
+
+[sub_resource type="StyleBoxFlat" id=34]
+bg_color = Color( 1, 1, 1, 0.156863 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 0.27451 )
+
+[sub_resource type="ShaderMaterial" id=35]
+shader = ExtResource( 2 )
+shader_param/lod = 2.0
+
+[sub_resource type="Gradient" id=14]
+colors = PoolColorArray( 0, 0, 0, 0.392157, 0.2, 0.2, 0.2, 0.392157 )
+
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
+width = 64
+
+[sub_resource type="Gradient" id=16]
+colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
+width = 32
 
 [sub_resource type="Shader" id=31]
 code = "/* Modified from https://godotshaders.com/shader/color-vignetting/, by randomDam and licensed under CC0 */
@@ -214,18 +214,110 @@ position = Vector2( 153.5, 58 )
 scale = Vector2( 1.385, 1 )
 copy_mode = 2
 
-[node name="StatusBar" type="PanelContainer" parent="."]
+[node name="HUD" type="VBoxContainer" parent="."]
 margin_left = 40.0
-margin_top = 85.0
-margin_right = 268.0
-margin_bottom = 119.0
+margin_top = 40.0
+margin_right = 307.0
+margin_bottom = 142.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBars" type="TextureRect" parent="HUD"]
+margin_right = 180.0
+margin_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 180, 42 )
+size_flags_horizontal = 0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="HUD/ProgressBars"]
+show_behind_parent = true
+material = SubResource( 22 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureProgress" parent="HUD/ProgressBars"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 185.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 180, 18 )
+value = 50.0
+texture_under = SubResource( 19 )
+texture_progress = SubResource( 21 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Highlight" type="Panel" parent="HUD/ProgressBars/HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AmmoBar" type="TextureProgress" parent="HUD/ProgressBars"]
+margin_left = 5.0
+margin_top = 23.0
+margin_right = 185.0
+margin_bottom = 37.0
+value = 50.0
+texture_under = SubResource( 24 )
+texture_progress = SubResource( 26 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Refills" type="Label" parent="HUD/ProgressBars/AmmoBar"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_right = 24.0
+margin_bottom = 1.0
+custom_colors/font_color_shadow = Color( 0.286275, 0.286275, 0.286275, 1 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Highlight" type="Panel" parent="HUD/ProgressBars/AmmoBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 180, 14 )
+custom_styles/panel = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusBar" type="PanelContainer" parent="HUD"]
+margin_top = 58.0
+margin_right = 267.0
+margin_bottom = 102.0
 custom_styles/panel = SubResource( 34 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Blur" type="ColorRect" parent="StatusBar"]
+[node name="Blur" type="ColorRect" parent="HUD/StatusBar"]
 show_behind_parent = true
 material = SubResource( 35 )
 margin_left = 1.0
@@ -236,7 +328,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="StatusBar"]
+[node name="MarginContainer" type="MarginContainer" parent="HUD/StatusBar"]
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 266.0
@@ -246,7 +338,7 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 5
 
-[node name="Labels" type="HBoxContainer" parent="StatusBar/MarginContainer"]
+[node name="Labels" type="HBoxContainer" parent="HUD/StatusBar/MarginContainer"]
 margin_left = 6.0
 margin_top = 5.0
 margin_right = 259.0
@@ -256,7 +348,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Level" type="TextureProgress" parent="StatusBar/MarginContainer/Labels"]
+[node name="Level" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
 show_behind_parent = true
 margin_right = 64.0
 margin_bottom = 32.0
@@ -268,7 +360,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="StatusBar/MarginContainer/Labels/Level"]
+[node name="Label" type="Label" parent="HUD/StatusBar/MarginContainer/Labels/Level"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -282,7 +374,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Wave" type="TextureProgress" parent="StatusBar/MarginContainer/Labels"]
+[node name="Wave" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
 show_behind_parent = true
 margin_left = 79.0
 margin_right = 143.0
@@ -295,7 +387,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="StatusBar/MarginContainer/Labels/Wave"]
+[node name="Label" type="Label" parent="HUD/StatusBar/MarginContainer/Labels/Wave"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -309,7 +401,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="StatusBar/MarginContainer/Labels"]
+[node name="Score" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_left = 158.0
 margin_top = 8.0
 margin_right = 205.0
@@ -319,7 +411,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FPS" type="Label" parent="StatusBar/MarginContainer/Labels"]
+[node name="FPS" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_left = 220.0
 margin_top = 8.0
 margin_right = 253.0
@@ -329,87 +421,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ProgressBars" type="TextureRect" parent="."]
-margin_left = 40.0
-margin_top = 30.0
-margin_right = 220.0
-margin_bottom = 72.0
-texture = SubResource( 2 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Blur" type="ColorRect" parent="ProgressBars"]
-show_behind_parent = true
-material = SubResource( 22 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 5.0
-margin_bottom = -5.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HealthBar" type="TextureProgress" parent="ProgressBars"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 185.0
-margin_bottom = 23.0
-value = 50.0
-texture_under = SubResource( 19 )
-texture_progress = SubResource( 21 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Highlight" type="Panel" parent="ProgressBars/HealthBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 30 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AmmoBar" type="TextureProgress" parent="ProgressBars"]
-margin_left = 5.0
-margin_top = 23.0
-margin_right = 185.0
-margin_bottom = 37.0
-value = 50.0
-texture_under = SubResource( 24 )
-texture_progress = SubResource( 26 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Refills" type="Label" parent="ProgressBars/AmmoBar"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = 24.0
-margin_bottom = 1.0
-custom_colors/font_color_shadow = Color( 0.286275, 0.286275, 0.286275, 1 )
-text = "10"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Highlight" type="Panel" parent="ProgressBars/AmmoBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 30 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Vignette" type="ColorRect" parent="."]
-visible = false
 material = SubResource( 32 )
 anchor_right = 1.0
 anchor_bottom = 1.0

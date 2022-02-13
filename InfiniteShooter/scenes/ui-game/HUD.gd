@@ -25,39 +25,49 @@ export (GradientTexture) var fire_gradient
 
 export (GradientTexture) var ice_gradient
 
+# Other variables
+onready var status_bar = get_node("HUD/StatusBar")
+
 func _ready():
 	if OS.window_fullscreen == false: # Moves the status bar to the bottom of the screen if the game is in windowed mode 
-		$StatusBar.anchor_top = 1
-		$StatusBar.margin_top *= -1
-		$StatusBar.margin_bottom *= -1
-		$StatusBar.margin_top += $ProgressBars.margin_bottom - $StatusBar.rect_size.y
-		$StatusBar.margin_bottom += $ProgressBars.margin_bottom
-		$StatusBar.margin_left = 15
+		# 1. Reparents the status bar
+		$HUD.remove_child(status_bar)
+		add_child(status_bar)
+		status_bar.set_owner(self)
+		move_child(status_bar, 4)
+		# 2. Moves it to the bottom of the screen like InfiniteShooter used to have with the magic of hard-coding
+		status_bar.anchor_left = 0
+		status_bar.anchor_top = 1
+		status_bar.anchor_right = 1
+		status_bar.anchor_bottom = 1
+		status_bar.rect_size = Vector2(600, 44)
+		status_bar.rect_position = Vector2(0, 756)
+		
 
 func _process(_delta):
-	$StatusBar/MarginContainer/Labels/FPS.text = "%s FPS" % Engine.get_frames_per_second()
+	status_bar.get_node("MarginContainer/Labels/FPS").text = "%s FPS" % Engine.get_frames_per_second()
 	if _previous_health != animated_health:
 		_previous_health = animated_health
-		$ProgressBars/HealthBar.value = animated_health
+		$HUD/ProgressBars/HealthBar.value = animated_health
 	if _previous_ammo != animated_ammo:
 		_previous_ammo = animated_ammo
-		$ProgressBars/AmmoBar.value = animated_ammo
+		$HUD/ProgressBars/AmmoBar.value = animated_ammo
 
 #
 # Updating the status bar
 #
 func update_score(score):
-	$StatusBar/MarginContainer/Labels/Score.text = "Score: %s" % score
+	status_bar.get_node("MarginContainer/Labels/Score").text = "Score: %s" % score
 
 
 func update_level(level, progress):
-	$StatusBar/MarginContainer/Labels/Level/Label.text = "Level %s" % level
-	$StatusBar/MarginContainer/Labels/Level.value = progress
+	status_bar.get_node("MarginContainer/Labels/Level/Label").text = "Level %s" % level
+	status_bar.get_node("MarginContainer/Labels/Level").value = progress
 
 
 func update_wave(wave, progress):
-	$StatusBar/MarginContainer/Labels/Wave/Label.text = "Wave %s" % wave
-	$StatusBar/MarginContainer/Labels/Wave.value = progress
+	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Wave %s" % wave
+	status_bar.get_node("MarginContainer/Labels/Wave").value = progress
 
 #
 # Updating the top bars
@@ -65,16 +75,16 @@ func update_wave(wave, progress):
 func update_gradient(texture):
 	match(texture):
 		TEXTURES.fire:
-			$ProgressBars.texture = fire_gradient
+			$HUD/ProgressBars.texture = fire_gradient
 		
 		TEXTURES.ice:
-			$ProgressBars.texture = ice_gradient
+			$HUD/ProgressBars.texture = ice_gradient
 		
 		TEXTURES.corrosion:
-			$ProgressBars.texture = corrosion_gradient
+			$HUD/ProgressBars.texture = corrosion_gradient
 		
 		TEXTURES.default:
-			$ProgressBars.texture = default_gradient
+			$HUD/ProgressBars.texture = default_gradient
 
 
 func update_health(value):
@@ -109,8 +119,8 @@ func update_ammo(value, refills):
 	)
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
-	$ProgressBars/AmmoBar/Refills.text = str(refills)
-	$ProgressBars/AmmoBar/Refills.visible = not refills == 0
+	$HUD/ProgressBars/AmmoBar/Refills.text = str(refills)
+	$HUD/ProgressBars/AmmoBar/Refills.visible = not refills == 0
 
 #
 # Alerting text to the player
