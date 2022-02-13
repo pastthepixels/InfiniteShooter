@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/menus/main/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=2]
@@ -76,6 +76,37 @@ bias = 1.5
 normal_bias = 0.0
 propagation = 0.7
 
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.127049, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.12549, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+width = 128
+
+[sub_resource type="ParticlesMaterial" id=8]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_box_extents = Vector3( 20, 5, 20 )
+flag_rotate_y = true
+gravity = Vector3( 0, 0, 5 )
+angular_velocity = 200.0
+angular_velocity_random = 1.0
+linear_accel = 5.0
+linear_accel_random = 1.0
+color_ramp = SubResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="PlaneMesh" id=9]
+material = SubResource( 5 )
+size = Vector2( 0.05, 0.05 )
+
 [sub_resource type="Animation" id=3]
 length = 1.2
 loop = true
@@ -115,10 +146,6 @@ extents = Vector3( 5, 5.85031, 8.73882 )
 energy = 0.4
 data = SubResource( 4 )
 
-[node name="Indirect Lighting" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.78326, 0.621695, 0, -0.621695, -0.78326, 0, 11.6537, -8.32371 )
-light_energy = 2.0
-
 [node name="Title" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
@@ -126,6 +153,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 transform = Transform( 1, 0, 0, 0, -0.642787, 0.766044, 0, -0.766044, -0.642787, 0, 2.255, -2 )
 spot_range = 17.0
 spot_angle = 60.0
+
+[node name="Indirect Lighting" type="DirectionalLight" parent="Title"]
+transform = Transform( 1, 0, 0, 0, -0.78326, 0.621695, 0, -0.621695, -0.78326, 0, 3.6537, -8.32371 )
+light_energy = 2.0
+
+[node name="AmbientParticles" type="Particles" parent="."]
+amount = 32
+lifetime = 2.0
+preprocess = 600.0
+speed_scale = 0.2
+randomness = 1.0
+visibility_aabb = AABB( -20, -10, -20, 40, 20, 40 )
+process_material = SubResource( 8 )
+draw_pass_1 = SubResource( 9 )
 
 [node name="Menu" type="Control" parent="."]
 anchor_right = 1.0
