@@ -218,6 +218,7 @@ func _on_Enemy_died(ship, from_player):
 		# Spawning new enemies
 		if autospawn_enemies == true and\
 			len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen:
+			yield(Utils.timeout(0.2), "timeout")
 			make_enemy()
 
 #
