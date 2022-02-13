@@ -173,7 +173,7 @@ __meta__ = {
 [node name="Options" type="VBoxContainer" parent="Content"]
 margin_top = 85.0
 margin_right = 393.0
-margin_bottom = 694.0
+margin_bottom = 731.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -526,10 +526,45 @@ margin_bottom = 17.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Right"
 
-[node name="Confirm" type="HBoxContainer" parent="Content/Options"]
+[node name="Slow" type="HBoxContainer" parent="Content/Options"]
 margin_top = 481.0
 margin_right = 393.0
 margin_bottom = 498.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/Options/Slow"]
+margin_right = 73.0
+margin_bottom = 17.0
+text = "Move Slow"
+
+[node name="Label" type="Label" parent="Content/Options/Slow/Title"]
+margin_right = 40.0
+margin_bottom = 17.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Separator" type="ColorRect" parent="Content/Options/Slow"]
+margin_left = 83.0
+margin_right = 85.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Key" type="Label" parent="Content/Options/Slow"]
+margin_left = 95.0
+margin_right = 146.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Control"
+
+[node name="Confirm" type="HBoxContainer" parent="Content/Options"]
+margin_top = 518.0
+margin_right = 393.0
+margin_bottom = 535.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/Options/Confirm"]
@@ -555,16 +590,16 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
 [node name="ApplyKeyBindings" type="Label" parent="Content/Options"]
-margin_top = 518.0
+margin_top = 555.0
 margin_right = 393.0
-margin_bottom = 535.0
+margin_bottom = 572.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
 text = "Apply Key Bindings"
 
 [node name="BadStuff" type="Label" parent="Content/Options" groups=["selectsquare_ignore"]]
-margin_top = 555.0
+margin_top = 592.0
 margin_right = 393.0
-margin_bottom = 572.0
+margin_bottom = 609.0
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Dangerous Options"
 
@@ -582,9 +617,9 @@ __meta__ = {
 }
 
 [node name="ResetGame" type="Label" parent="Content/Options"]
-margin_top = 592.0
+margin_top = 629.0
 margin_right = 393.0
-margin_bottom = 609.0
+margin_bottom = 646.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "Reset EVERYTHING"
 

@@ -46,6 +46,9 @@ func _on_SelectSquare_selected():
 		"Right":
 			$KeyPopup.map_actions(["move_right", "ui_right"])
 		
+		"Slow":
+			$KeyPopup.map_actions(["move_slow"])
+		
 		"Confirm":
 			$KeyPopup.map_actions(["shoot_laser", "ui_accept"])
 			
@@ -125,6 +128,7 @@ func _on_KeyPopup_key_set():
 	if "move_down" in $KeyPopup.set_actions: $Content/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
 	if "move_left" in $KeyPopup.set_actions: $Content/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
 	if "move_right" in $KeyPopup.set_actions: $Content/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
+	if "move_slow" in $KeyPopup.set_actions: $Content/Options/Slow/Key.text = $KeyPopup.set_actions["move_slow"][1].as_text()
 	if "shoot_laser" in $KeyPopup.set_actions: $Content/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
 
 

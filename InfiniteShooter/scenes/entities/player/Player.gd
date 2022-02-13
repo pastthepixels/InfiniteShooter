@@ -56,6 +56,7 @@ func _process(delta):
 
 	var velocity = Vector3()  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
 	var delta_rotation = Vector3()  # The new rotation the player will have (NORMALIZED VECTOR)
+	var _speed = speed
 	if Input.is_action_pressed("move_right"):  # If a key is pressed (e.g. the right arrow key)
 		delta_rotation.z -= 1  # Rotate the ship
 		velocity.x += 1  # and alter its velocity.
@@ -71,10 +72,15 @@ func _process(delta):
 	if Input.is_action_pressed("move_up"):
 		delta_rotation.x -= 1
 		velocity.z -= 1
+	
+	if Input.is_action_pressed("move_slow"): # A key to move slower
+		_speed = speed/3
+	else:
+		_speed = speed
 
 	# Sets position
 	if freeze_movement == false:
-		translation += velocity * delta * speed
+		translation += velocity * delta * _speed
 
 	# Sets rotation
 	rotation = delta_rotation * .6

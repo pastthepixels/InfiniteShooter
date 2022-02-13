@@ -26,7 +26,6 @@ tracks/0/keys = {
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
 shader_param/lod = 2.0
-shader_param/aberration_strength = 0.1
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
