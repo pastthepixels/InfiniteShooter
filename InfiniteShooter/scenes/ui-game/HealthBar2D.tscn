@@ -27,6 +27,7 @@ border_color = Color( 1, 1, 1, 0.117647 )
 script = ExtResource( 1 )
 
 [node name="Node2D" type="Node2D" parent="."]
+z_index = -2
 
 [node name="ProgressBar" type="TextureProgress" parent="Node2D"]
 anchor_left = 0.5
