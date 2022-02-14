@@ -29,7 +29,7 @@ func _ready():
 
 
 func _input(event):
-	if visible == false or get_parent().visible == false or event.is_echo():
+	if visible == false or get_parent().visible == false or ("visible" in owner and owner.visible == false) or event.is_echo():
 		return  # If the select square is not visible, don't use it
 	
 	if ignore_hits > 0 and (event is InputEventKey or event is InputEventJoypadButton):
@@ -53,7 +53,6 @@ func _input(event):
 		index = options.get_child_count() - 1  # because zero indexing rules
 	
 	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down"):
-		emit_signal("focus_changed")
 		$SelectSound.play()
 		$AnimationPlayer.play("Fade")
 	

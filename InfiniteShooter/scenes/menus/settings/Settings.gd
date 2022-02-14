@@ -17,7 +17,7 @@ func show_animated():
 
 
 func _on_SelectSquare_selected():
-	match $Content/ScrollContainer/Options.get_child($SelectSquare.index).name:
+	match $Content/ScrollContainer/Options.get_child($Content/ScrollContainer/SelectSquare.index).name:
 		"Back":
 			emit_signal("closed")
 			$AnimationPlayer.play("close")
@@ -64,15 +64,15 @@ func _on_SelectSquare_selected():
 # To handle percentage inputs/save settings on input
 func _input(event):
 	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
-		match $Content/ScrollContainer/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
+		match $Content/ScrollContainer/Options.get_child($Content/ScrollContainer/SelectSquare.index).name:  # Now we see which option has been selected...
 			"MusicVolume":
 				$Content/ScrollContainer/Options/MusicVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
-				$SelectSquare/AcceptSound.play()
+				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 
 			"SFXVolume":
 				$Content/ScrollContainer/Options/SFXVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
-				$SelectSquare/AcceptSound.play()
+				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 
 # To save/set settings
@@ -123,7 +123,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 # To do with keybindings
 func _on_KeyPopup_key_set():
-	$SelectSquare.show()
+	$Content/ScrollContainer/SelectSquare.show()
 	if "move_up" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
 	if "move_down" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
 	if "move_left" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
@@ -133,9 +133,10 @@ func _on_KeyPopup_key_set():
 
 
 func _on_KeyPopup_opened():
-	$SelectSquare.hide()
+	$Content/ScrollContainer/SelectSquare.hide()
 
 
 func _on_SelectSquare_update():
-	if $SelectSquare.select_child:
-		$Content/ScrollContainer.ensure_control_visible($SelectSquare.select_child)
+	if $Content/ScrollContainer/SelectSquare.select_child:
+		$Content/ScrollContainer.ensure_control_visible($Content/ScrollContainer/SelectSquare.select_child)
+

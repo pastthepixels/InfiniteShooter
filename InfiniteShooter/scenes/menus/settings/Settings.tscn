@@ -153,6 +153,7 @@ margin_top = -400.0
 margin_right = 300.0
 margin_bottom = 400.0
 rect_pivot_offset = Vector2( 300, 400 )
+rect_clip_content = true
 theme = ExtResource( 4 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -165,11 +166,6 @@ anims/close = SubResource( 10 )
 anims/open = SubResource( 11 )
 
 [node name="Background" parent="." instance=ExtResource( 5 )]
-
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-margin_top = -1.0
-margin_bottom = 15.0
-options_path = NodePath("../Content/ScrollContainer/Options")
 
 [node name="Content" type="VBoxContainer" parent="."]
 margin_left = 50.0
@@ -184,6 +180,9 @@ __meta__ = {
 [node name="Title" type="Label" parent="Content"]
 margin_right = 500.0
 margin_bottom = 65.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
 custom_fonts/font = SubResource( 4 )
 text = "settings"
 __meta__ = {
@@ -195,10 +194,16 @@ margin_top = 85.0
 margin_right = 500.0
 margin_bottom = 710.0
 rect_min_size = Vector2( 500, 625 )
+rect_clip_content = false
 mouse_filter = 2
 theme = SubResource( 14 )
 follow_focus = true
 scroll_horizontal_enabled = false
+
+[node name="SelectSquare" parent="Content/ScrollContainer" instance=ExtResource( 3 )]
+margin_right = 0.0
+margin_bottom = 0.0
+options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer"]
 margin_right = 361.0
@@ -679,8 +684,8 @@ visible = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
-[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
-[connection signal="update" from="SelectSquare" to="." method="_on_SelectSquare_update"]
+[connection signal="selected" from="Content/ScrollContainer/SelectSquare" to="." method="_on_SelectSquare_selected"]
+[connection signal="update" from="Content/ScrollContainer/SelectSquare" to="." method="_on_SelectSquare_update"]
 [connection signal="key_set" from="KeyPopup" to="." method="_on_KeyPopup_key_set"]
 [connection signal="opened" from="KeyPopup" to="." method="_on_KeyPopup_opened"]
 [connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]
