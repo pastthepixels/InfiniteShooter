@@ -29,11 +29,12 @@ export var tutorial_script = [
 	"Welcome to InfniteShooter!",
 	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser. Try it out!",
 	"wait_5",
+	"Optionally, you can press the control key (LB or RB on a controller) to go slower in order to better line up some shots.",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
 	"wait_enemy", # Command to spawn an enemy
 	"Next, let's talk about the in-game HUD.",
 	"Your health is the green bar in the top left corner. The grey bar is your ammo (the number beside it notes your refills).",
-	"On the bottom, we have the current level, wave, score, and frame rate, respectively.",
+	"For the status bar, we have the current level, wave, score, and frame rate, respectively.",
 	"And that's all you need to know about InfiniteShooter! Thank you for playing and good luck!",
 ]
 

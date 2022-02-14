@@ -12,11 +12,16 @@ export var index = 0
 # Vbox containing lables (options)
 onready var options = get_node(options_path)
 
+# What object is selected
+var select_child
+
 export var margin = 2
 
 var ignore_hits = 0 # Fixes a bug where, if you press space, multiple select squares work at the same time on the main menu
 
 signal selected
+
+signal update
 
 func _ready():
 	if auto_show == true:
@@ -48,7 +53,7 @@ func _input(event):
 		index = options.get_child_count() - 1  # because zero indexing rules
 	
 	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down"):
-		update()
+		emit_signal("focus_changed")
 		$SelectSound.play()
 		$AnimationPlayer.play("Fade")
 	
@@ -63,8 +68,7 @@ func _input(event):
 
 func update():
 	assert(options != null, "Error: You did't set the \"options_path\" variable for this instance!")
-	
-	var select_child = options.get_child(index)
+	select_child = options.get_child(index)
 	margin_left = select_child.margin_left
 	margin_right = select_child.margin_right + margin
 	margin_top = select_child.margin_top
@@ -73,6 +77,7 @@ func update():
 
 func _process(_delta):
 	if visible == true and get_parent().visible == true:
+		emit_signal("update")
 		update()
 		$Highlight.visible = Input.is_action_pressed("ui_accept")
 

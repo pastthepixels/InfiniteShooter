@@ -17,7 +17,7 @@ func show_animated():
 
 
 func _on_SelectSquare_selected():
-	match $Content/Options.get_child($SelectSquare.index).name:
+	match $Content/ScrollContainer/Options.get_child($SelectSquare.index).name:
 		"Back":
 			emit_signal("closed")
 			$AnimationPlayer.play("close")
@@ -64,22 +64,22 @@ func _on_SelectSquare_selected():
 # To handle percentage inputs/save settings on input
 func _input(event):
 	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
-		match $Content/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
+		match $Content/ScrollContainer/Options.get_child($SelectSquare.index).name:  # Now we see which option has been selected...
 			"MusicVolume":
-				$Content/Options/MusicVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
+				$Content/ScrollContainer/Options/MusicVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
 				$SelectSquare/AcceptSound.play()
 				set_settings()
 
 			"SFXVolume":
-				$Content/Options/SFXVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
+				$Content/ScrollContainer/Options/SFXVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
 				$SelectSquare/AcceptSound.play()
 				set_settings()
 
 # To save/set settings
 func set_settings():
 	# Music/Sound Volume(s) <- GUI slider values
-	settings["musicvol"] = $Content/Options/MusicVolume/TextureProgress.value
-	settings["sfxvol"] = $Content/Options/SFXVolume/TextureProgress.value
+	settings["musicvol"] = $Content/ScrollContainer/Options/MusicVolume/TextureProgress.value
+	settings["sfxvol"] = $Content/ScrollContainer/Options/SFXVolume/TextureProgress.value
 	
 	# Updates the GUI
 	update_gui()
@@ -89,19 +89,19 @@ func set_settings():
 
 func update_gui():
 	# Music/Sound Volume(s) -> GUI slider values
-	$Content/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
-	$Content/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
+	$Content/ScrollContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
+	$Content/ScrollContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
 	
 	# Updates colors for some settings
-	$Content/Options/AntiAliasing/Title.set(
+	$Content/ScrollContainer/Options/AntiAliasing/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["antialiasing"] else colors.red
 	)
-	$Content/Options/Bloom/Title.set(
+	$Content/ScrollContainer/Options/Bloom/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["bloom"] else colors.red
 	)
-	$Content/Options/Fullscreen/Title.set(
+	$Content/ScrollContainer/Options/Fullscreen/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["fullscreen"] else colors.red
 	)
@@ -124,13 +124,18 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 # To do with keybindings
 func _on_KeyPopup_key_set():
 	$SelectSquare.show()
-	if "move_up" in $KeyPopup.set_actions: $Content/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
-	if "move_down" in $KeyPopup.set_actions: $Content/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
-	if "move_left" in $KeyPopup.set_actions: $Content/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
-	if "move_right" in $KeyPopup.set_actions: $Content/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
-	if "move_slow" in $KeyPopup.set_actions: $Content/Options/Slow/Key.text = $KeyPopup.set_actions["move_slow"][1].as_text()
-	if "shoot_laser" in $KeyPopup.set_actions: $Content/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
+	if "move_up" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
+	if "move_down" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
+	if "move_left" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
+	if "move_right" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
+	if "move_slow" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Slow/Key.text = $KeyPopup.set_actions["move_slow"][1].as_text()
+	if "shoot_laser" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
 
 
 func _on_KeyPopup_opened():
 	$SelectSquare.hide()
+
+
+func _on_SelectSquare_update():
+	if $SelectSquare.select_child:
+		$Content/ScrollContainer.ensure_control_visible($SelectSquare.select_child)
