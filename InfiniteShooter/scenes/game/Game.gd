@@ -29,7 +29,7 @@ export var tutorial_script = [
 	"Welcome to InfniteShooter!",
 	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser. Try it out!",
 	"wait_5",
-	"Optionally, you can press the control key (LB or RB on a controller) to go slower in order to better line up some shots.",
+	"Optionally, you can press the control key (LB or RB on a controller) to slow time.",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
 	"wait_enemy", # Command to spawn an enemy
 	"Next, let's talk about the in-game HUD.",

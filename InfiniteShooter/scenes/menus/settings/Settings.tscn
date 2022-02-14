@@ -579,9 +579,9 @@ margin_bottom = 537.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Slow"]
-margin_right = 73.0
+margin_right = 70.0
 margin_bottom = 17.0
-text = "Move Slow"
+text = "Slow Time"
 
 [node name="Label" type="Label" parent="Content/ScrollContainer/Options/Slow/Title"]
 margin_right = 40.0
@@ -591,8 +591,8 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Slow"]
-margin_left = 83.0
-margin_right = 85.0
+margin_left = 80.0
+margin_right = 82.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
@@ -601,8 +601,8 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Slow"]
-margin_left = 95.0
-margin_right = 146.0
+margin_left = 92.0
+margin_right = 143.0
 margin_bottom = 17.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Control"
