@@ -69,7 +69,7 @@ func initialize(difficulty):
 	
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
-	max_health *= clamp(mult / 2, .5, 512)
+	max_health *= clamp(mult, .5, 512)
 	damage *= mult
 	speed_mult *= clamp(mult / 5, 1, 3)
 
