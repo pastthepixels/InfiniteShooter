@@ -44,7 +44,6 @@ cull_mask = 1048574
 [node name="AmbientParticles" type="Particles" parent="."]
 amount = 16
 lifetime = 2.0
-preprocess = 600.0
 randomness = 1.0
 visibility_aabb = AABB( -20, -10, -20, 40, 20, 40 )
 process_material = SubResource( 2 )
