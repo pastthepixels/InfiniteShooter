@@ -30,12 +30,12 @@ func _change_key(new_key):
 	#Check if new key was assigned somewhere
 	for key in set_actions: # already mapped in set_actions
 		if set_actions[key][1].as_text() == new_key.as_text():
-			$Alert.error("This key already being used! Try a different one.")
+			$Alert.error("This key is already being used! Try a different one.")
 			return
 	
 	for action in InputMap.get_actions(): # in existing actions and NOT in set_actions
 		if InputMap.action_has_event(action, new_key) and (action in set_actions) == false:
-			$Alert.error("This key already being used! Try a different one.")
+			$Alert.error("This key is already being used! Try a different one.")
 			return
 	
 	# For all the actions to set...
@@ -44,6 +44,7 @@ func _change_key(new_key):
 		var old_key
 		for key in InputMap.get_action_list(action_string):
 			if key is InputEventKey:
+				print(key.as_text())
 				old_key = key
 		
 		# Switch it for the new one
