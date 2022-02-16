@@ -177,7 +177,7 @@ func make_enemy():
 	# Updates the HUD with the current amount of enemies in the wave
 	enemies_in_wave += 1
 	$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
-	if enemies_in_wave == GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
+	if enemies_in_wave >= GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
 		autospawn_enemies = false # Well, stop enemies from spawning
 		# but also set the position of the indicator arrow to let players know where the boss is coming from
 		if wave == GameVariables.waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)

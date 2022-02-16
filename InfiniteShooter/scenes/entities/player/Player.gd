@@ -73,13 +73,9 @@ func _process(delta):
 		velocity.z -= 1
 	
 	if Input.is_action_pressed("move_slow"): # A key to move slower
-		Engine.time_scale = 0.5
-		CameraEquipment.set_distortion(-0.06, -0.02)
-		AudioServer.set_bus_effect_enabled(0, 0, true)
-	else:
-		Engine.time_scale = 1
-		CameraEquipment.set_distortion(CameraEquipment.initial_warp_amount, CameraEquipment.initial_dispersion_amount)
-		AudioServer.set_bus_effect_enabled(0, 0, false)
+		slow_time()
+	elif Engine.time_scale == 0.5:
+		resume_time()
 
 	# Sets position
 	if freeze_movement == false:
@@ -94,8 +90,18 @@ func _process(delta):
 
 	# Killing the player when it should die
 	if self.health == 0:
+		resume_time()
 		die_already()
 
+func slow_time():
+	Engine.time_scale = 0.5
+	CameraEquipment.set_distortion(-0.06, -0.02)
+	AudioServer.set_bus_effect_enabled(0, 0, true)
+
+func resume_time():
+	Engine.time_scale = 1
+	CameraEquipment.set_distortion(CameraEquipment.initial_warp_amount, CameraEquipment.initial_dispersion_amount)
+	AudioServer.set_bus_effect_enabled(0, 0, false)
 
 # Firing lasers
 func _input(event):
