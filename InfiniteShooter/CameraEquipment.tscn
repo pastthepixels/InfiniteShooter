@@ -1,10 +1,26 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
 [ext_resource path="res://CameraEquipment.gd" type="Script" id=3]
 [ext_resource path="res://resources/LensDistortion.gdshader" type="Shader" id=4]
 [ext_resource path="res://resources/grid.png" type="Texture" id=5]
+[ext_resource path="res://images/space.hdr" type="Texture" id=6]
+[ext_resource path="res://images/space2.hdr" type="Texture" id=7]
+[ext_resource path="res://images/space3.hdr" type="Texture" id=8]
+[ext_resource path="res://images/space4.hdr" type="Texture" id=9]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 6 )
+
+[sub_resource type="PanoramaSky" id=33]
+panorama = ExtResource( 7 )
+
+[sub_resource type="PanoramaSky" id=35]
+panorama = ExtResource( 8 )
+
+[sub_resource type="PanoramaSky" id=36]
+panorama = ExtResource( 9 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "RESET"
@@ -34,8 +50,7 @@ tracks/1/keys = {
 "values": [ Basis( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "SkyRotate"
+[sub_resource type="Animation" id=34]
 length = 16.0
 loop = true
 tracks/0/type = "value"
@@ -255,6 +270,7 @@ shader_param/blur_amount = 0.01
 
 [node name="CameraEquipment" type="Spatial"]
 script = ExtResource( 3 )
+skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 36 ) ]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 15, 0 )
@@ -273,7 +289,7 @@ max_dispersion = 0.02
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
-anims/SkyRotate = SubResource( 1 )
+anims/SkyRotate = SubResource( 34 )
 anims/Wander = SubResource( 4 )
 anims/intro = SubResource( 2 )
 

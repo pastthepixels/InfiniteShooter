@@ -50,6 +50,7 @@ export var tutorial_elemental_script = [
 #
 func _ready():
 	# Starts spinning the sky (and plays another cool animation)
+	CameraEquipment.set_sky(0)
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
 	CameraEquipment.get_node("CameraAnimations").stop()
 	CameraEquipment.get_node("CameraAnimations").play("ZoomOut")
@@ -139,7 +140,7 @@ func level_up():
 	wave = 1
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
 	# GUI stuff
-	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level), "completed")
+	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()

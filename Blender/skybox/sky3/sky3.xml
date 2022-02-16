@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<spacescapelayers>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0.0666667 0.172549 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>BlueClouds</name>
+        <noiseType>fbm</noiseType>
+        <octaves>8</octaves>
+        <offset>1</offset>
+        <outerColor>0 0.105882 0.129412 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>256</previewTextureSize>
+        <scale>5</scale>
+        <seed>64</seed>
+        <shelfAmount>0</shelfAmount>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0.388235 0.239216 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>Clouds</name>
+        <noiseType>fbm</noiseType>
+        <octaves>8</octaves>
+        <offset>1</offset>
+        <outerColor>0 0.129412 0.0745098 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>256</previewTextureSize>
+        <scale>5</scale>
+        <seed>0</seed>
+        <shelfAmount>0</shelfAmount>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0.0196078 0.458824 0 1</innerColor>
+        <lacunarity>4</lacunarity>
+        <name>RidgedClouds</name>
+        <noiseType>ridged</noiseType>
+        <octaves>8</octaves>
+        <offset>1</offset>
+        <outerColor>0 0.0666667 0.00392157 1</outerColor>
+        <powerAmount>0.25</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>1</scale>
+        <seed>64</seed>
+        <shelfAmount>0.5</shelfAmount>
+        <sourceBlendFactor>src_colour</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>src_alpha</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0 0 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>CloudMask</name>
+        <noiseType>fbm</noiseType>
+        <octaves>4</octaves>
+        <offset>1</offset>
+        <outerColor>0 0 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>0.5</scale>
+        <seed>8</seed>
+        <shelfAmount>0.3</shelfAmount>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>0.141176 0 0 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>true</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType>fbm</maskNoiseType>
+        <maskOctaves>4</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>0.5</maskScale>
+        <maskSeed>1</maskSeed>
+        <maskThreshold>0</maskThreshold>
+        <name>LightStars</name>
+        <nearColor>0 0.32549 0.231373 1</nearColor>
+        <numPoints>2000</numPoints>
+        <pointSize>1</pointSize>
+        <seed>12</seed>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>points</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>0.141176 0 0 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>true</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType>fbm</maskNoiseType>
+        <maskOctaves>4</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>0.5</maskScale>
+        <maskSeed>1</maskSeed>
+        <maskThreshold>0</maskThreshold>
+        <name>BlueStars</name>
+        <nearColor>0 0.168627 0.321569 1</nearColor>
+        <numPoints>500</numPoints>
+        <pointSize>2</pointSize>
+        <seed>24</seed>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>points</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>0 0 0 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>false</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType>fbm</maskNoiseType>
+        <maskOctaves>1</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>1</maskScale>
+        <maskSeed>1</maskSeed>
+        <maskThreshold>0</maskThreshold>
+        <name>WhiteStars</name>
+        <nearColor>1 1 1 1</nearColor>
+        <numPoints>100</numPoints>
+        <pointSize>1</pointSize>
+        <seed>0</seed>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>points</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.01</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0.196078 0.568627 1</innerColor>
+        <lacunarity>3</lacunarity>
+        <name>BlueNebula</name>
+        <noiseType>ridged</noiseType>
+        <octaves>10</octaves>
+        <offset>1</offset>
+        <outerColor>0 0.235294 0.239216 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>0.3</scale>
+        <seed>48</seed>
+        <shelfAmount>0.87</shelfAmount>
+        <sourceBlendFactor>src_alpha</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.01</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0.223529 0.564706 1</innerColor>
+        <lacunarity>3</lacunarity>
+        <name>BlueNebulaInner</name>
+        <noiseType>ridged</noiseType>
+        <octaves>10</octaves>
+        <offset>1</offset>
+        <outerColor>0 0.227451 0.239216 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>0.3</scale>
+        <seed>48</seed>
+        <shelfAmount>0.95</shelfAmount>
+        <sourceBlendFactor>src_alpha</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.01</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0.568627 0.282353 1</innerColor>
+        <lacunarity>3</lacunarity>
+        <name>GreenNebula copy</name>
+        <noiseType>ridged</noiseType>
+        <octaves>10</octaves>
+        <offset>1</offset>
+        <outerColor>0.027451 0.239216 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>0.3</scale>
+        <seed>36</seed>
+        <shelfAmount>0.9</shelfAmount>
+        <sourceBlendFactor>src_alpha</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.01</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0 0.568627 0.282353 1</innerColor>
+        <lacunarity>3</lacunarity>
+        <name>GreenNebulaInner</name>
+        <noiseType>ridged</noiseType>
+        <octaves>10</octaves>
+        <offset>1</offset>
+        <outerColor>0.027451 0.239216 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>0.3</scale>
+        <seed>36</seed>
+        <shelfAmount>0.95</shelfAmount>
+        <sourceBlendFactor>src_alpha</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+</spacescapelayers>

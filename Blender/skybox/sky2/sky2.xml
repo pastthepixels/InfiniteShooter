@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<spacescapelayers>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0.137255 0 0 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>Dark Clouds</name>
+        <noiseType>fbm</noiseType>
+        <octaves>4</octaves>
+        <offset>1</offset>
+        <outerColor>0 0 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>1</scale>
+        <seed>0</seed>
+        <shelfAmount>0</shelfAmount>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0.337255 0.027451 0 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>Light Clouds</name>
+        <noiseType>fbm</noiseType>
+        <octaves>32</octaves>
+        <offset>1</offset>
+        <outerColor>0 0 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>10</scale>
+        <seed>69</seed>
+        <shelfAmount>0</shelfAmount>
+        <sourceBlendFactor>src_colour</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0.258824 0 0 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>Ridge Clouds</name>
+        <noiseType>ridged</noiseType>
+        <octaves>100</octaves>
+        <offset>1</offset>
+        <outerColor>0 0 0 1</outerColor>
+        <powerAmount>0.6</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>6</scale>
+        <seed>400</seed>
+        <shelfAmount>0.3</shelfAmount>
+        <sourceBlendFactor>src_colour</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0.364706 0.137255 0 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>Bright Clouds</name>
+        <noiseType>fbm</noiseType>
+        <octaves>64</octaves>
+        <offset>1</offset>
+        <outerColor>0 0 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>5</scale>
+        <seed>420</seed>
+        <shelfAmount>0.5</shelfAmount>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <ditherAmount>0.03</ditherAmount>
+        <gain>0.5</gain>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <innerColor>0.427451 0 0 1</innerColor>
+        <lacunarity>2</lacunarity>
+        <name>Brighter Clouds</name>
+        <noiseType>fbm</noiseType>
+        <octaves>64</octaves>
+        <offset>1</offset>
+        <outerColor>0 0 0 1</outerColor>
+        <powerAmount>1</powerAmount>
+        <previewTextureSize>1024</previewTextureSize>
+        <scale>5</scale>
+        <seed>420</seed>
+        <shelfAmount>0.6</shelfAmount>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>noise</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>0 0 0 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>false</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType>fbm</maskNoiseType>
+        <maskOctaves>10</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>1</maskScale>
+        <maskSeed>1</maskSeed>
+        <maskThreshold>0</maskThreshold>
+        <name>Red Stars</name>
+        <nearColor>1 1 1 1</nearColor>
+        <numPoints>4000</numPoints>
+        <pointSize>1</pointSize>
+        <seed>69420</seed>
+        <sourceBlendFactor>dest_colour</sourceBlendFactor>
+        <type>points</type>
+    </layer>
+    <layer>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>0 0 0 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>true</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType>fbm</maskNoiseType>
+        <maskOctaves>64</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>5</maskScale>
+        <maskSeed>420</maskSeed>
+        <maskThreshold>0.4</maskThreshold>
+        <name>White Stars</name>
+        <nearColor>1 1 1 1</nearColor>
+        <numPoints>1400</numPoints>
+        <pointSize>1</pointSize>
+        <seed>420</seed>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <type>points</type>
+    </layer>
+    <layer>
+        <dataFile></dataFile>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>1 1 1 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>true</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType></maskNoiseType>
+        <maskOctaves>64</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>5</maskScale>
+        <maskSeed>420</maskSeed>
+        <maskThreshold>0</maskThreshold>
+        <maxSize>0.01</maxSize>
+        <minSize>0.005</minSize>
+        <name>Bright Stars</name>
+        <nearColor>1 1 1 1</nearColor>
+        <numBillboards>100</numBillboards>
+        <seed>420</seed>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <texture>default.png</texture>
+        <type>billboards</type>
+    </layer>
+    <layer>
+        <dataFile></dataFile>
+        <destBlendFactor>one</destBlendFactor>
+        <farColor>1 1 1 1</farColor>
+        <hdrMultiplier>1</hdrMultiplier>
+        <hdrPower>1</hdrPower>
+        <maskEnabled>true</maskEnabled>
+        <maskGain>0.5</maskGain>
+        <maskLacunarity>2</maskLacunarity>
+        <maskNoiseType></maskNoiseType>
+        <maskOctaves>64</maskOctaves>
+        <maskOffset>1</maskOffset>
+        <maskPower>1</maskPower>
+        <maskScale>5</maskScale>
+        <maskSeed>420</maskSeed>
+        <maskThreshold>0.5</maskThreshold>
+        <maxSize>0.015</maxSize>
+        <minSize>0.005</minSize>
+        <name>Brighter Stars</name>
+        <nearColor>1 1 1 1</nearColor>
+        <numBillboards>200</numBillboards>
+        <seed>42069</seed>
+        <sourceBlendFactor>one</sourceBlendFactor>
+        <texture>default.png</texture>
+        <type>billboards</type>
+    </layer>
+</spacescapelayers>
