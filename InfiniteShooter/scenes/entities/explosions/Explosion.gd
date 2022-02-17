@@ -10,6 +10,8 @@ export var no_sound = false
 
 export var speed_scale = 1
 
+export var particles = true
+
 export(float, 0, 1) var opacity = 1
 
 onready var original_transform = get_global_transform()
@@ -36,6 +38,7 @@ func explode():
 		# Starts the animation and shows the node
 		show()
 		$ExplosionAnimation.playing = true
+		if particles == true: $Particles.emitting = true
 
 		# Vibrates the first controller and shakes the screen
 		if no_sound == false:
@@ -48,7 +51,9 @@ func explode():
 
 func _on_ExplosionAnimation_animation_finished():
 	# Waits for animations/sounds to finish
-	hide()
+	$ExplosionAnimation.hide()
 	if $ExplosionSound.playing == true: yield($ExplosionSound, "finished")
+	if $Particles.emitting == true:
+		yield($Particles, "finished")
 	emit_signal("exploded")
 	if auto_delete == true: queue_free()
