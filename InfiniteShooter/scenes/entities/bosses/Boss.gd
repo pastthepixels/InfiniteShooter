@@ -74,8 +74,7 @@ func initialize(difficulty):
 func _process(delta):
 	# Looking at the player
 	if is_instance_valid(followed_player) and followed_player.health > 0 and health > 0:
-		look_at(followed_player.translation, Vector3(0, 1, 0))
-		rotation.y += deg2rad(180)
+		smooth_look_at(delta, 3)
 	elif health > 0 and rotation.y != 0 and $Tween.is_active() == false:
 		$Tween.interpolate_property(self, "rotation:y", rotation.y, (deg2rad(0) if rotation.y < deg2rad(180) else deg2rad(360)), 5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		$Tween.start()
@@ -96,6 +95,16 @@ func _process(delta):
 	if (freeze_movement or $Tween.is_active()) == false:
 		translation = $Path/PathFollow.translation
 		$Path/PathFollow.unit_offset += .05 * delta
+
+func smooth_look_at(delta, weight):
+	# A. Creates a new Transform that is facing the player
+	var new_transform = global_transform.looking_at(followed_player.translation, Vector3(0, 1, 0))
+	# B. Rotates it 180 degrees
+	new_transform = new_transform.rotated(Vector3(0, 1, 0), deg2rad(180))
+	# C. Creates a quaternion to slerp between rotations, then applies it
+	var new_quaternion = Quat(global_transform.basis).slerp(Quat(new_transform.basis), delta * weight)
+	global_transform = Transform(Basis(new_quaternion), global_transform.origin)
+
 
 func explode_ship():
 	emit_signal("died", self)
