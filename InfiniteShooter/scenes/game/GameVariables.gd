@@ -6,7 +6,7 @@ var enemy_difficulty = 1 # default 1
 
 var waves_per_level = 5  # default 5
 
-var enemies_per_wave = 2 # default 20
+var enemies_per_wave = 20 # default 20
 
 var enemies_on_screen_range = [2, 10] # default [min=2,max=10]
 
