@@ -4,6 +4,7 @@ onready var initial_warp_amount = $LensDistortion.material.get_shader_param("dis
 onready var initial_dispersion_amount = $LensDistortion.material.get_shader_param("dispersion")
 
 export(Array, PanoramaSky) var skies
+var _old_sky_num = 0
 
 
 func _ready():
@@ -18,5 +19,12 @@ func set_sky(sky_idx):
 	$WorldEnvironment.environment.background_sky = skies[sky_idx]
 
 func set_rand_sky():
-	set_sky(rand_range(0, len(skies)))
+	set_sky(generate_rand_sky_num())
+
+func generate_rand_sky_num():
+	var new_sky_num = rand_range(0, len(skies))
+	if _old_sky_num == new_sky_num:
+		return generate_rand_sky_num()
+	_old_sky_num = new_sky_num
+	return new_sky_num
 
