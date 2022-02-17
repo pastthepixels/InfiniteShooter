@@ -16,6 +16,7 @@ func set_distortion(distort, dispersion):
 	$LensDistortion.material.set_shader_param("dispersion", dispersion)
 
 func set_sky(sky_idx):
+	_old_sky_num = sky_idx
 	$WorldEnvironment.environment.background_sky = skies[sky_idx]
 
 func set_rand_sky():

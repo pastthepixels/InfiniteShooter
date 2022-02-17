@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
@@ -59,14 +59,12 @@ gradient = SubResource( 18 )
 width = 512
 
 [sub_resource type="ParticlesMaterial" id=11]
-flag_rotate_y = true
-spread = 180.0
+emission_shape = 1
+emission_sphere_radius = 0.01
+flag_align_y = true
+direction = Vector3( 0, 0, 0 )
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 0.2
-initial_velocity_random = 1.0
-angular_velocity = 10.0
-angle = 20.0
-angle_random = 1.0
+radial_accel = 0.1
 scale = 1.1
 scale_random = 1.0
 color_ramp = SubResource( 19 )
@@ -88,18 +86,23 @@ colors = PoolColorArray( 1, 1, 0, 1, 1, 0.223529, 0, 1, 0, 0, 0, 0 )
 gradient = SubResource( 9 )
 width = 512
 
+[sub_resource type="Curve" id=20]
+_data = [ Vector2( 0, 0.511364 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=21]
+curve = SubResource( 20 )
+
 [sub_resource type="ParticlesMaterial" id=14]
 lifetime_randomness = 0.02
-flag_rotate_y = true
+emission_shape = 2
+emission_box_extents = Vector3( 0.1, 0.1, 0.5 )
 direction = Vector3( 0, 0, -1 )
 gravity = Vector3( 0, 0, -0.03 )
 initial_velocity = 0.2
 initial_velocity_random = 1.0
-angular_velocity = 180.0
-angle = 20.0
-angle_random = 1.0
-scale = 1.1
+angular_velocity = 0.1
 scale_random = 1.0
+scale_curve = SubResource( 21 )
 color_ramp = SubResource( 10 )
 
 [sub_resource type="SpatialMaterial" id=12]
@@ -109,7 +112,7 @@ albedo_color = Color( 0.392157, 0.392157, 0.392157, 1 )
 
 [sub_resource type="PlaneMesh" id=15]
 material = SubResource( 12 )
-size = Vector2( 0.08, 0.08 )
+size = Vector2( 0.05, 0.1 )
 
 [node name="Laser" type="Area" groups=["lasers"]]
 script = ExtResource( 1 )
@@ -157,12 +160,13 @@ draw_pass_1 = SubResource( 17 )
 
 [node name="HitParticles" type="Particles" parent="."]
 emitting = false
-amount = 15
-lifetime = 10.0
+amount = 30
+lifetime = 5.0
 one_shot = true
 speed_scale = 20.0
 explosiveness = 1.0
-visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
+randomness = 0.2
+visibility_aabb = AABB( -7.47943, -0.5, -9.16166, 14.9589, 1, 18.3233 )
 process_material = SubResource( 14 )
 draw_pass_1 = SubResource( 15 )
 
