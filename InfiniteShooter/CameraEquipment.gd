@@ -39,20 +39,22 @@ func generate_rand_sky_num():
 # _process()
 #
 func _process(delta):
-	if Input.is_action_pressed("move_right"): 
+	var key_pressed = false
+	if Input.is_action_pressed("move_right") or Input.is_action_pressed("ui_right"): 
+		key_pressed = true
 		$ShakeCamera.additional_offset.x = lerp($ShakeCamera.additional_offset.x, 3, 0.4)
 
-	if Input.is_action_pressed("move_left"): 
+	if Input.is_action_pressed("move_left") or Input.is_action_pressed("ui_left"): 
+		key_pressed = true
 		$ShakeCamera.additional_offset.x = lerp($ShakeCamera.additional_offset.x, -3, 0.4)
 
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("move_down") or Input.is_action_pressed("ui_up"):
+		key_pressed = true
 		$ShakeCamera.additional_offset.y = lerp($ShakeCamera.additional_offset.y, 3, 0.4)
 
-	if Input.is_action_pressed("move_up"):
+	if Input.is_action_pressed("move_up") or Input.is_action_pressed("ui_down"):
+		key_pressed = true
 		$ShakeCamera.additional_offset.y = lerp($ShakeCamera.additional_offset.y, -3, 0.4)
 
-	if Input.is_action_pressed("move_right") == false and\
-		Input.is_action_pressed("move_left") == false and\
-		Input.is_action_pressed("move_down") == false and\
-		Input.is_action_pressed("move_up") == false:
+	if key_pressed == false:
 		$ShakeCamera.additional_offset = lerp($ShakeCamera.additional_offset, Vector2(), 0.4)
