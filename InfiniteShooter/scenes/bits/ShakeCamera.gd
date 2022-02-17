@@ -7,6 +7,8 @@ export var decay = 0.8  # How quickly the shaking stops [0, 1].
 
 export var max_offset = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
 
+export var additional_offset = Vector2() # Drop-in replacement for "offset".
+
 export var max_roll = 0.1  # Maximum rotation in radians (use sparingly).
 
 export (NodePath) var target  # Assign the node this camera will follow.
@@ -49,6 +51,8 @@ func _process(delta):
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
+	else:
+		offset = additional_offset
 
 
 func shake():
@@ -60,6 +64,8 @@ func shake():
 	rotation = max_roll * amount * noise.get_noise_2d(noise.seed, noise_y)
 	offset.x = max_offset.x * amount * noise.get_noise_2d(noise.seed * 2, noise_y)
 	offset.y = max_offset.y * amount * noise.get_noise_2d(noise.seed * 3, noise_y)
+	
+	offset += additional_offset
 	
 	# Added code to work with 3d stuff
 	get_parent().translation = Vector3()

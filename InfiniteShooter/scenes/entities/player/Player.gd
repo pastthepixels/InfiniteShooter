@@ -82,7 +82,7 @@ func _process(delta):
 		translation += velocity * delta * speed
 
 	# Sets rotation
-	rotation = delta_rotation * .6
+	rotation = lerp(rotation, delta_rotation * .6, .4)
 	
 	# Clamping z positions and wrapping around the screen
 	translation.z = clamp(translation.z, Utils.top_left.z, Utils.bottom_left.z)
