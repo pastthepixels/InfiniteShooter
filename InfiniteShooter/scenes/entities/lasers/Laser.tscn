@@ -98,10 +98,9 @@ lifetime_randomness = 0.02
 emission_shape = 2
 emission_box_extents = Vector3( 0.1, 0.1, 0.5 )
 direction = Vector3( 0, 0, -1 )
+spread = 20.0
 gravity = Vector3( 0, 0, -0.03 )
-initial_velocity = 0.2
-initial_velocity_random = 1.0
-angular_velocity = 0.1
+initial_velocity = 0.3
 scale_random = 1.0
 scale_curve = SubResource( 21 )
 color_ramp = SubResource( 10 )
@@ -163,14 +162,15 @@ script = ExtResource( 6 )
 [node name="HitParticles" type="Particles" parent="."]
 emitting = false
 amount = 30
-lifetime = 5.0
+lifetime = 10.0
 one_shot = true
-speed_scale = 20.0
+speed_scale = 12.0
 explosiveness = 1.0
 randomness = 0.2
 visibility_aabb = AABB( -7.47943, -0.5, -9.16166, 14.9589, 1, 18.3233 )
 process_material = SubResource( 14 )
 draw_pass_1 = SubResource( 15 )
+script = ExtResource( 6 )
 
 [node name="Explosion" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.31, 0, 0, 0 )

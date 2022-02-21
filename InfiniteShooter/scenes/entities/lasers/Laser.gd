@@ -141,6 +141,7 @@ func remove_laser(hit_ship=false):
 	if $EOLSound.playing == true: yield($EOLSound, "finished")
 	if $LaserSound.playing == true: yield($LaserSound, "finished")
 	if $Particles.emitting == true: yield($Particles, "finished")
+	if $HitParticles.emitting == true: yield($HitParticles, "finished")
 	queue_free()
 
 
