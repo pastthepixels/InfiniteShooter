@@ -96,12 +96,12 @@ func _physics_process(delta):
 
 func slow_time():
 	Engine.time_scale = 0.5
-	CameraEquipment.set_distortion(-0.06, -0.02)
+	CameraEquipment.set_animated_distortion(-0.15, -0.02)
 	AudioServer.set_bus_effect_enabled(0, 0, true)
 
 func resume_time():
 	Engine.time_scale = 1
-	CameraEquipment.set_distortion(CameraEquipment.initial_warp_amount, CameraEquipment.initial_dispersion_amount)
+	CameraEquipment.set_animated_distortion(CameraEquipment.initial_warp_amount, CameraEquipment.initial_dispersion_amount)
 	AudioServer.set_bus_effect_enabled(0, 0, false)
 
 # Firing lasers

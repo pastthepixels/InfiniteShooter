@@ -2,6 +2,9 @@ extends Spatial
 
 onready var initial_warp_amount = $LensDistortion.material.get_shader_param("distort")
 onready var initial_dispersion_amount = $LensDistortion.material.get_shader_param("dispersion")
+var _animate_warp_dispersion = false
+onready var _animate_warp_amount = 0
+onready var _animate_dispersion_amount = 0
 
 export(Array, PanoramaSky) var skies
 var _old_sky_num = 0
@@ -17,6 +20,11 @@ func _ready():
 func set_distortion(distort, dispersion):
 	$LensDistortion.material.set_shader_param("distort", distort)
 	$LensDistortion.material.set_shader_param("dispersion", dispersion)
+
+func set_animated_distortion(distort, dispersion):
+	_animate_warp_dispersion = true
+	_animate_warp_amount = distort
+	_animate_dispersion_amount = dispersion
 
 #
 # sky stuff
@@ -39,6 +47,18 @@ func generate_rand_sky_num():
 # _process()
 #
 func _process(delta):
+	# Lerping distortion/dispersion
+	if _animate_warp_dispersion == true:
+		set_distortion(
+			lerp($LensDistortion.material.get_shader_param("distort"), _animate_warp_amount, 0.04),
+			lerp($LensDistortion.material.get_shader_param("dispersion"), _animate_dispersion_amount, 0.04)
+		)
+		print($LensDistortion.material.get_shader_param("distort"))
+		if $LensDistortion.material.get_shader_param("distort") == _animate_warp_amount and\
+			$LensDistortion.material.get_shader_param("dispersion") == _animate_dispersion_amount:
+			_animate_warp_dispersion = false
+		
+	# Moving stuff when keys are pressed
 	var key_pressed = false
 	if Input.is_action_pressed("move_right") or Input.is_action_pressed("ui_right"): 
 		key_pressed = true
