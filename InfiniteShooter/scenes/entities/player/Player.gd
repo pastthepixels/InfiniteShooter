@@ -50,6 +50,12 @@ func _update_ammo_refills(new_value):
 	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
 
 func _process(delta):
+	# Killing the player when it should die
+	if self.health == 0:
+		resume_time()
+		die_already()
+
+func _physics_process(delta):
 	# INPUT
 	if $Explosion.visible == true:
 		return  # If the player is dying, don't bother about input stuff
@@ -87,11 +93,6 @@ func _process(delta):
 	# Clamping z positions and wrapping around the screen
 	translation.z = clamp(translation.z, Utils.top_left.z, Utils.bottom_left.z)
 	translation.x = wrapf(translation.x, Utils.top_left.x, Utils.top_right.x)
-
-	# Killing the player when it should die
-	if self.health == 0:
-		resume_time()
-		die_already()
 
 func slow_time():
 	Engine.time_scale = 0.5
@@ -144,6 +145,7 @@ func reload():
 
 func die_already():
 	set_process(false)
+	set_physics_process(false)
 	set_process_input(false)
 	emit_signal("died")
 	$Explosion.explode()

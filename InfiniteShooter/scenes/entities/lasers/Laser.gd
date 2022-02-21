@@ -56,7 +56,7 @@ func _ready():
 	$LaserSound.play()
 
 
-func _process(delta):
+func _physics_process(delta):
 	if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
 		look_at(followed_player.translation, Vector3(0, 1, 0))
 		rotation.y += deg2rad(180)# <-- To make homing lasers go TOWARD the player instead of away from them
@@ -122,7 +122,7 @@ func remove_laser(hit_ship=false):
 		alive = false
 	
 	# Stops and removes stuff
-	set_process(false)
+	set_physics_process(false)
 	$CollisionShape.queue_free()
 	$VisibilityNotifier.queue_free()
 	$FollowTimer.queue_free()

@@ -96,10 +96,12 @@ func initialize(difficulty):
 
 # To move the ship/calculate health
 var previous_health
-func _process(delta):
+func _process(_delta):
 	if health != previous_health:
 		previous_health = health
 		update_health()
+
+func _physics_process(delta):
 	if freeze_movement: return
 	translation.z += 2 * speed_mult * delta
 	# If it is such that the center of the ship moves past the bottom of the screen...
@@ -117,12 +119,13 @@ func explode_ship(from_player=false):
 	# Resets, emitting a signal at the end
 	$LaserTimer.stop()
 	$LaserEffects.reset()
-	$HealthBar2D.queue_free()
+	$HealthBar2D.hide()
 	for node in get_children():
 		if node is Area:
 			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
+	set_physics_process(false)
 	emit_signal("died", self, from_player)
 	# Powerups (1/4 chance to create a powerup)
 	if randi() % 4 == 1 and use_laser_modifiers == false:
