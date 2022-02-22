@@ -158,7 +158,7 @@ __meta__ = {
 [node name="Options" type="VBoxContainer" parent="Content"]
 margin_top = 85.0
 margin_right = 326.0
-margin_bottom = 102.0
+margin_bottom = 104.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -166,7 +166,7 @@ __meta__ = {
 
 [node name="Back" type="Label" parent="Content/Options"]
 margin_right = 326.0
-margin_bottom = 17.0
+margin_bottom = 19.0
 text = "back"
 valign = 1
 __meta__ = {
@@ -174,9 +174,9 @@ __meta__ = {
 }
 
 [node name="Stats" type="VBoxContainer" parent="Content"]
-margin_top = 122.0
+margin_top = 124.0
 margin_right = 326.0
-margin_bottom = 122.0
+margin_bottom = 124.0
 custom_constants/separation = 20
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -10,6 +10,7 @@
 [sub_resource type="DynamicFont" id=2]
 size = 225
 outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
 font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=7]

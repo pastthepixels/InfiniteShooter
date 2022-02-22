@@ -206,16 +206,16 @@ margin_bottom = 0.0
 options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer"]
-margin_right = 361.0
-margin_bottom = 698.0
+margin_right = 401.0
+margin_bottom = 726.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="Content/ScrollContainer/Options"]
-margin_right = 361.0
-margin_bottom = 17.0
+margin_right = 401.0
+margin_bottom = 19.0
 text = "back"
 valign = 1
 __meta__ = {
@@ -224,9 +224,9 @@ __meta__ = {
 
 [node name="Graphics" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 37.0
-margin_right = 361.0
-margin_bottom = 67.0
+margin_top = 39.0
+margin_right = 401.0
+margin_bottom = 69.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -247,14 +247,14 @@ __meta__ = {
 }
 
 [node name="AntiAliasing" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 87.0
-margin_right = 361.0
-margin_bottom = 104.0
+margin_top = 89.0
+margin_right = 401.0
+margin_bottom = 108.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/AntiAliasing"]
-margin_right = 89.0
-margin_bottom = 17.0
+margin_right = 97.0
+margin_bottom = 19.0
 mouse_default_cursor_shape = 16
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
 text = "Anti-Aliasing"
@@ -264,9 +264,9 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/AntiAliasing"]
-margin_left = 99.0
-margin_right = 101.0
-margin_bottom = 17.0
+margin_left = 107.0
+margin_right = 109.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -274,23 +274,23 @@ __meta__ = {
 }
 
 [node name="Description" type="Label" parent="Content/ScrollContainer/Options/AntiAliasing"]
-margin_left = 111.0
-margin_right = 361.0
-margin_bottom = 17.0
+margin_left = 119.0
+margin_right = 401.0
+margin_bottom = 19.0
 text = "Smoothens out sharp lines (MSAA 8x)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bloom" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 124.0
-margin_right = 361.0
-margin_bottom = 141.0
+margin_top = 128.0
+margin_right = 401.0
+margin_bottom = 147.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Bloom"]
-margin_right = 44.0
-margin_bottom = 17.0
+margin_right = 49.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
 text = "Bloom"
 valign = 1
@@ -299,9 +299,9 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Bloom"]
-margin_left = 54.0
-margin_right = 56.0
-margin_bottom = 17.0
+margin_left = 59.0
+margin_right = 61.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -309,23 +309,23 @@ __meta__ = {
 }
 
 [node name="Description" type="Label" parent="Content/ScrollContainer/Options/Bloom"]
-margin_left = 66.0
-margin_right = 318.0
-margin_bottom = 17.0
+margin_left = 71.0
+margin_right = 353.0
+margin_bottom = 19.0
 text = "Makes bright parts of the screen glow"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Fullscreen" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 161.0
-margin_right = 361.0
-margin_bottom = 178.0
+margin_top = 167.0
+margin_right = 401.0
+margin_bottom = 186.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Fullscreen"]
-margin_right = 72.0
-margin_bottom = 17.0
+margin_right = 79.0
+margin_bottom = 19.0
 mouse_default_cursor_shape = 16
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
 text = "Fullscreen"
@@ -335,9 +335,9 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Fullscreen"]
-margin_left = 82.0
-margin_right = 84.0
-margin_bottom = 17.0
+margin_left = 89.0
+margin_right = 91.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -345,9 +345,9 @@ __meta__ = {
 }
 
 [node name="Description" type="Label" parent="Content/ScrollContainer/Options/Fullscreen"]
-margin_left = 94.0
-margin_right = 253.0
-margin_bottom = 17.0
+margin_left = 101.0
+margin_right = 279.0
+margin_bottom = 19.0
 text = "Makes your window BIG"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -355,9 +355,9 @@ __meta__ = {
 
 [node name="Sound" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 198.0
-margin_right = 361.0
-margin_bottom = 228.0
+margin_top = 206.0
+margin_right = 401.0
+margin_bottom = 236.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -378,23 +378,23 @@ __meta__ = {
 }
 
 [node name="MusicVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 248.0
-margin_right = 361.0
-margin_bottom = 265.0
+margin_top = 256.0
+margin_right = 401.0
+margin_bottom = 275.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Content/ScrollContainer/Options/MusicVolume"]
-margin_right = 94.0
-margin_bottom = 17.0
+margin_right = 106.0
+margin_bottom = 19.0
 text = "Music Volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="Content/ScrollContainer/Options/MusicVolume"]
-margin_left = 104.0
-margin_right = 204.0
-margin_bottom = 17.0
+margin_left = 116.0
+margin_right = 216.0
+margin_bottom = 19.0
 value = 100.0
 texture_under = SubResource( 6 )
 texture_progress = SubResource( 8 )
@@ -402,23 +402,23 @@ nine_patch_stretch = true
 stretch_margin_right = 100
 
 [node name="SFXVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 285.0
-margin_right = 361.0
-margin_bottom = 302.0
+margin_top = 295.0
+margin_right = 401.0
+margin_bottom = 314.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Content/ScrollContainer/Options/SFXVolume"]
-margin_right = 147.0
-margin_bottom = 17.0
+margin_right = 166.0
+margin_bottom = 19.0
 text = "Sound Effects Volume"
 
 [node name="TextureProgress" type="TextureProgress" parent="Content/ScrollContainer/Options/SFXVolume"]
-margin_left = 157.0
-margin_right = 257.0
-margin_bottom = 17.0
+margin_left = 176.0
+margin_right = 276.0
+margin_bottom = 19.0
 value = 100.0
 texture_under = SubResource( 6 )
 texture_progress = SubResource( 8 )
@@ -427,9 +427,9 @@ stretch_margin_right = 100
 
 [node name="Input" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 322.0
-margin_right = 361.0
-margin_bottom = 352.0
+margin_top = 334.0
+margin_right = 401.0
+margin_bottom = 364.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -450,23 +450,23 @@ __meta__ = {
 }
 
 [node name="Up" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 372.0
-margin_right = 361.0
-margin_bottom = 389.0
+margin_top = 384.0
+margin_right = 401.0
+margin_bottom = 403.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Up"]
-margin_right = 216.0
-margin_bottom = 17.0
+margin_right = 241.0
+margin_bottom = 19.0
 text = "Move Up/Select Previous Option"
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Up"]
-margin_left = 226.0
-margin_right = 228.0
-margin_bottom = 17.0
+margin_left = 251.0
+margin_right = 253.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -474,27 +474,27 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Up"]
-margin_left = 238.0
-margin_right = 256.0
-margin_bottom = 17.0
+margin_left = 263.0
+margin_right = 283.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Up"
 
 [node name="Down" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 409.0
-margin_right = 361.0
-margin_bottom = 426.0
+margin_top = 423.0
+margin_right = 401.0
+margin_bottom = 442.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Down"]
-margin_right = 208.0
-margin_bottom = 17.0
+margin_right = 232.0
+margin_bottom = 19.0
 text = "Move Down/Select Next Option"
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Down"]
-margin_left = 218.0
-margin_right = 220.0
-margin_bottom = 17.0
+margin_left = 242.0
+margin_right = 244.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -502,28 +502,28 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Down"]
-margin_left = 230.0
-margin_right = 268.0
-margin_bottom = 17.0
+margin_left = 254.0
+margin_right = 296.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Down"
 
 [node name="Left" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 446.0
-margin_right = 361.0
-margin_bottom = 463.0
+margin_top = 462.0
+margin_right = 401.0
+margin_bottom = 481.0
 rect_pivot_offset = Vector2( -702.202, -279 )
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Left"]
-margin_right = 66.0
-margin_bottom = 17.0
+margin_right = 75.0
+margin_bottom = 19.0
 text = "Move Left"
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Left"]
-margin_left = 76.0
-margin_right = 78.0
-margin_bottom = 17.0
+margin_left = 85.0
+margin_right = 87.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -531,21 +531,21 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Left"]
-margin_left = 88.0
-margin_right = 115.0
-margin_bottom = 17.0
+margin_left = 97.0
+margin_right = 127.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Left"
 
 [node name="Right" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 483.0
-margin_right = 361.0
-margin_bottom = 500.0
+margin_top = 501.0
+margin_right = 401.0
+margin_bottom = 520.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Right"]
-margin_right = 75.0
-margin_bottom = 17.0
+margin_right = 84.0
+margin_bottom = 19.0
 text = "Move Right"
 
 [node name="Label" type="Label" parent="Content/ScrollContainer/Options/Right/Title"]
@@ -556,9 +556,9 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Right"]
-margin_left = 85.0
-margin_right = 87.0
-margin_bottom = 17.0
+margin_left = 94.0
+margin_right = 96.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -566,21 +566,21 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Right"]
-margin_left = 97.0
-margin_right = 133.0
-margin_bottom = 17.0
+margin_left = 106.0
+margin_right = 145.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Right"
 
 [node name="Slow" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 520.0
-margin_right = 361.0
-margin_bottom = 537.0
+margin_top = 540.0
+margin_right = 401.0
+margin_bottom = 559.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Slow"]
-margin_right = 70.0
-margin_bottom = 17.0
+margin_right = 78.0
+margin_bottom = 19.0
 text = "Slow Time"
 
 [node name="Label" type="Label" parent="Content/ScrollContainer/Options/Slow/Title"]
@@ -591,9 +591,9 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Slow"]
-margin_left = 80.0
-margin_right = 82.0
-margin_bottom = 17.0
+margin_left = 88.0
+margin_right = 90.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -601,27 +601,27 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Slow"]
-margin_left = 92.0
-margin_right = 143.0
-margin_bottom = 17.0
+margin_left = 100.0
+margin_right = 155.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Control"
 
 [node name="Confirm" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 557.0
-margin_right = 361.0
-margin_bottom = 574.0
+margin_top = 579.0
+margin_right = 401.0
+margin_bottom = 598.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Confirm"]
-margin_right = 99.0
-margin_bottom = 17.0
+margin_right = 110.0
+margin_bottom = 19.0
 text = "Shoot/Confirm"
 
 [node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Confirm"]
-margin_left = 109.0
-margin_right = 111.0
-margin_bottom = 17.0
+margin_left = 120.0
+margin_right = 122.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 2, 0 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -629,24 +629,24 @@ __meta__ = {
 }
 
 [node name="Key" type="Label" parent="Content/ScrollContainer/Options/Confirm"]
-margin_left = 121.0
-margin_right = 162.0
-margin_bottom = 17.0
+margin_left = 132.0
+margin_right = 178.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
 [node name="ApplyKeyBindings" type="Label" parent="Content/ScrollContainer/Options"]
-margin_top = 594.0
-margin_right = 361.0
-margin_bottom = 611.0
+margin_top = 618.0
+margin_right = 401.0
+margin_bottom = 637.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
 text = "Apply Key Bindings"
 
 [node name="BadStuff" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 631.0
-margin_right = 361.0
-margin_bottom = 661.0
+margin_top = 657.0
+margin_right = 401.0
+margin_bottom = 687.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -667,9 +667,9 @@ __meta__ = {
 }
 
 [node name="ResetGame" type="Label" parent="Content/ScrollContainer/Options"]
-margin_top = 681.0
-margin_right = 361.0
-margin_bottom = 698.0
+margin_top = 707.0
+margin_right = 401.0
+margin_bottom = 726.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "Reset EVERYTHING"
 

@@ -149,7 +149,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="Content"]
-margin_right = 250.0
+margin_right = 256.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 4 )
 text = "upgrades"
@@ -159,13 +159,13 @@ __meta__ = {
 
 [node name="Stats" type="HBoxContainer" parent="Content"]
 margin_top = 85.0
-margin_right = 250.0
-margin_bottom = 102.0
+margin_right = 256.0
+margin_bottom = 104.0
 custom_constants/separation = 20
 
 [node name="Points" type="Label" parent="Content/Stats"]
-margin_right = 53.0
-margin_bottom = 17.0
+margin_right = 59.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0 points"
 
@@ -182,31 +182,31 @@ __meta__ = {
 }
 
 [node name="Damage" type="Label" parent="Content/Stats"]
-margin_left = 73.0
-margin_right = 145.0
-margin_bottom = 17.0
+margin_left = 79.0
+margin_right = 161.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "30 damage"
 
 [node name="Health" type="Label" parent="Content/Stats"]
-margin_left = 165.0
-margin_right = 233.0
-margin_bottom = 17.0
+margin_left = 181.0
+margin_right = 256.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
 text = "100 health"
 
 [node name="Options" type="VBoxContainer" parent="Content"]
-margin_top = 122.0
-margin_right = 250.0
-margin_bottom = 161.0
+margin_top = 124.0
+margin_right = 256.0
+margin_bottom = 165.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="Content/Options"]
-margin_right = 250.0
-margin_bottom = 17.0
+margin_right = 256.0
+margin_bottom = 19.0
 text = "back"
 valign = 1
 __meta__ = {
@@ -214,9 +214,9 @@ __meta__ = {
 }
 
 [node name="Separator" type="ColorRect" parent="Content/Options" groups=["selectsquare_ignore"]]
-margin_top = 37.0
-margin_right = 250.0
-margin_bottom = 39.0
+margin_top = 39.0
+margin_right = 256.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 0, 2 )
 
 [node name="Alert" parent="." instance=ExtResource( 5 )]

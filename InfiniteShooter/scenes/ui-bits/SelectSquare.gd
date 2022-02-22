@@ -15,7 +15,7 @@ onready var options = get_node(options_path)
 # What object is selected
 var select_child
 
-export var margin = 2
+export var margin = 12
 
 var ignore_hits = 0 # Fixes a bug where, if you press space, multiple select squares work at the same time on the main menu
 

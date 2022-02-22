@@ -168,21 +168,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Subtitle" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -95.5
-margin_top = 42.5
-margin_right = 95.5
-margin_bottom = 57.5
-custom_colors/font_color = Color( 0.933333, 0.933333, 0.933333, 1 )
-text = "press pause key again to resume"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="SelectSquare" parent="." instance=ExtResource( 5 )]
 options_path = NodePath("../Options")
 
@@ -192,25 +177,25 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -78.0
-margin_top = 80.5
+margin_top = 60.5
 margin_right = 78.0
-margin_bottom = 157.5
-custom_constants/separation = 15
+margin_bottom = 141.5
+custom_constants/separation = 25
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Retry" type="Label" parent="Options"]
 margin_right = 156.0
-margin_bottom = 15.0
+margin_bottom = 17.0
 text = "replay"
 align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
-margin_top = 30.0
+margin_top = 42.0
 margin_right = 156.0
-margin_bottom = 45.0
+margin_bottom = 59.0
 text = "quit"
 align = 1
 valign = 1
@@ -219,9 +204,9 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Label" parent="Options"]
-margin_top = 60.0
+margin_top = 84.0
 margin_right = 156.0
-margin_bottom = 75.0
+margin_bottom = 101.0
 text = "back to main menu"
 align = 1
 valign = 1

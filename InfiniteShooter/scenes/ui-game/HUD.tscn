@@ -451,10 +451,10 @@ __meta__ = {
 
 [node name="ProgressBars" type="TextureRect" parent="HUD"]
 margin_right = 180.0
-margin_bottom = 42.0
+margin_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 180, 42 )
+rect_min_size = Vector2( 180, 56 )
 size_flags_horizontal = 0
 texture = SubResource( 2 )
 expand = true
@@ -476,11 +476,11 @@ __meta__ = {
 }
 
 [node name="HealthBar" type="TextureProgress" parent="HUD/ProgressBars"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 185.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 180, 18 )
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 187.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 180, 26 )
 value = 50.0
 texture_under = SubResource( 19 )
 texture_progress = SubResource( 21 )
@@ -498,10 +498,11 @@ __meta__ = {
 }
 
 [node name="AmmoBar" type="TextureProgress" parent="HUD/ProgressBars"]
-margin_left = 5.0
-margin_top = 23.0
-margin_right = 185.0
-margin_bottom = 37.0
+margin_left = 7.0
+margin_top = 33.0
+margin_right = 187.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 180, 16 )
 value = 50.0
 texture_under = SubResource( 24 )
 texture_progress = SubResource( 26 )
@@ -533,9 +534,9 @@ __meta__ = {
 }
 
 [node name="StatusBar" type="PanelContainer" parent="HUD"]
-margin_top = 58.0
-margin_right = 267.0
-margin_bottom = 94.0
+margin_top = 72.0
+margin_right = 297.0
+margin_bottom = 122.0
 custom_styles/panel = SubResource( 34 )
 __meta__ = {
 "_edit_group_": true,
@@ -547,8 +548,8 @@ show_behind_parent = true
 material = SubResource( 35 )
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 266.0
-margin_bottom = 35.0
+margin_right = 296.0
+margin_bottom = 49.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -556,18 +557,18 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="HUD/StatusBar"]
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 266.0
-margin_bottom = 35.0
-custom_constants/margin_right = 6
-custom_constants/margin_top = 5
-custom_constants/margin_left = 6
-custom_constants/margin_bottom = 5
+margin_right = 296.0
+margin_bottom = 49.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 8
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 8
 
 [node name="Labels" type="HBoxContainer" parent="HUD/StatusBar/MarginContainer"]
-margin_left = 6.0
-margin_top = 5.0
-margin_right = 259.0
-margin_bottom = 29.0
+margin_left = 10.0
+margin_top = 8.0
+margin_right = 285.0
+margin_bottom = 40.0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
@@ -575,9 +576,9 @@ __meta__ = {
 
 [node name="Level" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
 show_behind_parent = true
-margin_right = 64.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 64, 24 )
+margin_right = 70.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 70, 32 )
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
@@ -590,21 +591,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -7.5
-margin_right = 20.0
-margin_bottom = 7.5
-text = "Level 1"
+margin_left = -24.0
+margin_top = -8.5
+margin_right = 24.0
+margin_bottom = 8.5
+text = "Level 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Wave" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
 show_behind_parent = true
-margin_left = 79.0
-margin_right = 143.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 64, 24 )
+margin_left = 85.0
+margin_right = 155.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 70, 32 )
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
@@ -617,36 +618,37 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -21.5
-margin_top = -7.5
-margin_right = 21.5
-margin_bottom = 7.5
+margin_left = -24.0
+margin_top = -8.5
+margin_right = 24.0
+margin_bottom = 8.5
 text = "Wave 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Score" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
-margin_left = 158.0
-margin_top = 4.0
-margin_right = 205.0
-margin_bottom = 19.0
+margin_left = 170.0
+margin_top = 7.0
+margin_right = 223.0
+margin_bottom = 24.0
 text = "Score: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FPS" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
-margin_left = 220.0
-margin_top = 4.0
-margin_right = 253.0
-margin_bottom = 19.0
+margin_left = 238.0
+margin_top = 7.0
+margin_right = 275.0
+margin_bottom = 24.0
 text = "0 FPS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Vignette" type="ColorRect" parent="."]
+visible = false
 material = SubResource( 32 )
 anchor_right = 1.0
 anchor_bottom = 1.0
