@@ -11,7 +11,6 @@ var _old_sky_num = 0
 
 
 func _ready():
-	set_sky(4)
 	randomize()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) # Hides the cursor
 
@@ -54,7 +53,6 @@ func _process(delta):
 			lerp($LensDistortion.material.get_shader_param("distort"), _animate_warp_amount, 0.04),
 			lerp($LensDistortion.material.get_shader_param("dispersion"), _animate_dispersion_amount, 0.04)
 		)
-		print($LensDistortion.material.get_shader_param("distort"))
 		if $LensDistortion.material.get_shader_param("distort") == _animate_warp_amount and\
 			$LensDistortion.material.get_shader_param("dispersion") == _animate_dispersion_amount:
 			_animate_warp_dispersion = false
