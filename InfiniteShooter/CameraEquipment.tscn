@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://images/space2.hdr" type="Texture" id=7]
 [ext_resource path="res://images/space3.hdr" type="Texture" id=8]
 [ext_resource path="res://images/space4.hdr" type="Texture" id=9]
+[ext_resource path="res://images/space5.hdr" type="Texture" id=10]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 6 )
@@ -21,6 +22,9 @@ panorama = ExtResource( 8 )
 
 [sub_resource type="PanoramaSky" id=36]
 panorama = ExtResource( 9 )
+
+[sub_resource type="PanoramaSky" id=37]
+panorama = ExtResource( 10 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "RESET"
@@ -270,7 +274,7 @@ shader_param/blur_amount = 0.01
 
 [node name="CameraEquipment" type="Spatial"]
 script = ExtResource( 3 )
-skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 36 ) ]
+skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 15, 0 )

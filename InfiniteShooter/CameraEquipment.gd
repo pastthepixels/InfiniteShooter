@@ -11,6 +11,7 @@ var _old_sky_num = 0
 
 
 func _ready():
+	set_sky(4)
 	randomize()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) # Hides the cursor
 
