@@ -20,6 +20,8 @@ var enemies_in_wave = 0
 
 var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
+var waves_per_level = GameVariables.waves_per_level_range[0]
+
 var use_laser_modifiers = false # Whether or not to use laser modifiers
 
 var autospawn_enemies = false # Whether or not to spawn new enemies when they die (used within this script)
@@ -57,7 +59,7 @@ func _ready():
 	# save stuff
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
-	$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
+	$HUD.update_level(level, 100 * wave/waves_per_level)
 	# Begins the countdown/shows the tutorial/plays appropiate music
 	if Saving.get_tutorial_progress()["initial"] == true:
 		$Countdown.start()
@@ -124,7 +126,7 @@ func wave_up():
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
-	if wave == GameVariables.waves_per_level + 1:
+	if wave == waves_per_level + 1:
 		yield(Utils.timeout(1), "timeout") # Waits exactly one second
 		make_boss() # then initiates a boss battle
 	else:
@@ -133,12 +135,13 @@ func wave_up():
 		make_enemies()
 		# Updates the HUD
 		$HUD.update_wave(wave, 0)
-		$HUD.update_level(level, 100 * wave/GameVariables.waves_per_level)
+		$HUD.update_level(level, 100 * wave/waves_per_level)
 
 func level_up():
 	level += 1
 	wave = 1
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
+	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
 	# GUI stuff
 	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true), "completed")
 	$HUD.update_wave(wave, 0)
@@ -180,7 +183,7 @@ func make_enemy():
 	if enemies_in_wave >= GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
 		autospawn_enemies = false # Well, stop enemies from spawning
 		# but also set the position of the indicator arrow to let players know where the boss is coming from
-		if wave == GameVariables.waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
+		if wave == waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
 	
 	return enemy
 
