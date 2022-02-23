@@ -4,6 +4,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
+use_filter = true
 font_data = ExtResource( 1 )
 
 [resource]
