@@ -192,7 +192,7 @@ func set_random_enemy_position(times_ran=0):
 	$GameSpace/IndicatorArrow.show()
 	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if position.distance_to(enemy.translation) < 4:
+		if position.distance_to(enemy.translation) <= 3:
 			return set_random_enemy_position(times_ran + 1)
 	return position
 

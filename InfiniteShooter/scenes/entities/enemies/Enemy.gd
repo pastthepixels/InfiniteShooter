@@ -66,6 +66,13 @@ func initialize(difficulty):
 			max_health = 100
 			damage = 20
 			speed_mult = .8
+		
+		GameVariables.ENEMY_TYPES.explosive:
+			enemy_model = $Explosive
+			# Sets enemy stats
+			max_health = 10
+			damage = 100
+			speed_mult = .6
 	
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
@@ -116,6 +123,14 @@ func explode_ship(from_player=false):
 	last_hit_from = null
 	alive = false
 	
+	# Does any last things depending on enemy type (ex. explosive enemies would take health from surrounding enemies)
+	match enemy_type:
+		GameVariables.ENEMY_TYPES.explosive:
+			for enemy in get_tree().get_nodes_in_group("enemies"):
+				if translation.distance_to(enemy.translation) <= 5:
+					enemy.last_hit_from = last_hit_from
+					enemy.health -= damage
+	
 	# Resets, emitting a signal at the end
 	$LaserTimer.stop()
 	$LaserEffects.reset()
@@ -147,6 +162,10 @@ func _on_Explosion_exploded():
 
 
 func _on_LaserTimer_timeout():
+	# Some ships don't shoot lasers...
+	if enemy_type == GameVariables.ENEMY_TYPES.explosive:
+		return
+	# ...some do
 	$LaserGun.damage = damage
 	$LaserGun.follow_player = use_homing_lasers
 	$LaserGun.use_laser_modifiers = use_laser_modifiers

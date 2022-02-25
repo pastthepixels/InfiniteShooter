@@ -12,7 +12,7 @@ var waves_per_level_range = [5, 10] # default [min=5, max=10]
 
 enum LASER_MODIFIERS { none, fire, ice, corrosion }
 
-enum ENEMY_TYPES { normal, small, tank }
+enum ENEMY_TYPES { normal, small, tank, explosive }
 
 # A function to set the difficulty of the game. (I mean, what more can I say?)
 enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare }
