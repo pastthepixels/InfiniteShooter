@@ -17,8 +17,9 @@ func _input(event):
 		and event.pressed
 		and $Menu/StartScreen.visible == true
 	):
-		# Plays the "gui-accept" sound
+		# Plays the "gui-accept" sound and the main menu theme
 		$Menu/SelectSquare/AcceptSound.play()
+		$Music.play()
 
 		# Hides the start screen and shows the options/other stuff
 		$Menu/StartScreen.hide()
