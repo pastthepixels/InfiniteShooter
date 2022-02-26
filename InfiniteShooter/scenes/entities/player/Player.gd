@@ -4,6 +4,7 @@ extends Area
 export var godmode = false
 
 # Userdata (set to the defaults)
+
 var max_ammo = Saving.default_userdata.max_ammo
 
 var ammo_refills = Saving.default_userdata.ammo_refills setget _update_ammo_refills
@@ -19,6 +20,8 @@ var speed = 14
 var health = max_health setget _update_health
 
 # Ammo (taken from the max ammo)
+export var infinite_ammo = false
+
 var ammo = max_ammo setget _update_ammo
 
 # Laser modifiers
@@ -112,8 +115,11 @@ func _input(event):
 		event.is_action_pressed("shoot_laser")
 		and $ReloadTimer.time_left == 0
 	):
+		fire_laser()
+
+func fire_laser():
 		if self.ammo > 0:
-			self.ammo -= 1
+			if infinite_ammo == false: self.ammo -= 1
 			$LaserGun.damage = damage
 			if modifier != MODIFIERS.none:
 				$LaserGun.set_modifier(modifier)
@@ -152,6 +158,7 @@ func die_already():
 	$PlayerModel.queue_free()
 	$CollisionShape.queue_free()
 	$RegenTimer.stop()
+	$ShootTimer.stop()
 	$LaserEffects.reset()
 	transform.basis = Basis()  # Resets the player's rotation
 	if has_node("/root/Main/ShakeCamera"):
@@ -166,3 +173,7 @@ func _on_RegenTimer_timeout():
 
 func _on_Explosion_exploded():
 	queue_free()
+
+
+func _on_ShootTimer_timeout():
+	fire_laser()

@@ -23,23 +23,26 @@ func set_difficulty(difficulty):
 			enemy_difficulty = 0.5
 			enemies_on_screen_range[0] += clamp(int(difficulty - 1), 0, 3)
 			enemies_on_screen_range[1] += clamp(int(difficulty - 1), 0, 3)
-	
+
 		DIFFICULTIES.medium:
 			pass # DEFAULTS
-		
+
 		DIFFICULTIES.hard:
 			enemy_difficulty = 1.5
 			enemies_on_screen_range[0] += 1
 			enemies_on_screen_range[1] += 1
-		
+
 		DIFFICULTIES.nightmare:
 			enemy_difficulty = 2
 			enemies_per_wave = 15
 			enemies_on_screen_range[0] += 2
 			enemies_on_screen_range[1] += 2
-		
+
 		DIFFICULTIES.ultranightmare:
 			enemy_difficulty = 3
 			enemies_per_wave = 20
 			enemies_on_screen_range[0] += 3
 			enemies_on_screen_range[1] += 3
+
+func _ready():
+	set_difficulty(DIFFICULTIES.nightmare)
