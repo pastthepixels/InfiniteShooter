@@ -12,10 +12,11 @@ __meta__ = {
 }
 
 [node name="Number" type="Label" parent="."]
-margin_right = 16.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-text = "1"
+margin_top = 1.0
+margin_right = 18.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 18, 16 )
+text = "01"
 align = 1
 valign = 1
 __meta__ = {
@@ -30,15 +31,16 @@ margin_left = -5.0
 margin_top = -5.0
 margin_right = 5.0
 margin_bottom = 5.0
+rect_min_size = Vector2( 26, 26 )
 color = Color( 1, 1, 1, 0.196078 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Text" type="Label" parent="."]
-margin_left = 41.0
-margin_right = 105.0
-margin_bottom = 17.0
+margin_left = 43.0
+margin_right = 114.0
+margin_bottom = 19.0
 theme = ExtResource( 1 )
 text = "Template"
 valign = 1
