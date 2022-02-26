@@ -180,7 +180,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Content"]
 margin_right = 500.0
 margin_bottom = 65.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.25098 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
 custom_fonts/font = SubResource( 4 )
@@ -190,6 +190,7 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Content"]
+show_behind_parent = true
 margin_top = 85.0
 margin_right = 500.0
 margin_bottom = 710.0
