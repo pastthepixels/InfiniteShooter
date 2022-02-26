@@ -67,19 +67,40 @@ func initialize(difficulty):
 			damage = 20
 			speed_mult = .8
 		
+		GameVariables.ENEMY_TYPES.gigatank:
+			enemy_model = $Gigatank
+			# Sets enemy stats
+			max_health = 200
+			damage = 40
+			speed_mult = .5
+		
 		GameVariables.ENEMY_TYPES.explosive:
 			enemy_model = $Explosive
 			# Sets enemy stats
 			max_health = 10
 			damage = 100
 			speed_mult = .6
+		
+		GameVariables.ENEMY_TYPES.multishot:
+			enemy_model = $Multishot
+			# Sets enemy stats
+			max_health = 120
+			damage = 30
+			speed_mult = .7
+		
+		GameVariables.ENEMY_TYPES.quadshot:
+			enemy_model = $Quadshot
+			# Sets enemy stats
+			max_health = 70
+			damage = 20
+			speed_mult = .9
 	
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
 	max_health *= clamp(mult, .5, 512)
 	damage *= mult
 	speed_mult *= clamp(mult / 5, 1, 3)
-
+	
 	# Sets the current health as the new max health
 	self.health = max_health
 	
@@ -163,15 +184,17 @@ func _on_Explosion_exploded():
 
 func _on_LaserTimer_timeout():
 	# Some ships don't shoot lasers...
-	if enemy_type == GameVariables.ENEMY_TYPES.explosive:
+	if enemy_model.has_node("LaserGuns") == false:
 		return
-	# ...some do
-	$LaserGun.damage = damage
-	$LaserGun.follow_player = use_homing_lasers
-	$LaserGun.use_laser_modifiers = use_laser_modifiers
-	if use_laser_modifiers:
-		$LaserGun.laser_modifier = laser_modifier
-	$LaserGun.fire()
+	
+	# ...and some do
+	for LaserGun in enemy_model.get_node("LaserGuns").get_children():
+		LaserGun.damage = damage
+		#LaserGun.follow_player = use_homing_lasers
+		if use_laser_modifiers:
+			LaserGun.use_laser_modifiers = true
+			LaserGun.laser_modifier = laser_modifier
+		LaserGun.fire()
 
 
 func _on_ShipDetection_area_entered(area):
