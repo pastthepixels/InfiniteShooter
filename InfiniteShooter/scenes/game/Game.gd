@@ -59,7 +59,7 @@ func _ready():
 	# save stuff
 	load_game() # Load save data (player damage/health)
 	# HUD stuff
-	$HUD.update_level(level, 100 * wave/waves_per_level)
+	if waves_per_level > 0: $HUD.update_level(level, 100 * wave/waves_per_level)
 	# Begins the countdown/shows the tutorial/plays appropiate music
 	if Saving.get_tutorial_progress()["initial"] == true:
 		$Countdown.start()
@@ -160,6 +160,9 @@ func level_up():
 # Making enemies
 #
 func make_enemies():
+	if enemies_in_wave == 0:
+		make_boss()
+		return
 	autospawn_enemies = true
 	for enemy in max_enemies_on_screen:
 		make_enemy()
@@ -178,12 +181,13 @@ func make_enemy():
 	next_enemy_position = set_random_enemy_position()
 	
 	# Updates the HUD with the current amount of enemies in the wave
-	enemies_in_wave += 1
-	$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
-	if enemies_in_wave >= GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
-		autospawn_enemies = false # Well, stop enemies from spawning
-		# but also set the position of the indicator arrow to let players know where the boss is coming from
-		if wave == waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
+	if GameVariables.enemies_per_wave > 0:
+		enemies_in_wave += 1
+		$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
+		if enemies_in_wave >= GameVariables.enemies_per_wave: # If this is the last enemy to spawn...
+			autospawn_enemies = false # Well, stop enemies from spawning
+			# but also set the position of the indicator arrow to let players know where the boss is coming from
+			if wave == waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
 	
 	return enemy
 
@@ -191,6 +195,8 @@ func set_random_enemy_position(times_ran=0):
 	var position = Vector3(Utils.random_screen_point(2).x, 0, Utils.top_left.z - (.2 * times_ran))
 	$GameSpace/IndicatorArrow.show()
 	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
+	if enemies_in_wave == 0:
+		$GameSpace/IndicatorArrow.translation.x = 0
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if position.distance_to(enemy.translation) <= 3:
 			return set_random_enemy_position(times_ran + 1)

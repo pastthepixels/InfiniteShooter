@@ -7,7 +7,6 @@ onready var _animate_warp_amount = 0
 onready var _animate_dispersion_amount = 0
 
 export(Array, PanoramaSky) var skies
-var _old_sky_num = 0
 
 
 func _ready():
@@ -30,7 +29,6 @@ func set_animated_distortion(distort, dispersion):
 # sky stuff
 #
 func set_sky(sky_idx):
-	_old_sky_num = sky_idx
 	$WorldEnvironment.environment.background_sky = skies[sky_idx]
 
 func set_rand_sky():
@@ -38,10 +36,10 @@ func set_rand_sky():
 
 func generate_rand_sky_num():
 	var new_sky_num = rand_range(0, len(skies))
-	if _old_sky_num == new_sky_num:
+	if $WorldEnvironment.environment.background_sky == skies[new_sky_num]:
 		return generate_rand_sky_num()
-	_old_sky_num = new_sky_num
-	return new_sky_num
+	else:
+		return new_sky_num
 
 #
 # _process()

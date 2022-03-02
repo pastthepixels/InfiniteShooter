@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/boss1.glb-4dcf21d765b7258f5ca94775b5cc4855.scn"
+path="res://.import/boss3.glb-11c48890954daecc19c76bde10b41a34.scn"
 
 [deps]
 
-source_file="res://models/bosses/boss1.glb"
-dest_files=[ "res://.import/boss1.glb-4dcf21d765b7258f5ca94775b5cc4855.scn" ]
+source_file="res://models/bosses/boss3.glb"
+dest_files=[ "res://.import/boss3.glb-11c48890954daecc19c76bde10b41a34.scn" ]
 
 [params]
 

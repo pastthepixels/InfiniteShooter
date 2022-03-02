@@ -4,15 +4,17 @@ extends Node
 
 var enemy_difficulty = 1 # default 1
 
-var enemies_per_wave = 10 # default 10
+var enemies_per_wave = 0 # default 10
 
-var enemies_on_screen_range = [2, 10] # default [min=2,max=10]
+var enemies_on_screen_range = [0, 0] # default [min=2,max=10]
 
-var waves_per_level_range = [5, 10] # default [min=5, max=10]
+var waves_per_level_range = [0, 0] # default [min=5, max=10]
 
 enum LASER_MODIFIERS { none, fire, ice, corrosion }
 
 enum ENEMY_TYPES { normal, small, tank, explosive, multishot, quadshot, gigatank }
+
+enum BOSS_TYPES { normal, trishot, multishot }
 
 # A function to set the difficulty of the game. (I mean, what more can I say?)
 enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare }
@@ -43,6 +45,3 @@ func set_difficulty(difficulty):
 			enemies_per_wave = 20
 			enemies_on_screen_range[0] += 3
 			enemies_on_screen_range[1] += 3
-
-func _ready():
-	set_difficulty(DIFFICULTIES.nightmare)

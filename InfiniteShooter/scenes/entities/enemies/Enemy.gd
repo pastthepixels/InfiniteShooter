@@ -42,7 +42,6 @@ export(PackedScene) var powerup_scene
 
 var enemy_model
 
-
 func initialize(difficulty):
 	# Adds an enemy model and sets stats for that model
 	match enemy_type:
@@ -232,3 +231,6 @@ func update_health():
 		else:
 			explode_ship()
 	last_hit_from = null
+
+func hurt(damage):
+	health -= damage

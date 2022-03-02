@@ -86,7 +86,7 @@ func set_laser():
 # Called when the laser collides with objects
 func _on_Laser_area_entered(area):
 	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
-		area.get_parent().health -= damage # subtract health from the enemy
+		area.get_parent().hurt(damage) # subtract health from the enemy
 		area.get_parent().last_hit_from = sender
 		# Laser modifiers
 		handle_modifiers(area.get_parent())
@@ -97,6 +97,8 @@ func _on_Laser_area_entered(area):
 		handle_modifiers(area)
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
 		remove_laser(true)  # Removes the laser
+	elif area.is_in_group("shield"):
+		remove_laser(true) # Removes the laser
 
 
 func handle_modifiers(ship):

@@ -1,15 +1,15 @@
 extends Spatial
 
-# Health, damage, & misc
-var damage = 10
+# Damage, health, and enemy type
+var speed
 
-export var max_health = 2000
-
-var health = max_health
+var boss_type = GameVariables.BOSS_TYPES.values()[randi() % GameVariables.BOSS_TYPES.size()]
 
 export var explosions = 10
 
-onready var enemy_model = $EnemyModel
+var health = 0 setget ,get_health
+
+# Misc
 
 var last_hit_from
 
@@ -20,23 +20,29 @@ signal died(current_ship)
 var killed_from_player = false
 
 # Moving around
+
 export(Array, Curve3D) var paths
 
-# Laser mechanics
+# mechanics
+
 var freeze_movement = false
 
-var cannon_alternation = false
-
 # Homing lasers
-export var homing_lasers = true
+
+export var homing_lasers = false
 
 onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
 
 # Scenes used
+
 export(PackedScene) var laser_scene
 
 export(PackedScene) var explosion_scene
 
+var enemy_model
+
+func _ready():
+	randomize()
 
 func initialize(difficulty):
 	# Sets up the path to follow
@@ -50,12 +56,28 @@ func initialize(difficulty):
 		explosion.translation = Vector3(rand_range(-1.5, 1.5), rand_range(-.5, .5), rand_range(-1.5, 1.5))
 		$Explosions.add_child(explosion)
 	
+	# Sets up enemy types
+	match boss_type:
+		GameVariables.BOSS_TYPES.normal:
+			enemy_model = $Normal
+			speed = .05
+		
+		GameVariables.BOSS_TYPES.trishot:
+			enemy_model = $Trishot
+			speed = .06
+		
+		GameVariables.BOSS_TYPES.multishot:
+			enemy_model = $Multishot
+			speed = .04
+	
+	enemy_model.show()
+	
 	# Multiplies everything by the difficulty number for added difficulty (same as we would for Enemy.gd)
-	max_health *= difficulty
-	damage *= difficulty
+	enemy_model.max_health *= difficulty
+	enemy_model.damage *= difficulty
 	
 	# Sets the current health as the new max health
-	health = max_health
+	enemy_model.health = enemy_model.max_health
 	
 	# Mini-cutscene
 	$Tween.interpolate_property(self, "translation:z", translation.z, 0, 4, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
@@ -67,25 +89,26 @@ func initialize(difficulty):
 	yield($Tween, "tween_completed")
 	
 	# Begins shooting fter the cutscene
-	$LaserTimer.start()
+	$AnimationPlayer.play("RemoveInvincibility")
+	enemy_model.start()
 
 
 # Called to process health and movement
 func _process(delta):
 	# Looking at the player
-	if is_instance_valid(followed_player) and followed_player.health > 0 and health > 0:
+	if is_instance_valid(followed_player) and followed_player.health > 0 and enemy_model.health > 0:
 		smooth_look_at(delta, 3)
-	elif health > 0 and rotation.y != 0 and $Tween.is_active() == false:
+	elif enemy_model.health > 0 and rotation.y != 0 and $Tween.is_active() == false:
 		$Tween.interpolate_property(self, "rotation:y", rotation.y, (deg2rad(0) if rotation.y < deg2rad(180) else deg2rad(360)), 5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		$Tween.start()
-		$LaserTimer.stop()
+		enemy_model.stop()
 	
 	# If the health is between 100% and 0%, show the health bar.
-	if health < max_health and health > 0:
+	if enemy_model.health < enemy_model.max_health and enemy_model.health > 0:
 		$HealthBar.show()
-		$HealthBar.health = health
-		$HealthBar.max_health = max_health
-	elif health <= 0:
+		$HealthBar.health = enemy_model.health
+		$HealthBar.max_health = enemy_model.max_health
+	elif enemy_model.health <= 0:
 		set_process(false)
 		$HealthBar.hide()
 		explode_ship() # otherwise, explode the ship
@@ -94,7 +117,7 @@ func _process(delta):
 	# Moving around
 	if (freeze_movement or $Tween.is_active()) == false:
 		translation = $Path/PathFollow.translation
-		$Path/PathFollow.unit_offset += .05 * delta
+		$Path/PathFollow.unit_offset += speed * delta
 
 func smooth_look_at(delta, weight):
 	# A. Creates a new Transform that is facing the player
@@ -109,8 +132,7 @@ func smooth_look_at(delta, weight):
 func explode_ship():
 	emit_signal("died", self)
 	remove_from_group("enemies")
-	$LaserTimer.stop()
-	$EnemyModel.queue_free()
+	enemy_model.queue_free()
 	$LaserEffects.reset()
 	$Explosions.show()
 	$Tween.stop_all()
@@ -122,22 +144,8 @@ func explode_ship():
 	yield($Explosions.get_child(explosions - 1), "exploded")
 	queue_free()
 
+func hurt(damage):
+	enemy_model.health -= damage
 
-func fire_laser():
-	$EnemyModel/Boss/Cannon1.damage = damage
-	$EnemyModel/Boss/Cannon2.damage = damage
-	
-	if health <= max_health/3: # Stage 3
-		$EnemyModel/Boss/Cannon1.fire()
-		$EnemyModel/Boss/Cannon2.fire()
-	
-	if health <= 2 * max_health/3: # Stage 2
-		$EnemyModel/Boss/Cannon1.follow_player = true
-		$EnemyModel/Boss/Cannon2.follow_player = true
-	
-	if health > max_health/3: # Stage 1 (this applies to both stages 1&2)
-		cannon_alternation = !cannon_alternation
-		if cannon_alternation:
-			$EnemyModel/Boss/Cannon1.fire()
-		else:
-			$EnemyModel/Boss/Cannon2.fire()
+func get_health():
+	return enemy_model.health
