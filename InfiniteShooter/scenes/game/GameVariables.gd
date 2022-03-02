@@ -4,11 +4,13 @@ extends Node
 
 var enemy_difficulty = 1 # default 1
 
-var enemies_per_wave = 0 # default 10
+var enemies_per_wave = 10 # default 10
 
-var enemies_on_screen_range = [0, 0] # default [min=2,max=10]
+var enemies_on_screen_range = [2, 10] # default [min=2,max=10]
 
-var waves_per_level_range = [0, 0] # default [min=5, max=10]
+var waves_per_level_range = [5, 10] # default [min=5, max=10]
+
+# Set all of the above (excl. difficulty) to zero for a boss-run-type mode.
 
 enum LASER_MODIFIERS { none, fire, ice, corrosion }
 

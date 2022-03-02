@@ -160,7 +160,7 @@ func level_up():
 # Making enemies
 #
 func make_enemies():
-	if enemies_in_wave == 0:
+	if GameVariables.enemies_per_wave == 0:
 		make_boss()
 		return
 	autospawn_enemies = true
