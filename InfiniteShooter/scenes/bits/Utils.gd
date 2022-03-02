@@ -17,7 +17,7 @@ onready var bottom_right = screen_to_local(Vector2(screen_size.x, screen_size.y)
 # Recalculates everything
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "recalculate")
-	
+
 func recalculate():
 	viewport = get_viewport()
 	screen_size = get_viewport().get_visible_rect().size
