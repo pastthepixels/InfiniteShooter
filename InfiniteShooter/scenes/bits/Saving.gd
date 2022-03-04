@@ -28,7 +28,8 @@ var default_settings = {
 	"bloom": true,
 	"fullscreen": false,
 	"musicvol": 100,
-	"sfxvol": 100
+	"sfxvol": 100,
+	"difficulty": GameVariables.DIFFICULTIES.medium
 }
 
 var default_tutorial_progress = {
@@ -140,6 +141,9 @@ func save_settings(settings):
 	OS.window_fullscreen = settings["fullscreen"]
 	if settings["fullscreen"] == false:
 		OS.window_size = Vector2(600, 800)
+	
+	# Sets difficulty
+	GameVariables.set_difficulty(int(settings["difficulty"]))
 	
 	# Stores settings
 	file.open(PATHS.settings, File.WRITE)

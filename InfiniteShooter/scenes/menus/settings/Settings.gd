@@ -2,7 +2,7 @@ extends Control
 
 signal closed
 
-export var colors = { "red": Color(1, .27, .27), "green": Color(.27, 1, .27) }
+export var colors = { "red": Color(1, .27, .27), "green": Color(.27, 1, .27), "white": Color(1, 1, 1), "yellow": Color(1, 1, 0.27), "orange": Color(1, 0.6, 0.27) }
 
 onready var settings = Saving.load_settings()
 
@@ -74,12 +74,34 @@ func _input(event):
 				$Content/ScrollContainer/Options/SFXVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
 				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
 				set_settings()
-
+			
+			"Difficulty":
+				$Content/ScrollContainer/Options/Difficulty/OptionButton.selected += 1 if event.is_action_pressed("ui_right") else -1
+				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
+				set_settings()
+				
 # To save/set settings
 func set_settings():
 	# Music/Sound Volume(s) <- GUI slider values
 	settings["musicvol"] = $Content/ScrollContainer/Options/MusicVolume/TextureProgress.value
 	settings["sfxvol"] = $Content/ScrollContainer/Options/SFXVolume/TextureProgress.value
+	
+	# Difficulty
+	match $Content/ScrollContainer/Options/Difficulty/OptionButton.get_item_text($Content/ScrollContainer/Options/Difficulty/OptionButton.selected) :
+		"Easy":
+			settings["difficulty"] = GameVariables.DIFFICULTIES.easy
+		
+		"Medium":
+			settings["difficulty"] = GameVariables.DIFFICULTIES.medium
+		
+		"Hard":
+			settings["difficulty"] = GameVariables.DIFFICULTIES.hard
+		
+		"Nightmare":
+			settings["difficulty"] = GameVariables.DIFFICULTIES.nightmare
+		
+		"Ultranightmare":
+			settings["difficulty"] = GameVariables.DIFFICULTIES.ultranightmare
 	
 	# Updates the GUI
 	update_gui()
@@ -105,6 +127,43 @@ func update_gui():
 		"custom_colors/font_color",
 		colors.green if settings["fullscreen"] else colors.red
 	)
+	
+	# Difficulty
+	match int(settings["difficulty"]):
+		GameVariables.DIFFICULTIES.easy:
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 0
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+				"custom_colors/font_color",
+				colors.green
+			)
+		
+		GameVariables.DIFFICULTIES.medium:
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 1
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+				"custom_colors/font_color",
+				colors.white
+			)
+		
+		GameVariables.DIFFICULTIES.hard:
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 2
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+				"custom_colors/font_color",
+				colors.yellow
+			)
+		
+		GameVariables.DIFFICULTIES.nightmare:
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 3
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+				"custom_colors/font_color",
+				colors.orange
+			)
+		
+		GameVariables.DIFFICULTIES.ultranightmare:
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 4
+			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+				"custom_colors/font_color",
+				colors.red
+			)
 
 # To reset settings
 func _on_ResetConfirmation_confirmed():

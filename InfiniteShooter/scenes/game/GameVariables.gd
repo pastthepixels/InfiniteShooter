@@ -2,13 +2,13 @@ extends Node
 
 # User-editable game mechanics variables.
 
-var enemy_difficulty = 1 # default 1
+var enemy_difficulty
 
-var enemies_per_wave = 10 # default 10
+var enemies_per_wave
 
-var enemies_on_screen_range = [2, 10] # default [min=2,max=10]
+var enemies_on_screen_range # default [min,max]
 
-var waves_per_level_range = [5, 10] # default [min=5, max=10]
+var waves_per_level_range # [min, max]
 
 # Set all of the above (excl. difficulty) to zero for a boss-run-type mode.
 
@@ -25,25 +25,26 @@ func set_difficulty(difficulty):
 	match difficulty:
 		DIFFICULTIES.easy:
 			enemy_difficulty = 0.5
-			enemies_on_screen_range[0] += clamp(int(difficulty - 1), 0, 3)
-			enemies_on_screen_range[1] += clamp(int(difficulty - 1), 0, 3)
+			enemies_per_wave = 6
+			enemies_on_screen_range = [2, 10]
+			waves_per_level_range = [5, 10]
 
 		DIFFICULTIES.medium:
-			pass # DEFAULTS
+			enemy_difficulty = 1
+			enemies_per_wave = 10
+			enemies_on_screen_range = [2, 10]
+			waves_per_level_range = [5, 10]
 
 		DIFFICULTIES.hard:
 			enemy_difficulty = 1.5
-			enemies_on_screen_range[0] += 1
-			enemies_on_screen_range[1] += 1
+			enemies_on_screen_range = [3, 11]
 
 		DIFFICULTIES.nightmare:
 			enemy_difficulty = 2
 			enemies_per_wave = 15
-			enemies_on_screen_range[0] += 2
-			enemies_on_screen_range[1] += 2
+			enemies_on_screen_range = [4, 12]
 
 		DIFFICULTIES.ultranightmare:
 			enemy_difficulty = 3
 			enemies_per_wave = 20
-			enemies_on_screen_range[0] += 3
-			enemies_on_screen_range[1] += 3
+			enemies_on_screen_range = [5, 12]

@@ -175,9 +175,6 @@ draw_pass_1 = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Options" type="VBoxContainer" parent="Menu"]
 visible = false
@@ -245,9 +242,6 @@ auto_show = false
 [node name="StartScreen" type="Control" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Menu/StartScreen"]
 anims/flash_text = SubResource( 3 )
