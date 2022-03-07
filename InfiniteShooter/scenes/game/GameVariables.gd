@@ -48,3 +48,7 @@ func set_difficulty(difficulty):
 			enemy_difficulty = 3
 			enemies_per_wave = 20
 			enemies_on_screen_range = [5, 12]
+
+func _ready():
+	if enemy_difficulty == null:
+		set_difficulty(DIFFICULTIES.medium)
