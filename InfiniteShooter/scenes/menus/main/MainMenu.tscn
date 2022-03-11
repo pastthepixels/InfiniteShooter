@@ -193,39 +193,44 @@ __meta__ = {
 
 [node name="Play" type="Label" parent="Menu/Options"]
 margin_right = 139.0
-margin_bottom = 17.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
 text = "start"
 align = 1
 valign = 1
 
 [node name="Leaderboard" type="Label" parent="Menu/Options"]
-margin_top = 42.0
+margin_top = 57.0
 margin_right = 139.0
-margin_bottom = 59.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 0, 32 )
 text = "leaderboard"
 align = 1
 valign = 1
 
 [node name="Upgrades" type="Label" parent="Menu/Options"]
-margin_top = 84.0
+margin_top = 114.0
 margin_right = 139.0
-margin_bottom = 101.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 0, 32 )
 text = "upgrades"
 align = 1
 valign = 1
 
 [node name="Settings" type="Label" parent="Menu/Options"]
-margin_top = 126.0
+margin_top = 171.0
 margin_right = 139.0
-margin_bottom = 143.0
+margin_bottom = 203.0
+rect_min_size = Vector2( 0, 32 )
 text = "settings"
 align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Menu/Options"]
-margin_top = 168.0
+margin_top = 228.0
 margin_right = 139.0
-margin_bottom = 185.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 32 )
 text = "quit"
 align = 1
 valign = 1
@@ -235,7 +240,6 @@ __meta__ = {
 
 [node name="SelectSquare" parent="Menu" instance=ExtResource( 4 )]
 visible = false
-modulate = Color( 1, 1, 1, 1 )
 options_path = NodePath("../Options")
 auto_show = false
 
@@ -252,10 +256,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -91.0
+margin_left = -126.0
 margin_top = 50.5
-margin_right = 91.0
-margin_bottom = 73.5
+margin_right = 127.0
+margin_bottom = 75.5
 text = "press any key to continue"
 align = 1
 __meta__ = {

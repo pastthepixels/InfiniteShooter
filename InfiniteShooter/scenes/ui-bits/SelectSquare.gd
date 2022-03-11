@@ -78,7 +78,11 @@ func _process(_delta):
 	if visible == true and get_parent().visible == true:
 		emit_signal("update")
 		update()
-		$Highlight.visible = Input.is_action_pressed("ui_accept")
+		$Background/Highlight.visible = Input.is_action_pressed("ui_accept")
+		if Input.is_action_pressed("ui_accept"):
+			pass
+		else:
+			pass
 
 
 func _on_AnimationPlayer_animation_started(_anim_name):

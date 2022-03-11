@@ -8,13 +8,13 @@
 [sub_resource type="Animation" id=1]
 length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Options/Retry:modulate")
+tracks/0/path = NodePath("Options/MainMenu:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1.5 ),
+"times": PoolRealArray( 0, 1.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1, 0.7 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -32,13 +32,13 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Options/MainMenu:modulate")
+tracks/2/path = NodePath("Options/Retry:modulate")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5, 2.5 ),
+"times": PoolRealArray( 0, 0.5, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 0.7 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -65,9 +65,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeAll = SubResource( 1 )
@@ -75,7 +72,7 @@ anims/FadeAll = SubResource( 1 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Titles" type="HBoxContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.333333 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -123,28 +120,28 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -72.0
-margin_top = 60.5
-margin_right = 72.0
-margin_bottom = 161.5
+margin_left = -111.5
+margin_top = 76.0
+margin_right = 112.5
+margin_bottom = 222.0
+rect_min_size = Vector2( 224, 0 )
 custom_constants/separation = 25
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Retry" type="Label" parent="Options"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 144.0
-margin_bottom = 17.0
+modulate = Color( 1, 1, 1, 0.5 )
+margin_right = 224.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
 text = "replay"
 align = 1
 valign = 1
 
 [node name="Quit" type="Label" parent="Options"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 42.0
-margin_right = 144.0
-margin_bottom = 59.0
+margin_top = 57.0
+margin_right = 224.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 0, 32 )
 text = "quit"
 align = 1
 valign = 1
@@ -154,9 +151,10 @@ __meta__ = {
 
 [node name="MainMenu" type="Label" parent="Options"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 84.0
-margin_right = 144.0
-margin_bottom = 101.0
+margin_top = 114.0
+margin_right = 224.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 0, 32 )
 text = "back to main menu"
 align = 1
 valign = 1

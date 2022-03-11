@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/ui-bits/SelectSquare.gd" type="Script" id=1]
 [ext_resource path="res://sounds/select-option.mp3" type="AudioStream" id=2]
@@ -7,29 +7,77 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
-length = 0.2
+length = 0.15
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
+tracks/0/path = NodePath("Corners:margin_left")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( -2, -2 ),
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( -0.5, -0.5 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ -10, 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Background:modulate")
-tracks/1/interp = 1
+tracks/1/path = NodePath("Corners:margin_top")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( -2, -2 ),
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( -0.5, -0.5 ),
+"update": 0,
+"values": [ -10, 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Corners:margin_right")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( -0.5, -0.5 ),
+"update": 0,
+"values": [ 10, 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Corners:margin_bottom")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( -0.5, -0.5 ),
+"update": 0,
+"values": [ 10, 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Corners:modulate")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Background:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( -0.5, -0.5 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -37,7 +85,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background:modulate")
+tracks/0/path = NodePath("Corners:margin_left")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -46,41 +94,137 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Corners:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Corners:margin_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Corners:margin_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Corners:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Corners:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Background:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Gradient" id=2]
-colors = PoolColorArray( 1, 1, 1, 0.27451, 1, 1, 1, 0 )
+[sub_resource type="StyleBoxFlat" id=7]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_color = Color( 1, 1, 1, 0.862745 )
+corner_radius_top_left = 6
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="StyleBoxFlat" id=8]
+draw_center = false
+border_width_top = 2
+border_width_right = 2
+border_color = Color( 1, 1, 1, 0.784314 )
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxFlat" id=9]
+draw_center = false
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.745098 )
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id=10]
+draw_center = false
+border_width_left = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.823529 )
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 1, 1, 1, 0.25098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.392157 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 1, 1, 0 )
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 1, 1, 1, 0.196078 )
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_detail = 7
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 1, 1, 1, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 1, 1, 1, 0.784314 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="SelectSquare" type="Control"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 30.0
-margin_bottom = 16.0
+margin_right = 87.0
+margin_bottom = 36.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fade = SubResource( 1 )
@@ -98,29 +242,47 @@ bus = "SFX"
 stream = ExtResource( 4 )
 bus = "SFX"
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Corners" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = SubResource( 3 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Highlight" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="Corners"]
+margin_right = 12.0
+margin_bottom = 12.0
+custom_styles/panel = SubResource( 7 )
+
+[node name="Panel2" type="Panel" parent="Corners"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -12.0
+margin_bottom = 12.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="Panel3" type="Panel" parent="Corners"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = -12.0
+custom_styles/panel = SubResource( 9 )
+
+[node name="Panel4" type="Panel" parent="Corners"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -12.0
+margin_right = 12.0
+custom_styles/panel = SubResource( 10 )
+
+[node name="Background" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 11 )
+
+[node name="Highlight" type="Panel" parent="Background"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Square" type="Panel" parent="."]
-anchor_bottom = 1.0
-margin_left = -6.0
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
