@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -379,6 +379,21 @@ shader_param/vignette_intensity = 0.0
 shader_param/vignette_opacity = 0.5
 shader_param/vignette_rgb = Color( 1, 0, 0, 1 )
 
+[sub_resource type="Animation" id=62]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=28]
 length = 0.5
 tracks/0/type = "value"
@@ -654,12 +669,19 @@ color = Color( 1, 1, 1, 0 )
 [node name="Darkening" type="ColorRect" parent="Alert"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.282353 )
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0, 0, 0, 0.392157 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Alert"]
+anims/RESET = SubResource( 62 )
 anims/fade_alert = SubResource( 28 )
 
 [node name="Blur" parent="Alert" instance=ExtResource( 4 )]
+margin_top = -150.0
+margin_bottom = 150.0
 
 [node name="Sound" type="AudioStreamPlayer" parent="Alert"]
 stream = ExtResource( 3 )
@@ -675,6 +697,3 @@ custom_fonts/font = SubResource( 27 )
 text = "alert!"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}

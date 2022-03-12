@@ -46,7 +46,7 @@ func generate_rand_sky_num():
 #
 func _process(delta):
 	# Lerping distortion/dispersion
-	if _animate_warp_dispersion == true:
+	if _animate_warp_dispersion == true and get_tree().paused == false:
 		set_distortion(
 			lerp($LensDistortion.material.get_shader_param("distort"), _animate_warp_amount, 0.04),
 			lerp($LensDistortion.material.get_shader_param("dispersion"), _animate_dispersion_amount, 0.04)

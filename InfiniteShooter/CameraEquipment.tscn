@@ -273,6 +273,7 @@ shader_param/distort = -0.05
 shader_param/blur_amount = 0.01
 
 [node name="CameraEquipment" type="Spatial"]
+pause_mode = 2
 script = ExtResource( 3 )
 skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ]
 
@@ -281,7 +282,6 @@ transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e
 current = true
 
 [node name="ShakeCamera" type="Camera2D" parent="."]
-pause_mode = 2
 position = Vector2( 300, 400 )
 rotating = true
 current = true
@@ -292,12 +292,14 @@ max_trauma = 0.6
 max_dispersion = 0.02
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
+pause_mode = 1
 anims/RESET = SubResource( 3 )
 anims/SkyRotate = SubResource( 34 )
 anims/Wander = SubResource( 4 )
 anims/intro = SubResource( 2 )
 
 [node name="CameraAnimations" type="AnimationPlayer" parent="."]
+pause_mode = 1
 anims/RESET = SubResource( 5 )
 anims/ZoomOut = SubResource( 6 )
 
@@ -329,6 +331,3 @@ margin_left = -100.0
 margin_top = -100.0
 margin_right = 100.0
 margin_bottom = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}

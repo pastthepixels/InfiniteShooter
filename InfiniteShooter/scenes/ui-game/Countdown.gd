@@ -18,6 +18,8 @@ func start():
 		else: # Special flashing of text if we reach zero
 			$BackgroundFade.play("fade")
 			for _flash in range(0, 3): # number of flashes
+				if _flash == 2:
+					$BackgroundFade.play("fadeall")
 				$FinishedSound.play()
 				$AnimationPlayer.stop(true)
 				$AnimationPlayer.play("show") # Now we fade in the text

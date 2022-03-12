@@ -69,9 +69,6 @@ theme = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Sample Text"
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ErrorSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -105,17 +102,17 @@ __meta__ = {
 }
 
 [node name="Press" type="Label" parent="UserInputWarning"]
-margin_right = 45.0
-margin_bottom = 17.0
+margin_right = 51.0
+margin_bottom = 19.0
 text = "Press  "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Keyboard" type="Label" parent="UserInputWarning"]
-margin_left = 49.0
-margin_right = 86.0
-margin_bottom = 17.0
+margin_left = 55.0
+margin_right = 95.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Enter"
 
@@ -149,9 +146,9 @@ __meta__ = {
 }
 
 [node name="ToContinue" type="Label" parent="UserInputWarning"]
-margin_left = 90.0
-margin_right = 171.0
-margin_bottom = 17.0
+margin_left = 99.0
+margin_right = 190.0
+margin_bottom = 19.0
 text = "  to continue"
 
 [connection signal="timeout" from="AlertTimer" to="." method="_on_AlertTimer_timeout"]

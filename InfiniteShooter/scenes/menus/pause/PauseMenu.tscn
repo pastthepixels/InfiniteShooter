@@ -147,9 +147,6 @@ anchor_bottom = 0.95
 border_color = Color( 1, 1, 1, 0.588235 )
 border_width = 2.0
 editor_only = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="."]
 anchor_top = 0.5

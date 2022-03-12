@@ -1,11 +1,25 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/ui-game/Countdown.gd" type="Script" id=3]
 [ext_resource path="res://sounds/countdown.mp3" type="AudioStream" id=4]
 [ext_resource path="res://sounds/countdown-last.mp3" type="AudioStream" id=5]
-[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 1, 1, 0.25098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.313726 )
+corner_radius_top_left = 127
+corner_radius_top_right = 127
+corner_radius_bottom_right = 127
+corner_radius_bottom_left = 127
+corner_detail = 16
+shadow_color = Color( 1, 1, 1, 0.0313726 )
+shadow_size = 16
 
 [sub_resource type="DynamicFont" id=2]
 size = 225
@@ -16,12 +30,24 @@ font_data = ExtResource( 1 )
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background:modulate")
+tracks/0/path = NodePath("Label:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -52,13 +78,13 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( -2, -2 ),
 "update": 0,
-"values": [ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 2, 2 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=8]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background:modulate")
+tracks/0/path = NodePath("Darkening:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -69,19 +95,83 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Circle:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Circle:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "fade"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Background:modulate")
+tracks/0/path = NodePath("Darkening:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "fadeall"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Circle:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 5, 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Circle:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( -2, -2 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
@@ -103,6 +193,33 @@ tracks/0/keys = {
 }
 
 [node name="Countdown" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Darkening" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0, 0, 0, 0.392157 )
+
+[node name="Circle" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -111,21 +228,9 @@ margin_left = -300.0
 margin_top = -400.0
 margin_right = 300.0
 margin_bottom = 400.0
-theme = ExtResource( 2 )
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background" parent="." instance=ExtResource( 6 )]
-
-[node name="Label" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 300, 400 )
 custom_colors/font_color = Color( 1, 1, 1, 0.941176 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
-custom_colors/font_color_shadow = Color( 1, 1, 1, 0.0784314 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 0.270588 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 5
 custom_fonts/font = SubResource( 2 )
@@ -133,9 +238,6 @@ text = "3"
 align = 1
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 7 )
@@ -144,6 +246,7 @@ anims/show = SubResource( 4 )
 [node name="BackgroundFade" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 8 )
 anims/fade = SubResource( 5 )
+anims/fadeall = SubResource( 10 )
 anims/show = SubResource( 6 )
 
 [node name="CountdownSound" type="AudioStreamPlayer" parent="."]
