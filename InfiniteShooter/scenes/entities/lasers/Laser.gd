@@ -93,17 +93,18 @@ func _on_Laser_area_entered(area):
 		# Laser modifiers
 		handle_modifiers(area.get_parent())
 		remove_laser(true)  # Removes the laser
-	elif area.is_in_group("players") and area != sender: # If the area this is colliding with is the PLAYER (and it is from the enemy)
-		if area.godmode == false: area.health -= damage  # send it to BRAZIL
-		# Laser modifiers
-		handle_modifiers(area)
-		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
-		remove_laser(true)  # Removes the laser
 	elif area.is_in_group("shield"):
 		remove_laser(true) # Removes the laser
 
 func _on_Laser_body_entered(body):
-	_on_Laser_area_entered(body)
+	if body.is_in_group("players") and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
+		if body.godmode == false: body.health -= damage  # send it to BRAZIL
+		# Laser modifiers
+		handle_modifiers(body)
+		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
+		remove_laser(true)  # Removes the laser
+	elif body.is_in_group("players") == false:
+		remove_laser(true)  # Removes the laser ANYWAY
 
 
 func handle_modifiers(ship):

@@ -122,9 +122,6 @@ margin_bottom = 400.0
 rect_pivot_offset = Vector2( 300, 400 )
 theme = ExtResource( 2 )
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 upgrade_label = ExtResource( 7 )
 name_generator = ExtResource( 8 )
 
@@ -207,7 +204,7 @@ __meta__ = {
 [node name="Back" type="Label" parent="Content/Options"]
 margin_right = 256.0
 margin_bottom = 19.0
-text = "back"
+text = "done"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false

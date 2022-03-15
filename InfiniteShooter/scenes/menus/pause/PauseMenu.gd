@@ -2,8 +2,10 @@ extends Control
 
 var ignore_hits = 0
 
+var ignore_all = false
+
 func _input(event):
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") and ignore_all == false:
 		if ignore_hits == 0: 
 			toggle_pause()
 		else:

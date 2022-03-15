@@ -2,7 +2,7 @@ extends Area
 
 var cannon_alternation = false
  
-var damage = 30
+var damage = 15
 
 var max_health = 2000
 

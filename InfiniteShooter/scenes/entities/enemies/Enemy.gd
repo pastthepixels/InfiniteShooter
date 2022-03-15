@@ -241,3 +241,5 @@ func hurt(damage):
 func _on_ship_body_entered(body):
 	if body.is_in_group("players"):
 		body.on_enemy_collision(self)
+	else:
+		explode_ship() # Otherwise the ship collided with something the player can collide with, so it would look weird if it passed through, so... we kill it.

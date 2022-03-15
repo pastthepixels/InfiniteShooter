@@ -208,15 +208,6 @@ text = "leaderboard"
 align = 1
 valign = 1
 
-[node name="Upgrades" type="Label" parent="Menu/Options"]
-margin_top = 114.0
-margin_right = 139.0
-margin_bottom = 146.0
-rect_min_size = Vector2( 0, 32 )
-text = "upgrades"
-align = 1
-valign = 1
-
 [node name="Settings" type="Label" parent="Menu/Options"]
 margin_top = 171.0
 margin_right = 139.0

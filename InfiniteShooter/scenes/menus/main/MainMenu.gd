@@ -69,10 +69,6 @@ func _on_SelectSquare_selected():
 			$Leaderboard.show_animated()
 			$Menu/SelectSquare.hide()
 
-		"Upgrades":  # Same with selecting the upgrades screen
-			$Upgrades.show_animated()
-			$Menu/SelectSquare.hide()
-
 		"Settings":  # settings screen
 			$Settings.show_animated()
 			$Menu/SelectSquare.hide()
@@ -82,10 +78,6 @@ func _on_SelectSquare_selected():
 
 
 func _on_Settings_closed():
-	return_from_submenu()
-
-
-func _on_Upgrades_closed():
 	return_from_submenu()
 
 
