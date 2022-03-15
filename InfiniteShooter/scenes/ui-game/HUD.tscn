@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-game/HUD.gd" type="Script" id=7]
+[ext_resource path="res://scenes/ui-bits/HUDToast.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 1, 0.304688, 0.304688, 0.304688, 0.0470588 )
@@ -448,9 +449,6 @@ margin_right = 20.0
 margin_bottom = 20.0
 texture = SubResource( 61 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HUD" type="VBoxContainer" parent="."]
 margin_left = 40.0
@@ -697,3 +695,6 @@ custom_fonts/font = SubResource( 27 )
 text = "alert!"
 align = 1
 valign = 1
+
+[node name="HUDToast" parent="." instance=ExtResource( 8 )]
+visible = false

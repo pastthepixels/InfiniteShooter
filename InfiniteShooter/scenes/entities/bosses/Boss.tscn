@@ -175,7 +175,7 @@ visible = false
 [node name="Multishot" parent="." instance=ExtResource( 11 )]
 visible = false
 
-[node name="Invincibility" type="Area" parent="." groups=["shield"]]
+[node name="Invincibility" type="StaticBody" parent="." groups=["shield"]]
 
 [node name="MeshInstance" type="MeshInstance" parent="Invincibility"]
 mesh = SubResource( 8 )

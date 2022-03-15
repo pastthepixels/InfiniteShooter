@@ -2,6 +2,18 @@ extends Node
 
 # User-editable game mechanics variables.
 
+export var use_debug_values = true
+
+export var dbg_enemy_difficulty = 0.1
+
+export var dbg_enemies_per_wave = 1
+
+export var dbg_enemies_on_screen_range = [1, 1] # default [min,max]
+
+export var dbg_waves_per_level_range = [1, 1] # [min, max]
+
+# Game mechanics variables.
+
 var enemy_difficulty
 
 var enemies_per_wave
@@ -22,6 +34,13 @@ enum BOSS_TYPES { normal, trishot, multishot }
 enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare }
 
 func set_difficulty(difficulty):
+	if use_debug_values:
+		enemy_difficulty = dbg_enemy_difficulty
+		enemies_per_wave = dbg_enemies_per_wave
+		enemies_on_screen_range = dbg_enemies_on_screen_range
+		waves_per_level_range = dbg_waves_per_level_range
+		return
+	
 	match difficulty:
 		DIFFICULTIES.easy:
 			enemy_difficulty = 0.5
