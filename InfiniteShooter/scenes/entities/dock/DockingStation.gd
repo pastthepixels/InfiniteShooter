@@ -1,10 +1,14 @@
+#
+# NOTE: THE CODE BELOW "JUST WORKS" ALTHOUGH IT IS VERY MUCH SPAGHETTI CODE. DO NOT BE ALARMED IF IT LOOKS CRIMINALLY CONCERNING.
+#
 extends Spatial
 
 signal finished
 
 func _ready(): # NOTE: The ship is 16x12
 	translation.z = Utils.top_left.z - 10
-	$Tween.interpolate_property(self, "translation:z", Utils.top_left.z - 10, 0, 6, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	# Animates the ship, then starts a timer that warns the player when it finishes
+	$Tween.interpolate_property(self, "translation:z", translation.z, 0, 6, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	$Timer.start()
