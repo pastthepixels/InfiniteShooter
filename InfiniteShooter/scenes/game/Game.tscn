@@ -40,6 +40,7 @@ bus = "SFX"
 [node name="Player" parent="GameSpace" instance=ExtResource( 3 )]
 
 [node name="DockingStation" parent="GameSpace" instance=ExtResource( 15 )]
+visible = false
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 

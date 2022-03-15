@@ -1,4 +1,4 @@
-extends Area
+extends KinematicBody
 
 # For debugging
 export var godmode = false
@@ -86,12 +86,10 @@ func _physics_process(delta):
 	elif Engine.time_scale == 0.5:
 		resume_time()
 
-	# Sets position
+	# Sets position/rotation
+	$PlayerModel.rotation = lerp($PlayerModel.rotation, delta_rotation * .6, .4)
 	if freeze_movement == false:
-		translation += velocity * delta * speed
-
-	# Sets rotation
-	rotation = lerp(rotation, delta_rotation * .6, .4)
+		move_and_slide(velocity * speed)
 	
 	# Clamping z positions and wrapping around the screen
 	translation.z = clamp(translation.z, Utils.top_left.z, Utils.bottom_left.z)
@@ -120,12 +118,12 @@ func _input(event):
 func fire_laser():
 		if self.ammo > 0:
 			if infinite_ammo == false: self.ammo -= 1
-			$LaserGun.damage = damage
+			$PlayerModel/LaserGun.damage = damage
 			if modifier != MODIFIERS.none:
-				$LaserGun.set_modifier(modifier)
+				$PlayerModel/LaserGun.set_modifier(modifier)
 			else:
-				$LaserGun.use_laser_modifiers = false
-			$LaserGun.fire()
+				$PlayerModel/LaserGun.use_laser_modifiers = false
+			$PlayerModel/LaserGun.fire()
 			Input.start_joy_vibration(0, 0.7, 1, .1)
 		if self.ammo <= 0 and self.ammo_refills > 0:
 			self.ammo_refills -= 1
@@ -134,11 +132,11 @@ func fire_laser():
 
 
 # When the player collides with enemies
-func on_collision(area):
-	if godmode == false and (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and area.get_parent().health > 0:
+func on_enemy_collision(enemy):
+	if godmode == false and enemy.health > 0:
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
-		self.health -= area.get_parent().health
-		area.get_parent().hurt(area.get_parent().health)
+		self.health -= enemy.health
+		enemy.hurt(enemy.health)
 
 
 # Reloading

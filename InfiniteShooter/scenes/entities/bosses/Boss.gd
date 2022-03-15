@@ -79,6 +79,9 @@ func initialize(difficulty):
 	# Sets the current health as the new max health
 	enemy_model.health = enemy_model.max_health
 	
+	# Some more stuff
+	enemy_model.connect("body_entered", self, "_on_ship_body_entered")
+	
 	# Mini-cutscene
 	$Tween.interpolate_property(self, "translation:z", translation.z, 0, 4, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 	$Tween.start()
@@ -150,3 +153,7 @@ func hurt(damage):
 
 func get_health():
 	return enemy_model.health
+
+func _on_ship_body_entered(body):
+	if body.is_in_group("players"):
+		body.on_enemy_collision(self)

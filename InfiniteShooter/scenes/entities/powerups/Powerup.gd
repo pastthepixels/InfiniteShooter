@@ -37,27 +37,27 @@ func _ready():
 				$Meshes/LaserTypes/Corrosion.show()
 
 
-func _on_Powerup_area_entered(area):
-	if area.is_in_group("players"):
+func _on_Powerup_body_entered(body):
+	if body.is_in_group("players"):
 		if modifier == MODIFIERS.none:
 			match type:
 				1:
-					area.ammo_refills += 1
+					body.ammo_refills += 1
 
 				2:
-					if area.health + health_increase <= area.max_health:
-						area.health += health_increase
+					if body.health + health_increase <= body.max_health:
+						body.health += health_increase
 
 					else:
-						area.health = area.max_health
+						body.health = body.max_health
 
 				3:
-					area.modifier = MODIFIERS.none
+					body.modifier = MODIFIERS.none
 					for enemy in get_tree().get_nodes_in_group("enemies"):
-						enemy.last_hit_from = area
+						enemy.last_hit_from = body
 						enemy.health = 0
 		else:
-			area.modifier = modifier
+			body.modifier = modifier
 	
 		$CollisionShape.set_deferred("disabled", true)
 		$MainAnimations.play("use")

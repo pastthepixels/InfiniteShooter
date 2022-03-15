@@ -10,6 +10,8 @@ export var damage = 20
 
 export var use_laser_modifiers = false
 
+export var from_player = false
+
 export(preload("res://scenes/game/GameVariables.gd").LASER_MODIFIERS) var laser_modifier
 
 func _ready():
@@ -23,6 +25,7 @@ func fire():
 	# Creating the laser
 	var laser = laser_scene.instance()
 	laser.follow_player = follow_player
+	laser.from_player = from_player
 	laser.sender = get_parent()
 
 	# Setting the laser's damage

@@ -184,5 +184,6 @@ opacity = 0.1
 
 [connection signal="area_entered" from="." to="." method="_on_Laser_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Laser_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_Laser_body_entered"]
 [connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

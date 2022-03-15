@@ -35,6 +35,8 @@ var modifier = MODIFIERS.none
 
 var alive = true
 
+export var from_player = false
+
 export (SpatialMaterial) var enemy_material
 
 export (SpatialMaterial) var player_material
@@ -67,7 +69,7 @@ func set_laser():
 	if is_instance_valid(sender) == false: return
 	
 	# Sets the material of the laser
-	if sender.is_in_group("players") == false:
+	if from_player == false:
 		$Laser.set_surface_material(0, enemy_material)
 	else:
 		$Laser.set_surface_material(0, player_material)
@@ -99,6 +101,9 @@ func _on_Laser_area_entered(area):
 		remove_laser(true)  # Removes the laser
 	elif area.is_in_group("shield"):
 		remove_laser(true) # Removes the laser
+
+func _on_Laser_body_entered(body):
+	_on_Laser_area_entered(body)
 
 
 func handle_modifiers(ship):

@@ -112,6 +112,9 @@ func initialize(difficulty):
 	# Kills ships that don't move out of the way fast enough
 	enemy_model.connect("area_entered", self, "collide_ship")
 	
+	# Some more stuff
+	enemy_model.connect("body_entered", self, "_on_ship_body_entered")
+	
 	# Moves health bar into position
 	$HealthBar2D.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
 	$HealthBar2D.max_health = max_health
@@ -234,3 +237,7 @@ func update_health():
 
 func hurt(damage):
 	health -= damage
+
+func _on_ship_body_entered(body):
+	if body.is_in_group("players"):
+		body.on_enemy_collision(self)
