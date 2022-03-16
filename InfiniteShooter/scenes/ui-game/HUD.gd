@@ -56,8 +56,8 @@ func _process(_delta):
 #
 # Updating the status bar
 #
-func update_score(score):
-	status_bar.get_node("MarginContainer/Labels/Score").text = "Score: %s" % score
+func update_points(points):
+	status_bar.get_node("MarginContainer/Labels/Points").text = "%s points" % points
 
 
 func update_level(level, progress):

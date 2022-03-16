@@ -542,7 +542,7 @@ __meta__ = {
 
 [node name="StatusBar" type="PanelContainer" parent="HUD"]
 margin_top = 72.0
-margin_right = 311.0
+margin_right = 310.0
 margin_bottom = 124.0
 theme = ExtResource( 5 )
 custom_styles/panel = SubResource( 34 )
@@ -556,7 +556,7 @@ show_behind_parent = true
 material = SubResource( 35 )
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 309.0
+margin_right = 308.0
 margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -565,7 +565,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="HUD/StatusBar"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 309.0
+margin_right = 308.0
 margin_bottom = 50.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 8
@@ -575,7 +575,7 @@ custom_constants/margin_bottom = 8
 [node name="Labels" type="HBoxContainer" parent="HUD/StatusBar/MarginContainer"]
 margin_left = 10.0
 margin_top = 8.0
-margin_right = 297.0
+margin_right = 296.0
 margin_bottom = 40.0
 custom_constants/separation = 15
 __meta__ = {
@@ -629,20 +629,20 @@ margin_right = 27.5
 margin_bottom = 9.5
 text = "Wave 0"
 
-[node name="Score" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
+[node name="Points" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_left = 170.0
 margin_top = 6.0
-margin_right = 230.0
+margin_right = 229.0
 margin_bottom = 25.0
-text = "Score: 0"
+text = "0 points"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FPS" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
-margin_left = 245.0
+margin_left = 244.0
 margin_top = 6.0
-margin_right = 287.0
+margin_right = 286.0
 margin_bottom = 25.0
 text = "0 FPS"
 __meta__ = {

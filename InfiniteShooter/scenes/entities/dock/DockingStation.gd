@@ -11,6 +11,7 @@ func _ready(): # NOTE: The ship is 16x12
 	$Tween.interpolate_property(self, "translation:z", translation.z, 0, 6, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 	$Tween.start()
 	yield($Tween, "tween_completed")
+	$Entrance/IndicatorArrow.show()
 	$Timer.start()
 
 func _on_Entrance_body_entered(body):
@@ -37,6 +38,7 @@ func _on_Entrance_body_entered(body):
 		get_tree().paused = false
 		body.translation = $Exit.global_transform.origin
 		body.freeze_movement = false
+		body.regenerate()
 		body.show()
 		
 		# Go away

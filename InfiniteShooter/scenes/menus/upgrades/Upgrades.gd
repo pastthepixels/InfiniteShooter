@@ -6,11 +6,13 @@ signal closed
 # {"label name": upgrade}
 var upgrade_lookup_table = {}
 
-# Something that SHOULD be saved -- upgrades
+# Upgrades
 var upgrades = []
 
-# Userdata (points, health, and damage)
-onready var userdata = Saving.load_userdata()
+# Player/points
+onready var player = get_node("/root/Game/GameSpace/Player")
+
+onready var game = get_node("/root/Game")
 
 # Template for an upgrade label
 export(PackedScene) var upgrade_label
@@ -22,13 +24,13 @@ export(Script) var name_generator
 # Loads and reads upgrades
 func _ready():
 	update_gui()
-	load_upgrades() # <-- Loads upgrades
+	create_upgrades() # <-- Loads upgrades
 	read_upgrades() # <-- turns them into labels
 	reroll_upgrades() # <-- Does not nessecarilary reroll upgrades but checks first
 
-
 # Shows and hides the menu with FADING
 func show_animated():
+	update_gui()
 	$AnimationPlayer.play("open")
 
 
@@ -42,30 +44,29 @@ func _on_SelectSquare_selected():
 			var upgrade = upgrade_lookup_table[name]
 			if upgrade.purchased == true:
 				$Alert.error("You have already purchased this upgrade.")
-			elif userdata.points - upgrade.cost >= 0:
+			elif game.points - upgrade.cost >= 0:
 				$Alert.alert("Upgrade purchased!")
-				userdata.health += upgrade.health
-				userdata.damage += upgrade.damage
-				userdata.points -= upgrade.cost
+				player.max_health += upgrade.health
+				player.damage += upgrade.damage
+				game.points -= upgrade.cost
 				update_gui()
 				get_node("Content/Options/" + name).modulate = Color(1, 1, 1, .5)
 				upgrade.purchased = true
 			else:
-				$Alert.error( "%s points needed." % ( upgrade.cost - userdata.points ) )
+				$Alert.error( "%s points needed." % ( upgrade.cost - game.points ) )
+			game.get_node("HUD").update_points(game.points) # <-- Updates the game HUD with the new points
 			reroll_upgrades() # <-- Creates a new set of upgrades if all are purchased.
-			Saving.save_upgrades(upgrades) # <-- Saves upgrades in case we modified them by purchasing them.
-			Saving.save_userdata(userdata) # <-- Same as above but for stats (score, health, and damage)
 
 
 # Creating an array of upgrades
 func create_upgrades():
 	upgrades = []
 	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
-		var upgrade_damage = randi() % 50 # <-- Max health/damage of an upgrade is 50
-		var upgrade_health = randi() % 50
+		var upgrade_damage = randi() % 30 # <-- Max health/damage of an upgrade is 30
+		var upgrade_health = randi() % 30
 		upgrades.append( {
 			"name": name_generator.new().generate_upgrade_name(),
-			"cost": 30 * (upgrade_damage + upgrade_health),
+			"cost": 50 * (upgrade_damage + upgrade_health),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false
@@ -98,7 +99,6 @@ func reroll_upgrades():
 	if purchased_upgrades == upgrades.size():
 		$Alert.alert("All upgrades purchased! Creating a new set of upgrades...")
 		create_upgrades()
-		Saving.save_upgrades(upgrades)
 		# Resets labels + variables related to them
 		$SelectSquare.index = 0
 		for label_name in upgrade_lookup_table.keys():
@@ -110,18 +110,10 @@ func reroll_upgrades():
 
 # Updates the labels
 func update_gui():
-	$Content/Stats/Health.text = "%s health" % userdata.health
-	$Content/Stats/Damage.text = "%s damage" % userdata.damage
-	$Content/Stats/Points.text = "%s points" % userdata.points
-	if userdata.points == 1: $Content/Stats/Points.text = "1 point"
-
-
-# Loading upgrades
-func load_upgrades():
-	upgrades = Saving.load_upgrades()
-	if upgrades == []:
-		create_upgrades()
-		Saving.save_upgrades(upgrades)
+	$Content/Stats/Health.text = "%s health" % player.health
+	$Content/Stats/Damage.text = "%s damage" % player.damage
+	$Content/Stats/Points.text = "%s points" % game.points
+	if game.points == 1: $Content/Stats/Points.text = "1 point"
 
 
 func _on_AnimationPlayer_animation_started(_anim_name):

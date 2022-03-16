@@ -14,6 +14,8 @@ onready var next_enemy_position = set_random_enemy_position()
 # Game mechanics variables
 var score = 0
 
+var points = 0
+
 var level = 1
 
 var wave = 1
@@ -220,13 +222,19 @@ func make_boss():
 	$GameSpace/IndicatorArrow.hide()
 
 func _on_Boss_died(_boss):
-	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0: level_up()
+	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
+		level_up()
+		score += 1000
+		points += 1000
+		$HUD.update_points(points)
 
 func _on_Enemy_died(ship, from_player):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Score
-		if from_player: score += round(ship.max_health / 10)
-		$HUD.update_score(score)
+		if from_player:
+			score += ceil(ship.max_health/2)
+			points += ceil(ship.max_health/2)
+		$HUD.update_points(points)
 		
 		# Wave progression
 		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:

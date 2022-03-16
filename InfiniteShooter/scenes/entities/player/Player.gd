@@ -175,3 +175,9 @@ func _on_Explosion_exploded():
 
 func _on_ShootTimer_timeout():
 	fire_laser()
+
+# Healing everything + giving ammo
+func regenerate():
+	if self.ammo_refills < Saving.default_userdata.ammo_refills:
+		self.ammo_refills = Saving.default_userdata.ammo_refills
+	self.health = self.max_health

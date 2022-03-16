@@ -42,6 +42,7 @@ shape = SubResource( 1 )
 
 [node name="IndicatorArrow" parent="Entrance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 1 )
+visible = false
 material_override = SubResource( 3 )
 
 [node name="Exit" type="Area" parent="."]

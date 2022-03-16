@@ -2,7 +2,7 @@ extends Node
 
 # User-editable game mechanics variables.
 
-export var use_debug_values = true
+export var use_debug_values = false
 
 export var dbg_enemy_difficulty = 0.1
 
@@ -39,7 +39,7 @@ func set_difficulty(difficulty):
 		enemies_per_wave = dbg_enemies_per_wave
 		enemies_on_screen_range = dbg_enemies_on_screen_range
 		waves_per_level_range = dbg_waves_per_level_range
-		return
+		
 	
 	match difficulty:
 		DIFFICULTIES.easy:

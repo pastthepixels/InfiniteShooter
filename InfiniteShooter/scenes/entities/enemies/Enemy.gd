@@ -49,28 +49,28 @@ func initialize(difficulty):
 			enemy_model = $Normal
 			# Sets enemy stats
 			max_health = 80
-			damage = 30
+			damage = 15
 			speed_mult = 1
 
 		GameVariables.ENEMY_TYPES.small:
 			enemy_model = $Small
 			# Sets enemy stats
 			max_health = 20
-			damage = 40
+			damage = 10
 			speed_mult = 1.5
 
 		GameVariables.ENEMY_TYPES.tank:
 			enemy_model = $Tank
 			# Sets enemy stats
 			max_health = 100
-			damage = 20
+			damage = 10
 			speed_mult = .8
 		
 		GameVariables.ENEMY_TYPES.gigatank:
 			enemy_model = $Gigatank
 			# Sets enemy stats
 			max_health = 200
-			damage = 40
+			damage = 20
 			speed_mult = .5
 		
 		GameVariables.ENEMY_TYPES.explosive:
@@ -84,20 +84,20 @@ func initialize(difficulty):
 			enemy_model = $Multishot
 			# Sets enemy stats
 			max_health = 120
-			damage = 30
+			damage = 15
 			speed_mult = .7
 		
 		GameVariables.ENEMY_TYPES.quadshot:
 			enemy_model = $Quadshot
 			# Sets enemy stats
 			max_health = 70
-			damage = 20
+			damage = 10
 			speed_mult = .9
 	
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
 	max_health *= clamp(mult, .5, 512)
-	damage *= mult
+	damage *= clamp(mult, 1, 512)
 	speed_mult *= clamp(mult / 5, 1, 3)
 	
 	# Sets the current health as the new max health
@@ -229,7 +229,7 @@ func update_health():
 		$HealthBar2D.visible = true
 		$HealthBar2D.health = health
 	if health <= 0 and alive == true:
-		if last_hit_from != null and is_instance_valid(last_hit_from) and last_hit_from.is_in_group("players"):
+		if last_hit_from != null and is_instance_valid(last_hit_from) and (last_hit_from.get_parent().is_in_group("players") || last_hit_from.is_in_group("players")):
 			explode_ship(true)
 		else:
 			explode_ship()

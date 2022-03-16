@@ -20,7 +20,7 @@ var default_userdata = {
 	"damage": 20,
 	"health": 100,
 	"max_ammo": 20,
-	"ammo_refills": 10
+	"ammo_refills": 12
 }
 
 var default_settings = {
