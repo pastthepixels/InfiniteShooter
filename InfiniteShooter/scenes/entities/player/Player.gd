@@ -18,6 +18,10 @@ var speed = 14
 
 var actual_velocity = Vector3()
 
+var impulse_velocity = Vector3()
+
+var impulse_rotation = Vector3()
+
 # Health (taken from the max health)
 var health = max_health setget _update_health
 
@@ -65,8 +69,8 @@ func _physics_process(delta):
 	if $Explosion.visible == true:
 		return  # If the player is dying, don't bother about input stuff
 
-	var velocity = Vector3()  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
-	var delta_rotation = Vector3()  # The new rotation the player will have (NORMALIZED VECTOR)
+	var velocity = impulse_velocity  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
+	var delta_rotation = impulse_rotation  # The new rotation the player will have (NORMALIZED VECTOR)
 	if Input.is_action_pressed("move_right"):  # If a key is pressed (e.g. the right arrow key)
 		delta_rotation.z -= 1  # Rotate the ship
 		velocity.x += 1  # and alter its velocity.
@@ -87,9 +91,11 @@ func _physics_process(delta):
 		slow_time()
 	elif Engine.time_scale == 0.5:
 		resume_time()
-
+	
 	# Sets position/rotation
 	$PlayerModel.rotation = lerp($PlayerModel.rotation, delta_rotation * .6, .4)
+	impulse_velocity = lerp(impulse_velocity, Vector3(), 0.1)
+	impulse_rotation = lerp(impulse_rotation, Vector3(), 0.1)
 	if freeze_movement == false:
 		actual_velocity = lerp(actual_velocity, velocity, 0.6)
 		move_and_slide(actual_velocity * speed)
@@ -140,6 +146,9 @@ func on_enemy_collision(enemy):
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		self.health -= enemy.health
 		enemy.hurt(enemy.health)
+		impulse_velocity = actual_velocity * -2
+		impulse_rotation.z = actual_velocity.x * -2
+		impulse_rotation.x = actual_velocity.z * 2
 
 
 # Reloading
