@@ -16,6 +16,8 @@ var damage = Saving.default_userdata.damage
 # Movement variables
 var speed = 14
 
+var actual_velocity = Vector3()
+
 # Health (taken from the max health)
 var health = max_health setget _update_health
 
@@ -89,7 +91,8 @@ func _physics_process(delta):
 	# Sets position/rotation
 	$PlayerModel.rotation = lerp($PlayerModel.rotation, delta_rotation * .6, .4)
 	if freeze_movement == false:
-		move_and_slide(velocity * speed)
+		actual_velocity = lerp(actual_velocity, velocity, 0.6)
+		move_and_slide(actual_velocity * speed)
 	
 	# Clamping z positions and wrapping around the screen
 	translation.z = clamp(translation.z, Utils.top_left.z, Utils.bottom_left.z)
