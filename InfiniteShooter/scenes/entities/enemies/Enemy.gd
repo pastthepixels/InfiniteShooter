@@ -146,13 +146,14 @@ func explode_ship(from_player=false):
 	last_hit_from = null
 	alive = false
 	
+	# Stops moving
+	set_physics_process(false)
+	
 	# Does any last things depending on enemy type (ex. explosive enemies would take health from surrounding enemies)
 	match enemy_type:
 		GameVariables.ENEMY_TYPES.explosive:
-			for enemy in get_tree().get_nodes_in_group("enemies"):
-				if translation.distance_to(enemy.translation) <= 5:
-					enemy.last_hit_from = last_hit_from
-					enemy.health -= damage
+			enemy_model.explode()
+			yield(enemy_model, "exploded")
 	
 	# Resets, emitting a signal at the end
 	$LaserTimer.stop()
@@ -163,7 +164,6 @@ func explode_ship(from_player=false):
 			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
-	set_physics_process(false)
 	emit_signal("died", self, from_player)
 	# Powerups (1/4 chance to create a powerup)
 	if randi() % 4 == 1 and use_laser_modifiers == false:
