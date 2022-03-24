@@ -252,6 +252,7 @@ func _on_Enemy_died(ship, from_player):
 func _on_Player_died():
 	$PauseMenu.set_process_input(false)
 	$HUD.update_health(0)
+	$GameSpace/IndicatorArrow.hide()
 	$HUD/AnimationPlayer.play("fade_out")
 	$GameMusic.autoswitch = false
 	Saving.create_leaderboard_entry(score)
