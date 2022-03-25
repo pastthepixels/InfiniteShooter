@@ -12,6 +12,8 @@ export(NodePath) var game_space
 onready var next_enemy_position = set_random_enemy_position()
 
 # Game mechanics variables
+var died = false
+
 var score = 0
 
 var points = 0
@@ -204,7 +206,7 @@ func make_enemy():
 
 func set_random_enemy_position(times_ran=0):
 	var position = Vector3(Utils.random_screen_point(2).x, 0, Utils.top_left.z - (.2 * times_ran))
-	$GameSpace/IndicatorArrow.show()
+	if died == false: $GameSpace/IndicatorArrow.show()
 	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
 	if enemies_in_wave == 0:
 		$GameSpace/IndicatorArrow.translation.x = 0
@@ -253,6 +255,7 @@ func _on_Enemy_died(ship, from_player):
 # Player stuff
 #
 func _on_Player_died():
+	died = true
 	$PauseMenu.set_process_input(false)
 	$HUD.update_health(0)
 	$GameSpace/IndicatorArrow.hide()

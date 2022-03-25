@@ -147,6 +147,7 @@ func on_enemy_collision(enemy):
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		self.health -= enemy.health
 		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS
+			enemy.last_hit_from = self
 			enemy.create_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
 			enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
 			if health < 50: enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit

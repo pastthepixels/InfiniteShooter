@@ -58,27 +58,20 @@ func _on_Powerup_body_entered(body):
 		else:
 			body.modifier = modifier
 	
-		$CollisionShape.set_deferred("disabled", true)
+		$CountdownTimer.stop()
 		$MainAnimations.play("use")
-		$AudioStreamPlayer.play()
 
 
 func _on_CountdownTimer_timeout():
 	$MainAnimations.play("hide")
 
 func _process(_delta):
-	if $CountdownTimer.time_left <= 4:
+	if $CountdownTimer.time_left <= 4 and $MainAnimations.is_playing() == false:
 		$Outline.hide()
 		$WarningOutline.show()
 
-
-func _on_AudioStreamPlayer_finished():
-	queue_free()
-
-
 func _on_MainAnimations_animation_finished(anim_name):
-	if anim_name == "hide": queue_free()
-	if anim_name != "creation": hide()
+	if anim_name == "hide" or anim_name == "use": queue_free()
 
 
 func _on_VisibilityNotifier_screen_exited():
