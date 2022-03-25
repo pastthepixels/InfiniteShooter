@@ -529,7 +529,7 @@ margin_right = 25.0
 margin_bottom = 2.0
 theme = ExtResource( 5 )
 custom_colors/font_color_shadow = Color( 0.286275, 0.286275, 0.286275, 1 )
-text = "10"
+text = "8"
 
 [node name="Highlight" type="Panel" parent="HUD/ProgressBars/AmmoBar"]
 anchor_right = 1.0
