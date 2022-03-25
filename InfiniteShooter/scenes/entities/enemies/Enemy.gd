@@ -22,6 +22,12 @@ var use_laser_modifiers = (randi() % 10 == 1)
 
 var last_hit_from
 
+# Powerups
+
+onready var create_powerup = randi() % 4 == 1
+
+var powerup_type = null
+
 # Death
 
 signal died(this, from_player)
@@ -166,8 +172,9 @@ func explode_ship(from_player=false):
 	set_process(false)
 	emit_signal("died", self, from_player)
 	# Powerups (1/4 chance to create a powerup)
-	if randi() % 4 == 1 and use_laser_modifiers == false:
+	if create_powerup and use_laser_modifiers == false:
 		var powerup = powerup_scene.instance()
+		if powerup_type != null: powerup.type = powerup_type
 		powerup.translation = translation
 		get_parent().add_child(powerup)
 	elif use_laser_modifiers == true:

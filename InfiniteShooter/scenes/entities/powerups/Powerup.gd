@@ -1,58 +1,57 @@
 extends Area
 
-onready var type = randi() % 3 + 1  # Generates either a 1, 2, or 3
+
+var type = GameVariables.POWERUP_TYPES.values()[randi() % GameVariables.POWERUP_TYPES.size()]
 
 export var ammo_increase = 10  # 10 bullets
 
 export var health_increase = 40  # 40 HP
 
 # Laser "modifiers"
-var MODIFIERS = GameVariables.LASER_MODIFIERS
-
-var modifier = MODIFIERS.none
+var modifier = GameVariables.LASER_MODIFIERS.none
 
 
 func _ready():
 	randomize()
-	if modifier == MODIFIERS.none:
+	if modifier == GameVariables.LASER_MODIFIERS.none:
 		match type:
-			1:
+			GameVariables.POWERUP_TYPES.ammo:
 				$Meshes/Ammo.show()
 
-			2:
+			GameVariables.POWERUP_TYPES.medkit:
 				$Meshes/Medkit.show()
 
-			3:
+			GameVariables.POWERUP_TYPES.wipe:
 				$Meshes/EnemyWipe.show()
 	else:
 		$Meshes/LaserTypes.show()
 		match modifier:
-			MODIFIERS.fire:
+			GameVariables.LASER_MODIFIERS.fire:
 				$Meshes/LaserTypes/Fire.show()
 			
-			MODIFIERS.ice:
+			GameVariables.LASER_MODIFIERS.ice:
 				$Meshes/LaserTypes/Ice.show()
 			
-			MODIFIERS.corrosion:
+			GameVariables.LASER_MODIFIERS.corrosion:
 				$Meshes/LaserTypes/Corrosion.show()
 
 
 func _on_Powerup_body_entered(body):
 	if body.is_in_group("players"):
-		if modifier == MODIFIERS.none:
+		if modifier == GameVariables.LASER_MODIFIERS.none:
 			match type:
-				1:
+				GameVariables.POWERUP_TYPES.ammo:
 					body.ammo_refills += 1
 
-				2:
+				GameVariables.POWERUP_TYPES.medkit:
 					if body.health + health_increase <= body.max_health:
 						body.health += health_increase
 
 					else:
 						body.health = body.max_health
 
-				3:
-					body.modifier = MODIFIERS.none
+				GameVariables.POWERUP_TYPES.wipe:
+					body.modifier = GameVariables.LASER_MODIFIERS.none
 					for enemy in get_tree().get_nodes_in_group("enemies"):
 						enemy.last_hit_from = body
 						enemy.health = 0

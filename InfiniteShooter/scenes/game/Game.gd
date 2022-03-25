@@ -38,6 +38,9 @@ export var tutorial_script = [
 	"Optionally, you can press the control key (LB or RB on a controller) to slow time.",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
 	"wait_enemy", # Command to spawn an enemy
+	"You may have noticed that the enemy may have dropped a powerup. To use it, simply run over it with your ship. Different powerups have different effects, so try them all out!",
+	"If you are, however, sick and tired of powerups only appearing randomly, you can just run into ships. Seriously. Not only will it look cool, but you can also get health or ammo powerups to get you back into the game.",
+	"Just make sure to watch your health, however, as running into ships will decrease it by the amount of health the enemy has!",
 	"Next, let's talk about the in-game HUD.",
 	"Your health is the green bar in the top left corner. The grey bar is your ammo (the number beside it notes your refills).",
 	"For the status bar, we have the current level, wave, score, and frame rate, respectively.",

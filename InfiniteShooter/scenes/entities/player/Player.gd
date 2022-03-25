@@ -124,6 +124,7 @@ func _input(event):
 	):
 		fire_laser()
 
+
 func fire_laser():
 		if self.ammo > 0:
 			if infinite_ammo == false: self.ammo -= 1
@@ -145,6 +146,10 @@ func on_enemy_collision(enemy):
 	if godmode == false and enemy.health > 0:
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		self.health -= enemy.health
+		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS
+			enemy.create_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
+			enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
+			if health < 50: enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
 		enemy.hurt(enemy.health)
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2

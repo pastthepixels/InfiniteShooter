@@ -1,7 +1,6 @@
 extends Control
 
 func start():
-	if visible == true: return
 	$AnimationPlayer.play("FadeAll")
 	$Tween.interpolate_property(
 		CameraEquipment.get_node("SkyAnimations"),
@@ -24,10 +23,6 @@ func _on_SelectSquare_selected():
 
 		"MainMenu":
 			SceneTransition.main_menu()
-
-
-func _on_AnimationPlayer_animation_started(_anim_name):
-	visible = true
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name):

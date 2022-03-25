@@ -30,6 +30,8 @@ enum ENEMY_TYPES { normal, small, tank, explosive, multishot, quadshot, gigatank
 
 enum BOSS_TYPES { normal, trishot, multishot }
 
+enum POWERUP_TYPES { ammo, medkit, wipe }
+
 # A function to set the difficulty of the game. (I mean, what more can I say?)
 enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare }
 
