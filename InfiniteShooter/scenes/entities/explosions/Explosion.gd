@@ -37,6 +37,7 @@ func explode():
 	if $ExplosionAnimation.playing == false and $ExplosionSound.playing == false:
 		# Starts the animation and shows the node
 		show()
+		$Shockwave.explode()
 		$ExplosionAnimation.playing = true
 		if particles == true: $Particles.emitting = true
 
@@ -57,3 +58,7 @@ func _on_ExplosionAnimation_animation_finished():
 		yield($Particles, "finished")
 	emit_signal("exploded")
 	if auto_delete == true: queue_free()
+
+func _process(delta):
+	$Shockwave.position = Utils.local_to_screen(global_transform.origin)
+	$Shockwave.visible = visible

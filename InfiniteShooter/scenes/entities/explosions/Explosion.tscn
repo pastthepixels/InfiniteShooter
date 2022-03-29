@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://images/explosion/0018.png" type="Texture" id=1]
 [ext_resource path="res://images/explosion/0017.png" type="Texture" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://sounds/explosion.mp3" type="AudioStream" id=21]
 [ext_resource path="res://scenes/entities/explosions/Explosion.gd" type="Script" id=22]
 [ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=23]
+[ext_resource path="res://scenes/bits/Shockwave.tscn" type="PackedScene" id=24]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -106,5 +107,7 @@ randomness = 1.0
 process_material = SubResource( 6 )
 draw_pass_1 = SubResource( 8 )
 script = ExtResource( 23 )
+
+[node name="Shockwave" parent="." instance=ExtResource( 24 )]
 
 [connection signal="animation_finished" from="ExplosionAnimation" to="." method="_on_ExplosionAnimation_animation_finished"]

@@ -38,6 +38,7 @@ bus = "SFX"
 [node name="GameSpace" parent="." instance=ExtResource( 1 )]
 
 [node name="IndicatorArrow" parent="GameSpace" instance=ExtResource( 10 )]
+visible = false
 
 [node name="Player" parent="GameSpace" instance=ExtResource( 3 )]
 

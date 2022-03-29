@@ -312,14 +312,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-visible = false
-z_index = -1
-z_as_relative = false
 copy_mode = 2
 
 [node name="LensDistortion" type="ColorRect" parent="."]

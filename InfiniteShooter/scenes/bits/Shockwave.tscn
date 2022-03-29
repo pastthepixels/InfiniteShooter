@@ -1,0 +1,267 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/bits/Shockwave.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=38]
+code = "// Slightly modified from https://godotshaders.com/shader/positioned-shockwave/ to account for changes in screen size
+
+shader_type canvas_item;
+
+uniform vec2 position;
+uniform float force;
+uniform float size;
+uniform float thickness;
+
+void fragment(){
+	vec2 center = position;
+	float ratio = SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y;
+	center.x = center.x / (1.0/SCREEN_PIXEL_SIZE.x);
+	center.x = (center.x - 0.5) / ratio + 0.5;
+	center.y = ((1.0/SCREEN_PIXEL_SIZE.y) - center.y) / (1.0/SCREEN_PIXEL_SIZE.y);
+	vec2 scaledUV = (SCREEN_UV - vec2(0.5, 0.0) ) / vec2(ratio, 1.0) + vec2(0.5, 0.0);
+	float mask = (1.0 - smoothstep(size-0.1, size, length(scaledUV - center))) * smoothstep(size-thickness-0.1, size-thickness, length(scaledUV - center));
+	vec2 disp = normalize(SCREEN_UV - center) * force * mask;
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV - disp);
+}"
+
+[sub_resource type="ShaderMaterial" id=39]
+resource_local_to_scene = true
+shader = SubResource( 38 )
+shader_param/position = null
+shader_param/force = 0.0
+shader_param/size = 0.0
+shader_param/thickness = 0.05
+
+[sub_resource type="Animation" id=40]
+resource_name = "EXPLODE"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Shockwave:material:shader_param/force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ 0.0, 0.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Shockwave:material:shader_param/size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ 0.0, 0.4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shockwave:material:shader_param/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.1, 0.01 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Shockwave:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=41]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Shockwave:material:shader_param/force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Shockwave:material:shader_param/size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shockwave:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.898412 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Shockwave:material:shader_param/thickness")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.05 ]
+}
+
+[sub_resource type="Animation" id=42]
+resource_name = "EXPLODE"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Shockwave:material:shader_param/force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ 0.0, 0.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Shockwave:material:shader_param/size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ 0.0, 0.4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shockwave:material:shader_param/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.1, 0.01 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Shockwave:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=43]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Shockwave:material:shader_param/force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Shockwave:material:shader_param/size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Shockwave:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.898412 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Shockwave:material:shader_param/thickness")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.05 ]
+}
+
+[node name="Shockwave" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 500, 500 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+position = Vector2( 300, 400 )
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="Shockwave" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0.898412 )
+light_mask = 524289
+material = SubResource( 39 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/EXPLODE = SubResource( 40 )
+anims/RESET = SubResource( 41 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/EXPLODE = SubResource( 42 )
+anims/RESET = SubResource( 43 )
