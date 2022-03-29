@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/bits/Shockwave.gd" type="Script" id=1]
 
@@ -37,157 +37,54 @@ resource_name = "EXPLODE"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Shockwave:material:shader_param/force")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
 "update": 0,
 "values": [ 0.0, 0.5 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Shockwave:material:shader_param/size")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
 "update": 0,
 "values": [ 0.0, 0.4 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Shockwave:material:shader_param/thickness")
-tracks/2/interp = 1
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
 "update": 0,
 "values": [ 0.1, 0.01 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Shockwave:modulate")
-tracks/3/interp = 1
+tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 0.3, 0.3 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=41]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Shockwave:material:shader_param/force")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Shockwave:material:shader_param/size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Shockwave:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.898412 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Shockwave:material:shader_param/thickness")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.05 ]
-}
-
-[sub_resource type="Animation" id=42]
-resource_name = "EXPLODE"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Shockwave:material:shader_param/force")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ 0.0, 0.5 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Shockwave:material:shader_param/size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ 0.0, 0.4 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Shockwave:material:shader_param/thickness")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.1, 0.01 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Shockwave:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=43]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Shockwave:material:shader_param/force")
@@ -261,7 +158,3 @@ anchor_bottom = 1.0
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/EXPLODE = SubResource( 40 )
 anims/RESET = SubResource( 41 )
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/EXPLODE = SubResource( 42 )
-anims/RESET = SubResource( 43 )
