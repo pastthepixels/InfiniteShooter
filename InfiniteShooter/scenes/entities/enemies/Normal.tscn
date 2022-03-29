@@ -1,9 +1,70 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/LaserGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://models/enemies/cannon.material" type="Material" id=4]
 [ext_resource path="res://models/enemies/laser.material" type="Material" id=5]
 [ext_resource path="res://models/enemies/ship.material" type="Material" id=6]
+
+[sub_resource type="Animation" id=21]
+resource_name = "FlashOutline"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Outline:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Outline:material_override:albedo_color")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Outline:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Outline:material_override:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=20]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="ArrayMesh" id=14]
 resource_name = "enemyship1_Plane"
@@ -49,6 +110,20 @@ data = PoolVector3Array( 1, 0, -0.9667, 0.9, 0.1, 0.39, 1, 0, 0.4333, 1, 0, -0.9
 
 [node name="Normal" type="Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.255565 )
+
+[node name="OutlineAnimations" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+anims/FlashOutline = SubResource( 21 )
+anims/RESET = SubResource( 22 )
+
+[node name="Outline" type="MeshInstance" parent="."]
+transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0 )
+visible = false
+material_override = SubResource( 20 )
+mesh = SubResource( 14 )
+material/0 = null
+material/1 = null
+material/2 = null
 
 [node name="Ship" type="MeshInstance" parent="."]
 mesh = SubResource( 14 )
