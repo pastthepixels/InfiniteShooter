@@ -100,12 +100,13 @@ func update_health(value):
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
 
-	if value < 0.3 and low_health == false:
+	if value < 0.3 and value > 0 and low_health == false:
 		low_health = true
-		$AnimationPlayer.play("FadeVignette")
+		$AnimationPlayer.play("FadeInVignette")
+		$HUDToast.alert("Low health!", 1)
 	elif value > 0.3 and $AnimationPlayer.is_playing() == false and low_health == true:
 		low_health = false
-		$AnimationPlayer.play_backwards("FadeVignette")
+		$AnimationPlayer.play("FadeOutVignette")
 
 func update_ammo(value, refills):
 	$ProgressTween.interpolate_property(

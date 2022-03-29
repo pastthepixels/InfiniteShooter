@@ -1,8 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=1]
+[ext_resource path="res://resources/theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/ui-bits/HUDToast.gd" type="Script" id=2]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=3]
+
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 1, 0.639216, 0.282353, 0.156863 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 0.639216, 0.282353, 0.27451 )
 
 [sub_resource type="StyleBoxFlat" id=34]
 bg_color = Color( 1, 1, 1, 0.156863 )
@@ -95,12 +103,13 @@ margin_top = -128.0
 margin_bottom = -64.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
+warning_theme = SubResource( 39 )
 
 [node name="Panel" type="PanelContainer" parent="."]
-margin_left = 241.0
-margin_top = 12.0
-margin_right = 358.0
-margin_bottom = 51.0
+margin_left = 226.0
+margin_top = 9.0
+margin_right = 373.0
+margin_bottom = 54.0
 custom_styles/panel = SubResource( 34 )
 
 [node name="Blur" type="ColorRect" parent="Panel"]
@@ -108,8 +117,8 @@ show_behind_parent = true
 material = SubResource( 38 )
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 115.0
-margin_bottom = 37.0
+margin_right = 145.0
+margin_bottom = 43.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -117,8 +126,8 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 115.0
-margin_bottom = 37.0
+margin_right = 145.0
+margin_bottom = 43.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 8
 custom_constants/margin_left = 10
@@ -127,8 +136,8 @@ custom_constants/margin_bottom = 8
 [node name="Label" type="Label" parent="Panel/MarginContainer"]
 margin_left = 10.0
 margin_top = 8.0
-margin_right = 103.0
-margin_bottom = 27.0
+margin_right = 133.0
+margin_bottom = 33.0
 text = "Sample Text"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

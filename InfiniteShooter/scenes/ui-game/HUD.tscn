@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -34,7 +34,7 @@ colors = PoolColorArray( 0.207843, 0.517647, 0.894118, 1, 0.304688, 0.304688, 0.
 gradient = SubResource( 7 )
 
 [sub_resource type="Animation" id=9]
-length = 3.0
+resource_name = "FadeInVignette"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Vignette:material:shader_param/vignette_intensity")
 tracks/0/interp = 1
@@ -42,8 +42,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
 "values": [ 0.0, 0.4 ]
 }
@@ -58,6 +58,33 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+
+[sub_resource type="Animation" id=63]
+resource_name = "FadeOutVignette"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vignette:material:shader_param/vignette_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ 0.4, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Vignette:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=33]
@@ -439,6 +466,7 @@ size = 64
 font_data = ExtResource( 1 )
 
 [node name="HUD" type="Control"]
+modulate = Color( 1, 1, 1, 0.875 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 6 )
@@ -452,7 +480,8 @@ ice_gradient = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
-anims/FadeVignette = SubResource( 9 )
+anims/FadeInVignette = SubResource( 9 )
+anims/FadeOutVignette = SubResource( 63 )
 anims/RESET = SubResource( 33 )
 anims/fade_out = SubResource( 10 )
 
@@ -722,3 +751,4 @@ valign = 1
 
 [node name="HUDToast" parent="." instance=ExtResource( 8 )]
 visible = false
+is_warning = true
