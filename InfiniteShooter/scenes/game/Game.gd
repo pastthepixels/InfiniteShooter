@@ -24,6 +24,8 @@ var wave = 1
 
 var enemies_in_wave = 0
 
+var possible_enemies = GameVariables.level_dependent_enemy_types[0][1]
+
 var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
 var waves_per_level = GameVariables.waves_per_level_range[0]
@@ -166,6 +168,9 @@ func level_up():
 			yield(Utils.timeout(1), "timeout")
 			use_laser_modifiers = true
 			if Saving.get_tutorial_progress()["elemental"] == false: activate_tutorial_elemental()
+	for enemy_types in GameVariables.level_dependent_enemy_types:
+		if enemy_types[0] == level:
+			possible_enemies = enemy_types[1]
 	# Resumes enemy spawning after the popup
 	make_enemies()
 
@@ -190,7 +195,7 @@ func make_enemy():
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = next_enemy_position
 	get_node(game_space).add_child(enemy)
-	enemy.initialize(level * GameVariables.enemy_difficulty)
+	enemy.initialize(level * GameVariables.enemy_difficulty, possible_enemies)
 	next_enemy_position = set_random_enemy_position()
 	
 	# Updates the HUD with the current amount of enemies in the wave
