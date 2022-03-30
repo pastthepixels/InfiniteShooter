@@ -205,7 +205,7 @@ options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer"]
 margin_right = 443.0
-margin_bottom = 821.0
+margin_bottom = 899.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -315,10 +315,80 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Fullscreen" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="LensDistortion" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
 margin_top = 167.0
 margin_right = 443.0
 margin_bottom = 186.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/ScrollContainer/Options/LensDistortion"]
+margin_right = 113.0
+margin_bottom = 19.0
+custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
+text = "Lens Distortion"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/LensDistortion"]
+margin_left = 123.0
+margin_right = 125.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="Content/ScrollContainer/Options/LensDistortion"]
+margin_left = 135.0
+margin_right = 422.0
+margin_bottom = 19.0
+text = "Simulates a lens because it looks cool"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shockwaves" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+margin_top = 206.0
+margin_right = 443.0
+margin_bottom = 225.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Shockwaves"]
+margin_right = 95.0
+margin_bottom = 19.0
+custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
+text = "Shockwaves"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Shockwaves"]
+margin_left = 105.0
+margin_right = 107.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 2, 0 )
+color = Color( 1, 1, 1, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="Content/ScrollContainer/Options/Shockwaves"]
+margin_left = 117.0
+margin_right = 338.0
+margin_bottom = 19.0
+text = "Makes explosions look cooler"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fullscreen" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+margin_top = 245.0
+margin_right = 443.0
+margin_bottom = 264.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Fullscreen"]
@@ -353,9 +423,9 @@ __meta__ = {
 
 [node name="Gameplay" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 206.0
+margin_top = 284.0
 margin_right = 443.0
-margin_bottom = 236.0
+margin_bottom = 314.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -373,9 +443,9 @@ custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Gameplay"
 
 [node name="Difficulty" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 256.0
+margin_top = 334.0
 margin_right = 443.0
-margin_bottom = 281.0
+margin_bottom = 359.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Difficulty"]
@@ -402,9 +472,9 @@ selected = 1
 
 [node name="Sound" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 301.0
+margin_top = 379.0
 margin_right = 443.0
-margin_bottom = 331.0
+margin_bottom = 409.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -425,9 +495,9 @@ __meta__ = {
 }
 
 [node name="MusicVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 351.0
+margin_top = 429.0
 margin_right = 443.0
-margin_bottom = 370.0
+margin_bottom = 448.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -449,9 +519,9 @@ nine_patch_stretch = true
 stretch_margin_right = 100
 
 [node name="SFXVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 390.0
+margin_top = 468.0
 margin_right = 443.0
-margin_bottom = 409.0
+margin_bottom = 487.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -474,9 +544,9 @@ stretch_margin_right = 100
 
 [node name="Input" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 429.0
+margin_top = 507.0
 margin_right = 443.0
-margin_bottom = 459.0
+margin_bottom = 537.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -497,9 +567,9 @@ __meta__ = {
 }
 
 [node name="Up" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 479.0
+margin_top = 557.0
 margin_right = 443.0
-margin_bottom = 498.0
+margin_bottom = 576.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -528,9 +598,9 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Up"
 
 [node name="Down" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 518.0
+margin_top = 596.0
 margin_right = 443.0
-margin_bottom = 537.0
+margin_bottom = 615.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Down"]
@@ -556,9 +626,9 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Down"
 
 [node name="Left" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 557.0
+margin_top = 635.0
 margin_right = 443.0
-margin_bottom = 576.0
+margin_bottom = 654.0
 rect_pivot_offset = Vector2( -702.202, -279 )
 custom_constants/separation = 10
 
@@ -585,9 +655,9 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Left"
 
 [node name="Right" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 596.0
+margin_top = 674.0
 margin_right = 443.0
-margin_bottom = 615.0
+margin_bottom = 693.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Right"]
@@ -620,9 +690,9 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Right"
 
 [node name="Slow" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 635.0
+margin_top = 713.0
 margin_right = 443.0
-margin_bottom = 654.0
+margin_bottom = 732.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Slow"]
@@ -655,9 +725,9 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Control"
 
 [node name="Confirm" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
-margin_top = 674.0
+margin_top = 752.0
 margin_right = 443.0
-margin_bottom = 693.0
+margin_bottom = 771.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/Confirm"]
@@ -683,17 +753,17 @@ custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
 [node name="ApplyKeyBindings" type="Label" parent="Content/ScrollContainer/Options"]
-margin_top = 713.0
+margin_top = 791.0
 margin_right = 443.0
-margin_bottom = 732.0
+margin_bottom = 810.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
 text = "Apply Key Bindings"
 
 [node name="BadStuff" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
 show_behind_parent = true
-margin_top = 752.0
+margin_top = 830.0
 margin_right = 443.0
-margin_bottom = 782.0
+margin_bottom = 860.0
 rect_min_size = Vector2( 0, 30 )
 color = Color( 1, 1, 1, 0.784314 )
 __meta__ = {
@@ -714,9 +784,9 @@ __meta__ = {
 }
 
 [node name="ResetGame" type="Label" parent="Content/ScrollContainer/Options"]
-margin_top = 802.0
+margin_top = 880.0
 margin_right = 443.0
-margin_bottom = 821.0
+margin_bottom = 899.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "Reset EVERYTHING"
 

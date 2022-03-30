@@ -34,6 +34,14 @@ func _on_SelectSquare_selected():
 			settings["fullscreen"] = ! settings["fullscreen"]
 			set_settings()
 		
+		"LensDistortion":
+			settings["distortion"] = ! settings["distortion"]
+			set_settings()
+		
+		"Shockwaves":
+			settings["shockwaves"] = ! settings["shockwaves"]
+			set_settings()
+		
 		"Up":
 			$KeyPopup.map_actions(["move_up", "ui_up"])
 		
@@ -122,6 +130,14 @@ func update_gui():
 	$Content/ScrollContainer/Options/Bloom/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["bloom"] else colors.red
+	)
+	$Content/ScrollContainer/Options/LensDistortion/Title.set(
+		"custom_colors/font_color",
+		colors.green if settings["distortion"] else colors.red
+	)
+	$Content/ScrollContainer/Options/Shockwaves/Title.set(
+		"custom_colors/font_color",
+		colors.green if settings["shockwaves"] else colors.red
 	)
 	$Content/ScrollContainer/Options/Fullscreen/Title.set(
 		"custom_colors/font_color",

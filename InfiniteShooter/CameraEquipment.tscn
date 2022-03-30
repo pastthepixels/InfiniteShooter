@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://images/space3.hdr" type="Texture" id=8]
 [ext_resource path="res://images/space4.hdr" type="Texture" id=9]
 [ext_resource path="res://images/space5.hdr" type="Texture" id=10]
+[ext_resource path="res://scenes/bits/Shader.gd" type="Script" id=11]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 6 )
@@ -325,3 +326,4 @@ margin_left = -100.0
 margin_top = -100.0
 margin_right = 100.0
 margin_bottom = 100.0
+script = ExtResource( 11 )

@@ -73,4 +73,4 @@ func shake():
 	get_parent().rotation.y = rotation
 	
 	# Added code to work with the LensDistortion node
-	get_node("../LensDistortion").material.set_shader_param("dispersion", (trauma * max_dispersion) + initial_dispersion)
+	if get_node("../LensDistortion").visible: get_node("../LensDistortion").material.set_shader_param("dispersion", (trauma * max_dispersion) + initial_dispersion)

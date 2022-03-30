@@ -26,6 +26,8 @@ var default_userdata = {
 var default_settings = {
 	"antialiasing": true,
 	"bloom": true,
+	"distortion": true,
+	"shockwaves": true,
 	"fullscreen": false,
 	"musicvol": 100,
 	"sfxvol": 100,
@@ -136,6 +138,12 @@ func save_settings(settings):
 		if settings["antialiasing"] == true
 		else Viewport.MSAA_DISABLED
 	)
+	
+	# Sets lens distortion
+	if settings["distortion"] == true:
+		CameraEquipment.get_node("LensDistortion").enable()
+	else:
+		CameraEquipment.get_node("LensDistortion").disable()
 	
 	# Makes the window fullscreen if desired
 	OS.window_fullscreen = settings["fullscreen"]
