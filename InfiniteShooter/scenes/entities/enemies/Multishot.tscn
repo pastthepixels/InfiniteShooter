@@ -139,12 +139,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00617421 )
 
 [node name="LaserGun" parent="LaserGuns" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0.9 )
+sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun2" parent="LaserGuns" instance=ExtResource( 4 )]
 transform = Transform( 0.661548, 0, -0.749903, 0, 1, 0, 0.749903, 0, 0.661548, -0.735, 0.027, 0.55 )
+sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun3" parent="LaserGuns" instance=ExtResource( 4 )]
 transform = Transform( 0.661547, 0, 0.749903, 0, 1, 0, -0.749903, 0, 0.661547, 0.735, 0, 0.55 )
+sender = NodePath("../..")
 show_cannon = false

@@ -138,4 +138,5 @@ shape = SubResource( 15 )
 
 [node name="LaserGun" parent="LaserGuns" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 8.74228e-08, 0, 1.45174 )
+sender = NodePath("../..")
 show_cannon = false

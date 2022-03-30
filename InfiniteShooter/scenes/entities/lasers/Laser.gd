@@ -13,9 +13,6 @@ export var follow_speed = 3
 export var attack_direction = Vector3(0, 0, 1) # Goes up. Also, this is a normalized vector.
 # This is a variable used internally and you shouldn't have to use this. Instead, change the laser's y rotation.
 
-# To stop ships from hurting themselves as soon as they shoot lasers
-var invincible = true
-
 # A variable for... the "sender" of a laser
 var sender
 
@@ -87,8 +84,11 @@ func set_laser():
 
 # Called when the laser collides with objects
 func _on_Laser_area_entered(area):
-	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model and (invincible and area.get_parent() == sender) == false:  # If the area this is colliding with is an enemy (and it is from the player)
-		area.get_parent().hurt(damage) # subtract health from the enemy
+	if $InvincibilityTimer.time_left > 0 and sender in get_overlapping_areas():
+		return # If a timer deeming if a laser would be in a ship (one second max) is running and the laser is colliding with its sender, there's a good chance it spawned in its sender. Just return this function.
+	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model:  # If the area this is colliding with is an enemy (and it is from the player)
+		if (area.get_parent() == sender and $InvincibilityTimer.is_stopped() == false) == false: # If the area is the sender, and the invincibility timer is still running, there's a good chance the laser was just fired. Don't hurt the enemy but terminate the laser.
+			area.get_parent().hurt(damage) # subtract health from the enemy
 		area.get_parent().last_hit_from = sender
 		# Laser modifiers
 		handle_modifiers(area.get_parent())
@@ -98,7 +98,7 @@ func _on_Laser_area_entered(area):
 
 func _on_Laser_body_entered(body):
 	if body.is_in_group("players") and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
-		if body.godmode == false: body.health -= damage  # send it to BRAZIL
+		if body.godmode == false: body.health -= damage  # send them to BRAZIL
 		# Laser modifiers
 		handle_modifiers(body)
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
@@ -163,4 +163,5 @@ func _on_FollowTimer_timeout():
 
 
 func _on_Laser_area_exited(area):
-	if area == sender or area.get_parent() == sender: invincible = false # Removes invincibility once exiting a node
+	if area == sender or area.get_parent() == sender:
+		$InvincibilityTimer.stop() # Immediately after lasers exit a ship it will be open for hitting the ship

@@ -125,6 +125,10 @@ corrosion_material = SubResource( 5 )
 [node name="FollowTimer" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
 [node name="LaserSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 bus = "SFX"

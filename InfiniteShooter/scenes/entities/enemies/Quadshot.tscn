@@ -124,16 +124,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00617421 )
 
 [node name="LaserGun" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 1.1 )
+sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun2" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.1, 0, 0 )
+sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun3" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.1, 0, 0 )
+sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun4" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1.1 )
+sender = NodePath("../..")
 show_cannon = false
