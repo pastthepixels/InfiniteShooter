@@ -23,7 +23,7 @@ func _on_SelectSquare_selected():
 				_:
 					ignore_hits += 1
 					$SelectSquare.hide()
-					$FullAlert.alert("Are you sure you would like to continue? Your score will not be accounted for until you die.", true)
+					$FullAlert.alert("Are you sure you would like to continue? Your progress will be reset after each run.", true)
 
 func toggle_pause():
 	if has_node("/root/Game") and get_node("/root/Game").has_node("GameSpace/Player"):
