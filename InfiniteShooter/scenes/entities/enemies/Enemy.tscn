@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/entities/lasereffects/LaserEffects.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/entities/enemies/Small.tscn" type="PackedScene" id=2]
@@ -13,61 +13,6 @@
 [ext_resource path="res://scenes/entities/enemies/Quadshot.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/entities/enemies/Gigatank.tscn" type="PackedScene" id=12]
 
-[sub_resource type="Animation" id=13]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=1]
-resource_name = "initiate"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0.001, 0.001, 0.001 ), Vector3( 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 20, 0, 0 ), Vector3( 0, 0, 0 ) ]
-}
-
 [sub_resource type="CapsuleShape" id=8]
 radius = 1.87976
 height = 2.90376
@@ -77,11 +22,6 @@ script = ExtResource( 4 )
 powerup_scene = ExtResource( 7 )
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "initiate"
-anims/RESET = SubResource( 13 )
-anims/initiate = SubResource( 1 )
 
 [node name="LaserTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -117,7 +57,6 @@ shape = SubResource( 8 )
 visible = false
 
 [node name="Explosion" parent="." instance=ExtResource( 5 )]
-visible = false
 
 [node name="LaserEffects" parent="." instance=ExtResource( 1 )]
 ship = NodePath("..")

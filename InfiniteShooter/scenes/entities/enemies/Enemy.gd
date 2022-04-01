@@ -102,6 +102,11 @@ func initialize(difficulty, possible_enemy_types=null):
 			damage = 10
 			speed_mult = .9
 	
+	# Removes other enemy ships
+	for child in get_children():
+		if child.has_node("Ship") and child != enemy_model: #COMMON FACTOR BETWEEN ALL ENEMY SHIP MODELS: THEY HAVE THE NODE "SHIP"
+			child.queue_free()
+	
 	# Multiplies everything by the difficulty number for added difficulty.
 	var mult = float(difficulty) / 2
 	max_health *= clamp(mult, .5, 512)

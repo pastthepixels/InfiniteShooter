@@ -50,7 +50,6 @@ show_cannon = false
 from_player = true
 
 [node name="Explosion" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="LaserEffects" parent="." instance=ExtResource( 1 )]
 ship = NodePath("..")

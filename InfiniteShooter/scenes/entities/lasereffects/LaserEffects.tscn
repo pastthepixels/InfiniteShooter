@@ -200,12 +200,15 @@ draw_pass_1 = SubResource( 15 )
 
 [node name="IceSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "SFX"
 
 [node name="FireSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "SFX"
 
 [node name="CorrosionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+bus = "SFX"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="BleedTimer" to="." method="_on_BleedTimer_timeout"]

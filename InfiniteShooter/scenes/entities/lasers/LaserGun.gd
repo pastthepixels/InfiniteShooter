@@ -25,6 +25,9 @@ func set_modifier(modifier):
 	use_laser_modifiers = true
 
 func fire():
+	# EXPLOSION
+	$Explosion.explode()
+	
 	# Creating the laser
 	var laser = laser_scene.instance()
 	laser.follow_player = follow_player

@@ -110,7 +110,10 @@ func _on_Laser_body_entered(body):
 func handle_modifiers(ship):
 	match modifier:
 		MODIFIERS.fire:
-			ship.get_node("LaserEffects").bleed(.5, 10)
+			if ship.is_in_group("players"):
+				ship.get_node("LaserEffects").bleed(.2, 10)
+			else:
+				ship.get_node("LaserEffects").bleed(.5, 10)
 			ship.get_node("LaserEffects").start_fire()
 			ship.get_node("LaserEffects").sender = sender
 		MODIFIERS.corrosion:

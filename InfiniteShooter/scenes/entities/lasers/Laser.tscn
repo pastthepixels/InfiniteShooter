@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
 [ext_resource path="res://sounds/laser-hit.mp3" type="AudioStream" id=3]
 [ext_resource path="res://sounds/laser-fire.mp3" type="AudioStream" id=4]
-[ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -175,16 +174,6 @@ visibility_aabb = AABB( -7.47943, -0.5, -9.16166, 14.9589, 1, 18.3233 )
 process_material = SubResource( 14 )
 draw_pass_1 = SubResource( 15 )
 script = ExtResource( 6 )
-
-[node name="Explosion" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.31, 0, 0, 0 )
-auto_explode = true
-auto_delete = true
-static_position = true
-no_sound = true
-speed_scale = 3
-particles = false
-opacity = 0.1
 
 [connection signal="area_entered" from="." to="." method="_on_Laser_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Laser_area_exited"]
