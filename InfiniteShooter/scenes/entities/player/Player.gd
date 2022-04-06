@@ -71,21 +71,13 @@ func _physics_process(delta):
 
 	var velocity = impulse_velocity  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
 	var delta_rotation = impulse_rotation  # The new rotation the player will have (NORMALIZED VECTOR)
-	if Input.is_action_pressed("move_right"):  # If a key is pressed (e.g. the right arrow key)
-		delta_rotation.z -= 1  # Rotate the ship
-		velocity.x += 1  # and alter its velocity.
-
-	if Input.is_action_pressed("move_left"):  # We do this 4 times for each direction you can press a key in
-		delta_rotation.z += 1
-		velocity.x -= 1
-
-	if Input.is_action_pressed("move_down"):
-		delta_rotation.x += 1
-		velocity.z += 1
-
-	if Input.is_action_pressed("move_up"):
-		delta_rotation.x -= 1
-		velocity.z -= 1
+	
+	# Movement
+	delta_rotation.z -= clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1);
+	velocity.x += clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1);
+	
+	delta_rotation.x -= clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1);
+	velocity.z -= clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1);
 	
 	if Input.is_action_pressed("move_slow"): # A key to move slower
 		slow_time()
