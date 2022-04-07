@@ -226,7 +226,6 @@ tracks/3/keys = {
 }
 
 [node name="Explosion" type="Spatial"]
-visible = false
 script = ExtResource( 22 )
 
 [node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
