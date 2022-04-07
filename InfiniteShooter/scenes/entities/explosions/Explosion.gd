@@ -10,7 +10,6 @@ export var sound = true
 
 export var particles = true
 
-export var speed_scale = 1
 
 export(float, 0, 1) var opacity = 1
 
@@ -20,7 +19,6 @@ signal exploded
 
 func _ready():
 	$ExplosionAnimation.opacity = opacity
-	$ExplosionAnimation.frames.set_animation_speed("default", 50*speed_scale) # Default is 50 FPS
 	if auto_explode == true:
 		explode()
 
@@ -32,7 +30,10 @@ func explode():
 		CameraEquipment.get_node("ShakeCamera").add_trauma(.4)
 	else:
 		$ExplosionSound.volume_db = -100
-	if shockwave == false: $Shockwave.hide()
+	if shockwave == false:
+		$Shockwave.hide()
+	else:
+		$Shockwave.show()
 	
 	# Explodes the shockwave/starts particles/starts the animation
 	$ExplosionSound.pitch_scale = rand_range(0.8, 1.2)

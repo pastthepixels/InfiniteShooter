@@ -147,7 +147,7 @@ __meta__ = {
 position = Vector2( 300, 400 )
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-copy_mode = 2
+copy_mode = 0
 
 [node name="Shockwave" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0.898412 )
