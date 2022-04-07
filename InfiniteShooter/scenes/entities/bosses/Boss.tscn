@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/entities/lasereffects/LaserEffects.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ui-game/HealthBar2D.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/entities/bosses/boss-path-3.tres" type="Curve3D" id=6]
 [ext_resource path="res://scenes/entities/bosses/boss-path-1.tres" type="Curve3D" id=7]
 [ext_resource path="res://scenes/entities/bosses/Normal.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/entities/lasers/Laser.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/entities/bosses/Trishot.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/entities/bosses/Multishot.tscn" type="PackedScene" id=11]
 
@@ -149,8 +148,6 @@ data = PoolVector3Array( 0, 3, 0, 0, 3, 0, 0, 2.8191, 1.0261, 0, 3, 0, 0.3927, 2
 [node name="Boss" type="Spatial" groups=["bosses"]]
 script = ExtResource( 3 )
 paths = [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]
-laser_scene = ExtResource( 9 )
-explosion_scene = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "BlinkInvincibility"
@@ -192,6 +189,26 @@ visible = false
 [node name="Explosions" type="Spatial" parent="."]
 visible = false
 
+[node name="Explosion" parent="Explosions" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23638, 0, 1.08065 )
+
+[node name="Explosion2" parent="Explosions" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.360281, 0, -1.46785 )
+
+[node name="Explosion3" parent="Explosions" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2098, 0, -0.231455 )
+
+[node name="Explosion4" parent="Explosions" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.617175, 0, 1.51801 )
+
+[node name="Explosion5" parent="Explosions" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.463519, 0, -0.0760207 )
+
+[node name="FinalExplosion" parent="Explosions" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4421, 0, 0.30858 )
+
 [node name="LaserEffects" parent="." instance=ExtResource( 1 )]
 ship = NodePath("..")
 emission_radius = 2.0
+
+[connection signal="exploded" from="Explosions/FinalExplosion" to="." method="_on_FinalExplosion_exploded"]

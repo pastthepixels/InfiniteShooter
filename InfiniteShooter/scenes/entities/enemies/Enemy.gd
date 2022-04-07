@@ -51,6 +51,7 @@ var enemy_model
 func initialize(difficulty, possible_enemy_types=null):
 	if possible_enemy_types != null:
 		enemy_type = possible_enemy_types[randi() % possible_enemy_types.size()]
+	
 	# Adds an enemy model and sets stats for that model
 	match enemy_type:
 		GameVariables.ENEMY_TYPES.normal:
