@@ -4,7 +4,7 @@ extends Node
 
 export var enemy_collision_damage_multiplier = 2 # When the player runs into an enemy, subtract its health by the enemy health * this number.
 
-export var use_debug_values = true
+export var use_debug_values = false
 
 export var dbg_enemy_difficulty = 0.1
 
