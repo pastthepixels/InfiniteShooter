@@ -1,39 +1,10 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
 [ext_resource path="res://sounds/laser-hit.mp3" type="AudioStream" id=3]
 [ext_resource path="res://sounds/laser-fire.mp3" type="AudioStream" id=4]
 [ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=6]
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_cull_mode = 2
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=2]
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_cull_mode = 2
-
-[sub_resource type="SpatialMaterial" id=3]
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_cull_mode = 2
-albedo_color = Color( 1, 0.470588, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=4]
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_cull_mode = 2
-albedo_color = Color( 0.207843, 0.517647, 0.894118, 1 )
-
-[sub_resource type="SpatialMaterial" id=5]
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_cull_mode = 2
-albedo_color = Color( 0.180392, 0.760784, 0.494118, 1 )
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
@@ -42,6 +13,7 @@ extents = Vector3( 0.0499679, 0.0487588, 0.25 )
 size = Vector2( 0.1, 0.5 )
 
 [sub_resource type="SpatialMaterial" id=8]
+resource_local_to_scene = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
 roughness = 0.4
@@ -115,11 +87,11 @@ size = Vector2( 0.05, 0.1 )
 
 [node name="Laser" type="Area" groups=["lasers"]]
 script = ExtResource( 1 )
-enemy_material = SubResource( 1 )
-player_material = SubResource( 2 )
-fire_material = SubResource( 3 )
-ice_material = SubResource( 4 )
-corrosion_material = SubResource( 5 )
+enemy_color = Color( 1, 0, 0, 1 )
+player_color = Color( 1, 1, 1, 1 )
+fire_color = Color( 1, 0.470588, 0, 1 )
+ice_color = Color( 0.207843, 0.517647, 0.894118, 1 )
+corrosion_color = Color( 0.180392, 0.760784, 0.494118, 1 )
 
 [node name="FollowTimer" type="Timer" parent="."]
 wait_time = 3.0

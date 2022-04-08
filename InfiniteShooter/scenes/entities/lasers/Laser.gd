@@ -34,15 +34,16 @@ var alive = true
 
 export var from_player = false
 
-export (SpatialMaterial) var enemy_material
+export (Color) var enemy_color
 
-export (SpatialMaterial) var player_material
+export (Color) var player_color
 
-export (SpatialMaterial) var fire_material
+export (Color) var fire_color
 
-export (SpatialMaterial) var ice_material
+export (Color) var ice_color
 
-export (SpatialMaterial) var corrosion_material
+export (Color) var corrosion_color
+
 
 func _ready():
 	set_laser()
@@ -67,20 +68,26 @@ func set_laser():
 	
 	# Sets the material of the laser
 	if from_player == false:
-		$Laser.set_surface_material(0, enemy_material)
+		set_color(enemy_color)
 	else:
-		$Laser.set_surface_material(0, player_material)
+		set_color(player_color)
 	
 	# Sets the material of the laser depeding on modifiers
 	match modifier:
 		MODIFIERS.fire:
-			$Laser.set_surface_material(0, fire_material)
+			set_color(fire_color)
 		
 		MODIFIERS.ice:
-			$Laser.set_surface_material(0, ice_material)
+			set_color(ice_color)
 		
 		MODIFIERS.corrosion:
-			$Laser.set_surface_material(0, corrosion_material)
+			set_color(corrosion_color)
+
+func set_color(color):
+	var material = $Laser.get_surface_material(0)
+	material.albedo_color = color
+	material.emission = color
+	$Laser.set_surface_material(0, material)
 
 # Called when the laser collides with objects
 func _on_Laser_area_entered(area):
@@ -105,7 +112,6 @@ func _on_Laser_body_entered(body):
 	elif body.is_in_group("players") == false:
 		remove_laser(true)  # Removes the laser ANYWAY
 
-
 func handle_modifiers(ship):
 	match modifier:
 		MODIFIERS.fire:
@@ -123,7 +129,6 @@ func handle_modifiers(ship):
 			ship.get_node("LaserEffects").freeze(3)
 			ship.get_node("LaserEffects").start_ice()
 			ship.get_node("LaserEffects").sender = sender
-
 
 func remove_laser(hit_ship=false):
 	if not alive:
@@ -154,15 +159,12 @@ func remove_laser(hit_ship=false):
 	if $HitParticles.emitting == true: yield($HitParticles, "finished")
 	queue_free()
 
-
 func _on_VisibilityNotifier_screen_exited():
 	remove_laser(false)
-
 
 func _on_FollowTimer_timeout():
 	$EOLSound.play()
 	remove_laser(false)
-
 
 func _on_Laser_area_exited(area):
 	if area == sender or area.get_parent() == sender:
