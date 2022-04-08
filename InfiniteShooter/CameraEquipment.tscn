@@ -290,7 +290,6 @@ smoothing_enabled = true
 script = ExtResource( 1 )
 max_roll = 0.15
 max_trauma = 0.6
-max_dispersion = 0.02
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 pause_mode = 1
