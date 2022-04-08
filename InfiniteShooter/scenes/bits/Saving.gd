@@ -19,7 +19,7 @@ var default_userdata = {
 	# Player variables
 	"damage": 20,
 	"health": 100,
-	"max_ammo": 10,
+	"max_ammo": 20,
 	"ammo_refills": 8
 }
 
