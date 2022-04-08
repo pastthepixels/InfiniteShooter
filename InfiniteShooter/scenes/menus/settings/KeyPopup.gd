@@ -44,7 +44,6 @@ func _change_key(new_key):
 		var old_key
 		for key in InputMap.get_action_list(action_string):
 			if key is InputEventKey:
-				print(key.as_text())
 				old_key = key
 		
 		# Switch it for the new one
