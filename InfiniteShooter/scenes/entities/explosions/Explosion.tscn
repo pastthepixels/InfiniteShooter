@@ -24,7 +24,7 @@
 [ext_resource path="res://scenes/entities/explosions/Explosion.gd" type="Script" id=22]
 [ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=23]
 [ext_resource path="res://scenes/bits/Shockwave.tscn" type="PackedScene" id=24]
-[ext_resource path="res://materials/ExplosionParticles.tres" type="Material" id=25]
+[ext_resource path="res://materials/ExplosionParticles.material" type="Material" id=25]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

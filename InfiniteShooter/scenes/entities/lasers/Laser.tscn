@@ -4,9 +4,9 @@
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
 [ext_resource path="res://sounds/laser-hit.mp3" type="AudioStream" id=3]
 [ext_resource path="res://sounds/laser-fire.mp3" type="AudioStream" id=4]
-[ext_resource path="res://materials/HitParticles.tres" type="Material" id=5]
+[ext_resource path="res://materials/HitParticles.material" type="Material" id=5]
 [ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=6]
-[ext_resource path="res://materials/DispersionParticles.tres" type="Material" id=7]
+[ext_resource path="res://materials/DispersionParticles.material" type="Material" id=7]
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
