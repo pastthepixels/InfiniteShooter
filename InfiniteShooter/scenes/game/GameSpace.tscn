@@ -5,7 +5,3 @@
 [node name="MainLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 25, -30 )
 light_energy = 2.0
-
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
-extents = Vector3( 20, 10, 20 )
-cull_mask = 1048574
