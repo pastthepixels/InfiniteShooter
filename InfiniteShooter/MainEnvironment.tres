@@ -18,7 +18,6 @@ tonemap_mode = 4
 tonemap_exposure = 1.5
 auto_exposure_scale = 0.15
 auto_exposure_speed = 2.0
-ssao_enabled = true
 dof_blur_far_distance = 20.0
 dof_blur_far_quality = 2
 glow_enabled = true
