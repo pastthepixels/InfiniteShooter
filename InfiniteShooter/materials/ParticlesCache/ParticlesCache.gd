@@ -1,14 +1,20 @@
 # Thanks, https://travismaynard.com/writing/caching-particle-materials-in-godot! Very cool
 extends Spatial
 
+var dispersion_particles = preload("res://materials/DispersionParticles.material")
+var hit_particles = preload("res://materials/HitParticles.material")
+var explosion_particles = preload("res://materials/ExplosionParticles.material")
+var fire_particles = preload("res://materials/FireParticles.material")
+var ice_particles = preload("res://materials/IceParticles.material")
+var corrosion_particles = preload("res://materials/CorrosionParticles.material")
 
 var materials = [
-	preload("res://materials/DispersionParticles.material"),
-	preload("res://materials/HitParticles.material"),
-	preload("res://materials/ExplosionParticles.material"),
-	preload("res://materials/FireParticles.material"),
-	preload("res://materials/IceParticles.material"),
-	preload("res://materials/CorrosionParticles.material")
+	dispersion_particles,
+	hit_particles,
+	explosion_particles,
+	fire_particles,
+	ice_particles,
+	corrosion_particles
 ]
 
 func _ready():
