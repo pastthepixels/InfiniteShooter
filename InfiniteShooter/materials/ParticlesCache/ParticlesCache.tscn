@@ -2,5 +2,6 @@
 
 [ext_resource path="res://materials/ParticlesCache/ParticlesCache.gd" type="Script" id=1]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="ParticlesCache" type="Spatial"]
+visible = false
 script = ExtResource( 1 )
