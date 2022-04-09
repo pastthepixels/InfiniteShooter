@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/template.glb-1d4286761ee746c95284d6b7ec15842f.scn"
+path="res://.import/laser-modifier.glb-558c8a75ef6d6fcd1358767e071e0d69.scn"
 
 [deps]
 
-source_file="res://models/powerups/template.glb"
-dest_files=[ "res://.import/template.glb-1d4286761ee746c95284d6b7ec15842f.scn" ]
+source_file="res://models/powerups/laser-modifier.glb"
+dest_files=[ "res://.import/laser-modifier.glb-558c8a75ef6d6fcd1358767e071e0d69.scn" ]
 
 [params]
 
@@ -21,7 +21,7 @@ materials/location=1
 materials/storage=1
 materials/keep_on_reimport=true
 meshes/octahedral_compression=true
-meshes/compress=true
+meshes/compress=4286
 meshes/ensure_tangents=true
 meshes/storage=0
 meshes/light_baking=0
