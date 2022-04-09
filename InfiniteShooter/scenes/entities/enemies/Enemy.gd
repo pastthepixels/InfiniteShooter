@@ -46,6 +46,16 @@ var bounding_box
 
 export(PackedScene) var powerup_scene
 
+var enemy_types = {
+	"normal": preload("res://scenes/entities/enemies/Normal.tscn"),
+	"small": preload("res://scenes/entities/enemies/Small.tscn"),
+	"tank": preload("res://scenes/entities/enemies/Tank.tscn"),
+	"explosive": preload("res://scenes/entities/enemies/Explosive.tscn"),
+	"multishot": preload("res://scenes/entities/enemies/Multishot.tscn"),
+	"quadshot": preload("res://scenes/entities/enemies/Quadshot.tscn"),
+	"gigatank": preload("res://scenes/entities/enemies/Gigatank.tscn")
+}
+
 var enemy_model
 
 func initialize(difficulty, possible_enemy_types=null):
@@ -55,53 +65,56 @@ func initialize(difficulty, possible_enemy_types=null):
 	# Adds an enemy model and sets stats for that model
 	match enemy_type:
 		GameVariables.ENEMY_TYPES.normal:
-			enemy_model = $Normal
+			enemy_model = enemy_types["normal"].instance()
 			# Sets enemy stats
 			max_health = 80
 			damage = 15
 			speed_mult = 1
 
 		GameVariables.ENEMY_TYPES.small:
-			enemy_model = $Small
+			enemy_model = enemy_types["small"].instance()
 			# Sets enemy stats
 			max_health = 20
 			damage = 10
 			speed_mult = 1.5
 
 		GameVariables.ENEMY_TYPES.tank:
-			enemy_model = $Tank
+			enemy_model = enemy_types["tank"].instance()
 			# Sets enemy stats
 			max_health = 100
 			damage = 10
 			speed_mult = .8
 		
 		GameVariables.ENEMY_TYPES.gigatank:
-			enemy_model = $Gigatank
+			enemy_model = enemy_types["gigatank"].instance()
 			# Sets enemy stats
 			max_health = 200
 			damage = 20
 			speed_mult = .5
 		
 		GameVariables.ENEMY_TYPES.explosive:
-			enemy_model = $Explosive
+			enemy_model = enemy_types["explosive"].instance()
 			# Sets enemy stats
 			max_health = 10
 			damage = 100
 			speed_mult = .6
 		
 		GameVariables.ENEMY_TYPES.multishot:
-			enemy_model = $Multishot
+			enemy_model = enemy_types["multishot"].instance()
 			# Sets enemy stats
 			max_health = 120
 			damage = 15
 			speed_mult = .7
 		
 		GameVariables.ENEMY_TYPES.quadshot:
-			enemy_model = $Quadshot
+			enemy_model = enemy_types["quadshot"].instance()
 			# Sets enemy stats
 			max_health = 70
 			damage = 10
 			speed_mult = .9
+	
+	# Adds the enemy model
+	add_child(enemy_model)
 	
 	# Removes other enemy ships
 	for child in get_children():
@@ -133,9 +146,6 @@ func initialize(difficulty, possible_enemy_types=null):
 	$HealthBar2D.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
 	$HealthBar2D.max_health = max_health
 	$HealthBar2D.health = health
-	
-	# LASTLY makes the current ship visible
-	enemy_model.show()
 
 
 # To move the ship/calculate health
