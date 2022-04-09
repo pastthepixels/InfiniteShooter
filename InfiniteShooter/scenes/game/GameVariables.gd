@@ -6,13 +6,13 @@ export var enemy_collision_damage_multiplier = 2 # When the player runs into an 
 
 export var use_debug_values = false
 
-export var dbg_enemy_difficulty = 0.1
+export var dbg_enemy_difficulty = 0.4
 
-export var dbg_enemies_per_wave = 1
+export var dbg_enemies_per_wave = 30
 
-export var dbg_enemies_on_screen_range = [1, 1] # default [min,max]
+export var dbg_enemies_on_screen_range = [5, 10] # default [min,max]
 
-export var dbg_waves_per_level_range = [1, 1] # [min, max]
+export var dbg_waves_per_level_range = [10, 20] # [min, max]
 
 var level_dependent_enemy_types = [ # 3-D ARRAY: Each line is a level and an array containg the enemy types avaiable
 	[1, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank]], # Level 1. We start with the 3 basic types.
