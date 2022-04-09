@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://models/powerups/enemy-wipe.glb" type="PackedScene" id=1]
 [ext_resource path="res://models/powerups/medkit.glb" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/entities/powerups/Powerup.gd" type="Script" id=4]
 [ext_resource path="res://sounds/use-powerup.mp3" type="AudioStream" id=5]
 [ext_resource path="res://models/powerups/icon.material" type="Material" id=6]
+[ext_resource path="res://models/powerups/outline.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=14]
 length = 0.001
@@ -355,6 +356,18 @@ tracks/5/keys = {
 
 [sub_resource type="BoxShape" id=6]
 
+[sub_resource type="SpatialMaterial" id=32]
+flags_transparent = true
+params_cull_mode = 2
+albedo_color = Color( 1, 1, 1, 0.164706 )
+albedo_texture = ExtResource( 7 )
+metallic = 0.7
+roughness = 0.4
+
+[sub_resource type="PlaneMesh" id=33]
+material = SubResource( 32 )
+size = Vector2( 1.5, 1.5 )
+
 [sub_resource type="ArrayMesh" id=31]
 resource_name = "laser-modifier_Cylinder"
 surfaces/0 = {
@@ -427,13 +440,21 @@ shape = SubResource( 6 )
 
 [node name="Meshes" type="Spatial" parent="."]
 
+[node name="Background" type="MeshInstance" parent="Meshes"]
+mesh = SubResource( 33 )
+skeleton = NodePath("../..")
+material/0 = null
+
 [node name="Ammo" parent="Meshes" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
 visible = false
 
 [node name="Medkit" parent="Meshes" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
 visible = false
 
 [node name="EnemyWipe" parent="Meshes" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 visible = false
 
 [node name="LaserTypes" type="Spatial" parent="Meshes"]
@@ -468,6 +489,7 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 30 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+visible = false
 aabb = AABB( -0.8, -2, -0.8, 1.6, 4, 1.6 )
 
 [connection signal="body_entered" from="." to="." method="_on_Powerup_body_entered"]
