@@ -3,7 +3,6 @@
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
 [ext_resource path="res://sounds/hudalert.mp3" type="AudioStream" id=3]
-[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-game/HUD.gd" type="Script" id=7]
@@ -431,6 +430,10 @@ shader_param/vignette_intensity = 0.0
 shader_param/vignette_opacity = 0.5
 shader_param/vignette_rgb = Color( 1, 0, 0, 1 )
 
+[sub_resource type="ShaderMaterial" id=64]
+shader = ExtResource( 2 )
+shader_param/lod = 2.0
+
 [sub_resource type="Animation" id=62]
 length = 0.001
 tracks/0/type = "value"
@@ -712,7 +715,6 @@ __meta__ = {
 }
 
 [node name="Alert" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
@@ -724,15 +726,17 @@ margin_left = -20.0
 margin_top = -20.0
 margin_right = 20.0
 margin_bottom = 20.0
-color = Color( 0, 0, 0, 0.392157 )
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="Blur" type="ColorRect" parent="Alert"]
+show_behind_parent = true
+material = SubResource( 64 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Alert"]
 anims/RESET = SubResource( 62 )
 anims/fade_alert = SubResource( 28 )
-
-[node name="Blur" parent="Alert" instance=ExtResource( 4 )]
-margin_top = -150.0
-margin_bottom = 150.0
 
 [node name="Sound" type="AudioStreamPlayer" parent="Alert"]
 stream = ExtResource( 3 )
