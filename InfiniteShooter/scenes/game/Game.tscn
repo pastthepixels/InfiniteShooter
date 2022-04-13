@@ -53,7 +53,6 @@ visible = false
 pause_mode = 2
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
-visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false
@@ -61,4 +60,5 @@ visible = false
 [connection signal="ammo_changed" from="GameSpace/Player" to="." method="_on_Player_ammo_changed"]
 [connection signal="died" from="GameSpace/Player" to="." method="_on_Player_died"]
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]
+[connection signal="set_modifier" from="GameSpace/Player" to="." method="_on_Player_set_modifier"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]

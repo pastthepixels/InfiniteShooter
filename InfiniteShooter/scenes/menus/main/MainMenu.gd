@@ -1,6 +1,7 @@
 extends Node
 
 func _ready():
+	CameraEquipment.reset_sky_animation_speed()
 	CameraEquipment.get_node("SkyAnimations").play("intro")
 
 

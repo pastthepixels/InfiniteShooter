@@ -146,6 +146,15 @@ func initialize(difficulty, possible_enemy_types=null):
 	$HealthBar2D.translation.z = -(bounding_box.size.z * enemy_model.scale.z) + .5
 	$HealthBar2D.max_health = max_health
 	$HealthBar2D.health = health
+	
+	# Updates an enemy's laser gun to reflect its damage
+	if enemy_model.has_node("LaserGuns"):
+		for LaserGun in enemy_model.get_node("LaserGuns").get_children():
+			LaserGun.damage = damage
+			#LaserGun.follow_player = use_homing_lasers
+			if use_laser_modifiers:
+				LaserGun.use_laser_modifiers = true
+				LaserGun.laser_modifier = laser_modifier
 
 
 # To move the ship/calculate health
@@ -214,18 +223,9 @@ func _on_Explosion_exploded():
 
 
 func _on_LaserTimer_timeout():
-	# Some ships don't shoot lasers...
-	if enemy_model.has_node("LaserGuns") == false:
-		return
-	
-	# ...and some do
-	for LaserGun in enemy_model.get_node("LaserGuns").get_children():
-		LaserGun.damage = damage
-		#LaserGun.follow_player = use_homing_lasers
-		if use_laser_modifiers:
-			LaserGun.use_laser_modifiers = true
-			LaserGun.laser_modifier = laser_modifier
-		LaserGun.fire()
+	if enemy_model.has_node("LaserGuns") == true:
+		for LaserGun in enemy_model.get_node("LaserGuns").get_children():
+			LaserGun.fire()
 
 
 func _on_ShipDetection_area_entered(area):

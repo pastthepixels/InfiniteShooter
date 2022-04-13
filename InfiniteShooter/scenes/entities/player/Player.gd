@@ -36,6 +36,8 @@ var freeze_movement = false
 # Signals
 signal died
 
+signal set_modifier
+
 signal health_changed(value)
 
 signal ammo_changed(value, refills)

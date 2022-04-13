@@ -41,14 +41,14 @@ export var tutorial_script = [
 	"wait_5",
 	"Optionally, you can press the control key (LB or RB on a controller) to slow time.",
 	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
-	"wait_enemy", # Command to spawn an enemy
+	"wait_enemy",
 	"You may have noticed that the enemy may have dropped a powerup. To use it, simply run over it with your ship. Different powerups have different effects, so try them all out!",
 	"If you are, however, sick and tired of powerups only appearing randomly, you can just run into ships. Seriously. Not only will it look cool, but you can also get health or ammo powerups to get you back into the game.",
 	"Just make sure to watch your health, however, as running into ships will decrease it by the amount of health the enemy has! When enemies flash red, that means it's safe to run into them without taking a hit to your health.",
 	"Next, let's talk about the in-game HUD.",
 	"Your health is the green bar in the top left corner. The grey bar is your ammo (the number beside it notes your refills).",
 	"For the status bar, we have the current level, wave, score, and frame rate, respectively.",
-	"And that's all you need to know about InfiniteShooter! Thank you for playing and good luck!",
+	"And that's all you need to know about InfiniteShooter! Thank you for playing and good luck!"
 ]
 
 export var tutorial_elemental_script = [
@@ -64,11 +64,10 @@ export var tutorial_elemental_script = [
 func _ready():
 	# Starts spinning the sky (and plays another cool animation)
 	CameraEquipment.set_sky(0)
+	CameraEquipment.reset_sky_animation_speed()
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
 	CameraEquipment.get_node("CameraAnimations").stop()
 	CameraEquipment.get_node("CameraAnimations").play("ZoomOut")
-	# save stuff
-	load_game() # Load save data (player damage/health)
 	# HUD stuff
 	if waves_per_level > 0: $HUD.update_level(level, 100 * wave/waves_per_level)
 	# Begins the countdown/shows the tutorial/plays appropiate music
@@ -82,20 +81,6 @@ func _ready():
 		yield(CameraEquipment.get_node("CameraAnimations"), "animation_finished")
 		activate_tutorial()
 
-func _process(_delta):
-	if has_node("GameSpace/Player"):
-		match($GameSpace/Player.modifier):
-			GameVariables.LASER_MODIFIERS.fire:
-				$HUD.update_gradient($HUD.TEXTURES.fire)
-			
-			GameVariables.LASER_MODIFIERS.ice:
-				$HUD.update_gradient($HUD.TEXTURES.ice)
-			
-			GameVariables.LASER_MODIFIERS.corrosion:
-				$HUD.update_gradient($HUD.TEXTURES.corrosion)
-			
-			GameVariables.LASER_MODIFIERS.none:
-				$HUD.update_gradient($HUD.TEXTURES.default)
 
 func _on_Countdown_finished():
 	make_enemies()
@@ -123,10 +108,10 @@ func parse_tutorial(script):
 			"wait_enemy":
 				yield(make_enemy(), "died")
 				yield(Utils.timeout(2), "timeout")
-			
+
 			"wait_5":
 				yield(Utils.timeout(5), "timeout")
-			
+
 			_:
 				$TutorialAlert.alert(line)
 				yield($TutorialAlert, "confirmed")
@@ -191,13 +176,13 @@ func make_enemy():
 	var enemy = enemy_scene.instance()
 	if use_laser_modifiers == false: enemy.use_laser_modifiers = false
 	enemy.connect("died", self, "_on_Enemy_died")
-	
+
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = next_enemy_position
 	get_node(game_space).add_child(enemy)
 	enemy.initialize(level * GameVariables.enemy_difficulty, possible_enemies)
 	next_enemy_position = set_random_enemy_position()
-	
+
 	# Updates the HUD with the current amount of enemies in the wave
 	if GameVariables.enemies_per_wave > 0:
 		enemies_in_wave += 1
@@ -206,7 +191,7 @@ func make_enemy():
 			autospawn_enemies = false # Well, stop enemies from spawning
 			# but also set the position of the indicator arrow to let players know where the boss is coming from
 			if wave == waves_per_level: $GameSpace/IndicatorArrow.translation = Vector3(0, 0, Utils.top_left.z + 0.8)
-	
+
 	return enemy
 
 func set_random_enemy_position(times_ran=0):
@@ -245,11 +230,11 @@ func _on_Enemy_died(ship, from_player):
 			score += ceil(ship.max_health/2)
 			points += ceil(ship.max_health/2)
 		$HUD.update_points(points)
-		
+
 		# Wave progression
 		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:
 			wave_up()
-		
+
 		# Spawning new enemies
 		if autospawn_enemies == true and\
 			len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen:
@@ -280,16 +265,24 @@ func _on_Player_ammo_changed(value, refills):
 func _on_Player_health_changed(value):
 	$HUD.update_health(value)
 
+
+func _on_Player_set_modifier():
+	match($GameSpace/Player.modifier):
+		GameVariables.LASER_MODIFIERS.fire:
+			$HUD.update_gradient($HUD.TEXTURES.fire)
+
+		GameVariables.LASER_MODIFIERS.ice:
+			$HUD.update_gradient($HUD.TEXTURES.ice)
+
+		GameVariables.LASER_MODIFIERS.corrosion:
+			$HUD.update_gradient($HUD.TEXTURES.corrosion)
+
+		GameVariables.LASER_MODIFIERS.none:
+			$HUD.update_gradient($HUD.TEXTURES.default)
+
 #
 # Saving and loading data
 #
-func load_game():
-	var save_data = Saving.load_userdata()
-	$GameSpace/Player.max_health = save_data.health
-	$GameSpace/Player.health = save_data.health
-	$GameSpace/Player.damage = save_data.damage
-
-
 func save_game():
 	var save_data = Saving.load_userdata()
 	save_data.points += score

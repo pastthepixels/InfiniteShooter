@@ -57,6 +57,7 @@ func _on_Powerup_body_entered(body):
 						enemy.health = 0
 		else:
 			body.modifier = modifier
+			body.emit_signal("set_modifier")
 	
 		$CountdownTimer.stop()
 		$MainAnimations.play("use")
@@ -72,7 +73,3 @@ func _process(_delta):
 
 func _on_MainAnimations_animation_finished(anim_name):
 	if anim_name == "hide" or anim_name == "use": queue_free()
-
-
-func _on_VisibilityNotifier_screen_exited():
-	hide()

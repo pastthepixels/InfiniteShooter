@@ -40,6 +40,10 @@ func slow_sky():
 	)
 	$Tween.start()
 
+func reset_sky_animation_speed():
+	$Tween.stop_all()
+	$SkyAnimations.playback_speed = 1
+
 func resume_sky():
 	$Tween.interpolate_property(
 		$SkyAnimations,
