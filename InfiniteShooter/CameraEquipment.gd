@@ -29,6 +29,28 @@ func set_animated_distortion(distort, dispersion):
 #
 # sky stuff
 #
+func slow_sky():
+	$Tween.interpolate_property(
+		$SkyAnimations,
+		"playback_speed",
+		1,
+		0,
+		3,
+		Tween.TRANS_QUAD
+	)
+	$Tween.start()
+
+func resume_sky():
+	$Tween.interpolate_property(
+		$SkyAnimations,
+		"playback_speed",
+		0,
+		1,
+		3,
+		Tween.TRANS_QUAD
+	)
+	$Tween.start()
+	
 func set_sky(sky_idx):
 	$WorldEnvironment.environment.background_sky = skies[sky_idx]
 

@@ -2,15 +2,7 @@ extends Control
 
 func start():
 	$AnimationPlayer.play("FadeAll")
-	$Tween.interpolate_property(
-		CameraEquipment.get_node("SkyAnimations"),
-		"playback_speed",
-		1,
-		0,
-		3,
-		Tween.TRANS_QUAD
-	)
-	$Tween.start()
+	CameraEquipment.slow_sky()
 
 
 func _on_SelectSquare_selected():
@@ -27,8 +19,3 @@ func _on_SelectSquare_selected():
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	$SelectSquare/AnimationPlayer.play("Fade")
-
-
-func _on_Tween_tween_completed(_object, _key):
-	CameraEquipment.get_node("SkyAnimations").stop()
-	CameraEquipment.get_node("SkyAnimations").playback_speed = 1

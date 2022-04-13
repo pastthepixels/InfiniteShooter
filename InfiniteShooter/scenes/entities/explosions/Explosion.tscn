@@ -206,6 +206,7 @@ one_shot = true
 speed_scale = 1.5
 explosiveness = 1.0
 randomness = 1.0
+fixed_fps = 60
 process_material = ExtResource( 25 )
 draw_pass_1 = SubResource( 8 )
 script = ExtResource( 23 )

@@ -129,7 +129,6 @@ func update_ammo(value, refills):
 func alert(text, duration, switchto_text="", switch_sky=false):
 	# Sets text and shows the label
 	$Alert/Label.text = text
-	$Alert.show()
 	# Fades in
 	$Alert/AnimationPlayer.play("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")

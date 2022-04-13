@@ -8,7 +8,6 @@ func _ready():
 
 func _process(_delta):
 	if $Shockwave.visible and visible and $Shockwave.active:
-		print(true)
 		$BackBufferCopy.set_copy_mode(BackBufferCopy.COPY_MODE_VIEWPORT)
 		$Shockwave.material.set_shader_param("position", position)
 	else:

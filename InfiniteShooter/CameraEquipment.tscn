@@ -278,6 +278,8 @@ pause_mode = 2
 script = ExtResource( 3 )
 skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ]
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 15, 0 )
 current = true

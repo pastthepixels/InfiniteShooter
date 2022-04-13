@@ -51,9 +51,9 @@ visible = false
 
 [node name="Upgrades" parent="." instance=ExtResource( 16 )]
 pause_mode = 2
-visible = false
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
+visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 visible = false

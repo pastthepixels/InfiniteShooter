@@ -106,7 +106,7 @@ func reroll_upgrades():
 		upgrade_lookup_table = {}
 		# Creates new ones
 		read_upgrades()
-	
+
 
 # Updates the labels
 func update_gui():
@@ -114,13 +114,3 @@ func update_gui():
 	$Content/Stats/Damage.text = "%s damage" % player.damage
 	$Content/Stats/Points.text = "%s points" % game.points
 	if game.points == 1: $Content/Stats/Points.text = "1 point"
-
-
-func _on_AnimationPlayer_animation_started(_anim_name):
-	show()
-
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	match anim_name:
-		"close":
-			hide()

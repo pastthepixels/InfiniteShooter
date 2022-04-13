@@ -83,7 +83,3 @@ func _process(_delta):
 			pass
 		else:
 			pass
-
-
-func _on_AnimationPlayer_animation_started(_anim_name):
-	visible = true
