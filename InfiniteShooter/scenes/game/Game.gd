@@ -1,11 +1,11 @@
 extends Node
 
 # To do with creating enemies
-export(PackedScene) var enemy_scene
+var enemy_scene = LoadingScreen.access_scene("res://scenes/entities/enemies/Enemy.tscn")
 
-export(PackedScene) var boss_scene
+var boss_scene = LoadingScreen.access_scene("res://scenes/entities/bosses/Boss.tscn")
 
-export(PackedScene) var dock_scene
+var dock_scene = LoadingScreen.access_scene("res://scenes/entities/dock/DockingStation.tscn")
 
 export(NodePath) var game_space
 

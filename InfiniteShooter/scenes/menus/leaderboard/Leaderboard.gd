@@ -2,7 +2,7 @@ extends Control
 
 signal closed
 
-export (PackedScene) var stats_label
+export(PackedScene) var stats_label
 
 export var list_length = 16
 

@@ -1,7 +1,5 @@
 extends Spatial
 
-export(PackedScene) var laser_scene
-
 export(NodePath) var sender = "../"
 
 export var show_cannon = true
@@ -14,8 +12,9 @@ export var use_laser_modifiers = false
 
 export var from_player = false
 
-
 export(preload("res://scenes/game/GameVariables.gd").LASER_MODIFIERS) var laser_modifier
+
+var laser_scene = LoadingScreen.access_scene("res://scenes/entities/lasers/Laser.tscn")
 
 func _ready():
 	$Cannon.visible = show_cannon

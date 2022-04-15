@@ -41,4 +41,12 @@ func instance_scenes_then_quit():
 	$Timer.start()
 	yield($Timer, "timeout")
 	get_tree().paused = false
-	queue_free()
+	# Hides everything but still runs in the background so we can access scenes
+	$Cover.queue_free()
+	hide()
+
+func access_scene(path):
+	for scene_path in scenes:
+		if scene_path.resource_path == path:
+			return scene_path
+	return load(path)

@@ -44,16 +44,16 @@ var bounding_box
 
 # Scenes used
 
-export(PackedScene) var powerup_scene
+var powerup_scene = LoadingScreen.access_scene("res://scenes/entities/powerups/Powerup.tscn")
 
 var enemy_types = {
-	"normal": preload("res://scenes/entities/enemies/Normal.tscn"),
-	"small": preload("res://scenes/entities/enemies/Small.tscn"),
-	"tank": preload("res://scenes/entities/enemies/Tank.tscn"),
-	"explosive": preload("res://scenes/entities/enemies/Explosive.tscn"),
-	"multishot": preload("res://scenes/entities/enemies/Multishot.tscn"),
-	"quadshot": preload("res://scenes/entities/enemies/Quadshot.tscn"),
-	"gigatank": preload("res://scenes/entities/enemies/Gigatank.tscn")
+	"normal": LoadingScreen.access_scene("res://scenes/entities/enemies/Normal.tscn"),
+	"small": LoadingScreen.access_scene("res://scenes/entities/enemies/Small.tscn"),
+	"tank": LoadingScreen.access_scene("res://scenes/entities/enemies/Tank.tscn"),
+	"explosive": LoadingScreen.access_scene("res://scenes/entities/enemies/Explosive.tscn"),
+	"multishot": LoadingScreen.access_scene("res://scenes/entities/enemies/Multishot.tscn"),
+	"quadshot": LoadingScreen.access_scene("res://scenes/entities/enemies/Quadshot.tscn"),
+	"gigatank": LoadingScreen.access_scene("res://scenes/entities/enemies/Gigatank.tscn")
 }
 
 var enemy_model
