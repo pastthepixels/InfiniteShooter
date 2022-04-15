@@ -26,7 +26,7 @@ SceneTransition="*res://scenes/ui-bits/SceneTransition.tscn"
 GameVariables="*res://scenes/game/GameVariables.gd"
 Utils="*res://scenes/bits/Utils.gd"
 Saving="*res://scenes/bits/Saving.gd"
-ParticlesCache="*res://materials/ParticlesCache/ParticlesCache.tscn"
+LoadingScreen="*res://scenes/loading/LoadingScreen.tscn"
 
 [display]
 

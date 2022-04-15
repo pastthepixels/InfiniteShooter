@@ -158,9 +158,6 @@ custom_fonts/font = SubResource( 5 )
 text = "paused"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SelectSquare" parent="." instance=ExtResource( 5 )]
 options_path = NodePath("../Options")
