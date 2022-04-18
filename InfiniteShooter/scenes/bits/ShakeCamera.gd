@@ -13,6 +13,7 @@ export var max_roll = 0.1  # Maximum rotation in radians (use sparingly).
 
 export (NodePath) var target  # Assign the node this camera will follow.
 
+export var ignore_shake = false
 
 var trauma = 0.0  # Current shake strength.
 
@@ -42,7 +43,7 @@ func center():
 
 
 func add_trauma(amount):
-	trauma = min(trauma + amount, max_trauma)
+	if ignore_shake == false: trauma = min(trauma + amount, max_trauma)
 
 
 func _process(delta):

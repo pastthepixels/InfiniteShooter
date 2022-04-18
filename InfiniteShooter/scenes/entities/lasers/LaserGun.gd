@@ -47,4 +47,7 @@ func fire():
 	laser.translation.y = 0
 
 	# Adds the laser to the GameSpace node
-	get_node("/root/Game/GameSpace").add_child(laser)
+	if has_node("/root/Game/GameSpace"):
+		get_node("/root/Game/GameSpace").add_child(laser)
+	else:
+		get_parent().add_child(laser)

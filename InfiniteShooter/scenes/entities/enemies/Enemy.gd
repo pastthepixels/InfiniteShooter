@@ -203,12 +203,12 @@ func explode_ship(from_player=false):
 	set_process(false)
 	emit_signal("died", self, from_player)
 	# Powerups (1/4 chance to create a powerup)
-	if create_powerup and use_laser_modifiers == false:
+	if create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		if powerup_type != null: powerup.type = powerup_type
 		powerup.translation = translation
 		get_parent().add_child(powerup)
-	elif use_laser_modifiers == true:
+	elif use_laser_modifiers == true and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
 		powerup.modifier = laser_modifier

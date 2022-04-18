@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/loading/LoadingScreen.gd" type="Script" id=2]
@@ -8,6 +8,48 @@
 size = 64
 font_data = ExtResource( 1 )
 
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "FadeOut"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cover:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cover:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="LoadingScreen" type="Spatial"]
 pause_mode = 2
 script = ExtResource( 2 )
@@ -15,19 +57,28 @@ script = ExtResource( 2 )
 [node name="ParticlesCache" parent="." instance=ExtResource( 3 )]
 visible = true
 
+[node name="Instances" type="Spatial" parent="."]
+
 [node name="Cover" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
 
 [node name="Background" type="ColorRect" parent="Cover"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="Cover"]
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -98.5
 margin_top = -32.5
+margin_right = 98.5
 margin_bottom = 32.5
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -35,11 +86,27 @@ text = "loading"
 align = 1
 valign = 1
 
+[node name="ProgressBar" type="ProgressBar" parent="Cover/Label"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 41.5
+margin_bottom = 68.5
+custom_colors/font_color = Color( 0, 0, 0, 0 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+
 [node name="InitTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+[node name="ExitTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeOut = SubResource( 4 )
+anims/RESET = SubResource( 5 )
 
 [connection signal="timeout" from="InitTimer" to="." method="_on_InitTimer_timeout"]
+[connection signal="timeout" from="ExitTimer" to="." method="_on_ExitTimer_timeout"]
