@@ -100,11 +100,11 @@ func update_health(value):
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
 
-	if value < 0.3 and value > 0 and low_health == false:
+	if value < 0.4 and value > 0 and low_health == false and $Vignette.visible == false:
 		low_health = true
 		$AnimationPlayer.play("FadeInVignette")
 		$HUDToast.alert("Low health!", 1)
-	elif value > 0.3 and $AnimationPlayer.is_playing() == false and low_health == true:
+	elif value > 0.3 and $AnimationPlayer.is_playing() == false and low_health == true and $Vignette.visible == true:
 		low_health = false
 		$AnimationPlayer.play("FadeOutVignette")
 
