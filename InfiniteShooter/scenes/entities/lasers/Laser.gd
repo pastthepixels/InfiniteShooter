@@ -116,7 +116,7 @@ func handle_modifiers(ship):
 	match modifier:
 		MODIFIERS.fire:
 			if ship.is_in_group("players"):
-				ship.get_node("LaserEffects").bleed(.2, 10)
+				ship.get_node("LaserEffects").bleed(.1, 15)
 			else:
 				ship.get_node("LaserEffects").bleed(.5, 10)
 			ship.get_node("LaserEffects").start_fire()
