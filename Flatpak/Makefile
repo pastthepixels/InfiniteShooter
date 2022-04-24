@@ -31,18 +31,18 @@ flatpak:
 	flatpak install org.freedesktop.Sdk/x86_64/20.08
 
 	# Creates a "repo", whatever that means. Modified from https://github.com/scx/qalculate-flatpak#create-repo
-	flatpak-builder --repo="repo" --force-clean "build" "com.pastthepixels.InfiniteShooter.yml"
+	flatpak-builder --repo="repo" --force-clean "build" "com.github.pastthepixels.InfiniteShooter.yml"
 
 	# Compiles InfiniteShooter into a .flatpak for installation
-	flatpak build-bundle "repo" "InfiniteShooter.flatpak" "com.pastthepixels.InfiniteShooter" --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+	flatpak build-bundle "repo" "InfiniteShooter.flatpak" "com.github.pastthepixels.InfiniteShooter" --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
 
 # Testing/installing the flatpak without having to run `make flatpak`
 test:
 	cd build
 
-	flatpak-builder build com.pastthepixels.InfiniteShooter.yml --force-clean
-	flatpak-builder --user --install build com.pastthepixels.InfiniteShooter.yml --force-clean
-	flatpak run com.pastthepixels.InfiniteShooter
+	flatpak-builder build com.github.pastthepixels.InfiniteShooter.yml --force-clean
+	flatpak-builder --user --install build com.github.pastthepixels.InfiniteShooter.yml --force-clean
+	flatpak run com.github.pastthepixels.InfiniteShooter
 
 # Cleaning up for next builds
 clean:

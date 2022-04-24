@@ -1,4 +1,4 @@
-app-id: com.pastthepixels.InfiniteShooter
+app-id: com.github.pastthepixels.InfiniteShooter
 runtime: org.freedesktop.Platform
 runtime-version: 21.08
 sdk: org.freedesktop.Sdk
@@ -19,16 +19,16 @@ modules:
   - name: InfiniteShooterShortcut
     buildsystem: simple
     build-commands:
-      - install -D com.pastthepixels.InfiniteShooter.desktop /app/share/applications/com.pastthepixels.InfiniteShooter.desktop
-      - install -D com.pastthepixels.InfiniteShooter.png /app/share/icons/hicolor/256x256/apps/com.pastthepixels.InfiniteShooter.png
-      - install -D com.pastthepixels.InfiniteShooter.appdata.xml /app/share/metainfo/com.pastthepixels.InfiniteShooter.appdata.xml
+      - install -D com.github.pastthepixels.InfiniteShooter.desktop /app/share/applications/com.pastthepixels.InfiniteShooter.desktop
+      - install -D com.github.pastthepixels.InfiniteShooter.png /app/share/icons/hicolor/256x256/apps/com.pastthepixels.InfiniteShooter.png
+      - install -D com.github.pastthepixels.InfiniteShooter.appdata.xml /app/share/metainfo/com.pastthepixels.InfiniteShooter.appdata.xml
     sources:
       - type: file
-        path: com.pastthepixels.InfiniteShooter.desktop
+        path: com.github.pastthepixels.InfiniteShooter.desktop
       - type: file
-        path: com.pastthepixels.InfiniteShooter.png
+        path: com.github.pastthepixels.InfiniteShooter.png
       - type: file
-        path: com.pastthepixels.InfiniteShooter.appdata.xml
+        path: com.github.pastthepixels.InfiniteShooter.appdata.xml
 finish-args:
   - --share=ipc
   - --socket=x11 # <-- Godot needs X11
