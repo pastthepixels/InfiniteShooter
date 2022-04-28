@@ -4,6 +4,6 @@ Name=InfiniteShooter
 GenericName=InfiniteShooter
 Comment=A shooter game
 Exec=InfiniteShooter.x86_64
-Icon=com.github.pastthepixels.InfiniteShooter
+Icon=io.github.pastthepixels.InfiniteShooter
 Type=Application
 Categories=Game
