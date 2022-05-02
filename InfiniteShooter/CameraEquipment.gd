@@ -81,24 +81,3 @@ func _process(delta):
 		if $LensDistortion.material.get_shader_param("distort") == _animate_warp_amount and\
 			$LensDistortion.material.get_shader_param("dispersion") == _animate_dispersion_amount:
 			_animate_warp_dispersion = false
-		
-	# Moving stuff when keys are pressed
-	var key_pressed = false
-	if Input.is_action_pressed("move_right") or Input.is_action_pressed("ui_right"): 
-		key_pressed = true
-		$ShakeCamera.additional_offset.x = lerp($ShakeCamera.additional_offset.x, 3, 0.4)
-
-	if Input.is_action_pressed("move_left") or Input.is_action_pressed("ui_left"): 
-		key_pressed = true
-		$ShakeCamera.additional_offset.x = lerp($ShakeCamera.additional_offset.x, -3, 0.4)
-
-	if Input.is_action_pressed("move_down") or Input.is_action_pressed("ui_up"):
-		key_pressed = true
-		$ShakeCamera.additional_offset.y = lerp($ShakeCamera.additional_offset.y, 3, 0.4)
-
-	if Input.is_action_pressed("move_up") or Input.is_action_pressed("ui_down"):
-		key_pressed = true
-		$ShakeCamera.additional_offset.y = lerp($ShakeCamera.additional_offset.y, -3, 0.4)
-
-	if key_pressed == false:
-		$ShakeCamera.additional_offset = lerp($ShakeCamera.additional_offset, Vector2(), 0.4)

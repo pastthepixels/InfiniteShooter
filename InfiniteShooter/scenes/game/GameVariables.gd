@@ -23,15 +23,17 @@ var level_dependent_enemy_types = [ # 3-D ARRAY: Each line is a level and an arr
 
 # Non-editable game mechanics variables.
 
+const enemies_on_screen_range = [2, 6] # [min,max]
+
+const waves_per_level_range = [5, 10] # [min, max]
+
+# Editable game mechanics variables
+
 var enemy_difficulty
 
 var enemies_per_wave
 
-var enemies_on_screen_range # default [min,max]
-
-var waves_per_level_range # [min, max]
-
-# Set all of the above (excl. difficulty) to zero for a boss-run-type mode.
+# Enums
 
 enum LASER_MODIFIERS { none, fire, ice, corrosion }
 
@@ -48,36 +50,27 @@ func set_difficulty(difficulty):
 	if use_debug_values:
 		enemy_difficulty = dbg_enemy_difficulty
 		enemies_per_wave = dbg_enemies_per_wave
-		enemies_on_screen_range = dbg_enemies_on_screen_range
-		waves_per_level_range = dbg_waves_per_level_range
 		return
 	
 	match difficulty:
 		DIFFICULTIES.easy:
 			enemy_difficulty = 0.5
 			enemies_per_wave = 6
-			enemies_on_screen_range = [2, 6]
-			waves_per_level_range = [5, 10]
 
 		DIFFICULTIES.medium:
 			enemy_difficulty = 1
 			enemies_per_wave = 10
-			enemies_on_screen_range = [2, 6]
-			waves_per_level_range = [5, 10]
 
 		DIFFICULTIES.hard:
 			enemy_difficulty = 1.5
-			enemies_on_screen_range = [3, 6]
 
 		DIFFICULTIES.nightmare:
 			enemy_difficulty = 2
 			enemies_per_wave = 15
-			enemies_on_screen_range = [4, 8]
 
 		DIFFICULTIES.ultranightmare:
 			enemy_difficulty = 3
 			enemies_per_wave = 20
-			enemies_on_screen_range = [5, 8]
 
 func _ready():
 	if enemy_difficulty == null:
