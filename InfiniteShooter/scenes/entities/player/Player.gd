@@ -145,7 +145,9 @@ func on_enemy_collision(enemy):
 			enemy.create_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
 			enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
 			if health/max_health < 0.50: enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
-		enemy.hurt(enemy.health)
+			enemy.hurt(enemy.health)
+		if enemy.is_in_group("bosses"):
+			enemy.hurt(20)
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
 		impulse_rotation.x = actual_velocity.z * 2
