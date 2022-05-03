@@ -171,11 +171,6 @@ func _process(_delta):
 func _physics_process(delta):
 	if freeze_movement: return
 	translation.z += 2 * speed_mult * delta
-	# If it is such that the center of the ship moves past the bottom of the screen...
-	if translation.z >= Utils.bottom_left.z:
-		if has_node("../Player") and get_node("../Player").godmode == false:
-			get_node("../Player").health -= health  # deduct health from the player
-		explode_ship() # and kill this ship
 
 
 func explode_ship(from_player=false):
@@ -272,3 +267,7 @@ func _on_ship_body_entered(body):
 		body.on_enemy_collision(self)
 	else:
 		explode_ship() # Otherwise the ship collided with something the player can collide with, so it would look weird if it passed through, so... we kill it.
+
+
+func _on_VisibilityNotifier_camera_exited(camera):
+	queue_free()

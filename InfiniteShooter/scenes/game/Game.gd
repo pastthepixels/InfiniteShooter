@@ -40,7 +40,7 @@ export var tutorial_script = [
 	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser. Try it out!",
 	"wait_5",
 	"Optionally, you can press the control key (LB or RB on a controller) to slow time.",
-	"Here comes an enemy ship; don't let it reach the bottom of the screen or it will deduct your health!",
+	"Here comes an enemy ship! SHOOT IT UNTIL IT DIES!",
 	"wait_enemy",
 	"You may have noticed that the enemy may have dropped a powerup. To use it, simply run over it with your ship. Different powerups have different effects, so try them all out!",
 	"If you are, however, sick and tired of powerups only appearing randomly, you can just run into ships. Seriously. Not only will it look cool, but you can also get health or ammo powerups to get you back into the game.",
