@@ -233,7 +233,7 @@ func _on_Enemy_died(ship, from_player):
 
 		# Wave progression
 		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:
-			wave_up()
+			wave_up() # TODO: edit for enemeis that get past the bottom
 
 		# Spawning new enemies
 		if autospawn_enemies == true and\

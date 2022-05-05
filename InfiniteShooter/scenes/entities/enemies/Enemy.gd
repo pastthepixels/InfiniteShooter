@@ -69,35 +69,35 @@ func initialize(difficulty, possible_enemy_types=null):
 			# Sets enemy stats
 			max_health = 80
 			damage = 15
-			speed_mult = 1
+			speed_mult = 2
 
 		GameVariables.ENEMY_TYPES.small:
 			enemy_model = enemy_types["small"].instance()
 			# Sets enemy stats
 			max_health = 20
 			damage = 10
-			speed_mult = 1.5
+			speed_mult = 3
 
 		GameVariables.ENEMY_TYPES.tank:
 			enemy_model = enemy_types["tank"].instance()
 			# Sets enemy stats
 			max_health = 100
 			damage = 10
-			speed_mult = .8
+			speed_mult = 1.6
 		
 		GameVariables.ENEMY_TYPES.gigatank:
 			enemy_model = enemy_types["gigatank"].instance()
 			# Sets enemy stats
 			max_health = 200
 			damage = 20
-			speed_mult = .5
+			speed_mult = 1
 		
 		GameVariables.ENEMY_TYPES.explosive:
 			enemy_model = enemy_types["explosive"].instance()
 			# Sets enemy stats
 			max_health = 10
 			damage = 100
-			speed_mult = .6
+			speed_mult = 1.2
 		
 		GameVariables.ENEMY_TYPES.multishot:
 			enemy_model = enemy_types["multishot"].instance()
@@ -111,7 +111,7 @@ func initialize(difficulty, possible_enemy_types=null):
 			# Sets enemy stats
 			max_health = 70
 			damage = 10
-			speed_mult = .9
+			speed_mult = 1.8
 	
 	# Adds the enemy model
 	add_child(enemy_model)
