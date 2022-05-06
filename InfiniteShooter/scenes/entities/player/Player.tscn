@@ -16,6 +16,7 @@ extents = Vector3( 0.906798, 0.0775551, 0.725836 )
 axis_lock_motion_y = true
 move_lock_y = true
 script = ExtResource( 3 )
+SCREEN_EDGE_MARGIN = 1.5
 
 [node name="ReloadStart" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )

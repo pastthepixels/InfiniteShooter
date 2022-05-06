@@ -14,6 +14,8 @@ var max_health = Saving.default_userdata.health
 var damage = Saving.default_userdata.damage
 
 # Movement variables
+export(float) var SCREEN_EDGE_MARGIN
+
 var speed = 14
 
 var actual_velocity = Vector3()
@@ -95,8 +97,8 @@ func _physics_process(delta):
 		move_and_slide(actual_velocity * speed)
 	
 	# Clamping z positions and wrapping around the screen
-	translation.z = clamp(translation.z, Utils.top_left.z, Utils.bottom_left.z)
-	translation.x = wrapf(translation.x, Utils.top_left.x, Utils.top_right.x)
+	translation.z = clamp(translation.z, Utils.top_left.z + SCREEN_EDGE_MARGIN, Utils.bottom_left.z - SCREEN_EDGE_MARGIN)
+	translation.x = clamp(translation.x, Utils.top_left.x + SCREEN_EDGE_MARGIN, Utils.top_right.x - SCREEN_EDGE_MARGIN)
 
 func slow_time():
 	Engine.time_scale = 0.5
