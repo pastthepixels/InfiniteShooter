@@ -342,6 +342,7 @@ margin_bottom = 100.0
 script = ExtResource( 11 )
 
 [node name="BoundsHelpers" type="Spatial" parent="."]
+visible = false
 
 [node name="Left" type="MeshInstance" parent="BoundsHelpers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 0, 0 )
