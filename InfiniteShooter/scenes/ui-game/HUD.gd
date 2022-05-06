@@ -28,21 +28,21 @@ export (GradientTexture) var ice_gradient
 # Other variables
 onready var status_bar = get_node("HUD/StatusBar")
 
-func _ready():
-	if OS.window_fullscreen == false: # Moves the status bar to the bottom of the screen if the game is in windowed mode 
-		# 1. Reparents the status bar
-		$HUD.remove_child(status_bar)
-		add_child(status_bar)
-		status_bar.set_owner(self)
-		move_child(status_bar, 4)
-		# 2. Moves it to the bottom of the screen like InfiniteShooter used to have with the magic of hard-coding
-		status_bar.anchor_left = 0
-		status_bar.anchor_top = 1
-		status_bar.anchor_right = 1
-		status_bar.anchor_bottom = 1
-		status_bar.rect_size = Vector2(600, 56)
-		status_bar.rect_position = Vector2(0, 744)
-		
+#func _ready():
+#	if OS.window_fullscreen == false: # Moves the status bar to the bottom of the screen if the game is in windowed mode 
+#		# 1. Reparents the status bar
+#		$HUD.remove_child(status_bar)
+#		add_child(status_bar)
+#		status_bar.set_owner(self)
+#		move_child(status_bar, 4)
+#		# 2. Moves it to the bottom of the screen like InfiniteShooter used to have with the magic of hard-coding
+#		status_bar.anchor_left = 0
+#		status_bar.anchor_top = 1
+#		status_bar.anchor_right = 1
+#		status_bar.anchor_bottom = 1
+#		status_bar.rect_size = Vector2(600, 56)
+#		status_bar.rect_position = Vector2(0, 744)
+
 
 func _process(_delta):
 	status_bar.get_node("MarginContainer/Labels/FPS").text = "%s FPS" % Engine.get_frames_per_second()
