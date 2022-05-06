@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/game/walls/WallTiles.tres" type="MeshLibrary" id=1]
-[ext_resource path="res://scenes/game/LeftWall.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/Walls.gd" type="Script" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -9,7 +9,11 @@ albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
-size = Vector3( 0.1, 2, 100 )
+size = Vector3( 0.1, 0.5, 100 )
+
+[sub_resource type="CubeMesh" id=3]
+material = SubResource( 1 )
+size = Vector3( 100, 0.5, 0.1 )
 
 [node name="GameSpace" type="Spatial"]
 
@@ -17,19 +21,50 @@ size = Vector3( 0.1, 2, 100 )
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 25, -30 )
 light_energy = 2.0
 
-[node name="LeftWall" type="GridMap" parent="."]
+[node name="Walls" type="Spatial" parent="."]
+script = ExtResource( 2 )
+boundsX = -12.0
+margin = 2
+
+[node name="LeftWall" type="GridMap" parent="Walls"]
 mesh_library = ExtResource( 1 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
 "cells": PoolIntArray(  )
 }
-script = ExtResource( 2 )
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="RightWall" type="GridMap" parent="Walls"]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray(  )
+}
 __meta__ = {
 "_editor_clip_": 0
 }
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
 mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../MeshInstance")
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+mesh = SubResource( 3 )
 material/0 = null

@@ -195,7 +195,8 @@ func make_enemy():
 	return enemy
 
 func set_random_enemy_position(times_ran=0):
-	var position = Vector3(Utils.random_screen_point(2).x, 0, Utils.top_left.z - (.2 * times_ran))
+	$GameSpace/SpawnLine/PathFollow.unit_offset = rand_range(0, 1)
+	var position = $GameSpace/SpawnLine/PathFollow.translation - Vector3(0, 0, 2)
 	if died == false: $GameSpace/IndicatorArrow.show()
 	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
 	if enemies_in_wave == 0:
