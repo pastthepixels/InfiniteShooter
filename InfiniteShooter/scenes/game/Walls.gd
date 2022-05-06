@@ -3,45 +3,53 @@ extends Spatial
 enum SLANT_TYPES {DOWN, UP, FLAT}
 
 # touch this
-export(float) var boundsX # position from 0 that is where the bounds should be
+export(Vector2) var bounds # Positive vector of bounds from center
 
-export(int) var margin
+export(int) var max_width = 4
+
+export(int) var min_width = 2
 
 # don't touch this
-onready var depth = abs(Utils.top_left.z - Utils.bottom_left.z)
+var buffer_space
 
-onready var max_width = floor(abs(Utils.top_left.x - boundsX))
+onready var left_array = create_width_rows()
 
-onready var min_width = max_width - margin
+onready var right_array = create_width_rows()
 
 func _ready():
+	set_tiles()
+	get_tree().get_root().connect("size_changed", self, "set_tiles")
+
+func set_tiles():
+	visible = (OS.window_size != Vector2(1067, 800))
+	$LeftWall.clear()
+	$RightWall.clear()
+	$LeftWall.translation = Vector3(-bounds.x, 0, -bounds.y)
+	$RightWall.translation = Vector3(bounds.x, 0, -bounds.y)
+	buffer_space = floor(abs(Utils.top_left.x - bounds.x)) - max_width + 1
 	# Left side
-	var width_array_expanded = createWidthRows()
-	$LeftWall.translation = Utils.top_left - Vector3(0.5, 0, 0)
-	for i in width_array_expanded.size():
+	for i in left_array.size():
 		var slant = SLANT_TYPES.FLAT
-		if i-1 >= 0 and width_array_expanded[i-1] < width_array_expanded[i]:
+		if i-1 >= 0 and left_array[i-1] < left_array[i]:
 			slant = SLANT_TYPES.UP
-		if i < width_array_expanded.size()-1 and width_array_expanded[i+1] < width_array_expanded[i]:
+		if i < left_array.size()-1 and left_array[i+1] < left_array[i]:
 			slant = SLANT_TYPES.DOWN
-		setLeftRow(width_array_expanded[i], i, slant)
+		set_left_row(left_array[i], i, slant)
 	
 	# Right side
-	width_array_expanded = createWidthRows()
-	$RightWall.translation = Utils.top_right
-	for i in width_array_expanded.size():
+	for i in right_array.size():
 		var slant = SLANT_TYPES.FLAT
-		if i-1 >= 0 and width_array_expanded[i-1] < width_array_expanded[i]:
+		if i-1 >= 0 and right_array[i-1] < right_array[i]:
 			slant = SLANT_TYPES.UP
-		if i < width_array_expanded.size()-1 and width_array_expanded[i+1] < width_array_expanded[i]:
+		if i < right_array.size()-1 and right_array[i+1] < right_array[i]:
 			slant = SLANT_TYPES.DOWN
-		setRightRow(width_array_expanded[i], i, slant)
+		set_right_row(right_array[i], i, slant)
 
-func createWidthRows():
+func create_width_rows():
 	var width_array = []
 	var width_array_expanded = []
 	var main_width = min_width + 1
-	for i in range(0, ceil(depth/3.0)):
+	for i in range(0, ceil((bounds.y*2)/3.0)):
 		var delta_width = 1 if (randi() & 1 == 1) else -1
 		# Preventing lines at the minimum/maximum width
 		if(i-1 >= 0 and width_array[i-1] == min_width): delta_width = 1
@@ -57,26 +65,32 @@ func createWidthRows():
 		for length in range(0, 3): width_array_expanded.append(main_width)
 	return width_array_expanded
 
-func setLeftRow(width=4, z=0, slant=SLANT_TYPES.FLAT):
+func set_left_row(width=4, z=0, slant=SLANT_TYPES.FLAT):
 	for x in range(0, width):
-		$LeftWall.set_cell_item(x, 0, z, 0, 0)
+		$LeftWall.set_cell_item(x-max_width, 0, z, 0, 0)
 		if x == width - 1:
 			match slant:
 				SLANT_TYPES.FLAT:
-					$LeftWall.set_cell_item(x, 0, z, 0, 0)
+					$LeftWall.set_cell_item(x-max_width, 0, z, 0, 0)
 				SLANT_TYPES.DOWN:
-					$LeftWall.set_cell_item(x, 0, z, 1, 4)
+					$LeftWall.set_cell_item(x-max_width, 0, z, 1, 4)
 				SLANT_TYPES.UP:
-					$LeftWall.set_cell_item(x, 0, z, 1, 12)
+					$LeftWall.set_cell_item(x-max_width, 0, z, 1, 12)
+	
+	for x in range(0, buffer_space):
+		$LeftWall.set_cell_item(-x-max_width, 0, z, 0, 0)
 
-func setRightRow(width=4, z=0, slant=SLANT_TYPES.FLAT):
+func set_right_row(width=4, z=0, slant=SLANT_TYPES.FLAT):
 	for x in range(0, width):
-		$RightWall.set_cell_item(0-x, 0, z, 0, 0)
+		$RightWall.set_cell_item(max_width-x, 0, z, 0, 0)
 		if x == width - 1:
 			match slant:
 				SLANT_TYPES.FLAT:
-					$RightWall.set_cell_item(0-x, 0, z, 0, 0)
+					$RightWall.set_cell_item(max_width-x, 0, z, 0, 0)
 				SLANT_TYPES.DOWN:
-					$RightWall.set_cell_item(0-x, 0, z, 1, 6)
+					$RightWall.set_cell_item(max_width-x, 0, z, 1, 6)
 				SLANT_TYPES.UP:
-					$RightWall.set_cell_item(0-x, 0, z, 1, 14)
+					$RightWall.set_cell_item(max_width-x, 0, z, 1, 14)
+	
+	for x in range(0, buffer_space):
+		$RightWall.set_cell_item(max_width+x, 0, z, 0, 0)

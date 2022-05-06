@@ -30,7 +30,7 @@ LoadingScreen="*res://scenes/loading/LoadingScreen.tscn"
 
 [display]
 
-window/size/width=600
+window/size/width=1067
 window/size/height=800
 
 [gui]

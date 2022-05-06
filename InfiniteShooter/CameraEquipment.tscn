@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
@@ -273,6 +273,18 @@ shader_param/dispersion = -0.01
 shader_param/distort = -0.05
 shader_param/blur_amount = 0.01
 
+[sub_resource type="SpatialMaterial" id=38]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=39]
+material = SubResource( 38 )
+size = Vector3( 0.1, 0.5, 100 )
+
+[sub_resource type="CubeMesh" id=40]
+material = SubResource( 38 )
+size = Vector3( 100, 0.5, 0.1 )
+
 [node name="CameraEquipment" type="Spatial"]
 pause_mode = 2
 script = ExtResource( 3 )
@@ -281,7 +293,7 @@ skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 3
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 15, 0 )
+transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 14.5, 0 )
 current = true
 
 [node name="ShakeCamera" type="Camera2D" parent="."]
@@ -328,3 +340,29 @@ margin_top = -100.0
 margin_right = 100.0
 margin_bottom = 100.0
 script = ExtResource( 11 )
+
+[node name="BoundsHelpers" type="Spatial" parent="."]
+
+[node name="Left" type="MeshInstance" parent="BoundsHelpers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 0, 0 )
+mesh = SubResource( 39 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="Right" type="MeshInstance" parent="BoundsHelpers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 0, 0 )
+mesh = SubResource( 39 )
+skeleton = NodePath("../Left")
+material/0 = null
+
+[node name="Top" type="MeshInstance" parent="BoundsHelpers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10 )
+mesh = SubResource( 40 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="Bottom" type="MeshInstance" parent="BoundsHelpers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+mesh = SubResource( 40 )
+skeleton = NodePath("../..")
+material/0 = null

@@ -148,7 +148,7 @@ func save_settings(settings):
 	# Makes the window fullscreen if desired
 	OS.window_fullscreen = settings["fullscreen"]
 	if settings["fullscreen"] == false:
-		OS.window_size = Vector2(600, 800)
+		OS.window_size = Vector2(1067, 800)
 	
 	# Sets difficulty
 	GameVariables.set_difficulty(int(settings["difficulty"]))
