@@ -231,7 +231,7 @@ func _on_Enemy_died(ship):
 		score += ceil(ship.max_health/2)
 		points += ceil(ship.max_health/2)
 		$HUD.update_points(points)
-	_on_Enemy_exited_screen(ship)
+		_on_Enemy_exited_screen(ship)
 
 func _on_Enemy_exited_screen(ship):
 		# Wave progression
