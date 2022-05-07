@@ -19,15 +19,17 @@ onready var left_array = create_width_rows()
 onready var right_array = create_width_rows()
 
 func _ready():
+	$LeftWall.translation = Vector3(-bounds.x, 0, -bounds.y)
+	$RightWall.translation = Vector3(bounds.x, 0, -bounds.y)
 	set_tiles()
 	get_tree().get_root().connect("size_changed", self, "set_tiles")
 
 func set_tiles():
 	visible = (OS.window_size != Vector2(1067, 800))
+	$LeftWall.translation.x = -bounds.x
+	$RightWall.translation.x = bounds.x
 	$LeftWall.clear()
 	$RightWall.clear()
-	$LeftWall.translation = Vector3(-bounds.x, 0, -bounds.y)
-	$RightWall.translation = Vector3(bounds.x, 0, -bounds.y)
 	buffer_space = floor(abs(Utils.top_left.x - bounds.x)) - max_width + 1
 	# Left side
 	for i in left_array.size():
@@ -39,6 +41,8 @@ func set_tiles():
 		set_left_row(left_array[i], i, slant)
 		# Draws UP
 		set_left_row(left_array[i], -left_array.size() + i, slant)
+		# Draws a sort of "bleed" because, in short, we can actually see the bottom of the walls and there would be some flickering when we wrap them around
+		if i == left_array.size() - 1: set_left_row(left_array[i], -left_array.size() - 1, slant)
 	
 	# Right side
 	for i in right_array.size():
@@ -49,7 +53,9 @@ func set_tiles():
 			slant = SLANT_TYPES.DOWN
 		set_right_row(right_array[i], i, slant)
 		# Draws UP
-		set_right_row(right_array[i], -left_array.size() + i, slant)
+		set_right_row(right_array[i], -right_array.size() + i, slant)
+		# Draws a sort of "bleed" because, in short, we can actually see the bottom of the walls and there would be some flickering when we wrap them around
+		if i == right_array.size() - 1: set_right_row(right_array[i], -right_array.size() - 1, slant)
 
 func create_width_rows():
 	var width_array = []
@@ -109,6 +115,6 @@ func set_right_row(width=4, z=0, slant=SLANT_TYPES.FLAT):
 
 # movemtn (sic)
 func _physics_process(delta):
-	translation.z += speed * delta * CameraEquipment.get_node("SkyAnimations").playback_speed
-	if translation.z >= left_array.size(): # Don't worry about this. left_array.size() == right_array.size()
-		translation.z = 0
+	var delta_translation = speed * delta * CameraEquipment.get_node("SkyAnimations").playback_speed
+	$LeftWall.translation.z = -bounds.y if $LeftWall.translation.z >= left_array.size()-bounds.y else $LeftWall.translation.z + delta_translation
+	$RightWall.translation.z = -bounds.y if $RightWall.translation.z >= right_array.size()-bounds.y else $RightWall.translation.z + delta_translation
