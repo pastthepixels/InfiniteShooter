@@ -139,32 +139,35 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 1, 1, 1, 0.27451 )
+border_color = Color( 1, 1, 1, 0.188235 )
 
 [sub_resource type="Gradient" id=18]
-colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 0.313726, 1, 1, 1, 0.313726 )
+colors = PoolColorArray( 1, 1, 1, 0.25098, 1, 1, 1, 0.25098 )
 
 [sub_resource type="GradientTexture" id=19]
 gradient = SubResource( 18 )
+width = 1
 
 [sub_resource type="Gradient" id=20]
 colors = PoolColorArray( 0.266667, 0.784314, 0.254902, 1, 0, 1, 0.115, 1 )
 
 [sub_resource type="GradientTexture" id=21]
 gradient = SubResource( 20 )
-width = 512
+width = 128
 
 [sub_resource type="Gradient" id=23]
-colors = PoolColorArray( 0.560784, 0.560784, 0.560784, 0.588235, 0.627451, 0.627451, 0.627451, 0.627451 )
+colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0.392157 )
 
 [sub_resource type="GradientTexture" id=24]
 gradient = SubResource( 23 )
+width = 1
 
 [sub_resource type="Gradient" id=25]
 colors = PoolColorArray( 0.2, 0.2, 0.2, 1, 0.266667, 0.266667, 0.266667, 1 )
 
 [sub_resource type="GradientTexture" id=26]
 gradient = SubResource( 25 )
+width = 128
 
 [sub_resource type="StyleBoxFlat" id=34]
 bg_color = Color( 1, 1, 1, 0.156863 )
@@ -375,7 +378,7 @@ margin_top = 7.0
 margin_right = 187.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 180, 26 )
-value = 50.0
+value = 60.0
 texture_under = SubResource( 19 )
 texture_progress = SubResource( 21 )
 nine_patch_stretch = true
@@ -407,9 +410,6 @@ value = 50.0
 texture_under = SubResource( 24 )
 texture_progress = SubResource( 26 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Refills" type="Label" parent="HUD/ProgressBars/AmmoBar"]
 anchor_left = 1.0
