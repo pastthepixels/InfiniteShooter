@@ -9,6 +9,8 @@ export(int) var max_width = 4
 
 export(int) var min_width = 2
 
+export(float) var speed
+
 # don't touch this
 var buffer_space
 
@@ -35,6 +37,8 @@ func set_tiles():
 		if i < left_array.size()-1 and left_array[i+1] < left_array[i]:
 			slant = SLANT_TYPES.DOWN
 		set_left_row(left_array[i], i, slant)
+		# Draws UP
+		set_left_row(left_array[i], -left_array.size() + i, slant)
 	
 	# Right side
 	for i in right_array.size():
@@ -44,6 +48,8 @@ func set_tiles():
 		if i < right_array.size()-1 and right_array[i+1] < right_array[i]:
 			slant = SLANT_TYPES.DOWN
 		set_right_row(right_array[i], i, slant)
+		# Draws UP
+		set_right_row(right_array[i], -left_array.size() + i, slant)
 
 func create_width_rows():
 	var width_array = []
@@ -60,6 +66,12 @@ func create_width_rows():
 		#
 		main_width += delta_width
 		main_width = clamp(main_width, min_width, max_width)
+		width_array.append(main_width)
+		#
+		for length in range(0, 3): width_array_expanded.append(main_width)
+	# symmetry
+	while main_width != width_array[0]:
+		main_width += 1 if main_width < width_array[0] else -1
 		width_array.append(main_width)
 		#
 		for length in range(0, 3): width_array_expanded.append(main_width)
@@ -94,3 +106,9 @@ func set_right_row(width=4, z=0, slant=SLANT_TYPES.FLAT):
 	
 	for x in range(0, buffer_space):
 		$RightWall.set_cell_item(max_width+x, 0, z, 0, 0)
+
+# movemtn (sic)
+func _physics_process(delta):
+	translation.z += speed * delta
+	if translation.z >= left_array.size(): # Don't worry about this. left_array.size() == right_array.size()
+		translation.z = 0

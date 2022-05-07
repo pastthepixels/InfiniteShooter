@@ -12,6 +12,7 @@ light_energy = 2.0
 [node name="Walls" type="Spatial" parent="."]
 script = ExtResource( 2 )
 bounds = Vector2( 13.333, 10 )
+speed = 5.0
 
 [node name="LeftWall" type="GridMap" parent="Walls"]
 mesh_library = ExtResource( 1 )
