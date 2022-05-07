@@ -72,6 +72,7 @@ func generate_rand_sky_num():
 # _process()
 #
 func _process(delta):
+	$FrameCounter.text = "%s FPS" % Engine.get_frames_per_second()
 	# Lerping distortion/dispersion
 	if _animate_warp_dispersion == true and get_tree().paused == false and $LensDistortion.visible:
 		set_distortion(

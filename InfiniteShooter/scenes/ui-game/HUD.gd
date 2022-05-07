@@ -45,7 +45,6 @@ onready var status_bar = get_node("HUD/StatusBar")
 
 
 func _process(_delta):
-	status_bar.get_node("MarginContainer/Labels/FPS").text = "%s FPS" % Engine.get_frames_per_second()
 	if _previous_health != animated_health:
 		_previous_health = animated_health
 		$HUD/ProgressBars/HealthBar.value = animated_health

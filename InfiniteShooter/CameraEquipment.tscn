@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/bits/ShakeCamera.gd" type="Script" id=1]
 [ext_resource path="res://MainEnvironment.tres" type="Environment" id=2]
 [ext_resource path="res://CameraEquipment.gd" type="Script" id=3]
 [ext_resource path="res://resources/LensDistortion.gdshader" type="Shader" id=4]
-[ext_resource path="res://resources/grid.png" type="Texture" id=5]
 [ext_resource path="res://images/space.hdr" type="Texture" id=6]
 [ext_resource path="res://images/space2.hdr" type="Texture" id=7]
 [ext_resource path="res://images/space3.hdr" type="Texture" id=8]
@@ -267,12 +266,6 @@ tracks/4/keys = {
 "values": [ Vector3( -90, 10, 0 ), Vector3( -90, -4.78528e-21, 0 ) ]
 }
 
-[sub_resource type="ShaderMaterial" id=32]
-shader = ExtResource( 4 )
-shader_param/dispersion = -0.01
-shader_param/distort = -0.05
-shader_param/blur_amount = 0.01
-
 [sub_resource type="SpatialMaterial" id=38]
 flags_unshaded = true
 albedo_color = Color( 1, 0, 0, 1 )
@@ -285,25 +278,30 @@ size = Vector3( 0.1, 0.5, 100 )
 material = SubResource( 38 )
 size = Vector3( 100, 0.5, 0.1 )
 
+[sub_resource type="ShaderMaterial" id=32]
+shader = ExtResource( 4 )
+shader_param/dispersion = -0.01
+shader_param/distort = -0.05
+shader_param/blur_amount = 0.01
+
+[sub_resource type="DynamicFontData" id=68]
+font_path = "res://resources/font.ttf"
+
+[sub_resource type="DynamicFont" id=69]
+extra_spacing_char = 1
+font_data = SubResource( 68 )
+
+[sub_resource type="StyleBoxFlat" id=70]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0, 0, 0, 0.588235 )
+
 [node name="CameraEquipment" type="Spatial"]
 pause_mode = 2
 script = ExtResource( 3 )
 skies = [ SubResource( 1 ), SubResource( 33 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ]
-
-[node name="Tween" type="Tween" parent="."]
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 14.5, 0 )
-current = true
-
-[node name="ShakeCamera" type="Camera2D" parent="."]
-position = Vector2( 300, 400 )
-rotating = true
-current = true
-smoothing_enabled = true
-script = ExtResource( 1 )
-max_roll = 0.15
-max_trauma = 0.6
 
 [node name="SkyAnimations" type="AnimationPlayer" parent="."]
 pause_mode = 1
@@ -317,29 +315,11 @@ pause_mode = 1
 anims/RESET = SubResource( 5 )
 anims/ZoomOut = SubResource( 6 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 2 )
+[node name="Tween" type="Tween" parent="."]
 
-[node name="LensTest" type="TextureRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 5 )
-expand = true
-
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-copy_mode = 2
-
-[node name="LensDistortion" type="ColorRect" parent="."]
-light_mask = 524289
-material = SubResource( 32 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -100.0
-margin_top = -100.0
-margin_right = 100.0
-margin_bottom = 100.0
-script = ExtResource( 11 )
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 8.35189e-23, 3.65073e-30, 0, -4.37114e-08, 1, 8.35189e-23, -1, -4.37114e-08, 0, 14.5, 0 )
+current = true
 
 [node name="BoundsHelpers" type="Spatial" parent="."]
 visible = false
@@ -367,3 +347,44 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
 mesh = SubResource( 40 )
 skeleton = NodePath("../..")
 material/0 = null
+
+[node name="ShakeCamera" type="Camera2D" parent="."]
+position = Vector2( 533.5, 400 )
+rotating = true
+current = true
+smoothing_enabled = true
+script = ExtResource( 1 )
+max_roll = 0.15
+max_trauma = 0.6
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+
+[node name="LensDistortion" type="ColorRect" parent="."]
+light_mask = 524289
+material = SubResource( 32 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FrameCounter" type="Label" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 26.0
+custom_colors/font_color = Color( 0.172549, 1, 0, 1 )
+custom_fonts/font = SubResource( 69 )
+custom_styles/normal = SubResource( 70 )
+text = "0 FPS"
+align = 1
+valign = 1
