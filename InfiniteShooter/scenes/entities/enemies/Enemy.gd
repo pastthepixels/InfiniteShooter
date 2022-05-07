@@ -32,6 +32,8 @@ var powerup_type = null
 
 signal died(this, from_player)
 
+signal exited_screen(this)
+
 # Laser modifiers
 
 var freeze_movement = false
@@ -270,4 +272,7 @@ func _on_ship_body_entered(body):
 
 
 func _on_VisibilityNotifier_camera_exited(camera):
+	remove_from_group("enemies")
+	emit_signal("exited_screen", self)
+	yield(get_tree(), "idle_frame")
 	queue_free()

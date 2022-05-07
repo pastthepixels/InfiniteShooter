@@ -176,6 +176,7 @@ func make_enemy():
 	var enemy = enemy_scene.instance()
 	if use_laser_modifiers == false: enemy.use_laser_modifiers = false
 	enemy.connect("died", self, "_on_Enemy_died")
+	enemy.connect("exited_screen", self, "_on_Enemy_exited_screen")
 
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = next_enemy_position
@@ -231,7 +232,9 @@ func _on_Enemy_died(ship, from_player):
 			score += ceil(ship.max_health/2)
 			points += ceil(ship.max_health/2)
 		$HUD.update_points(points)
+	_on_Enemy_exited_screen(ship)
 
+func _on_Enemy_exited_screen(ship):
 		# Wave progression
 		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:
 			wave_up() # TODO: edit for enemeis that get past the bottom
