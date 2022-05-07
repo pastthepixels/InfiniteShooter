@@ -69,7 +69,9 @@ func _ready():
 	CameraEquipment.get_node("CameraAnimations").stop()
 	CameraEquipment.get_node("CameraAnimations").play("ZoomOut")
 	# HUD stuff
-	if waves_per_level > 0: $HUD.update_level(level, 100 * wave/waves_per_level)
+	if waves_per_level > 0:
+		$HUD.update_level(level, 100 * wave/waves_per_level)
+		$HUD.update_wave(wave, 100 * 1/GameVariables.enemies_per_wave)
 	# Begins the countdown/shows the tutorial/plays appropiate music
 	if Saving.get_tutorial_progress()["initial"] == true:
 		$Countdown.start()
