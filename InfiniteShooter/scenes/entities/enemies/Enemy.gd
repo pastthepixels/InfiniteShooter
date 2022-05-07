@@ -20,8 +20,6 @@ onready var use_homing_lasers = rand_range(0, 1) > .5
 
 var use_laser_modifiers = (randi() % 10 == 1)
 
-var last_hit_from
-
 # Powerups
 
 onready var create_powerup = randi() % 4 == 1
@@ -30,7 +28,7 @@ var powerup_type = null
 
 # Death
 
-signal died(this, from_player)
+signal died(this)
 
 signal exited_screen(this)
 
@@ -175,9 +173,7 @@ func _physics_process(delta):
 	translation.z += 2 * speed_mult * delta
 
 
-func explode_ship(from_player=false):
-	# Ensures last_hit_from is null
-	last_hit_from = null
+func explode_ship():
 	alive = false
 	
 	# Stops moving
@@ -198,7 +194,7 @@ func explode_ship(from_player=false):
 			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
-	emit_signal("died", self, from_player)
+	emit_signal("died", self)
 	# Powerups (1/4 chance to create a powerup)
 	if create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
@@ -255,11 +251,7 @@ func update_health():
 		$HealthBar2D.visible = true
 		$HealthBar2D.health = health
 	if health <= 0 and alive == true:
-		if last_hit_from != null and is_instance_valid(last_hit_from) and (last_hit_from.get_parent().is_in_group("players") || last_hit_from.is_in_group("players")):
-			explode_ship(true)
-		else:
-			explode_ship()
-	last_hit_from = null
+		explode_ship()
 
 func hurt(damage):
 	health -= damage

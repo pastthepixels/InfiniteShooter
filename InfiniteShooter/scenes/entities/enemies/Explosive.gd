@@ -12,5 +12,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_Area_area_entered(area):
 	if area.get_parent().is_in_group("enemies"):
-		area.get_parent().last_hit_from = get_parent().last_hit_from
 		area.get_parent().health -= get_parent().damage

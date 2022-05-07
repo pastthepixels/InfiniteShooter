@@ -225,12 +225,11 @@ func _on_Boss_died(_boss):
 		points += 1000
 		$HUD.update_points(points)
 
-func _on_Enemy_died(ship, from_player):
+func _on_Enemy_died(ship):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
-		# Score
-		if from_player:
-			score += ceil(ship.max_health/2)
-			points += ceil(ship.max_health/2)
+		# Score: "If an enemy didn't just slip away past the bottom of the screen, that means you probably killed it!"
+		score += ceil(ship.max_health/2)
+		points += ceil(ship.max_health/2)
 		$HUD.update_points(points)
 	_on_Enemy_exited_screen(ship)
 

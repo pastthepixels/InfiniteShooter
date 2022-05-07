@@ -43,8 +43,6 @@ func start_ice():
 func _on_BleedTimer_timeout():
 	if get_node(ship).health > 0:
 		get_node(ship).health -= 5
-		if sender != null and get_node(ship).is_in_group("enemies"):
-			get_node(ship).last_hit_from = sender
 	else:
 		$AnimationPlayer.play("fade_sounds")
 

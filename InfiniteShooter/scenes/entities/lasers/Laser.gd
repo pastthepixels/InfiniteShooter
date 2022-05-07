@@ -95,7 +95,6 @@ func _on_Laser_area_entered(area):
 		return # If a timer deeming if a laser would be in a ship (one second max) is running and the laser is colliding with its sender, there's a good chance it spawned in its sender. Just return this function.
 	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().hurt(damage) # subtract health from the enemy
-		if area.get_parent().is_in_group("enemies"): area.get_parent().last_hit_from = sender
 		# Laser modifiers
 		handle_modifiers(area.get_parent())
 		remove_laser(true)  # Removes the laser
