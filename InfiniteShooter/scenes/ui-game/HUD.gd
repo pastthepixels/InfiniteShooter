@@ -40,17 +40,17 @@ func _process(_delta):
 # Updating the status bar
 #
 func update_points(points):
-	status_bar.get_node("MarginContainer/Labels/Points").text = "%s points" % points
+	status_bar.get_node("MarginContainer/Labels/Points").text = "%s" % points
 
 
 func update_level(level, progress):
 	status_bar.get_node("MarginContainer/Labels/Level/Label").text = "Level %s" % level
-	status_bar.get_node("MarginContainer/Labels/Level").value = progress
+	status_bar.get_node("MarginContainer/Labels/Level/Progress").value = progress
 
 
 func update_wave(wave, progress):
 	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Wave %s" % wave
-	status_bar.get_node("MarginContainer/Labels/Wave").value = progress
+	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = progress
 
 #
 # Updating the top bars
@@ -70,7 +70,7 @@ func update_gradient(texture):
 			$HUD/ProgressBars.texture = default_gradient
 
 
-func update_health(value):
+func update_health(value, hp):
 	$ProgressTween.interpolate_property(
 		self,
 		"animated_health",
@@ -80,6 +80,9 @@ func update_health(value):
 		Tween.TRANS_LINEAR,
 		Tween.EASE_IN
 	)
+	
+	$HUD/ProgressBars/HealthBar/HealthPoints.text = String(hp)
+	
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
 

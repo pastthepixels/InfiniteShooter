@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -133,6 +133,14 @@ tracks/0/keys = {
 shader = ExtResource( 2 )
 shader_param/lod = 2.0
 
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.27451 )
+
 [sub_resource type="Gradient" id=18]
 colors = PoolColorArray( 0.133333, 0.133333, 0.133333, 0.313726, 1, 1, 1, 0.313726 )
 
@@ -145,14 +153,6 @@ colors = PoolColorArray( 0.266667, 0.784314, 0.254902, 1, 0, 1, 0.115, 1 )
 [sub_resource type="GradientTexture" id=21]
 gradient = SubResource( 20 )
 width = 512
-
-[sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0, 0, 0, 0 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 1, 1, 1, 0.0784314 )
 
 [sub_resource type="Gradient" id=23]
 colors = PoolColorArray( 0.560784, 0.560784, 0.560784, 0.588235, 0.627451, 0.627451, 0.627451, 0.627451 )
@@ -178,6 +178,12 @@ border_color = Color( 1, 1, 1, 0.27451 )
 shader = ExtResource( 2 )
 shader_param/lod = 2.0
 
+[sub_resource type="StyleBoxEmpty" id=65]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+
 [sub_resource type="Gradient" id=14]
 offsets = PoolRealArray( 0.00387597, 1 )
 colors = PoolColorArray( 0, 0, 0, 0.694118, 0, 0, 0, 0.45098 )
@@ -192,6 +198,18 @@ colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
 [sub_resource type="GradientTexture" id=17]
 gradient = SubResource( 16 )
 width = 32
+
+[sub_resource type="StyleBoxFlat" id=66]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 5.0
+content_margin_bottom = 4.0
+bg_color = Color( 1, 1, 1, 0.25098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.392157 )
 
 [sub_resource type="Shader" id=31]
 code = "/* Modified from https://godotshaders.com/shader/color-vignetting/, by randomDam and licensed under CC0 */
@@ -313,12 +331,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="HUD" type="VBoxContainer" parent="."]
+[node name="HUD" type="Control" parent="."]
 margin_left = 40.0
 margin_top = 40.0
-margin_right = 307.0
-margin_bottom = 142.0
-custom_constants/separation = 16
+margin_right = 279.0
+margin_bottom = 151.0
 
 [node name="ProgressBars" type="TextureRect" parent="HUD"]
 margin_right = 180.0
@@ -342,9 +359,15 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = 5.0
 margin_bottom = -5.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Highlight" type="Panel" parent="HUD/ProgressBars"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = -7.0
+custom_styles/panel = SubResource( 30 )
 
 [node name="HealthBar" type="TextureProgress" parent="HUD/ProgressBars"]
 margin_left = 7.0
@@ -357,13 +380,22 @@ texture_under = SubResource( 19 )
 texture_progress = SubResource( 21 )
 nine_patch_stretch = true
 
-[node name="Highlight" type="Panel" parent="HUD/ProgressBars/HealthBar"]
+[node name="HealthPoints" type="Label" parent="HUD/ProgressBars/HealthBar"]
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 30 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 10.0
+margin_top = -1.0
+margin_right = 25.0
+margin_bottom = 2.0
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 0.415686, 1, 0.121569, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "100"
+valign = 1
 
 [node name="AmmoBar" type="TextureProgress" parent="HUD/ProgressBars"]
 margin_left = 7.0
@@ -389,26 +421,20 @@ margin_right = 25.0
 margin_bottom = 2.0
 theme = ExtResource( 5 )
 custom_colors/font_color_shadow = Color( 0.286275, 0.286275, 0.286275, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
 text = "8"
-
-[node name="Highlight" type="Panel" parent="HUD/ProgressBars/AmmoBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 180, 14 )
-custom_styles/panel = SubResource( 30 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+valign = 1
 
 [node name="StatusBar" type="PanelContainer" parent="HUD"]
 margin_top = 72.0
-margin_right = 267.0
-margin_bottom = 124.0
+margin_right = 78.0
+margin_bottom = 111.0
 theme = ExtResource( 5 )
 custom_styles/panel = SubResource( 34 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
+"_edit_group_": true
 }
 
 [node name="Blur" type="ColorRect" parent="HUD/StatusBar"]
@@ -416,8 +442,8 @@ show_behind_parent = true
 material = SubResource( 35 )
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 265.0
-margin_bottom = 50.0
+margin_right = 218.0
+margin_bottom = 47.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -425,8 +451,8 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="HUD/StatusBar"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 265.0
-margin_bottom = 50.0
+margin_right = 218.0
+margin_bottom = 47.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 8
 custom_constants/margin_left = 10
@@ -435,66 +461,79 @@ custom_constants/margin_bottom = 8
 [node name="Labels" type="HBoxContainer" parent="HUD/StatusBar/MarginContainer"]
 margin_left = 10.0
 margin_top = 8.0
-margin_right = 253.0
-margin_bottom = 40.0
+margin_right = 206.0
+margin_bottom = 37.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Level" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
-show_behind_parent = true
+[node name="Level" type="MarginContainer" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_right = 70.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 70, 32 )
-texture_under = SubResource( 15 )
-texture_progress = SubResource( 17 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 29.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="HUD/StatusBar/MarginContainer/Labels/Level"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -27.0
-margin_top = -9.5
-margin_right = 27.0
-margin_bottom = 9.5
+margin_right = 70.0
+margin_bottom = 29.0
+custom_styles/normal = SubResource( 65 )
 text = "Level 0"
+align = 1
+valign = 1
 
-[node name="Wave" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels"]
+[node name="Progress" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels/Level"]
 show_behind_parent = true
-margin_left = 85.0
-margin_right = 155.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 70, 32 )
+margin_right = 70.0
+margin_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
 texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Wave" type="MarginContainer" parent="HUD/StatusBar/MarginContainer/Labels"]
+margin_left = 85.0
+margin_right = 156.0
+margin_bottom = 29.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="HUD/StatusBar/MarginContainer/Labels/Wave"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -27.5
-margin_top = -9.5
-margin_right = 27.5
-margin_bottom = 9.5
+margin_right = 71.0
+margin_bottom = 29.0
+custom_styles/normal = SubResource( 65 )
 text = "Wave 0"
+align = 1
+valign = 1
+
+[node name="Progress" type="TextureProgress" parent="HUD/StatusBar/MarginContainer/Labels/Wave"]
+show_behind_parent = true
+margin_right = 71.0
+margin_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+texture_under = SubResource( 15 )
+texture_progress = SubResource( 17 )
+nine_patch_stretch = true
 
 [node name="Points" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
-margin_left = 170.0
-margin_top = 6.0
-margin_right = 229.0
-margin_bottom = 25.0
-text = "0 points"
+margin_left = 171.0
+margin_right = 196.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 1, 0.823529, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_styles/normal = SubResource( 66 )
+text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }

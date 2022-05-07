@@ -251,7 +251,7 @@ func _on_Enemy_exited_screen(ship):
 func _on_Player_died():
 	died = true
 	$PauseMenu.set_process_input(false)
-	$HUD.update_health(0)
+	$HUD.update_health(0, 0)
 	$GameSpace/IndicatorArrow.hide()
 	$HUD/AnimationPlayer.play("fade_out")
 	$GameMusic.autoswitch = false
@@ -267,7 +267,7 @@ func _on_Player_ammo_changed(value, refills):
 
 
 func _on_Player_health_changed(value):
-	$HUD.update_health(value)
+	$HUD.update_health(value, $GameSpace/Player.health)
 
 
 func _on_Player_set_modifier():
