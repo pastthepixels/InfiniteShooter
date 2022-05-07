@@ -109,6 +109,6 @@ func set_right_row(width=4, z=0, slant=SLANT_TYPES.FLAT):
 
 # movemtn (sic)
 func _physics_process(delta):
-	translation.z += speed * delta
+	translation.z += speed * delta * CameraEquipment.get_node("SkyAnimations").playback_speed
 	if translation.z >= left_array.size(): # Don't worry about this. left_array.size() == right_array.size()
 		translation.z = 0
