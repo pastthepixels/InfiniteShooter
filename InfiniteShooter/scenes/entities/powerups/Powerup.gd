@@ -52,6 +52,7 @@ func _on_Powerup_body_entered(body):
 
 				GameVariables.POWERUP_TYPES.wipe:
 					body.modifier = GameVariables.LASER_MODIFIERS.none
+					body.emit_signal("set_modifier")
 					for enemy in get_tree().get_nodes_in_group("enemies"):
 						enemy.health = 0
 		else:
