@@ -1,245 +1,67 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=2]
+[ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/upgrades/Upgrades.gd" type="Script" id=4]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/upgrades/UpgradeLabel.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/upgrades/NameGenerator.gd" type="Script" id=8]
 
-[sub_resource type="Animation" id=5]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ false ]
-}
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "close"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 2, 2 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 2, 2, 2 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.01 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-
-[sub_resource type="Animation" id=7]
-resource_name = "open"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 0.5, 0.5, 0.5 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1, 0.01 ), Vector2( 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-
-[sub_resource type="DynamicFont" id=4]
-size = 64
-font_data = ExtResource( 1 )
-
-[node name="Upgrades" type="Control"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -400.0
-margin_right = 300.0
-margin_bottom = 400.0
-rect_pivot_offset = Vector2( 300, 400 )
-theme = ExtResource( 2 )
+[node name="Upgrades" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 upgrade_label = ExtResource( 7 )
 name_generator = ExtResource( 8 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 5 )
-anims/close = SubResource( 6 )
-anims/open = SubResource( 7 )
-
-[node name="Background" parent="." instance=ExtResource( 6 )]
-
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-options_path = NodePath("../Content/Options")
-
-[node name="Content" type="VBoxContainer" parent="."]
-margin_left = 50.0
-margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 40.0
-custom_constants/separation = 20
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Content"]
-margin_right = 256.0
-margin_bottom = 65.0
-custom_fonts/font = SubResource( 4 )
+[node name="Title" parent="Content" index="0"]
 text = "upgrades"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Stats" type="HBoxContainer" parent="Content"]
+[node name="Stats" type="HBoxContainer" parent="Content" index="1"]
 margin_top = 85.0
-margin_right = 256.0
-margin_bottom = 104.0
+margin_right = 530.0
+margin_bottom = 114.0
 custom_constants/separation = 20
 
-[node name="Points" type="Label" parent="Content/Stats"]
-margin_right = 59.0
-margin_bottom = 19.0
+[node name="Points" type="Label" parent="Content/Stats" index="0"]
+margin_right = 69.0
+margin_bottom = 29.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/normal = SubResource( 1 )
 text = "0 points"
 
-[node name="ColorRect" type="ColorRect" parent="Content/Stats/Points"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 5.0
-margin_bottom = 5.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Damage" type="Label" parent="Content/Stats"]
-margin_left = 79.0
-margin_right = 161.0
-margin_bottom = 19.0
+[node name="Damage" type="Label" parent="Content/Stats" index="1"]
+margin_left = 89.0
+margin_top = 5.0
+margin_right = 171.0
+margin_bottom = 24.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "30 damage"
 
-[node name="Health" type="Label" parent="Content/Stats"]
-margin_left = 181.0
-margin_right = 256.0
-margin_bottom = 19.0
+[node name="Health" type="Label" parent="Content/Stats" index="2"]
+margin_left = 191.0
+margin_top = 5.0
+margin_right = 266.0
+margin_bottom = 24.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
 text = "100 health"
 
-[node name="Options" type="VBoxContainer" parent="Content"]
-margin_top = 124.0
-margin_right = 256.0
-margin_bottom = 165.0
+[node name="Options" type="VBoxContainer" parent="Content" index="2"]
+margin_top = 134.0
+margin_right = 530.0
+margin_bottom = 175.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Label" parent="Content/Options"]
-margin_right = 256.0
+[node name="Back" type="Label" parent="Content/Options" index="0"]
+margin_right = 530.0
 margin_bottom = 19.0
 text = "done"
 valign = 1
@@ -247,13 +69,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/Options" groups=["selectsquare_ignore"]]
+[node name="Separator" type="ColorRect" parent="Content/Options" index="1" groups=["selectsquare_ignore"]]
 margin_top = 39.0
-margin_right = 256.0
+margin_right = 530.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 0, 2 )
 
-[node name="Alert" parent="." instance=ExtResource( 5 )]
+[node name="SelectSquare" parent="." index="3" instance=ExtResource( 3 )]
+options_path = NodePath("../Content/Options")
+
+[node name="Alert" parent="." index="4" instance=ExtResource( 5 )]
 visible = false
 
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

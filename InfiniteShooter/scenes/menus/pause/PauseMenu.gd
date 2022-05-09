@@ -31,6 +31,7 @@ func toggle_pause():
 	
 	if is_visible():
 		$Title.text = "not paused"
+		rect_pivot_offset = rect_size/2
 		$AnimationPlayer.play("FadeOut")
 		yield($AnimationPlayer, "animation_finished")
 	else:

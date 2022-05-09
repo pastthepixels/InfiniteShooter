@@ -216,10 +216,9 @@ __meta__ = {
 }
 
 [node name="Leaderboard" parent="." instance=ExtResource( 3 )]
-visible = false
+theme = null
 
 [node name="Settings" parent="." instance=ExtResource( 5 )]
-visible = false
 
 [node name="Alert" parent="." instance=ExtResource( 9 )]
 

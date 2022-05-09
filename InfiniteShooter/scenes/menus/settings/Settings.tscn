@@ -1,114 +1,14 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/menus/settings/Settings.gd" type="Script" id=1]
-[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=4]
-[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/settings/KeyPopup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=8]
 
-[sub_resource type="Animation" id=9]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "close"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 2, 2 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 2, 2, 2 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.01 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "open"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 0.5, 0.5, 0.5 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1, 0.01 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="DynamicFont" id=4]
-size = 64
-font_data = ExtResource( 2 )
+[sub_resource type="StyleBoxEmpty" id=20]
+content_margin_left = 10.0
 
 [sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 1, 1, 1, 1 )
@@ -124,7 +24,7 @@ content_margin_left = 5.0
 content_margin_right = 5.0
 bg_color = Color( 1, 1, 1, 0.392157 )
 
-[sub_resource type="Theme" id=14]
+[sub_resource type="Theme" id=17]
 VScrollBar/styles/grabber = SubResource( 12 )
 VScrollBar/styles/grabber_highlight = SubResource( 15 )
 VScrollBar/styles/grabber_pressed = SubResource( 16 )
@@ -133,77 +33,56 @@ VScrollBar/styles/scroll = SubResource( 13 )
 [sub_resource type="Gradient" id=5]
 colors = PoolColorArray( 1, 1, 1, 0.392157, 1, 1, 1, 0.509804 )
 
-[sub_resource type="GradientTexture" id=6]
+[sub_resource type="GradientTexture" id=18]
 gradient = SubResource( 5 )
 width = 1024
 
 [sub_resource type="Gradient" id=7]
 colors = PoolColorArray( 0.133333, 1, 0.133333, 1, 0.27451, 1, 0.27451, 1 )
 
-[sub_resource type="GradientTexture" id=8]
+[sub_resource type="GradientTexture" id=19]
 gradient = SubResource( 7 )
 
-[node name="Settings" type="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -400.0
-margin_right = 300.0
-margin_bottom = 400.0
-rect_pivot_offset = Vector2( 300, 400 )
-rect_clip_content = true
-theme = ExtResource( 4 )
+[node name="Settings" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 9 )
-anims/close = SubResource( 10 )
-anims/open = SubResource( 11 )
-
-[node name="Background" parent="." instance=ExtResource( 5 )]
-
-[node name="Content" type="VBoxContainer" parent="."]
-margin_left = 50.0
-margin_top = 40.0
-margin_right = 443.0
-margin_bottom = 754.0
-custom_constants/separation = 20
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Content"]
-margin_right = 500.0
-margin_bottom = 65.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0.25098 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
-custom_fonts/font = SubResource( 4 )
+[node name="Title" parent="Content" index="0"]
+custom_styles/normal = SubResource( 20 )
 text = "settings"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Content"]
-show_behind_parent = true
+[node name="MarginContainer" type="MarginContainer" parent="Content" index="1"]
 margin_top = 85.0
-margin_right = 500.0
-margin_bottom = 710.0
+margin_right = 520.0
+margin_bottom = 730.0
+rect_clip_content = true
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Content/MarginContainer" index="0"]
+show_behind_parent = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 510.0
+margin_bottom = 635.0
 rect_min_size = Vector2( 500, 625 )
 rect_clip_content = false
 mouse_filter = 2
-theme = SubResource( 14 )
+theme = SubResource( 17 )
 follow_focus = true
 scroll_horizontal_enabled = false
 
-[node name="SelectSquare" parent="Content/ScrollContainer" instance=ExtResource( 3 )]
-margin_right = 0.0
-margin_bottom = 0.0
+[node name="MarginContainer" type="MarginContainer" parent="Content/MarginContainer/ScrollContainer" index="0"]
+margin_right = 422.0
+margin_bottom = 899.0
+
+[node name="SelectSquare" parent="Content/MarginContainer/ScrollContainer/MarginContainer" index="0" instance=ExtResource( 3 )]
+margin_right = 422.0
+margin_bottom = 899.0
 options_path = NodePath("../Options")
 
-[node name="Options" type="VBoxContainer" parent="Content/ScrollContainer"]
+[node name="Options" type="VBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer" index="1"]
 margin_right = 422.0
 margin_bottom = 899.0
 custom_constants/separation = 20
@@ -211,7 +90,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Label" parent="Content/ScrollContainer/Options"]
+[node name="Back" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="0"]
 margin_right = 422.0
 margin_bottom = 19.0
 text = "back"
@@ -220,7 +99,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Graphics" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
+[node name="Graphics" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="1" groups=["selectsquare_ignore"]]
 show_behind_parent = true
 margin_top = 39.0
 margin_right = 422.0
@@ -231,7 +110,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/Graphics"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Graphics" index="0"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 8.0
@@ -244,13 +123,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AntiAliasing" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="AntiAliasing" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="2"]
 margin_top = 89.0
 margin_right = 422.0
 margin_bottom = 108.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/AntiAliasing"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing" index="0"]
 margin_right = 97.0
 margin_bottom = 19.0
 mouse_default_cursor_shape = 16
@@ -261,7 +140,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/AntiAliasing"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing" index="1"]
 margin_left = 107.0
 margin_right = 109.0
 margin_bottom = 19.0
@@ -271,7 +150,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="Content/ScrollContainer/Options/AntiAliasing"]
+[node name="Description" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing" index="2"]
 margin_left = 119.0
 margin_right = 401.0
 margin_bottom = 19.0
@@ -280,13 +159,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bloom" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Bloom" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="3"]
 margin_top = 128.0
 margin_right = 422.0
 margin_bottom = 147.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Bloom"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Bloom" index="0"]
 margin_right = 49.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
@@ -296,7 +175,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Bloom"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Bloom" index="1"]
 margin_left = 59.0
 margin_right = 61.0
 margin_bottom = 19.0
@@ -306,7 +185,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="Content/ScrollContainer/Options/Bloom"]
+[node name="Description" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Bloom" index="2"]
 margin_left = 71.0
 margin_right = 353.0
 margin_bottom = 19.0
@@ -315,13 +194,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LensDistortion" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="LensDistortion" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="4"]
 margin_top = 167.0
 margin_right = 422.0
 margin_bottom = 186.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/LensDistortion"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/LensDistortion" index="0"]
 margin_right = 113.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
@@ -331,7 +210,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/LensDistortion"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/LensDistortion" index="1"]
 margin_left = 123.0
 margin_right = 125.0
 margin_bottom = 19.0
@@ -341,7 +220,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="Content/ScrollContainer/Options/LensDistortion"]
+[node name="Description" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/LensDistortion" index="2"]
 margin_left = 135.0
 margin_right = 422.0
 margin_bottom = 19.0
@@ -350,13 +229,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shockwaves" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Shockwaves" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="5"]
 margin_top = 206.0
 margin_right = 422.0
 margin_bottom = 225.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Shockwaves"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Shockwaves" index="0"]
 margin_right = 95.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
@@ -366,7 +245,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Shockwaves"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Shockwaves" index="1"]
 margin_left = 105.0
 margin_right = 107.0
 margin_bottom = 19.0
@@ -376,7 +255,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="Content/ScrollContainer/Options/Shockwaves"]
+[node name="Description" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Shockwaves" index="2"]
 margin_left = 117.0
 margin_right = 338.0
 margin_bottom = 19.0
@@ -385,13 +264,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Fullscreen" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Fullscreen" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="6"]
 margin_top = 245.0
 margin_right = 422.0
 margin_bottom = 264.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Fullscreen"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen" index="0"]
 margin_right = 79.0
 margin_bottom = 19.0
 mouse_default_cursor_shape = 16
@@ -402,7 +281,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Fullscreen"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen" index="1"]
 margin_left = 89.0
 margin_right = 91.0
 margin_bottom = 19.0
@@ -412,7 +291,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="Content/ScrollContainer/Options/Fullscreen"]
+[node name="Description" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen" index="2"]
 margin_left = 101.0
 margin_right = 340.0
 margin_bottom = 19.0
@@ -421,7 +300,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Gameplay" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
+[node name="Gameplay" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="7" groups=["selectsquare_ignore"]]
 show_behind_parent = true
 margin_top = 284.0
 margin_right = 422.0
@@ -432,7 +311,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/Gameplay"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Gameplay" index="0"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 8.0
@@ -442,13 +321,13 @@ margin_bottom = 8.5
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 text = "Gameplay"
 
-[node name="Difficulty" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Difficulty" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="8"]
 margin_top = 334.0
 margin_right = 422.0
 margin_bottom = 359.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Difficulty"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty" index="0"]
 margin_top = 3.0
 margin_right = 69.0
 margin_bottom = 22.0
@@ -459,7 +338,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionButton" type="OptionButton" parent="Content/ScrollContainer/Options/Difficulty"]
+[node name="OptionButton" type="OptionButton" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty" index="1"]
 margin_left = 79.0
 margin_right = 168.0
 margin_bottom = 25.0
@@ -470,7 +349,7 @@ flat = true
 items = [ "Easy", null, false, 0, null, "Medium", null, false, 1, null, "Hard", null, false, 2, null, "Nightmare", null, false, 3, null, "Ultranightmare", null, false, 4, null ]
 selected = 1
 
-[node name="Sound" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
+[node name="Sound" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="9" groups=["selectsquare_ignore"]]
 show_behind_parent = true
 margin_top = 379.0
 margin_right = 422.0
@@ -481,7 +360,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/Sound"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Sound" index="0"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 8.0
@@ -494,7 +373,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MusicVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="MusicVolume" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="10"]
 margin_top = 429.0
 margin_right = 422.0
 margin_bottom = 448.0
@@ -503,22 +382,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/MusicVolume"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume" index="0"]
 margin_right = 106.0
 margin_bottom = 19.0
 text = "Music Volume"
 
-[node name="TextureProgress" type="TextureProgress" parent="Content/ScrollContainer/Options/MusicVolume"]
+[node name="TextureProgress" type="TextureProgress" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume" index="1"]
 margin_left = 116.0
 margin_right = 216.0
 margin_bottom = 19.0
 value = 100.0
-texture_under = SubResource( 6 )
-texture_progress = SubResource( 8 )
+texture_under = SubResource( 18 )
+texture_progress = SubResource( 19 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
-[node name="SFXVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="SFXVolume" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="11"]
 margin_top = 468.0
 margin_right = 422.0
 margin_bottom = 487.0
@@ -527,22 +406,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/SFXVolume"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume" index="0"]
 margin_right = 166.0
 margin_bottom = 19.0
 text = "Sound Effects Volume"
 
-[node name="TextureProgress" type="TextureProgress" parent="Content/ScrollContainer/Options/SFXVolume"]
+[node name="TextureProgress" type="TextureProgress" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume" index="1"]
 margin_left = 176.0
 margin_right = 276.0
 margin_bottom = 19.0
 value = 100.0
-texture_under = SubResource( 6 )
-texture_progress = SubResource( 8 )
+texture_under = SubResource( 18 )
+texture_progress = SubResource( 19 )
 nine_patch_stretch = true
 stretch_margin_right = 100
 
-[node name="Input" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
+[node name="Input" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="12" groups=["selectsquare_ignore"]]
 show_behind_parent = true
 margin_top = 507.0
 margin_right = 422.0
@@ -553,7 +432,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/Input"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Input" index="0"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 8.0
@@ -566,7 +445,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Up" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Up" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="13"]
 margin_top = 557.0
 margin_right = 422.0
 margin_bottom = 576.0
@@ -575,12 +454,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Up"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Up" index="0"]
 margin_right = 241.0
 margin_bottom = 19.0
 text = "Move Up/Select Previous Option"
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Up"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Up" index="1"]
 margin_left = 251.0
 margin_right = 253.0
 margin_bottom = 19.0
@@ -590,25 +469,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Content/ScrollContainer/Options/Up"]
+[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Up" index="2"]
 margin_left = 263.0
 margin_right = 283.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Up"
 
-[node name="Down" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Down" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="14"]
 margin_top = 596.0
 margin_right = 422.0
 margin_bottom = 615.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Down"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Down" index="0"]
 margin_right = 232.0
 margin_bottom = 19.0
 text = "Move Down/Select Next Option"
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Down"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Down" index="1"]
 margin_left = 242.0
 margin_right = 244.0
 margin_bottom = 19.0
@@ -618,26 +497,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Content/ScrollContainer/Options/Down"]
+[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Down" index="2"]
 margin_left = 254.0
 margin_right = 296.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Down"
 
-[node name="Left" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Left" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="15"]
 margin_top = 635.0
 margin_right = 422.0
 margin_bottom = 654.0
 rect_pivot_offset = Vector2( -702.202, -279 )
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Left"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Left" index="0"]
 margin_right = 75.0
 margin_bottom = 19.0
 text = "Move Left"
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Left"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Left" index="1"]
 margin_left = 85.0
 margin_right = 87.0
 margin_bottom = 19.0
@@ -647,32 +526,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Content/ScrollContainer/Options/Left"]
+[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Left" index="2"]
 margin_left = 97.0
 margin_right = 127.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Left"
 
-[node name="Right" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Right" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="16"]
 margin_top = 674.0
 margin_right = 422.0
 margin_bottom = 693.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Right"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Right" index="0"]
 margin_right = 84.0
 margin_bottom = 19.0
 text = "Move Right"
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/Right/Title"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Right/Title" index="0"]
 margin_right = 40.0
 margin_bottom = 17.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Right"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Right" index="1"]
 margin_left = 94.0
 margin_right = 96.0
 margin_bottom = 19.0
@@ -682,32 +561,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Content/ScrollContainer/Options/Right"]
+[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Right" index="2"]
 margin_left = 106.0
 margin_right = 145.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Right"
 
-[node name="Slow" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Slow" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="17"]
 margin_top = 713.0
 margin_right = 422.0
 margin_bottom = 732.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Slow"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow" index="0"]
 margin_right = 78.0
 margin_bottom = 19.0
 text = "Slow Time"
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/Slow/Title"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow/Title" index="0"]
 margin_right = 40.0
 margin_bottom = 17.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Slow"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow" index="1"]
 margin_left = 88.0
 margin_right = 90.0
 margin_bottom = 19.0
@@ -717,25 +596,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Content/ScrollContainer/Options/Slow"]
+[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow" index="2"]
 margin_left = 100.0
 margin_right = 155.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Control"
 
-[node name="Confirm" type="HBoxContainer" parent="Content/ScrollContainer/Options"]
+[node name="Confirm" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="18"]
 margin_top = 752.0
 margin_right = 422.0
 margin_bottom = 771.0
 custom_constants/separation = 10
 
-[node name="Title" type="Label" parent="Content/ScrollContainer/Options/Confirm"]
+[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Confirm" index="0"]
 margin_right = 110.0
 margin_bottom = 19.0
 text = "Shoot/Confirm"
 
-[node name="Separator" type="ColorRect" parent="Content/ScrollContainer/Options/Confirm"]
+[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Confirm" index="1"]
 margin_left = 120.0
 margin_right = 122.0
 margin_bottom = 19.0
@@ -745,21 +624,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Key" type="Label" parent="Content/ScrollContainer/Options/Confirm"]
+[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Confirm" index="2"]
 margin_left = 132.0
 margin_right = 178.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
-[node name="ApplyKeyBindings" type="Label" parent="Content/ScrollContainer/Options"]
+[node name="ApplyKeyBindings" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="19"]
 margin_top = 791.0
 margin_right = 422.0
 margin_bottom = 810.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
 text = "Apply Key Bindings"
 
-[node name="BadStuff" type="ColorRect" parent="Content/ScrollContainer/Options" groups=["selectsquare_ignore"]]
+[node name="BadStuff" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="20" groups=["selectsquare_ignore"]]
 show_behind_parent = true
 margin_top = 830.0
 margin_right = 422.0
@@ -770,7 +649,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Content/ScrollContainer/Options/BadStuff"]
+[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/BadStuff" index="0"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 8.0
@@ -783,26 +662,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResetGame" type="Label" parent="Content/ScrollContainer/Options"]
+[node name="ResetGame" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="21"]
 margin_top = 880.0
 margin_right = 422.0
 margin_bottom = 899.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "Reset EVERYTHING"
 
-[node name="KeyPopup" parent="." instance=ExtResource( 6 )]
+[node name="KeyPopup" parent="." index="3" instance=ExtResource( 6 )]
+visible = false
+set_actions = {
+}
+
+[node name="ResetConfirmation" parent="." index="4" instance=ExtResource( 8 )]
 visible = false
 
-[node name="ResetConfirmation" parent="." instance=ExtResource( 8 )]
+[node name="Alert" parent="." index="5" instance=ExtResource( 7 )]
 visible = false
 
-[node name="Alert" parent="." instance=ExtResource( 7 )]
-visible = false
-
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
-[connection signal="selected" from="Content/ScrollContainer/SelectSquare" to="." method="_on_SelectSquare_selected"]
-[connection signal="update" from="Content/ScrollContainer/SelectSquare" to="." method="_on_SelectSquare_update"]
-[connection signal="key_set" from="KeyPopup" to="." method="_on_KeyPopup_key_set"]
-[connection signal="opened" from="KeyPopup" to="." method="_on_KeyPopup_opened"]
-[connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]
+[connection signal="selected" from="Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare" to="." method="_on_SelectSquare_selected"]
+[connection signal="update" from="Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare" to="." method="_on_SelectSquare_update"]

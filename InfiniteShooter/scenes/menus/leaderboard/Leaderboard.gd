@@ -7,6 +7,7 @@ export(PackedScene) var stats_label
 export var list_length = 16
 
 func show_animated():
+	rect_pivot_offset = rect_size/2
 	$AnimationPlayer.play("open")
 
 
@@ -54,13 +55,3 @@ func create_label(text, number=null):
 	
 	$Content/Stats.add_child(label)
 	return label
-
-
-func _on_AnimationPlayer_animation_started(_anim_name):
-	show()
-
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	match anim_name:
-		"close":
-			hide()

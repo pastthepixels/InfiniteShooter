@@ -13,11 +13,12 @@ func _ready():
 
 
 func show_animated():
+	rect_pivot_offset = rect_size/2
 	$AnimationPlayer.play("open")
 
 
 func _on_SelectSquare_selected():
-	match $Content/ScrollContainer/Options.get_child($Content/ScrollContainer/SelectSquare.index).name:
+	match $Content/MarginContainer/ScrollContainer/MarginContainer/Options.get_child($Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.index).name:
 		"Back":
 			emit_signal("closed")
 			$AnimationPlayer.play("close")
@@ -72,30 +73,30 @@ func _on_SelectSquare_selected():
 # To handle percentage inputs/save settings on input
 func _input(event):
 	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
-		match $Content/ScrollContainer/Options.get_child($Content/ScrollContainer/SelectSquare.index).name:  # Now we see which option has been selected...
+		match $Content/MarginContainer/ScrollContainer/MarginContainer/Options.get_child($Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.index).name:  # Now we see which option has been selected...
 			"MusicVolume":
-				$Content/ScrollContainer/Options/MusicVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
-				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
+				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
+				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 
 			"SFXVolume":
-				$Content/ScrollContainer/Options/SFXVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
-				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
+				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume/TextureProgress.value += 10 if event.is_action_pressed("ui_right") else -10
+				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 			
 			"Difficulty":
-				$Content/ScrollContainer/Options/Difficulty/OptionButton.selected += 1 if event.is_action_pressed("ui_right") else -1
-				$Content/ScrollContainer/SelectSquare/AcceptSound.play()
+				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected += 1 if event.is_action_pressed("ui_right") else -1
+				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 				
 # To save/set settings
 func set_settings():
 	# Music/Sound Volume(s) <- GUI slider values
-	settings["musicvol"] = $Content/ScrollContainer/Options/MusicVolume/TextureProgress.value
-	settings["sfxvol"] = $Content/ScrollContainer/Options/SFXVolume/TextureProgress.value
+	settings["musicvol"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume/TextureProgress.value
+	settings["sfxvol"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume/TextureProgress.value
 	
 	# Difficulty
-	match $Content/ScrollContainer/Options/Difficulty/OptionButton.get_item_text($Content/ScrollContainer/Options/Difficulty/OptionButton.selected) :
+	match $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected) :
 		"Easy":
 			settings["difficulty"] = GameVariables.DIFFICULTIES.easy
 		
@@ -119,27 +120,27 @@ func set_settings():
 
 func update_gui():
 	# Music/Sound Volume(s) -> GUI slider values
-	$Content/ScrollContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
-	$Content/ScrollContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
 	
 	# Updates colors for some settings
-	$Content/ScrollContainer/Options/AntiAliasing/Title.set(
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["antialiasing"] else colors.red
 	)
-	$Content/ScrollContainer/Options/Bloom/Title.set(
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Bloom/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["bloom"] else colors.red
 	)
-	$Content/ScrollContainer/Options/LensDistortion/Title.set(
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/LensDistortion/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["distortion"] else colors.red
 	)
-	$Content/ScrollContainer/Options/Shockwaves/Title.set(
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Shockwaves/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["shockwaves"] else colors.red
 	)
-	$Content/ScrollContainer/Options/Fullscreen/Title.set(
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["fullscreen"] else colors.red
 	)
@@ -147,36 +148,36 @@ func update_gui():
 	# Difficulty
 	match int(settings["difficulty"]):
 		GameVariables.DIFFICULTIES.easy:
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 0
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected = 0
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
 				"custom_colors/font_color",
 				colors.green
 			)
 		
 		GameVariables.DIFFICULTIES.medium:
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 1
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected = 1
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
 				"custom_colors/font_color",
 				colors.white
 			)
 		
 		GameVariables.DIFFICULTIES.hard:
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 2
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected = 2
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
 				"custom_colors/font_color",
 				colors.yellow
 			)
 		
 		GameVariables.DIFFICULTIES.nightmare:
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 3
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected = 3
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
 				"custom_colors/font_color",
 				colors.orange
 			)
 		
 		GameVariables.DIFFICULTIES.ultranightmare:
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.selected = 4
-			$Content/ScrollContainer/Options/Difficulty/OptionButton.set(
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected = 4
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
 				"custom_colors/font_color",
 				colors.red
 			)
@@ -186,32 +187,22 @@ func _on_ResetConfirmation_confirmed():
 	Saving.reset_all()
 	$Alert.alert("Game reset! Restart it for changes to take effect.")
 
-
-func _on_AnimationPlayer_animation_started(_anim_name):
-	show()
-
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	match anim_name:
-		"close":
-			hide()
-
 # To do with keybindings
 func _on_KeyPopup_key_set():
-	$Content/ScrollContainer/SelectSquare.show()
-	if "move_up" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
-	if "move_down" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
-	if "move_left" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
-	if "move_right" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
-	if "move_slow" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Slow/Key.text = $KeyPopup.set_actions["move_slow"][1].as_text()
-	if "shoot_laser" in $KeyPopup.set_actions: $Content/ScrollContainer/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
+	$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.show()
+	if "move_up" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
+	if "move_down" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
+	if "move_left" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
+	if "move_right" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
+	if "move_slow" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow/Key.text = $KeyPopup.set_actions["move_slow"][1].as_text()
+	if "shoot_laser" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
 
 
 func _on_KeyPopup_opened():
-	$Content/ScrollContainer/SelectSquare.hide()
+	$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.hide()
 
 
 func _on_SelectSquare_update():
-	if $Content/ScrollContainer/SelectSquare.select_child:
-		$Content/ScrollContainer.ensure_control_visible($Content/ScrollContainer/SelectSquare.select_child)
+	if $Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.select_child:
+		$Content/MarginContainer/ScrollContainer.ensure_control_visible($Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.select_child)
 
