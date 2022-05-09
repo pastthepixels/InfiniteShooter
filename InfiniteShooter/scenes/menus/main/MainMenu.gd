@@ -68,10 +68,12 @@ func _on_SelectSquare_selected():
 
 		"Leaderboard":  # Same with selecting the leaderboard
 			$Leaderboard.show_animated()
+			$Title.hide()
 			$Menu/SelectSquare.hide()
 
 		"Settings":  # settings screen
 			$Settings.show_animated()
+			$Title.hide()
 			$Menu/SelectSquare.hide()
 
 		"Quit":  # Otherwise, quit the game
@@ -87,5 +89,6 @@ func _on_Leaderboard_closed():
 
 
 func return_from_submenu():
+	$Title.show()
 	$Menu/SelectSquare.show()
 	$Menu/SelectSquare.ignore_hits += 1
