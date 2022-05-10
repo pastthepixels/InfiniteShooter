@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/countdown-final.mp3-07985ddbe823d2ed1b81c56cbfb44107.mp3str"
+
+[deps]
+
+source_file="res://sounds/countdown-final.mp3"
+dest_files=[ "res://.import/countdown-final.mp3-07985ddbe823d2ed1b81c56cbfb44107.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

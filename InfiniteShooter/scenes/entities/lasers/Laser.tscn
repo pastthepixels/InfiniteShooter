@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
 [ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://materials/HitParticles.material" type="Material" id=5]
 [ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=6]
 [ext_resource path="res://materials/DispersionParticles.material" type="Material" id=7]
+[ext_resource path="res://sounds/laser-fire-enemy.mp3" type="AudioStream" id=8]
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.0499679, 0.0487588, 0.25 )
@@ -60,6 +61,10 @@ autostart = true
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="EnemyLaserSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 bus = "SFX"
 
 [node name="EOLSound" type="AudioStreamPlayer" parent="."]

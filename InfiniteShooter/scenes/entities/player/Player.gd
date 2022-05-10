@@ -135,6 +135,7 @@ func fire_laser():
 			self.ammo_refills -= 1
 			$ReloadTimer.start()
 			$ReloadStart.play()
+			$ReloadBoop.play()
 
 
 # When the player collides with enemies
@@ -157,9 +158,9 @@ func on_enemy_collision(enemy):
 # Reloading
 func reload():
 	self.ammo += 1
-	$ReloadBoop.play()
 	if self.ammo == max_ammo:
 		$ReloadTimer.stop()
+		$ReloadBoop.stop()
 
 
 func die_already():

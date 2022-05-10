@@ -11,5 +11,5 @@ dest_files=[ "res://.import/ammo-reloadboop.mp3-f9b5c170306e044149b3f36ab9c38806
 
 [params]
 
-loop=false
-loop_offset=0
+loop=true
+loop_offset=0.0

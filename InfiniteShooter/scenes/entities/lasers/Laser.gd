@@ -52,8 +52,12 @@ func _ready():
 		speed /= 5 # <-- To make homing lasers go slower
 		$FollowTimer.start()
 	
-	$LaserSound.pitch_scale = rand_range(0.9, 1.1)
-	$LaserSound.play()
+	if from_player == true:
+		$LaserSound.pitch_scale = rand_range(0.9, 1.1)
+		$LaserSound.play()
+	else:
+		$EnemyLaserSound.pitch_scale = rand_range(0.9, 1.1)
+		$EnemyLaserSound.play()
 
 
 func _physics_process(delta):
@@ -154,6 +158,7 @@ func remove_laser(hit_ship=false):
 	if $HitSound.playing == true: yield($HitSound, "finished")
 	if $EOLSound.playing == true: yield($EOLSound, "finished")
 	if $LaserSound.playing == true: yield($LaserSound, "finished")
+	if $EnemyLaserSound.playing == true: yield($EnemyLaserSound, "finished")
 	if $Particles.emitting == true: yield($Particles, "finished")
 	if $HitParticles.emitting == true: yield($HitParticles, "finished")
 	queue_free()
