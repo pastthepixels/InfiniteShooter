@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/game/GameMusic.gd" type="Script" id=1]
 [ext_resource path="res://music/game3.mp3" type="AudioStream" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://music/game1.mp3" type="AudioStream" id=5]
 [ext_resource path="res://music/game6.mp3" type="AudioStream" id=6]
 [ext_resource path="res://music/game4.mp3" type="AudioStream" id=7]
+[ext_resource path="res://music/game9.mp3" type="AudioStream" id=8]
+[ext_resource path="res://music/game8.mp3" type="AudioStream" id=9]
+[ext_resource path="res://music/game10.mp3" type="AudioStream" id=10]
+[ext_resource path="res://music/game7.mp3" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
@@ -28,7 +32,7 @@ tracks/0/keys = {
 volume_db = -20.0
 bus = "Music"
 script = ExtResource( 1 )
-game_songs = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ) ]
+game_songs = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ) ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade = SubResource( 1 )
