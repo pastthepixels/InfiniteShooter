@@ -23,7 +23,7 @@ var level_dependent_enemy_types = [ # 3-D ARRAY: Each line is a level and an arr
 
 # Non-editable game mechanics variables.
 
-const enemies_on_screen_range = [2, 6] # [min,max]
+const enemies_on_screen_range = [2, 4] # [min,max]
 
 const waves_per_level_range = [5, 10] # [min, max]
 
