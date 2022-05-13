@@ -413,6 +413,7 @@ albedo_color = Color( 1, 1, 1, 0.0106442 )
 
 [node name="Powerup" type="Area" groups=["powerups"]]
 script = ExtResource( 4 )
+SCREEN_EDGE_MARGIN = 2.0
 
 [node name="BackgroundAnimations" type="AnimationPlayer" parent="."]
 autoplay = "spin"

@@ -196,12 +196,12 @@ func explode_ship():
 	set_process(false)
 	emit_signal("died", self)
 	# Powerups (1/4 chance to create a powerup)
-	if create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
+	if $VisibilityNotifier.is_on_screen() and create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		if powerup_type != null: powerup.type = powerup_type
 		powerup.translation = translation
 		get_parent().add_child(powerup)
-	elif use_laser_modifiers == true and has_node(self.get_path()):
+	elif $VisibilityNotifier.is_on_screen() and use_laser_modifiers == true and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
 		powerup.modifier = laser_modifier

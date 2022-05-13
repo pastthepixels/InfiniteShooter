@@ -7,6 +7,8 @@ export var ammo_increase = 10  # 10 bullets
 
 export var health_increase = 40  # 40 HP
 
+export(float) var SCREEN_EDGE_MARGIN # Can be same as what's set for Player.gd or larger
+
 # Laser "modifiers"
 var modifier = GameVariables.LASER_MODIFIERS.none
 
@@ -67,6 +69,7 @@ func _on_CountdownTimer_timeout():
 	$MainAnimations.play("hide")
 
 func _process(_delta):
+	translation.z = clamp(translation.z, Utils.top_left.z + SCREEN_EDGE_MARGIN, Utils.bottom_left.z - SCREEN_EDGE_MARGIN)
 	if $CountdownTimer.time_left <= 4 and $MainAnimations.is_playing() == false:
 		$Outline.hide()
 		$WarningOutline.show()
