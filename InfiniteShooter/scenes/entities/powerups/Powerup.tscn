@@ -492,4 +492,3 @@ material/0 = SubResource( 30 )
 [connection signal="body_entered" from="." to="." method="_on_Powerup_body_entered"]
 [connection signal="animation_finished" from="MainAnimations" to="." method="_on_MainAnimations_animation_finished"]
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_CountdownTimer_timeout"]
-[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

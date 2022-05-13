@@ -4,6 +4,10 @@ export(NodePath) var ship
 
 export var emission_radius = .8
 
+export var disabled = false
+
+signal finished_reset
+
 var sender # The sender of the laser that hits `ship`
 
 func _ready():
@@ -13,12 +17,14 @@ func _ready():
 
 # Main functions
 func bleed(wait_time, duration):
+	if disabled == true: return
 	$BleedTimer.wait_time = wait_time
 	$BleedTimer.start()
 	$Timer.wait_time = duration
 	$Timer.start()
 
 func freeze(duration):
+	if disabled == true: return
 	get_parent().freeze_movement = true
 	$Timer.wait_time = duration
 	$Timer.start()
@@ -26,15 +32,18 @@ func freeze(duration):
 
 # Particle effects
 func start_fire():
+	if disabled == true: return
 	if $FireSound.playing == false: $FireSound.play()
 	$Fire.emitting = true
 
 
 func start_corrosion():
+	if disabled == true: return
 	if $CorrosionSound.playing == false: $CorrosionSound.play()
 	$Corrosion.emitting = true
 
 func start_ice():
+	if disabled == true: return
 	if $IceSound.playing == false: $IceSound.play()
 	$Ice.emitting = true
 
@@ -59,4 +68,5 @@ func reset():
 	$FireSound.stop()
 	$IceSound.stop()
 	$CorrosionSound.stop()
-	sender = null
+	if get_tree() != null: yield(get_tree(), "idle_frame")
+	emit_signal("finished_reset")

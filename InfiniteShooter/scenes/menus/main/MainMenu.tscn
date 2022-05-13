@@ -211,9 +211,6 @@ margin_right = 127.0
 margin_bottom = 85.5
 text = "press any key to continue"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Leaderboard" parent="." instance=ExtResource( 3 )]
 theme = null

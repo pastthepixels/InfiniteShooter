@@ -6,7 +6,7 @@ func explode():
 	$AnimationPlayer.play("Explode")
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	emit_signal("exploded")
 
 

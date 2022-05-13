@@ -108,10 +108,12 @@ func smooth_look_at(delta, weight):
 
 func explode_ship():
 	emit_signal("died", self)
-	remove_from_group("enemies")
+	remove_from_group("bosses")
 	enemy_model.stop()
 	enemy_model.hide()
+	$LaserEffects.disabled = true
 	$LaserEffects.reset()
+	yield($LaserEffects, "finished_reset")
 	$Explosions.show()
 	$Tween.stop_all()
 	for explosion in $Explosions.get_children():

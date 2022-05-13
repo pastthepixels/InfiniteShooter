@@ -87,13 +87,13 @@ func create_width_rows():
 		main_width = clamp(main_width, min_width, max_width)
 		width_array.append(main_width)
 		#
-		for length in range(0, 3): width_array_expanded.append(main_width)
+		for _length in range(0, 3): width_array_expanded.append(main_width)
 	# so the array can loop
 	while main_width != width_array[0]:
 		main_width += 1 if main_width < width_array[0] else -1
 		width_array.append(main_width)
 		#
-		for length in range(0, 3): width_array_expanded.append(main_width)
+		for _length in range(0, 3): width_array_expanded.append(main_width)
 	return width_array_expanded
 
 func set_left_row(width=4, z=0, slant=SLANT_TYPES.FLAT):

@@ -253,8 +253,8 @@ func update_health():
 	if health <= 0 and alive == true:
 		explode_ship()
 
-func hurt(damage):
-	health -= damage
+func hurt(hurt_amount):
+	health -= hurt_amount
 
 func _on_ship_body_entered(body):
 	if body.is_in_group("players"):
@@ -263,8 +263,8 @@ func _on_ship_body_entered(body):
 		explode_ship() # Otherwise the ship collided with something the player can collide with, so it would look weird if it passed through, so... we kill it.
 
 
-func _on_VisibilityNotifier_camera_exited(camera):
-	remove_from_group("enemies")
+func _on_VisibilityNotifier_camera_exited(_camera):
+	if is_in_group("enemies"): remove_from_group("enemies")
 	emit_signal("exited_screen", self)
 	yield(get_tree(), "idle_frame")
 	queue_free()
