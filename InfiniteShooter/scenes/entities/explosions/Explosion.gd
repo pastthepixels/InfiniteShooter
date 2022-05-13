@@ -40,7 +40,7 @@ func explode():
 	if particles == true: $Particles.emitting = true
 	$AnimationPlayer.play("explode")
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	# Waits for particles to finish (if they are active)
 	if $Particles.emitting == true:
 		yield($Particles, "finished")
@@ -48,7 +48,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if auto_delete == true: queue_free()
 
 # Repositions the shockwave if visible
-func _process(delta):
+func _process(_delta):
 	if visible == true and shockwave == true:
 		$Shockwave.position = Utils.local_to_screen(global_transform.origin)
 		$Shockwave.visible = visible

@@ -71,7 +71,7 @@ func _ready():
 	# HUD stuff
 	if waves_per_level > 0:
 		$HUD.update_level(level, 100 * wave/waves_per_level)
-		$HUD.update_wave(wave, 100 * 1/GameVariables.enemies_per_wave)
+		$HUD.update_wave(wave, 100 * 1.0/GameVariables.enemies_per_wave)
 	# Begins the countdown/shows the tutorial/plays appropiate music
 	if Saving.get_tutorial_progress()["initial"] == true:
 		$Countdown.start()
@@ -235,7 +235,7 @@ func _on_Enemy_died(ship):
 		$HUD.update_points(points)
 		_on_Enemy_exited_screen(ship)
 
-func _on_Enemy_exited_screen(ship):
+func _on_Enemy_exited_screen(_ship):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Wave progression
 		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:

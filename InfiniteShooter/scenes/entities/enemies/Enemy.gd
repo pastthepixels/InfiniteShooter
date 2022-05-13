@@ -196,12 +196,12 @@ func explode_ship():
 	set_process(false)
 	emit_signal("died", self)
 	# Powerups (1/4 chance to create a powerup)
-	if create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
+	if $VisibilityNotifier.is_on_screen() and create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		if powerup_type != null: powerup.type = powerup_type
 		powerup.translation = translation
 		get_parent().add_child(powerup)
-	elif use_laser_modifiers == true and has_node(self.get_path()):
+	elif $VisibilityNotifier.is_on_screen() and use_laser_modifiers == true and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
 		powerup.modifier = laser_modifier
@@ -253,8 +253,8 @@ func update_health():
 	if health <= 0 and alive == true:
 		explode_ship()
 
-func hurt(damage):
-	health -= damage
+func hurt(hurt_amount):
+	health -= hurt_amount
 
 func _on_ship_body_entered(body):
 	if body.is_in_group("players"):
@@ -263,8 +263,8 @@ func _on_ship_body_entered(body):
 		explode_ship() # Otherwise the ship collided with something the player can collide with, so it would look weird if it passed through, so... we kill it.
 
 
-func _on_VisibilityNotifier_camera_exited(camera):
-	remove_from_group("enemies")
+func _on_VisibilityNotifier_camera_exited(_camera):
+	if is_in_group("enemies"): remove_from_group("enemies")
 	emit_signal("exited_screen", self)
 	yield(get_tree(), "idle_frame")
 	queue_free()

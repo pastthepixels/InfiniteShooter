@@ -38,7 +38,7 @@ var freeze_movement = false
 # Signals
 signal died
 
-signal set_modifier
+signal set_modifier # Godot will tell you this is never emitted. It is, just from Powerup.gd
 
 signal health_changed(value)
 
@@ -62,13 +62,13 @@ func _update_ammo_refills(new_value):
 	ammo_refills = new_value
 	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
 
-func _process(delta):
+func _process(_delta):
 	# Killing the player when it should die
 	if self.health == 0:
 		resume_time()
 		die_already()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# INPUT
 	if $Explosion.visible == true:
 		return  # If the player is dying, don't bother about input stuff
