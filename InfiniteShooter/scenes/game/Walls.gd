@@ -1,7 +1,5 @@
 extends Spatial
 
-enum SLANT_TYPES {DOWN, UP, FLAT}
-
 # touch this
 export(Vector2) var bounds # Positive vector of bounds from center
 
@@ -12,6 +10,8 @@ export(int) var min_width = 2
 export(float) var speed
 
 # don't touch this
+enum SLANT_TYPES {DOWN, UP, FLAT}
+
 var buffer_space
 
 onready var left_array = create_width_rows()
@@ -19,19 +19,29 @@ onready var left_array = create_width_rows()
 onready var right_array = create_width_rows()
 
 func _ready():
+	# Set the translation of the walls so they are on the top edges of the screen.
 	$LeftWall.translation = Vector3(-bounds.x, 0, -bounds.y)
 	$RightWall.translation = Vector3(bounds.x, 0, -bounds.y)
+	# Then, fill them with thiles. Ensure that whenever the screen size is changed the tiles are filled again to fit the new screen size.
 	set_tiles()
 	get_tree().get_root().connect("size_changed", self, "set_tiles")
 
 func set_tiles():
+	# Only show the tiles if the size of the screen isn't what's default.
 	visible = (OS.window_size != Vector2(1067, 800))
+	# Once again, ensure that the walls are on the top edges of the screen, and clear them.
 	$LeftWall.translation.x = -bounds.x
 	$RightWall.translation.x = bounds.x
 	$LeftWall.clear()
 	$RightWall.clear()
+	# What is buffer_space?
+	# In short, that slanty bit you see at the end of the walls is what is being generated
+	# and is only as thick as specified by min_width and max_width. So the rest of the space
+	# between the walls and the edges of the screen is space we need to fill.
+	# That takes us to buffer_space. It's the distance from the edges of the walls to the
+	# edges of the screen, in 3d space.
 	buffer_space = floor(abs(Utils.top_left.x - bounds.x)) - max_width + 1
-	# Left side
+	# Draws left tiles
 	for i in left_array.size():
 		var slant = SLANT_TYPES.FLAT
 		if i-1 >= 0 and left_array[i-1] < left_array[i]:
@@ -39,12 +49,13 @@ func set_tiles():
 		if i < left_array.size()-1 and left_array[i+1] < left_array[i]:
 			slant = SLANT_TYPES.DOWN
 		set_left_row(left_array[i], i, slant)
-		# Draws UP
+		# Draws the same row, but above the wall. That way, we can scroll down to this second half
+		# and just reset our position when the wall gets low enough. Infinite scrolling achieved.
 		set_left_row(left_array[i], -left_array.size() + i, slant)
 		# Draws a sort of "bleed" because, in short, we can actually see the bottom of the walls and there would be some flickering when we wrap them around
 		if i == left_array.size() - 1: set_left_row(left_array[i], -left_array.size() - 1, slant)
 	
-	# Right side
+	# Draws right tiles
 	for i in right_array.size():
 		var slant = SLANT_TYPES.FLAT
 		if i-1 >= 0 and right_array[i-1] < right_array[i]:
@@ -54,9 +65,11 @@ func set_tiles():
 		set_right_row(right_array[i], i, slant)
 		# Draws UP
 		set_right_row(right_array[i], -right_array.size() + i, slant)
-		# Draws a sort of "bleed" because, in short, we can actually see the bottom of the walls and there would be some flickering when we wrap them around
 		if i == right_array.size() - 1: set_right_row(right_array[i], -right_array.size() - 1, slant)
 
+# Here we create an array called width_array, where each number is different from the previous
+# but only by 1 or -1. Then we "expand" that array so each number represents three rows that
+# are drawn.
 func create_width_rows():
 	var width_array = []
 	var width_array_expanded = []
@@ -75,7 +88,7 @@ func create_width_rows():
 		width_array.append(main_width)
 		#
 		for length in range(0, 3): width_array_expanded.append(main_width)
-	# symmetry
+	# so the array can loop
 	while main_width != width_array[0]:
 		main_width += 1 if main_width < width_array[0] else -1
 		width_array.append(main_width)
