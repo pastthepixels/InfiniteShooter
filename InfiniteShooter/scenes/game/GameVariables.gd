@@ -17,7 +17,7 @@ const enemies_on_screen_range = [2, 4] # [min,max]
 
 const waves_per_level_range = [5, 10] # [min, max]
 
-const enemies_per_wave = 1
+const enemies_per_wave = 10
 
 # Editable game mechanics variables
 
@@ -42,7 +42,7 @@ func set_difficulty(difficulty):
 			enemy_difficulty = 0.5
 
 		DIFFICULTIES.medium:
-			enemy_difficulty = .001
+			enemy_difficulty = 1
 
 		DIFFICULTIES.hard:
 			enemy_difficulty = 1.5
