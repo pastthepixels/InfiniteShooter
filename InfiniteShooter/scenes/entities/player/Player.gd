@@ -3,6 +3,10 @@ extends KinematicBody
 # MISC
 var _ShootTimer_running = false
 
+var _last_laser_tap_time = 0 # <-- Variable to help prevent over-spamming firing lasers
+
+var laser_spam_threshold = 100 # <-- Threshold in ms (you can edit this)
+
 # For debugging
 export var godmode = false
 
@@ -124,7 +128,9 @@ func resume_time():
 
 # Firing lasers (cont.d)
 func _input(event): # Keyboard taps
-	if event.is_action_pressed("shoot_laser"): fire_laser()
+	if OS.get_ticks_msec() - _last_laser_tap_time > laser_spam_threshold and event.is_action_pressed("shoot_laser"):
+			_last_laser_tap_time = OS.get_ticks_msec()
+			fire_laser()
 
 func fire_laser():
 	if self.ammo == 0:
