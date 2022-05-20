@@ -1,5 +1,8 @@
 extends KinematicBody
 
+# MISC
+var _ShootTimer_running = false
+
 # For debugging
 export var godmode = false
 
@@ -68,13 +71,22 @@ func _process(_delta):
 		resume_time()
 		die_already()
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	# INPUT
 	if $Explosion.visible == true:
 		return  # If the player is dying, don't bother about input stuff
 
 	var velocity = impulse_velocity  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
 	var delta_rotation = impulse_rotation  # The new rotation the player will have (NORMALIZED VECTOR)
+	
+	# Shooting lasers (pressing+holding)
+	if Input.is_action_pressed("shoot_laser"):
+		if _ShootTimer_running == false:
+			_ShootTimer_running = true
+			$ShootTimer.start()
+	else:
+		_ShootTimer_running = false
+		$ShootTimer.stop()
 	
 	# Movement
 	delta_rotation.z -= clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1);
@@ -110,18 +122,14 @@ func resume_time():
 	CameraEquipment.set_animated_distortion(CameraEquipment.initial_warp_amount, CameraEquipment.initial_dispersion_amount)
 	AudioServer.set_bus_effect_enabled(0, 0, false)
 
-# Firing lasers
-func _input(event):
-	if event.is_action_pressed("shoot_laser") and self.ammo == 0:
-		$AmmoClick.play()
-	if (
-		event.is_action_pressed("shoot_laser")
-		and $ReloadTimer.time_left == 0
-	):
-		fire_laser()
-
+# Firing lasers (cont.d)
+func _input(event): # Keyboard taps
+	if event.is_action_pressed("shoot_laser"): fire_laser()
 
 func fire_laser():
+	if self.ammo == 0:
+		$AmmoClick.play()
+	elif $ReloadTimer.time_left == 0:
 		if self.ammo > 0:
 			if infinite_ammo == false: self.ammo -= 1
 			$PlayerModel/LaserGun.damage = damage
