@@ -81,7 +81,7 @@ func update_health(value, hp):
 		Tween.EASE_IN
 	)
 	
-	$HUD/ProgressBars/HealthBar/HealthPoints.text = String(hp)
+	$HUD/ProgressBars/HealthBar/HealthPoints.text = String(int(hp))
 	
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
