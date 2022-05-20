@@ -76,12 +76,29 @@ func _process(_delta):
 		die_already()
 
 func _physics_process(delta):
-	# INPUT
-	if $Explosion.visible == true:
-		return  # If the player is dying, don't bother about input stuff
-
-	var velocity = impulse_velocity  # The player's movement vector. (yes, I copied this from the "Your First Game" Godot tutorial. Don't judge.
+	var velocity = impulse_velocity
 	var delta_rotation = impulse_rotation  # The new rotation the player will have (NORMALIZED VECTOR)
+	
+	# Movement
+	var leftright = clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1)
+	var updown =	clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1)
+	delta_rotation -= Vector3(updown, 0, leftright)
+	velocity.x += leftright
+	velocity.z -= updown
+	
+	# Sets position/rotation
+	$PlayerModel.rotation = lerp($PlayerModel.rotation, delta_rotation * .6, .4)
+	impulse_velocity = lerp(impulse_velocity, Vector3(), 0.1)
+	impulse_rotation = lerp(impulse_rotation, Vector3(), 0.1)
+	if freeze_movement == false:
+		actual_velocity = lerp(actual_velocity, velocity, 0.6)
+		move_and_slide(actual_velocity * speed)
+	
+	# Ship powers
+	if Input.is_action_pressed("move_slow"):
+		slow_time()
+	elif Engine.time_scale == 0.5:
+		resume_time()
 	
 	# Shooting lasers (pressing+holding)
 	if Input.is_action_pressed("shoot_laser"):
@@ -91,26 +108,6 @@ func _physics_process(delta):
 	else:
 		_ShootTimer_running = false
 		$ShootTimer.stop()
-	
-	# Movement
-	delta_rotation.z -= clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1);
-	velocity.x += clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1);
-	
-	delta_rotation.x -= clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1);
-	velocity.z -= clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1);
-	
-	if Input.is_action_pressed("move_slow"): # A key to move slower
-		slow_time()
-	elif Engine.time_scale == 0.5:
-		resume_time()
-	
-	# Sets position/rotation
-	$PlayerModel.rotation = lerp($PlayerModel.rotation, delta_rotation * .6, .4)
-	impulse_velocity = lerp(impulse_velocity, Vector3(), 0.1)
-	impulse_rotation = lerp(impulse_rotation, Vector3(), 0.1)
-	if freeze_movement == false:
-		actual_velocity = lerp(actual_velocity, velocity, 0.6)
-		move_and_slide(actual_velocity * speed)
 	
 	# Clamping z positions and wrapping around the screen
 	translation.z = clamp(translation.z, Utils.top_left.z + SCREEN_EDGE_MARGIN, Utils.bottom_left.z - SCREEN_EDGE_MARGIN)
