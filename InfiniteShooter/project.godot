@@ -27,11 +27,14 @@ GameVariables="*res://scenes/game/GameVariables.gd"
 Utils="*res://scenes/bits/Utils.gd"
 Saving="*res://scenes/bits/Saving.gd"
 LoadingScreen="*res://scenes/loading/LoadingScreen.tscn"
+Resize="*res://scenes/bits/resize.gd"
 
 [display]
 
 window/size/width=1067
 window/size/height=800
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
 
 [gui]
 

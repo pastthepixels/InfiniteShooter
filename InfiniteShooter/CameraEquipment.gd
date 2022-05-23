@@ -6,6 +6,8 @@ var _animate_warp_dispersion = false
 onready var _animate_warp_amount = 0
 onready var _animate_dispersion_amount = 0
 
+onready var orig_window_size = OS.window_size
+
 export(Array, PanoramaSky) var skies
 
 
