@@ -44,6 +44,16 @@ func random_screen_point(margin=0):
 		rand_range(top_left.z+margin, bottom_left.z-margin)
 	)
 
+# True-feeling random
+var previous_rand_numbers = [0, 0, 0]
+func true_rand_range(min_num, max_num):
+	var rand = rand_range(min_num, max_num)
+	if rand in previous_rand_numbers:
+		print(true)
+	previous_rand_numbers.push_front(rand)
+	previous_rand_numbers.remove(0)
+	print(previous_rand_numbers)
+	return rand
 
 # Setting timeouts
 func timeout(seconds=1): # Usage: yield(Utils.timeout(1), "timeout")

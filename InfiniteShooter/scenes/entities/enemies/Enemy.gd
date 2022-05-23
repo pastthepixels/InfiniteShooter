@@ -22,7 +22,9 @@ var use_laser_modifiers = (randi() % 10 == 1)
 
 # Powerups
 
-onready var create_powerup = randi() % 4 == 1
+var force_powerup
+
+var powerup_randomness = 5 # 1/x chance that a non-ammo-related powerup will be available
 
 var powerup_type = null
 
@@ -195,17 +197,22 @@ func explode_ship():
 	remove_from_group("enemies")
 	set_process(false)
 	emit_signal("died", self)
-	# Powerups (1/4 chance to create a powerup)
-	if $VisibilityNotifier.is_on_screen() and create_powerup and use_laser_modifiers == false and has_node(self.get_path()):
-		var powerup = powerup_scene.instance()
-		if powerup_type != null: powerup.type = powerup_type
-		powerup.translation = translation
-		get_parent().add_child(powerup)
-	elif $VisibilityNotifier.is_on_screen() and use_laser_modifiers == true and has_node(self.get_path()):
+	# Powerups
+	if $VisibilityNotifier.is_on_screen() and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
-		powerup.modifier = laser_modifier
-		get_parent().add_child(powerup)
+		if force_powerup and use_laser_modifiers == false: # <-- Forced custom powerups
+			if powerup_type != null: powerup.type = powerup_type
+			get_parent().add_child(powerup)
+		elif use_laser_modifiers == true: # <-- Laser modifiers
+			powerup.modifier = laser_modifier
+			get_parent().add_child(powerup)
+		elif get_tree().get_nodes_in_group("players")[0].ammo_refills <= 5: # <-- Ammo
+			powerup.type = GameVariables.POWERUP_TYPES.ammo
+			get_parent().add_child(powerup)
+		elif get_tree().get_nodes_in_group("players")[0].health < 30 and (randi() % powerup_randomness) == 1: # <-- Health
+			powerup.type = GameVariables.POWERUP_TYPES.medkit
+			get_parent().add_child(powerup)
 	
 	# then explodes
 	$Explosion.explode()
