@@ -85,7 +85,7 @@ func create_leaderboard_entry(score):
 	else:
 		file.open(PATHS.leaderboard, File.READ_WRITE) # This does NOT create a new file if there is none but also does NOT truncate existing files
 		file.seek_end() # Goes to the end of the file to write a new line
-	file.store_line("%s ~> %s ~> %s" % [get_username(), score, get_datetime()]) # Writes a new line that looks like this: "$USERNAME ~> $SCORE ~> $DATE"
+	file.store_line("%s ~> %s ~> %s" % [get_datetime(), score, get_datetime()]) # Writes a new line that looks like this: "$USERNAME ~> $SCORE ~> $DATE"
 
 func load_leaderboard():
 	var scores = []
@@ -101,19 +101,12 @@ func sort_leaderboard(a, b):  # Think of this like a JS sort function
 		return true
 	return false
 
-func get_username(): # Modified from https://godotengine.org/qa/40041/how-to-get-the-user-name
-	var username
-	if OS.has_environment("USERNAME"):
-		username = OS.get_environment("USERNAME")
-	else:
-		username = "The Player"
-	return username
 
 func get_datetime():
 	var datetime = OS.get_datetime()
 	var time = str(datetime.hour) + ":" + str(datetime.minute) + ":" + str(datetime.second) + " " + OS.get_time_zone_info().name
 	var date = str(datetime.day) + "/" + str(datetime.month) + "/" + str(datetime.year)
-	return time + " " + date
+	return date + " @ " + time
 
 #
 # Settings

@@ -19,7 +19,7 @@ func _on_SelectSquare_selected():
 func _ready():
 	var scores = Saving.load_leaderboard()
 	for i in range(0, min(scores.size(), list_length)):
-		create_label(scores[i][0] + " with a score of " + scores[i][1], i + 1)
+		create_label(scores[i][1] + " points, " + scores[i][0], i + 1)
 
 	if scores.size() == 0:
 		create_label("There are no scores yet!")
