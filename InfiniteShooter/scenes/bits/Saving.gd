@@ -104,7 +104,7 @@ func sort_leaderboard(a, b):  # Think of this like a JS sort function
 
 func get_datetime():
 	var datetime = OS.get_datetime()
-	var time = str(datetime.hour) + ":" + str(datetime.minute) + ":" + str(datetime.second) + " " + OS.get_time_zone_info().name
+	var time = str(datetime.hour).pad_zeros(2) + ":" + str(datetime.minute).pad_zeros(2) + ":" + str(datetime.second).pad_zeros(2) + " " + OS.get_time_zone_info().name
 	var date = str(datetime.day) + "/" + str(datetime.month) + "/" + str(datetime.year)
 	return date + " @ " + time
 
