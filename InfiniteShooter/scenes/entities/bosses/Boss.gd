@@ -47,7 +47,7 @@ func initialize(difficulty):
 	enemy_model.show()
 	
 	# Multiplies everything by the difficulty number for added difficulty (same as we would for Enemy.gd)
-	enemy_model.max_health	+= GameVariables.health_diff * (difficulty - 1)
+	enemy_model.max_health	*= difficulty
 	enemy_model.damage		+= GameVariables.damage_diff * (difficulty - 1)
 	
 	# Sets the current health as the new max health

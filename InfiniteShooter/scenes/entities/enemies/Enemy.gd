@@ -70,28 +70,28 @@ func initialize(difficulty, possible_enemy_types=null):
 			enemy_model = enemy_types["normal"].instance()
 			# Sets enemy stats
 			max_health = 40
-			damage = 15
+			damage = 6
 			speed_mult = 2
 
 		GameVariables.ENEMY_TYPES.small:
 			enemy_model = enemy_types["small"].instance()
 			# Sets enemy stats
 			max_health = 10
-			damage = 10
+			damage = 5
 			speed_mult = 3
 
 		GameVariables.ENEMY_TYPES.tank:
 			enemy_model = enemy_types["tank"].instance()
 			# Sets enemy stats
 			max_health = 60
-			damage = 10
+			damage = 8
 			speed_mult = 1.6
 		
 		GameVariables.ENEMY_TYPES.gigatank:
 			enemy_model = enemy_types["gigatank"].instance()
 			# Sets enemy stats
 			max_health = 100
-			damage = 20
+			damage = 10
 			speed_mult = 1
 		
 		GameVariables.ENEMY_TYPES.explosive:
@@ -105,14 +105,14 @@ func initialize(difficulty, possible_enemy_types=null):
 			enemy_model = enemy_types["multishot"].instance()
 			# Sets enemy stats
 			max_health = 60
-			damage = 15
+			damage = 4
 			speed_mult = .7
 		
 		GameVariables.ENEMY_TYPES.quadshot:
 			enemy_model = enemy_types["quadshot"].instance()
 			# Sets enemy stats
 			max_health = 45
-			damage = 10
+			damage = 8
 			speed_mult = 1.8
 	
 	# Adds the enemy model
@@ -160,7 +160,7 @@ func initialize(difficulty, possible_enemy_types=null):
 # To move the ship/calculate health
 var previous_health
 func _process(_delta):
-	if has_node("/root/Game/GameSpace/Player") and get_node("/root/Game/GameSpace/Player").health - (health*GameVariables.enemy_collision_damage_multiplier) >= get_node("/root/Game/GameSpace/Player").max_health*0.3 and enemy_model.has_node("OutlineAnimations"):
+	if has_node("/root/Game/GameSpace/Player") and ((health / max_health) < GameVariables.powerup_health_ratio or health < GameVariables.powerup_health_points) and get_node("/root/Game/GameSpace/Player").health - (health*GameVariables.enemy_collision_damage_multiplier) >= get_node("/root/Game/GameSpace/Player").max_health*0.3 and enemy_model.has_node("OutlineAnimations"):
 		enemy_model.get_node("OutlineAnimations").play("FlashOutline")
 	elif has_node("/root/Game/GameSpace/Player") and get_node("/root/Game/GameSpace/Player").health - (health*GameVariables.enemy_collision_damage_multiplier) < get_node("/root/Game/GameSpace/Player").max_health*0.3 and enemy_model.has_node("OutlineAnimations"):
 		enemy_model.get_node("OutlineAnimations").play("RESET")
@@ -208,7 +208,7 @@ func explode_ship():
 		elif get_tree().get_nodes_in_group("players")[0].health < 30 and (randi() % powerup_randomness) == 1: # <-- Health
 			powerup.type = GameVariables.POWERUP_TYPES.medkit
 			get_parent().add_child(powerup)
-		elif get_tree().get_nodes_in_group("players")[0].ammo_refills <= 5 or (randi() % (powerup_randomness * 2)) == 1: # <-- Ammo (rarer)
+		elif get_tree().get_nodes_in_group("players")[0].ammo_refills <= 5 or (randi() % (powerup_randomness * 3)) == 1: # <-- Ammo (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.ammo
 			get_parent().add_child(powerup)
 	

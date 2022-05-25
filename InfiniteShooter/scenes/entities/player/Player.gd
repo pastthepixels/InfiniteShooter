@@ -151,16 +151,25 @@ func fire_laser():
 
 # When the player collides with enemies
 func on_enemy_collision(enemy):
+	var deduct_health = 0
 	if godmode == false and enemy.health > 0:
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
-		self.health = clamp(self.health - enemy.health * GameVariables.enemy_collision_damage_multiplier, 5, self.max_health)
-		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS
-			enemy.force_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
-			enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
-			if health/float(max_health) < 0.50: enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
+		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS (creating powerups)
+			if (enemy.health / enemy.max_health) < GameVariables.powerup_health_ratio or enemy.health < GameVariables.powerup_health_points:
+				enemy.force_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
+				if health/float(max_health) < 0.50 or ammo_refills > 10:
+					enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
+				else:
+					enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
+				# [Awards you for running into ships that are glowing by not deducting your health]
+			else: # v- Doesn't award you for running into ships that aren't.
+				deduct_health = enemy.health
 			enemy.hurt(enemy.health)
 		if enemy.is_in_group("bosses"):
 			enemy.hurt(20)
+			deduct_health = enemy.health
+		if deduct_health > 0:
+			self.health = clamp(self.health - deduct_health * GameVariables.enemy_collision_damage_multiplier, 5, self.max_health)
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
 		impulse_rotation.x = actual_velocity.z * 2
