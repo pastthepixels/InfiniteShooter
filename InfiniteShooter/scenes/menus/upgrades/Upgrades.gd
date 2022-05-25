@@ -67,7 +67,7 @@ func create_upgrades():
 		var upgrade_health = randi() % 30
 		upgrades.append( {
 			"name": name_generator.new().generate_upgrade_name(),
-			"cost": 50 * (upgrade_damage + upgrade_health),
+			"cost": GameVariables.cost_per_point * (upgrade_damage + upgrade_health),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false

@@ -69,49 +69,49 @@ func initialize(difficulty, possible_enemy_types=null):
 		GameVariables.ENEMY_TYPES.normal:
 			enemy_model = enemy_types["normal"].instance()
 			# Sets enemy stats
-			max_health = 80
+			max_health = 40
 			damage = 15
 			speed_mult = 2
 
 		GameVariables.ENEMY_TYPES.small:
 			enemy_model = enemy_types["small"].instance()
 			# Sets enemy stats
-			max_health = 20
+			max_health = 10
 			damage = 10
 			speed_mult = 3
 
 		GameVariables.ENEMY_TYPES.tank:
 			enemy_model = enemy_types["tank"].instance()
 			# Sets enemy stats
-			max_health = 100
+			max_health = 60
 			damage = 10
 			speed_mult = 1.6
 		
 		GameVariables.ENEMY_TYPES.gigatank:
 			enemy_model = enemy_types["gigatank"].instance()
 			# Sets enemy stats
-			max_health = 200
+			max_health = 100
 			damage = 20
 			speed_mult = 1
 		
 		GameVariables.ENEMY_TYPES.explosive:
 			enemy_model = enemy_types["explosive"].instance()
 			# Sets enemy stats
-			max_health = 10
+			max_health = 2
 			damage = 100
 			speed_mult = 1.2
 		
 		GameVariables.ENEMY_TYPES.multishot:
 			enemy_model = enemy_types["multishot"].instance()
 			# Sets enemy stats
-			max_health = 120
+			max_health = 60
 			damage = 15
 			speed_mult = .7
 		
 		GameVariables.ENEMY_TYPES.quadshot:
 			enemy_model = enemy_types["quadshot"].instance()
 			# Sets enemy stats
-			max_health = 70
+			max_health = 45
 			damage = 10
 			speed_mult = 1.8
 	
@@ -123,11 +123,9 @@ func initialize(difficulty, possible_enemy_types=null):
 		if child.has_node("Ship") and child != enemy_model: #COMMON FACTOR BETWEEN ALL ENEMY SHIP MODELS: THEY HAVE THE NODE "SHIP"
 			child.queue_free()
 	
-	# Multiplies everything by the difficulty number for added difficulty.
-	var mult = float(difficulty) / 2
-	max_health *= clamp(mult, .5, 512)
-	damage *= clamp(mult, 1, 512)
-	speed_mult *= clamp(mult / 5, 1, 3)
+	# Does math on the max health/damage to implement difficulty
+	max_health	+= GameVariables.health_diff * (difficulty - 1)
+	damage		+= GameVariables.damage_diff * (difficulty - 1)
 	
 	# Sets the current health as the new max health
 	self.health = max_health
@@ -201,17 +199,17 @@ func explode_ship():
 	if $VisibilityNotifier.is_on_screen() and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
-		if force_powerup and use_laser_modifiers == false: # <-- Forced custom powerups
+		if force_powerup == true and use_laser_modifiers == false: # <-- Forced custom powerups
 			if powerup_type != null: powerup.type = powerup_type
 			get_parent().add_child(powerup)
 		elif use_laser_modifiers == true: # <-- Laser modifiers
 			powerup.modifier = laser_modifier
 			get_parent().add_child(powerup)
-		elif get_tree().get_nodes_in_group("players")[0].ammo_refills <= 5: # <-- Ammo
-			powerup.type = GameVariables.POWERUP_TYPES.ammo
-			get_parent().add_child(powerup)
 		elif get_tree().get_nodes_in_group("players")[0].health < 30 and (randi() % powerup_randomness) == 1: # <-- Health
 			powerup.type = GameVariables.POWERUP_TYPES.medkit
+			get_parent().add_child(powerup)
+		elif get_tree().get_nodes_in_group("players")[0].ammo_refills <= 5 or (randi() % (powerup_randomness * 2)) == 1: # <-- Ammo (rarer)
+			powerup.type = GameVariables.POWERUP_TYPES.ammo
 			get_parent().add_child(powerup)
 	
 	# then explodes

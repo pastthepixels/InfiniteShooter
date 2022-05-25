@@ -157,7 +157,7 @@ func on_enemy_collision(enemy):
 		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS
 			enemy.force_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
 			enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
-			if health/max_health < 0.50: enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
+			if health/float(max_health) < 0.50: enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
 			enemy.hurt(enemy.health)
 		if enemy.is_in_group("bosses"):
 			enemy.hurt(20)

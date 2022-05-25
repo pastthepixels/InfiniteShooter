@@ -23,6 +23,13 @@ const enemies_per_wave = 10
 
 var enemy_difficulty
 
+# TIP: TRY TO KEEP THESE CLOSE TO THE VALUES THAT GENERATE IN THE UPGRADES SCREEN
+var health_diff = 16 # <-- How much health all enemies go up by per level (constant value, HP)
+var damage_diff = 3 # <-- How much damage all enemies go up by per level (constant value, also HP)
+
+# TIP: TRY TO NOT EDIT; EDIT THE ABOVE VALUES INSTEAD
+var cost_per_point = 50 # <-- Cost of an upgrade per HP/damage (damage is measured in HP, too, so it checks out) you receive
+
 # Enums
 
 enum LASER_MODIFIERS { none, fire, ice, corrosion }
