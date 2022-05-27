@@ -160,10 +160,8 @@ func initialize(difficulty, possible_enemy_types=null):
 # To move the ship/calculate health
 var previous_health
 func _process(_delta):
-	if has_node("/root/Game/GameSpace/Player") and ((health / max_health) < GameVariables.powerup_health_ratio or health < GameVariables.powerup_health_points) and get_node("/root/Game/GameSpace/Player").health - (health*GameVariables.enemy_collision_damage_multiplier) >= get_node("/root/Game/GameSpace/Player").max_health*0.3 and enemy_model.has_node("OutlineAnimations"):
+	if has_node("/root/Game/GameSpace/Player") and enemy_model.has_node("OutlineAnimations") and ((health / max_health) < GameVariables.powerup_health_ratio or health < GameVariables.powerup_health_points):
 		enemy_model.get_node("OutlineAnimations").play("FlashOutline")
-	elif has_node("/root/Game/GameSpace/Player") and get_node("/root/Game/GameSpace/Player").health - (health*GameVariables.enemy_collision_damage_multiplier) < get_node("/root/Game/GameSpace/Player").max_health*0.3 and enemy_model.has_node("OutlineAnimations"):
-		enemy_model.get_node("OutlineAnimations").play("RESET")
 	if health != previous_health:
 		previous_health = health
 		update_health()
