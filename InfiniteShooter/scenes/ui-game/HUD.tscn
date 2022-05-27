@@ -187,19 +187,19 @@ content_margin_right = 8.0
 content_margin_top = 5.0
 content_margin_bottom = 5.0
 
-[sub_resource type="Gradient" id=14]
+[sub_resource type="Gradient" id=67]
 offsets = PoolRealArray( 0.00387597, 1 )
 colors = PoolColorArray( 0, 0, 0, 0.694118, 0, 0, 0, 0.45098 )
 
 [sub_resource type="GradientTexture" id=15]
-gradient = SubResource( 14 )
+gradient = SubResource( 67 )
 width = 64
 
-[sub_resource type="Gradient" id=16]
+[sub_resource type="Gradient" id=68]
 colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
 
 [sub_resource type="GradientTexture" id=17]
-gradient = SubResource( 16 )
+gradient = SubResource( 68 )
 width = 32
 
 [sub_resource type="StyleBoxFlat" id=66]

@@ -293,3 +293,7 @@ func save_game():
 	var save_data = Saving.load_userdata()
 	save_data.points += score
 	Saving.save_userdata(save_data)
+
+
+func _on_GameOverMenu_done_opening():
+	$GameOverMenu/GameStats.set_stats(level, wave, 100 * wave/waves_per_level, 100 * 1.0/GameVariables.enemies_per_wave, score)

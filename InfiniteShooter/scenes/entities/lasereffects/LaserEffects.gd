@@ -2,6 +2,8 @@ extends Spatial
 
 export(NodePath) var ship
 
+var resetting = false
+
 export var emission_radius = .8
 
 export var disabled = false
@@ -61,12 +63,13 @@ func _on_Timer_timeout():
 	reset()
 
 func reset():
-	get_parent().freeze_movement = false
+	resetting = true
+	if "freeze_movement" in get_parent(): get_parent().freeze_movement = false
 	$Fire.emitting = false
 	$Corrosion.emitting = false
 	$Ice.emitting = false
-	$FireSound.stop()
-	$IceSound.stop()
-	$CorrosionSound.stop()
+	$AnimationPlayer.play("fade_sounds")
 	if get_tree() != null: yield(get_tree(), "idle_frame")
+	yield($AnimationPlayer, "animation_finished")
 	emit_signal("finished_reset")
+	resetting = false

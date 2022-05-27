@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 0.156863 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.27451 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/lod = 2.0
+
+[node name="BlurPanel" type="PanelContainer"]
+margin_right = 142.0
+margin_bottom = 75.0
+rect_pivot_offset = Vector2( -182, -118 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Blur" type="ColorRect" parent="."]
+show_behind_parent = true
+material = SubResource( 2 )
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 140.0
+margin_bottom = 73.0
+
+[node name="Content" type="MarginContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 140.0
+margin_bottom = 73.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10

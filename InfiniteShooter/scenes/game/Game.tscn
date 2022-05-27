@@ -68,3 +68,4 @@ visible = false
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]
 [connection signal="set_modifier" from="GameSpace/Player" to="." method="_on_Player_set_modifier"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]
+[connection signal="done_opening" from="GameOverMenu" to="." method="_on_GameOverMenu_done_opening"]

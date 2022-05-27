@@ -215,6 +215,7 @@ func explode_ship():
 
 
 func _on_Explosion_exploded():
+	if $LaserEffects.resetting: yield($LaserEffects, "finished_reset")
 	queue_free()
 
 
@@ -268,6 +269,8 @@ func _on_ship_body_entered(body):
 
 func _on_VisibilityNotifier_camera_exited(_camera):
 	if is_in_group("enemies"): remove_from_group("enemies")
+	$LaserEffects.reset()
 	emit_signal("exited_screen", self)
 	yield(get_tree(), "idle_frame")
+	yield($LaserEffects, "finished_reset")
 	queue_free()

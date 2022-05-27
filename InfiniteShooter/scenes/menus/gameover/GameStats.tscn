@@ -1,0 +1,206 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scenes/ui-bits/BlurPanel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/gameover/GameStats.gd" type="Script" id=2]
+[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=3]
+[ext_resource path="res://sounds/ammo-reloadboop.mp3" type="AudioStream" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="Gradient" id=14]
+offsets = PoolRealArray( 0.00387597, 1 )
+colors = PoolColorArray( 0, 0, 0, 0.694118, 0, 0, 0, 0.45098 )
+
+[sub_resource type="GradientTexture" id=18]
+gradient = SubResource( 14 )
+width = 64
+
+[sub_resource type="Gradient" id=16]
+colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 16 )
+width = 32
+
+[sub_resource type="StyleBoxEmpty" id=20]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="Gradient" id=21]
+offsets = PoolRealArray( 0.00387597, 1 )
+colors = PoolColorArray( 0, 0, 0, 0.694118, 0, 0, 0, 0.45098 )
+
+[sub_resource type="GradientTexture" id=22]
+gradient = SubResource( 21 )
+width = 64
+
+[sub_resource type="Gradient" id=23]
+colors = PoolColorArray( 0.503906, 0, 0, 1, 0.871094, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=24]
+gradient = SubResource( 23 )
+width = 32
+
+[sub_resource type="StyleBoxFlat" id=25]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 5.0
+content_margin_bottom = 4.0
+bg_color = Color( 1, 1, 1, 0.25098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.392157 )
+
+[node name="GameStats" instance=ExtResource( 1 )]
+margin_right = 340.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 300, 120 )
+rect_pivot_offset = Vector2( 170, 60 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="Blur" parent="." index="0"]
+margin_right = 338.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 240, 0 )
+
+[node name="Content" parent="." index="1"]
+margin_right = 338.0
+margin_bottom = 118.0
+
+[node name="Tween" type="Tween" parent="." index="2"]
+
+[node name="ReloadBoop" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="Stats" type="VBoxContainer" parent="." index="4"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 338.0
+margin_bottom = 118.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Level" type="HBoxContainer" parent="Stats" index="0"]
+margin_top = 24.0
+margin_right = 336.0
+margin_bottom = 53.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Stats/Level" index="0"]
+margin_left = 52.0
+margin_top = 5.0
+margin_right = 127.0
+margin_bottom = 24.0
+text = "You got to"
+
+[node name="Level" type="MarginContainer" parent="Stats/Level" index="1"]
+margin_left = 131.0
+margin_right = 201.0
+margin_bottom = 29.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Stats/Level/Level" index="0"]
+margin_right = 70.0
+margin_bottom = 29.0
+custom_styles/normal = SubResource( 17 )
+text = "Level 0"
+align = 1
+valign = 1
+
+[node name="Progress" type="TextureProgress" parent="Stats/Level/Level" index="1"]
+show_behind_parent = true
+margin_right = 70.0
+margin_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+texture_under = SubResource( 18 )
+texture_progress = SubResource( 19 )
+nine_patch_stretch = true
+
+[node name="Comma" type="Label" parent="Stats/Level" index="2"]
+margin_left = 205.0
+margin_top = 5.0
+margin_right = 208.0
+margin_bottom = 24.0
+text = ","
+
+[node name="Wave" type="MarginContainer" parent="Stats/Level" index="3"]
+margin_left = 212.0
+margin_right = 283.0
+margin_bottom = 29.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Stats/Level/Wave" index="0"]
+margin_right = 71.0
+margin_bottom = 29.0
+custom_styles/normal = SubResource( 20 )
+text = "Wave 0"
+align = 1
+valign = 1
+
+[node name="Progress" type="TextureProgress" parent="Stats/Level/Wave" index="1"]
+show_behind_parent = true
+margin_right = 71.0
+margin_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+texture_under = SubResource( 22 )
+texture_progress = SubResource( 24 )
+nine_patch_stretch = true
+
+[node name="Points" type="HBoxContainer" parent="Stats" index="1"]
+margin_top = 63.0
+margin_right = 336.0
+margin_bottom = 91.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Stats/Points" index="0"]
+margin_left = 50.0
+margin_top = 4.0
+margin_right = 203.0
+margin_bottom = 23.0
+text = "and scored a total of"
+
+[node name="Points" type="Label" parent="Stats/Points" index="1"]
+margin_left = 207.0
+margin_right = 232.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 1, 0.823529, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_styles/normal = SubResource( 25 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Stats/Points" index="2"]
+margin_left = 236.0
+margin_top = 4.0
+margin_right = 286.0
+margin_bottom = 23.0
+text = "points."
+
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
+[connection signal="tween_step" from="Tween" to="." method="_on_Tween_tween_step"]
