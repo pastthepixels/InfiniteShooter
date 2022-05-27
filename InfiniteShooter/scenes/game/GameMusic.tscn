@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/game/GameMusic.gd" type="Script" id=1]
 [ext_resource path="res://music/game3.mp3" type="AudioStream" id=2]
@@ -12,29 +12,12 @@
 [ext_resource path="res://music/game10.mp3" type="AudioStream" id=10]
 [ext_resource path="res://music/game7.mp3" type="AudioStream" id=11]
 
-[sub_resource type="Animation" id=1]
-resource_name = "fade"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:volume_db")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ -20.0, 0.0 ]
-}
-
 [node name="GameMusic" type="AudioStreamPlayer"]
 volume_db = -20.0
 bus = "Music"
 script = ExtResource( 1 )
 game_songs = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ) ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade = SubResource( 1 )
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="finished" from="." to="." method="_on_GameMusic_finished"]

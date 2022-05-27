@@ -22,6 +22,7 @@ func _on_Entrance_body_entered(body):
 		body.freeze_movement = true
 		body.hide()
 		CameraEquipment.slow_sky();
+		get_node("/root/Game/GameMusic").fade_out(3)
 		yield(CameraEquipment.get_node("Tween"), "tween_completed")
 		
 		# Stop everything and show the screen
@@ -42,6 +43,7 @@ func _on_Entrance_body_entered(body):
 		body.show()
 		
 		# Go away
+		get_node("/root/Game/GameMusic").fade_in(3)
 		CameraEquipment.resume_sky();
 		yield(CameraEquipment.get_node("Tween"), "tween_completed")
 		$Tween.interpolate_property(self, "translation:z", 0, Utils.bottom_left.z + 10, 6, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)

@@ -33,6 +33,8 @@ func show_animated():
 	update_gui()
 	rect_pivot_offset = rect_size/2
 	$AnimationPlayer.play("open")
+	$ShowSound.play()
+	$Music.play()
 
 
 func _on_SelectSquare_selected():
@@ -40,6 +42,7 @@ func _on_SelectSquare_selected():
 		"Back":
 			emit_signal("closed")
 			$AnimationPlayer.play("close")
+			$Music.stop() 
 		
 		var name:
 			var upgrade = upgrade_lookup_table[name]

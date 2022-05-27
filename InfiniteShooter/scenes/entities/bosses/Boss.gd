@@ -113,7 +113,6 @@ func explode_ship():
 	enemy_model.hide()
 	$LaserEffects.disabled = true
 	$LaserEffects.reset()
-	yield($LaserEffects, "finished_reset")
 	$Explosions.show()
 	$Tween.stop_all()
 	for explosion in $Explosions.get_children():
@@ -132,4 +131,5 @@ func _on_ship_body_entered(body):
 
 
 func _on_FinalExplosion_exploded():
+	if $LaserEffects.resetting: yield($LaserEffects, "finished_reset")
 	queue_free()

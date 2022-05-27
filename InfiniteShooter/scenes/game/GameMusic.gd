@@ -25,13 +25,26 @@ func switch_game():
 
 
 func crossfade(audiostream):
-	$AnimationPlayer.play_backwards("fade")
-	yield($AnimationPlayer, "animation_finished")
+	fade_out()
+	yield($Tween, "tween_all_completed")
 	stop()
 	stream = audiostream
 	play()
-	$AnimationPlayer.play("fade")
+	fade_in()
 
 # Switch game soundtrack (like looping for the game) if the user wants it
 func _on_GameMusic_finished():
 	if autoswitch == true: switch_game()
+
+func fade_in(time=0.2):
+	$Tween.interpolate_property(self, "volume_db",
+		-20, 0, time,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()
+
+
+func fade_out(time=0.2):
+	$Tween.interpolate_property(self, "volume_db",
+		0, -20, time,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()

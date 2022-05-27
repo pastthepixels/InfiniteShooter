@@ -68,8 +68,9 @@ func reset():
 	$Fire.emitting = false
 	$Corrosion.emitting = false
 	$Ice.emitting = false
-	$AnimationPlayer.play("fade_sounds")
+	if $IceSound.playing == true or $FireSound.playing == true or $CorrosionSound.playing == true:
+		$AnimationPlayer.play("fade_sounds")
+		yield($AnimationPlayer, "animation_finished")
 	if get_tree() != null: yield(get_tree(), "idle_frame")
-	yield($AnimationPlayer, "animation_finished")
 	emit_signal("finished_reset")
 	resetting = false
