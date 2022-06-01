@@ -171,7 +171,7 @@ func _physics_process(delta):
 	translation.z += 2 * speed_mult * delta
 
 
-func explode_ship():
+func explode_ship(silent=false):
 	alive = false
 	
 	# Stops moving
@@ -192,7 +192,8 @@ func explode_ship():
 			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
-	emit_signal("died", self)
+	if silent == false: emit_signal("died", self)
+	
 	# Powerups
 	if $VisibilityNotifier.is_on_screen() and has_node(self.get_path()):
 		var powerup = powerup_scene.instance()
@@ -211,8 +212,10 @@ func explode_ship():
 			get_parent().add_child(powerup)
 	
 	# then explodes
-	$Explosion.explode()
-
+	if silent == false:
+		$Explosion.explode()
+	else:
+		_on_Explosion_exploded()
 
 func _on_Explosion_exploded():
 	if $LaserEffects.resetting: yield($LaserEffects, "finished_reset")
@@ -267,10 +270,7 @@ func _on_ship_body_entered(body):
 		explode_ship() # Otherwise the ship collided with something the player can collide with, so it would look weird if it passed through, so... we kill it.
 
 
-func _on_VisibilityNotifier_camera_exited(_camera):
-	if is_in_group("enemies"): remove_from_group("enemies")
-	$LaserEffects.reset()
-	emit_signal("exited_screen", self)
-	yield(get_tree(), "idle_frame")
-	yield($LaserEffects, "finished_reset")
-	queue_free()
+func _on_VisibilityNotifier_screen_exited():
+	if translation.z > 0: # Ensuring the enemy left the BOTTOM of the screen
+		emit_signal("exited_screen", self)
+		explode_ship(true)

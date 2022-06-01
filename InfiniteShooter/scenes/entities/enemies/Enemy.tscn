@@ -36,4 +36,4 @@ ship = NodePath("..")
 [connection signal="timeout" from="LaserTimer" to="." method="_on_LaserTimer_timeout"]
 [connection signal="area_entered" from="ShipDetection" to="." method="_on_ShipDetection_area_entered"]
 [connection signal="exploded" from="Explosion" to="." method="_on_Explosion_exploded"]
-[connection signal="camera_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
