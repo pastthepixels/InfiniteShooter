@@ -130,7 +130,7 @@ func _input(event): # Keyboard taps
 			fire_laser()
 
 func fire_laser():
-	if self.ammo == 0:
+	if self.ammo == 0 and self.ammo_refills <= 0:
 		$AmmoClick.play()
 	elif $ReloadTimer.time_left == 0:
 		if self.ammo > 0:
