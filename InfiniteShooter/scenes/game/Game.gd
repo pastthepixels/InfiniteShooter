@@ -223,15 +223,15 @@ func make_boss():
 func _on_Boss_died(_boss):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		level_up()
-		score += 1000
-		points += 1000
+		score += GameVariables.get_points_boss()
+		points += GameVariables.get_points_boss()
 		$HUD.update_points(points)
 
 func _on_Enemy_died(ship):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Score: "If an enemy didn't just slip away past the bottom of the screen, that means you probably killed it!"
-		score += ceil(ship.max_health/2)
-		points += ceil(ship.max_health/2)
+		score += GameVariables.get_points(ship.max_health)
+		points += GameVariables.get_points(ship.max_health)
 		$HUD.update_points(points)
 		_on_Enemy_exited_screen(ship)
 

@@ -15,6 +15,8 @@ var damage_diff = 3 # <-- How much damage all enemies go up by per level (consta
 # TIP: TRY TO NOT EDIT; EDIT THE ABOVE VALUES INSTEAD
 var cost_per_point = 50 # <-- Cost of an upgrade per HP/damage (damage is measured in HP, too, so it checks out) you receive
 
+var max_purchasable_points = calculate_total_points(1) / cost_per_point # <-- Maximum amount of points you should be able to purchase after each level -- AUTO GENERATED TO MATCH THE FIRST LEVEL
+
 var level_dependent_enemy_types = [ # 3-D ARRAY: Each line is a level and an array containg the enemy types avaiable
 	[1, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank]], # Level 1. We start with the 3 basic types.
 	[3, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank, ENEMY_TYPES.explosive]], # Level 3. We now have the explosive type because we are dealing with more enemies
@@ -68,3 +70,18 @@ func set_difficulty(difficulty):
 func _ready():
 	if enemy_difficulty == null:
 		set_difficulty(DIFFICULTIES.medium)
+
+# Functions to do some stuff
+func get_points(enemy_max_health): # Dynamic
+	return ceil(enemy_max_health/2)
+
+func get_points_boss(): # Flat (but could be dynamic)
+	return 1000
+
+func calculate_total_points(level, normal_ship_health=40): # Calculates the points you get for completing a certain level
+	var waves = min(level+waves_per_level_range[0]-1, waves_per_level_range[1])
+	var health = normal_ship_health + health_diff * (level-1) # Health with extra health applied depending on difficulty
+	return  waves * enemies_per_wave * get_points(health) + get_points_boss()
+
+func get_cost_per_point(level): # Dynamically sets upgrade costs so that you can only upgrade a certain amount of points after each level. Used in the upgrades screen to dynamically generate balanced upgrades
+	return calculate_total_points(level)/max_purchasable_points

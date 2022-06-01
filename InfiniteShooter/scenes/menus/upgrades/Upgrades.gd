@@ -20,17 +20,11 @@ export(PackedScene) var upgrade_label
 # Name generator
 export(Script) var name_generator
 
-
-# Loads and reads upgrades
-func _ready():
-	update_gui()
-	create_upgrades() # <-- Loads upgrades
-	read_upgrades() # <-- turns them into labels
-	reroll_upgrades() # <-- Does not nessecarilary reroll upgrades but checks first
-
 # Shows and hides the menu with FADING
 func show_animated():
-	update_gui()
+	create_upgrades() # <-- Creates upgrades
+	read_upgrades() # <--- turns them into labels
+	update_gui()	# <-/
 	rect_pivot_offset = rect_size/2
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
@@ -70,7 +64,7 @@ func create_upgrades():
 		var upgrade_health = randi() % 30
 		upgrades.append( {
 			"name": name_generator.new().generate_upgrade_name(),
-			"cost": GameVariables.cost_per_point * (upgrade_damage + upgrade_health),
+			"cost": GameVariables.get_cost_per_point(get_node("/root/Game").level) * (upgrade_damage + upgrade_health),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false
