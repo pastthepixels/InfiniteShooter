@@ -152,7 +152,7 @@ func fire_laser():
 # When the player collides with enemies
 func on_enemy_collision(enemy):
 	var deduct_health = 0
-	if godmode == false and enemy.health > 0:
+	if enemy.health > 0:
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS (creating powerups)
 			if (enemy.health / enemy.max_health) < GameVariables.powerup_health_ratio or enemy.health < GameVariables.powerup_health_points:
@@ -168,7 +168,7 @@ func on_enemy_collision(enemy):
 		if enemy.is_in_group("bosses"):
 			enemy.hurt(20)
 			deduct_health = enemy.health
-		if deduct_health > 0:
+		if deduct_health > 0 and godmode == false:
 			self.health = clamp(self.health - deduct_health * GameVariables.enemy_collision_damage_multiplier, 5, self.max_health)
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
