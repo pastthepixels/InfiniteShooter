@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menus/readme/Readme.gd" type="Script" id=3]
+
+[node name="Readme" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="SelectSquare" parent="." index="2" instance=ExtResource( 2 )]
+options_path = NodePath("../Content/Options")
+
+[node name="Content" parent="." index="3"]
+margin_left = -259.5
+margin_right = 260.5
+
+[node name="Title" parent="Content" index="0"]
+text = "instructions"
+
+[node name="Options" type="VBoxContainer" parent="Content" index="1"]
+margin_top = 85.0
+margin_right = 520.0
+margin_bottom = 104.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Label" parent="Content/Options" index="0"]
+margin_right = 520.0
+margin_bottom = 19.0
+text = "back"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Paragraph1" type="Label" parent="Content" index="2"]
+margin_top = 124.0
+margin_right = 520.0
+margin_bottom = 187.0
+text = "Welcome to InfiniteShooter! The rules for this game are pretty straightforward: kill everything that moves. By default, the controls to do so are using the arrow keys to move and the spacebar to shoot."
+autowrap = true
+
+[node name="Paragraph2" type="Label" parent="Content" index="3"]
+margin_top = 207.0
+margin_right = 520.0
+margin_bottom = 270.0
+text = "In the top left corner is your HUD, displaying your health, the color of your laser, and your ammo levels. Be sure to watch how much ammo refills you have left!"
+autowrap = true
+
+[node name="Paragraph3" type="Label" parent="Content" index="4"]
+margin_top = 290.0
+margin_right = 520.0
+margin_bottom = 353.0
+text = "Lastly, each ship has a different type of power. I am also a lazy programmer, so this version of InfiniteShooter has only one ship. So what's its powerup? Press the left control key and find out!"
+autowrap = true
+
+[node name="Paragraph4" type="Label" parent="Content" index="5"]
+margin_top = 373.0
+margin_right = 520.0
+margin_bottom = 568.0
+text = "Oh, and *actually* lastly, I hope you have as fun with InfiniteShooter as I do with making it! This is InfiniteShooter 4.0, which is the last major verion of InfiniteShooter before I just start adding more content per release. So I think I've finally made a sort of fun game! Thanks for playing it. It means everything to me. Oh, and don't forget to stop by InfiniteShooter's GitHub repository and contribute! (Disclaimer: I don't really know how to work with others, especially with Git/GitHub, so I wanted to apologize for that beforehand.) It'll be very appreciated! Again, thanks, and have fun!"
+autowrap = true
+
+[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

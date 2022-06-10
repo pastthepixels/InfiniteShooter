@@ -17,6 +17,11 @@ stats_label = ExtResource( 6 )
 [node name="SelectSquare" parent="." index="2" instance=ExtResource( 4 )]
 options_path = NodePath("../Content/Options")
 
+[node name="Content" parent="." index="3"]
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
 [node name="Title" parent="Content" index="0"]
 custom_fonts/font = SubResource( 1 )
 text = "leaderboard"
@@ -43,6 +48,6 @@ __meta__ = {
 margin_top = 124.0
 margin_right = 520.0
 margin_bottom = 124.0
-custom_constants/separation = 20
+custom_constants/separation = 14
 
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

@@ -34,30 +34,6 @@ var use_laser_modifiers = false # Whether or not to use laser modifiers
 
 var autospawn_enemies = false # Whether or not to spawn new enemies when they die (used within this script)
 
-# Scripts
-export var tutorial_script = [
-	"Welcome to InfniteShooter!",
-	"Use the arrow keys to move around (left stick on a controller), and press space or A on a controller to fire a laser. Try it out!",
-	"wait_5",
-	"Optionally, you can press the control key (LB or RB on a controller) to slow time.",
-	"Here comes an enemy ship! SHOOT IT UNTIL IT DIES!",
-	"wait_enemy",
-	"You may have noticed that the enemy may have dropped a powerup. To use it, simply run over it with your ship. Different powerups have different effects, so try them all out!",
-	"If you are, however, sick and tired of powerups only appearing randomly, you can just run into ships. Seriously. Not only will it look cool, but you can also get health or ammo powerups to get you back into the game.",
-	"Just make sure to watch your health, however, as running into ships will decrease it by the amount of health the enemy has! When enemies flash red, that means it's safe to run into them without taking a hit to your health.",
-	"Next, let's talk about the in-game HUD.",
-	"Your health is the green bar in the top left corner. The grey bar is your ammo (the number beside it notes your refills).",
-	"For the status bar, we have the current level, wave, score, and frame rate, respectively.",
-	"And that's all you need to know about InfiniteShooter! Thank you for playing and good luck!"
-]
-
-export var tutorial_elemental_script = [
-	"On this level, we'll introduce elemental damage, where different enemy ships have a chance of using a different type of laser.",
-	"You may now be familiar with the concpet of powerups. Now, evey time you destroy a ship that uses elemental damage, it will drop a powerup which gives you its elemental ability when collected.",
-	"However, the white and red powerup you may have previously used to destroy all enemies on the screen actually resets the screen, killing all enemies but resetting your elemental ability.",
-	"Lastly, while dealing with elemental damage, make sure you don't get hit yourself!"
-]
-
 #
 # Countdown timers, initialization, music, and _process
 #
@@ -72,51 +48,14 @@ func _ready():
 	if waves_per_level > 0:
 		$HUD.update_level(level, 100 * wave/waves_per_level)
 		$HUD.update_wave(wave, 100 * 1.0/GameVariables.enemies_per_wave)
-	# Begins the countdown/shows the tutorial/plays appropiate music
-	if Saving.get_tutorial_progress()["initial"] == true:
-		$Countdown.start()
-		$GameMusic.start_game()
-	else:
-		$Countdown.queue_free()
-		$GameSpace/IndicatorArrow.hide()
-		$TutorialMusic.play()
-		yield(CameraEquipment.get_node("CameraAnimations"), "animation_finished")
-		activate_tutorial()
+	# Begins the countdown/plays appropiate music
+	$Countdown.start()
+	$GameMusic.start_game()
 
 
 func _on_Countdown_finished():
 	make_enemies()
 
-#
-# the Tutorial
-#
-func activate_tutorial():
-	yield(Utils.timeout(.5), "timeout")
-	yield(parse_tutorial(tutorial_script), "completed")
-	var progress = Saving.get_tutorial_progress()
-	progress["initial"] = true
-	Saving.set_tutorial_progress(progress)
-	SceneTransition.restart_game()
-
-func activate_tutorial_elemental():
-	yield(parse_tutorial(tutorial_elemental_script), "completed")
-	var progress = Saving.get_tutorial_progress()
-	progress["elemental"] = true
-	Saving.set_tutorial_progress(progress)
-
-func parse_tutorial(script):
-	for line in script:
-		match line:
-			"wait_enemy":
-				yield(make_enemy(), "died")
-				yield(Utils.timeout(2), "timeout")
-
-			"wait_5":
-				yield(Utils.timeout(5), "timeout")
-
-			_:
-				$TutorialAlert.alert(line)
-				yield($TutorialAlert, "confirmed")
 #
 # Waves, levels, and score
 #
@@ -154,7 +93,6 @@ func level_up():
 		2:
 			yield(Utils.timeout(1), "timeout")
 			use_laser_modifiers = true
-			if Saving.get_tutorial_progress()["elemental"] == false: activate_tutorial_elemental()
 	for enemy_types in GameVariables.level_dependent_enemy_types:
 		if enemy_types[0] == level:
 			possible_enemies = enemy_types[1]

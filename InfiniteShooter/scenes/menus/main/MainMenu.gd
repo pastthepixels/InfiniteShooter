@@ -54,12 +54,6 @@ func _input(event):
 		# Allows things to be selected
 		$Menu/SelectSquare.show()
 		$Menu/SelectSquare.ignore_hits = 1
-		
-		# Alerts new players of what buttons to press
-		if Saving.get_tutorial_progress()["initial"] == false:
-			yield(Utils.timeout(1), "timeout")
-			$Alert.alert("Welcome to InfiniteShooter! Press the spacebar or A on a controller to start.", 5)
-
 
 func _on_SelectSquare_selected():
 	match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...
@@ -68,6 +62,11 @@ func _on_SelectSquare_selected():
 
 		"Leaderboard":  # Same with selecting the leaderboard
 			$Leaderboard.show_animated()
+			$Title.hide()
+			$Menu/SelectSquare.hide()
+		
+		"Readme":  # Same with selecting the leaderboard
+			$Readme.show_animated()
 			$Title.hide()
 			$Menu/SelectSquare.hide()
 
@@ -85,6 +84,10 @@ func _on_Settings_closed():
 
 
 func _on_Leaderboard_closed():
+	return_from_submenu()
+
+
+func _on_Readme_closed():
 	return_from_submenu()
 
 

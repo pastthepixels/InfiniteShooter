@@ -34,22 +34,29 @@ func create_label(text, number=null):
 	# Custom backgrounds
 	if number != null:
 		label.get_node("Number").text = "%02d" % number
-		label.get_node("Text/Background").color = Color(1, 1, 1, 1 - float(number)/list_length)
+		var style = label.get_node("Text").get_stylebox("normal")
+		style.bg_color = Color(1, 1, 1, 1 - float(number)/list_length)
+		label.get_node("Text").add_stylebox_override("normal", style)
+
+
 		if float(number)/list_length < .5:
 			label.get_node("Text").set("custom_colors/font_color", Color(0, 0, 0))
+		
+		style = label.get_node("Number").get_stylebox("normal")
 		# More specific custom backgrounds
 		match number:
 			1:
-				label.get_node("Number/Background").color = Color(.8, .64, .2)
+				style.bg_color = Color(.8, .64, .2)
 				label.get_node("Number").set("custom_colors/font_color", Color(0, 0, 0))
 			
 			2:
-				label.get_node("Number/Background").color = Color(1, 1, 1, .6)
+				style.bg_color = Color(1, 1, 1, .6)
 				label.get_node("Number").set("custom_colors/font_color", Color(0, 0, 0))
 			
 			3:
-				label.get_node("Number/Background").color = Color(.8, .4, .2)
+				style.bg_color = Color(.8, .4, .2)
 				label.get_node("Number").set("custom_colors/font_color", Color(0, 0, 0))
+		label.get_node("Number").add_stylebox_override("normal", style)
 	else:
 		label.get_node("Number").hide()
 	

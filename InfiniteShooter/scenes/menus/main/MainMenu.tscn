@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/menus/main/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/menus/leaderboard/Leaderboard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/settings/Settings.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/readme/Readme.tscn" type="PackedScene" id=6]
 [ext_resource path="res://music/main.mp3" type="AudioStream" id=7]
 [ext_resource path="res://models/title-infiniteshooter/title.glb" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=9]
@@ -167,6 +168,15 @@ text = "leaderboard"
 align = 1
 valign = 1
 
+[node name="Readme" type="Label" parent="Menu/Options"]
+margin_top = 57.0
+margin_right = 139.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 0, 32 )
+text = "instructions"
+align = 1
+valign = 1
+
 [node name="Settings" type="Label" parent="Menu/Options"]
 margin_top = 171.0
 margin_right = 139.0
@@ -215,6 +225,8 @@ align = 1
 [node name="Leaderboard" parent="." instance=ExtResource( 3 )]
 theme = null
 
+[node name="Readme" parent="." instance=ExtResource( 6 )]
+
 [node name="Settings" parent="." instance=ExtResource( 5 )]
 
 [node name="Alert" parent="." instance=ExtResource( 9 )]
@@ -222,4 +234,5 @@ theme = null
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="selected" from="Menu/SelectSquare" to="." method="_on_SelectSquare_selected"]
 [connection signal="closed" from="Leaderboard" to="." method="_on_Leaderboard_closed"]
+[connection signal="closed" from="Readme" to="." method="_on_Readme_closed"]
 [connection signal="closed" from="Settings" to="." method="_on_Settings_closed"]

@@ -1,21 +1,35 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=1]
+
+[sub_resource type="StyleBoxFlat" id=3]
+resource_local_to_scene = true
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 1, 1, 1, 0.196078 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 1, 1, 1, 0.392157 )
 
 [node name="StatsLabel" type="HBoxContainer"]
 margin_right = 89.0
 margin_bottom = 17.0
 mouse_default_cursor_shape = 16
-custom_constants/separation = 25
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size_flags_horizontal = 3
+custom_constants/separation = 14
 
 [node name="Number" type="Label" parent="."]
-margin_top = 1.0
-margin_right = 18.0
-margin_bottom = 17.0
-rect_min_size = Vector2( 18, 16 )
+margin_right = 38.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 38, 34 )
+size_flags_vertical = 1
+custom_styles/normal = SubResource( 3 )
 text = "01"
 align = 1
 valign = 1
@@ -23,41 +37,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="Number"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 5.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 26, 26 )
-color = Color( 1, 1, 1, 0.196078 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Text" type="Label" parent="."]
-margin_left = 43.0
-margin_right = 114.0
-margin_bottom = 19.0
+margin_left = 52.0
+margin_right = 143.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme = ExtResource( 1 )
+custom_styles/normal = SubResource( 2 )
 text = "Template"
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="ColorRect" parent="Text"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -10.0
-margin_top = -5.0
-margin_right = 10.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 400, 0 )
-color = Color( 1, 1, 1, 0.392157 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

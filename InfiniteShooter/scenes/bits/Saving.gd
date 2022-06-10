@@ -6,7 +6,6 @@ onready var dir = Directory.new()
 
 var PATHS = {
 	"userdata": "user://userdata.txt",
-	"tutorial_complete": "user://tutorial-progress.json",
 	"leaderboard": "user://scores.txt",
 	"settings": "user://settings.json",
 	"keybindings": "user://keybindings.json",
@@ -34,11 +33,6 @@ var default_settings = {
 	"difficulty": GameVariables.DIFFICULTIES.medium
 }
 
-var default_tutorial_progress = {
-	"initial": false,
-	"elemental": false
-}
-
 #
 # Userdata -- Player information and points (total score accumulated)
 #
@@ -58,22 +52,6 @@ func load_userdata():
 func save_userdata(userdata):
 	file.open(PATHS.userdata, File.WRITE)
 	file.store_line(to_json(userdata)) # Converts the userdata file to a JSON for cheating--I mean user editing
-	file.close()
-	
-#
-# Tutorial information
-#
-func get_tutorial_progress():
-	file.open(PATHS.tutorial_complete, File.READ)
-	var line = file.get_line()
-	if line == "":
-		return Saving.default_tutorial_progress
-	else:
-		return parse_json(line)
-
-func set_tutorial_progress(progress):
-	file.open(PATHS.tutorial_complete, File.WRITE)
-	file.store_line(to_json(progress))
 	file.close()
 
 #
