@@ -9,12 +9,12 @@ export var powerup_health_ratio = 0.35 # Percentage of enemy health it needs to 
 export var powerup_health_points = 20 # Same as above but for enemy HP
 
 # TIP: TRY TO KEEP THESE CLOSE TO THE VALUES THAT GENERATE IN THE UPGRADES SCREEN
-var health_diff = 16 # <-- How much health all enemies go up by per level (constant value, HP)
+var health_diff = 20 # <-- How much health all enemies go up by per level (constant value, HP)
 var damage_diff = 3 # <-- How much damage all enemies go up by per level (constant value, also HP)
 var health_diff_boss = 128
 
 # TIP: TRY TO NOT EDIT; EDIT THE ABOVE VALUES INSTEAD
-var cost_per_point = 45 # <-- Cost of an upgrade per HP/damage (damage is measured in HP, too, so it checks out) you receive
+var cost_per_point = 48 # <-- Cost of an upgrade per HP/damage (damage is measured in HP, too, so it checks out) you receive
 
 var max_points_per_upgrade = 16 # <-- Note: For EITHER damage or health
 
@@ -66,14 +66,17 @@ func set_difficulty(difficulty):
 
 		DIFFICULTIES.hard:
 			health_diff += 2
+			cost_per_point += 2
 
 		DIFFICULTIES.nightmare:
 			health_diff += 2
 			damage_diff += 2
+			cost_per_point += 2
 
 		DIFFICULTIES.ultranightmare:
 			health_diff += 3
 			damage_diff += 3
+			cost_per_point += 3
 
 func _ready():
 	if enemy_difficulty == null:
