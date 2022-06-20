@@ -52,7 +52,7 @@ margin_top = 5.0
 margin_right = 171.0
 margin_bottom = 24.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
-text = "30 damage"
+text = "30 damage/shot"
 
 [node name="Health" type="Label" parent="Content/Stats" index="2"]
 margin_left = 191.0

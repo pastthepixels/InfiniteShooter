@@ -35,6 +35,10 @@ func _on_SelectSquare_selected():
 			settings["fullscreen"] = ! settings["fullscreen"]
 			set_settings()
 		
+		"FrameCounter":
+			settings["fps_indicator"] = ! settings["fps_indicator"]
+			set_settings()
+		
 		"LensDistortion":
 			settings["distortion"] = ! settings["distortion"]
 			set_settings()
@@ -143,6 +147,10 @@ func update_gui():
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["fullscreen"] else colors.red
+	)
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FrameCounter/Title.set(
+		"custom_colors/font_color",
+		colors.green if settings["fps_indicator"] else colors.red
 	)
 	
 	# Difficulty

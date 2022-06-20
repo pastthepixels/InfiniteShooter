@@ -70,7 +70,7 @@ func update_gradient(texture):
 			$HUD/ProgressBars.texture = default_gradient
 
 
-func update_health(value, hp):
+func update_health(value : float, hp):
 	$ProgressTween.interpolate_property(
 		self,
 		"animated_health",
@@ -90,7 +90,7 @@ func update_health(value, hp):
 		low_health = true
 		$AnimationPlayer.play("FadeInVignette")
 		$HUDToast.alert("Low health!", 1)
-	elif value > 0.3 and $AnimationPlayer.is_playing() == false and low_health == true and $Vignette.visible == true:
+	elif value > 0.4 and $AnimationPlayer.is_playing() == false and low_health == true and $Vignette.visible == true:
 		low_health = false
 		$AnimationPlayer.play("FadeOutVignette")
 

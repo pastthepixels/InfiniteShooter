@@ -10,6 +10,8 @@ var max_health = 100
 
 var health = max_health
 
+var health_percent setget ,get_health_percent
+
 var alive = true
 
 # Enemy modifiers
@@ -83,14 +85,14 @@ func initialize(difficulty, possible_enemy_types=null):
 		GameVariables.ENEMY_TYPES.tank:
 			enemy_model = enemy_types["tank"].instance()
 			# Sets enemy stats
-			max_health = 60
+			max_health = 75
 			damage = 8
 			speed_mult = 1.6
 		
 		GameVariables.ENEMY_TYPES.gigatank:
 			enemy_model = enemy_types["gigatank"].instance()
 			# Sets enemy stats
-			max_health = 100
+			max_health = 125
 			damage = 10
 			speed_mult = 1
 		
@@ -160,7 +162,7 @@ func initialize(difficulty, possible_enemy_types=null):
 # To move the ship/calculate health
 var previous_health
 func _process(_delta):
-	if has_node("/root/Game/GameSpace/Player") and enemy_model.has_node("OutlineAnimations") and ((health / max_health) < GameVariables.powerup_health_ratio or health < GameVariables.powerup_health_points):
+	if has_node("/root/Game/GameSpace/Player") and enemy_model.has_node("OutlineAnimations") and (get_health_percent() < GameVariables.powerup_health_ratio or health < GameVariables.powerup_health_points):
 		enemy_model.get_node("OutlineAnimations").play("FlashOutline")
 	if health != previous_health:
 		previous_health = health
@@ -172,6 +174,7 @@ func _physics_process(delta):
 
 
 func explode_ship(silent=false):
+	if alive == false: return
 	alive = false
 	
 	# Stops moving
@@ -183,7 +186,8 @@ func explode_ship(silent=false):
 			enemy_model.explode()
 			yield(enemy_model, "exploded")
 	
-	# Resets, emitting a signal at the end
+	# Resets + emits a signal
+	if silent == false: emit_signal("died", self)
 	$LaserTimer.stop()
 	$LaserEffects.reset()
 	$HealthBar2D.hide()
@@ -192,7 +196,6 @@ func explode_ship(silent=false):
 			node.queue_free()
 	remove_from_group("enemies")
 	set_process(false)
-	if silent == false: emit_signal("died", self)
 	
 	# Powerups
 	if $VisibilityNotifier.is_on_screen() and has_node(self.get_path()):
@@ -204,13 +207,16 @@ func explode_ship(silent=false):
 		elif use_laser_modifiers == true: # <-- Laser modifiers
 			powerup.modifier = laser_modifier
 			get_parent().add_child(powerup)
-		elif get_tree().get_nodes_in_group("players")[0].health < 30 and (randi() % powerup_randomness) == 1: # <-- Health
+		elif get_tree().get_nodes_in_group("players")[0].health_percent < .30 or (randi() % (powerup_randomness * 4)) == 1: # <-- Health
 			powerup.type = GameVariables.POWERUP_TYPES.medkit
 			get_parent().add_child(powerup)
-		elif get_tree().get_nodes_in_group("players")[0].ammo_refills <= 5 or (randi() % (powerup_randomness * 2)) == 1 and get_tree().get_nodes_in_group("players")[0].ammo_refills <= 20: # <-- Ammo (rarer)
+		elif (get_tree().get_nodes_in_group("players")[0].ammo_refills <= 8 or (randi() % (powerup_randomness * 8)) == 1 and get_tree().get_nodes_in_group("players")[0].ammo_refills <= 20) and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Ammo (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.ammo
 			get_parent().add_child(powerup)
-	
+		elif (randi() % (powerup_randomness * 16)) == 1 and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Exploding everything (rarer)
+			powerup.type = GameVariables.POWERUP_TYPES.wipe
+			get_parent().add_child(powerup)
+			
 	# then explodes
 	if silent == false:
 		$Explosion.explode()
@@ -260,9 +266,6 @@ func update_health():
 	if health <= 0 and alive == true:
 		explode_ship()
 
-func hurt(hurt_amount):
-	health -= hurt_amount
-
 func _on_ship_body_entered(body):
 	if body.is_in_group("players"):
 		body.on_enemy_collision(self)
@@ -274,3 +277,9 @@ func _on_VisibilityNotifier_screen_exited():
 	if translation.z > 0: # Ensuring the enemy left the BOTTOM of the screen
 		emit_signal("exited_screen", self)
 		explode_ship(true)
+
+func hurt(hurt_amount):
+	health -= hurt_amount
+
+func get_health_percent() -> float:
+	return health / float(max_health)

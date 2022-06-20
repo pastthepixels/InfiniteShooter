@@ -35,18 +35,18 @@ func freeze(duration):
 # Particle effects
 func start_fire():
 	if disabled == true: return
-	if $FireSound.playing == false: $FireSound.play()
+	$FireSound.play()
 	$Fire.emitting = true
 
 
 func start_corrosion():
 	if disabled == true: return
-	if $CorrosionSound.playing == false: $CorrosionSound.play()
+	$CorrosionSound.play()
 	$Corrosion.emitting = true
 
 func start_ice():
 	if disabled == true: return
-	if $IceSound.playing == false: $IceSound.play()
+	$IceSound.play()
 	$Ice.emitting = true
 
 

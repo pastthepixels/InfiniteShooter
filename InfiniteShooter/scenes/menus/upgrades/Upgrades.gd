@@ -22,6 +22,7 @@ export(Script) var name_generator
 
 # Shows and hides the menu with FADING
 func show_animated():
+	reset_labels()
 	create_upgrades() # <-- Creates upgrades
 	read_upgrades() # <--- turns them into labels
 	update_gui()	# <-/
@@ -60,11 +61,11 @@ func _on_SelectSquare_selected():
 func create_upgrades():
 	upgrades = []
 	for _i in range( 0, 10 ): # <-- Max upgrades available at a time is 10
-		var upgrade_damage = randi() % 30 # <-- Max health/damage of an upgrade is 30
-		var upgrade_health = randi() % 30
+		var upgrade_damage = randi() % int(GameVariables.max_points_per_upgrade/2)
+		var upgrade_health = randi() % GameVariables.max_points_per_upgrade
 		upgrades.append( {
 			"name": name_generator.new().generate_upgrade_name(),
-			"cost": GameVariables.get_cost_per_point(get_node("/root/Game").level) * (upgrade_damage + upgrade_health),
+			"cost": floor(GameVariables.get_cost_per_point(get_node("/root/Game").level) * (upgrade_damage + upgrade_health)),
 			"damage": upgrade_damage, # out of 100
 			"health": upgrade_health, # out of 100
 			"purchased": false
@@ -99,16 +100,18 @@ func reroll_upgrades():
 		create_upgrades()
 		# Resets labels + variables related to them
 		$SelectSquare.index = 0
-		for label_name in upgrade_lookup_table.keys():
-			get_node("Content/Options/" + label_name).queue_free()
-		upgrade_lookup_table = {}
+		reset_labels()
 		# Creates new ones
 		read_upgrades()
 
+func reset_labels():
+	for label_name in upgrade_lookup_table.keys():
+		get_node("Content/Options/" + label_name).queue_free()
+	upgrade_lookup_table.clear()
 
 # Updates the labels
 func update_gui():
 	$Content/Stats/Health.text = "%s health" % player.max_health
-	$Content/Stats/Damage.text = "%s damage" % player.damage
+	$Content/Stats/Damage.text = "%s damage/shot" % player.damage
 	$Content/Stats/Points.text = "%s points" % game.points
 	if game.points == 1: $Content/Stats/Points.text = "1 point"

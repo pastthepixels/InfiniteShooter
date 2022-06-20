@@ -28,6 +28,7 @@ var default_settings = {
 	"distortion": true,
 	"shockwaves": true,
 	"fullscreen": false,
+	"fps_indicator": false,
 	"musicvol": 100,
 	"sfxvol": 100,
 	"difficulty": GameVariables.DIFFICULTIES.medium
@@ -102,6 +103,9 @@ func save_settings(settings):
 	
 	# Sets bloom
 	CameraEquipment.get_node("WorldEnvironment").environment.glow_enabled = settings["bloom"]
+
+	# Shows/hides the FPS indicator
+	CameraEquipment.get_node("FrameCounter").visible = settings["fps_indicator"]
 
 	# Sets anti-aliasing (with the strangest ternary operator)
 	get_viewport().msaa = (

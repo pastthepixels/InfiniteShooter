@@ -125,7 +125,10 @@ func handle_modifiers(ship):
 			ship.get_node("LaserEffects").start_fire()
 			ship.get_node("LaserEffects").sender = sender
 		MODIFIERS.corrosion:
-			ship.get_node("LaserEffects").bleed(2, 20)
+			if ship.is_in_group("players"):
+				ship.get_node("LaserEffects").bleed(2, 20)
+			else:
+				ship.get_node("LaserEffects").bleed(0.6, 8)
 			ship.get_node("LaserEffects").start_corrosion()
 			ship.get_node("LaserEffects").sender = sender
 		MODIFIERS.ice:

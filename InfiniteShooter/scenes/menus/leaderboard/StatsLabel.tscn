@@ -15,7 +15,7 @@ content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 5.0
 content_margin_bottom = 5.0
-bg_color = Color( 1, 1, 1, 0.392157 )
+bg_color = Color( 1, 1, 1, 0.25098 )
 
 [node name="StatsLabel" type="HBoxContainer"]
 margin_right = 89.0

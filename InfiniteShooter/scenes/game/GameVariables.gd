@@ -4,16 +4,19 @@ extends Node
 
 export var enemy_collision_damage_multiplier = 1 # When the player runs into an enemy, subtract its health by the enemy health * this number.
 
-export var powerup_health_ratio = 0.3 # Percentage of enemy health it needs to be below so that when you crash into it it generates powerups
+export var powerup_health_ratio = 0.35 # Percentage of enemy health it needs to be below so that when you crash into it it generates powerups
 
 export var powerup_health_points = 20 # Same as above but for enemy HP
 
 # TIP: TRY TO KEEP THESE CLOSE TO THE VALUES THAT GENERATE IN THE UPGRADES SCREEN
 var health_diff = 16 # <-- How much health all enemies go up by per level (constant value, HP)
 var damage_diff = 3 # <-- How much damage all enemies go up by per level (constant value, also HP)
+var health_diff_boss = 128
 
 # TIP: TRY TO NOT EDIT; EDIT THE ABOVE VALUES INSTEAD
-var cost_per_point = 50 # <-- Cost of an upgrade per HP/damage (damage is measured in HP, too, so it checks out) you receive
+var cost_per_point = 45 # <-- Cost of an upgrade per HP/damage (damage is measured in HP, too, so it checks out) you receive
+
+var max_points_per_upgrade = 16 # <-- Note: For EITHER damage or health
 
 var max_purchasable_points = calculate_total_points(1) / cost_per_point # <-- Maximum amount of points you should be able to purchase after each level -- AUTO GENERATED TO MATCH THE FIRST LEVEL
 
@@ -31,6 +34,8 @@ const enemies_on_screen_range = [2, 4] # [min,max]
 const waves_per_level_range = [5, 10] # [min, max]
 
 const enemies_per_wave = 10
+
+const max_powerups_on_screen = 5
 
 # Editable game mechanics variables (but by the game)
 
@@ -53,19 +58,22 @@ enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare }
 func set_difficulty(difficulty):
 	match difficulty:
 		DIFFICULTIES.easy:
-			enemy_difficulty = 0.5
+			health_diff -= 2
+			damage_diff /= 2
 
 		DIFFICULTIES.medium:
-			enemy_difficulty = 1
+			pass
 
 		DIFFICULTIES.hard:
-			enemy_difficulty = 1.5
+			health_diff += 2
 
 		DIFFICULTIES.nightmare:
-			enemy_difficulty = 2
+			health_diff += 2
+			damage_diff += 2
 
 		DIFFICULTIES.ultranightmare:
-			enemy_difficulty = 3
+			health_diff += 3
+			damage_diff += 3
 
 func _ready():
 	if enemy_difficulty == null:

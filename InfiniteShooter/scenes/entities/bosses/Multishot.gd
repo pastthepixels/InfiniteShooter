@@ -31,7 +31,7 @@ func _on_LaserTimer_timeout():
 		$Boss/Cannon1.fire()
 		$Boss/Cannon2.fire()
 		$Boss/Cannon3.fire()
-		$LaserTimer.wait_time = 0.9
+		$LaserTimer.wait_time = 1
 	
 	if health > max_health/3: # Stage 1
 		cannon_alternation = !cannon_alternation

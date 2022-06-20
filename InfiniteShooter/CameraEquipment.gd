@@ -14,6 +14,7 @@ export(Array, PanoramaSky) var skies
 func _ready():
 	randomize()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN) # Hides the cursor
+	VisualServer.canvas_item_set_z_index($FrameCounter.get_canvas_item(), 10)
 
 #
 # distortion stuff

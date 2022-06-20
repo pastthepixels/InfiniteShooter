@@ -34,15 +34,8 @@ func create_label(text, number=null):
 	# Custom backgrounds
 	if number != null:
 		label.get_node("Number").text = "%02d" % number
-		var style = label.get_node("Text").get_stylebox("normal")
-		style.bg_color = Color(1, 1, 1, 1 - float(number)/list_length)
-		label.get_node("Text").add_stylebox_override("normal", style)
-
-
-		if float(number)/list_length < .5:
-			label.get_node("Text").set("custom_colors/font_color", Color(0, 0, 0))
 		
-		style = label.get_node("Number").get_stylebox("normal")
+		var style = label.get_node("Number").get_stylebox("normal")
 		# More specific custom backgrounds
 		match number:
 			1:

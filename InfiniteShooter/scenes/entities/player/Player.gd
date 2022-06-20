@@ -34,6 +34,8 @@ var impulse_rotation = Vector3()
 # Health (taken from the max health)
 var health = max_health setget _update_health
 
+var health_percent setget ,get_health_percent
+
 # Ammo (taken from the max ammo)
 export var infinite_ammo = false
 
@@ -57,9 +59,12 @@ var MODIFIERS = GameVariables.LASER_MODIFIERS
 var modifier = MODIFIERS.none
 
 # Setters and getters before we begin
+func get_health_percent() -> float:
+	return health / float(max_health)
+
 func _update_health(new_value):
 	health = clamp(new_value, 0, max_health)
-	emit_signal("health_changed", float(health) / float(max_health))
+	emit_signal("health_changed", get_health_percent())
 
 func _update_ammo(new_value):
 	ammo = clamp(new_value, 0, max_ammo)
@@ -155,9 +160,9 @@ func on_enemy_collision(enemy):
 	if enemy.health > 0:
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS (creating powerups)
-			if (enemy.health / enemy.max_health) < GameVariables.powerup_health_ratio or enemy.health < GameVariables.powerup_health_points:
+			if enemy.health_percent < GameVariables.powerup_health_ratio or enemy.health < GameVariables.powerup_health_points:
 				enemy.force_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
-				if health/float(max_health) < 0.50 or ammo_refills > 10:
+				if get_health_percent() < 0.50 or ammo_refills > 10:
 					enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
 				else:
 					enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
@@ -169,7 +174,7 @@ func on_enemy_collision(enemy):
 			enemy.hurt(20)
 			deduct_health = enemy.health
 		if deduct_health > 0 and godmode == false:
-			self.health = clamp(self.health - deduct_health * GameVariables.enemy_collision_damage_multiplier, 5, self.max_health)
+			self.health = clamp(self.health - deduct_health * GameVariables.enemy_collision_damage_multiplier, max_health * 0.05, self.max_health)
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
 		impulse_rotation.x = actual_velocity.z * 2
@@ -202,7 +207,7 @@ func die_already():
  # Regenerates a bit of health every time this function is called.
 func _on_RegenTimer_timeout():
 	if self.health < max_health:
-		self.health += 1
+		self.health += max_health*0.01
 
 
 func _on_Explosion_exploded():

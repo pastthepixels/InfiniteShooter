@@ -121,7 +121,7 @@ func make_enemy():
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = next_enemy_position
 	get_node(game_space).add_child(enemy)
-	enemy.initialize(level * GameVariables.enemy_difficulty, possible_enemies)
+	enemy.initialize(level, possible_enemies)
 	next_enemy_position = set_random_enemy_position()
 
 	# Updates the HUD with the current amount of enemies in the wave
@@ -153,7 +153,7 @@ func make_boss():
 	boss.translation.z = Utils.screen_to_local(Vector2()).z - 5
 	boss.connect("died", self, "_on_Boss_died")
 	get_node(game_space).add_child(boss) # adds it to the scene
-	boss.initialize(level * GameVariables.enemy_difficulty) # Initializes the enemy
+	boss.initialize(level) # Initializes the enemy
 	# Hides the indicator arrow after a while
 	yield(Utils.timeout(2), "timeout")
 	$GameSpace/IndicatorArrow.hide()
@@ -173,15 +173,15 @@ func _on_Enemy_died(ship):
 		$HUD.update_points(points)
 		_on_Enemy_exited_screen(ship)
 
-func _on_Enemy_exited_screen(_ship):
+func _on_Enemy_exited_screen(ship):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Wave progression
-		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 0:
-			wave_up() # TODO: edit for enemeis that get past the bottom
+		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 1: # 1 because the ship would be the only one in the group
+			wave_up()
 
 		# Spawning new enemies
 		if autospawn_enemies == true and\
-			len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen:
+			len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen + 1:
 			yield(Utils.timeout(0.2), "timeout")
 			make_enemy()
 
