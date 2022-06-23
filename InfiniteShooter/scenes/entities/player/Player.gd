@@ -45,6 +45,8 @@ var ammo = max_ammo setget _update_ammo
 var freeze_movement = false
 
 # Signals
+var alive = true
+
 signal died
 
 signal set_modifier # Godot will tell you this is never emitted. It is, just from Powerup.gd
@@ -80,7 +82,7 @@ func _process(_delta):
 		resume_time()
 		die_already()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var velocity = impulse_velocity
 	var delta_rotation = impulse_rotation  # The new rotation the player will have (NORMALIZED VECTOR)
 	
@@ -160,7 +162,7 @@ func on_enemy_collision(enemy):
 	if enemy.health > 0:
 		CameraEquipment.get_node("ShakeCamera").add_trauma(0.5) # <-- EXTRA screen shake
 		if enemy.is_in_group("enemies"): # Some extra stuff if it's an ENEMY and not a BOSS (creating powerups)
-			if enemy.health_percent < GameVariables.powerup_health_ratio or enemy.health < GameVariables.powerup_health_points:
+			if enemy.health_percent < GameVariables.gkill_health_ratio or enemy.test_hurt(damage) <= 0:
 				enemy.force_powerup = true # Create a powerup ANYWAY (remind you of anything *cough cough* glory kills *cough cough*)
 				if get_health_percent() < 0.50 or ammo_refills > 10:
 					enemy.powerup_type = GameVariables.POWERUP_TYPES.medkit
@@ -168,13 +170,14 @@ func on_enemy_collision(enemy):
 					enemy.powerup_type = GameVariables.POWERUP_TYPES.ammo
 				# [Awards you for running into ships that are glowing by not deducting your health]
 			else: # v- Doesn't award you for running into ships that aren't.
+				enemy.force_powerup = false
 				deduct_health = enemy.health
 			enemy.hurt(enemy.health)
 		if enemy.is_in_group("bosses"):
 			enemy.hurt(20)
 			deduct_health = enemy.health
 		if deduct_health > 0 and godmode == false:
-			self.health = clamp(self.health - deduct_health * GameVariables.enemy_collision_damage_multiplier, max_health * 0.05, self.max_health)
+			self.health = clamp(self.health - deduct_health, max_health * 0.05, self.max_health)
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
 		impulse_rotation.x = actual_velocity.z * 2
@@ -189,13 +192,19 @@ func reload():
 
 
 func die_already():
+	# Ensure the function cannot be called multiple times
+	if alive == false:
+		return
+	else:
+		alive = false
+	# everything else
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
 	emit_signal("died")
 	$Explosion.explode()
-	$PlayerModel.queue_free()
-	$CollisionShape.queue_free()
+	$PlayerModel.hide()
+	$CollisionShape.disabled = true
 	$RegenTimer.stop()
 	$ShootTimer.stop()
 	$LaserEffects.reset()
@@ -211,7 +220,7 @@ func _on_RegenTimer_timeout():
 
 
 func _on_Explosion_exploded():
-	queue_free()
+	$Explosion.hide()
 
 
 func _on_ShootTimer_timeout():
@@ -222,3 +231,10 @@ func regenerate():
 	if self.ammo_refills < Saving.default_userdata.ammo_refills:
 		self.ammo_refills = Saving.default_userdata.ammo_refills
 	self.health = self.max_health
+
+func reset():
+	max_ammo = Saving.default_userdata.max_ammo
+	ammo_refills = Saving.default_userdata.ammo_refills
+	max_health = Saving.default_userdata.health
+	health = max_health
+	damage = Saving.default_userdata.damage

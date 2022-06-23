@@ -112,7 +112,10 @@ func _on_Laser_body_entered(body):
 		handle_modifiers(body)
 		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
 		remove_laser(true)  # Removes the laser
-	elif body.is_in_group("players") == false:
+	elif body.is_in_group("coincrates") and from_player == true:
+		body._on_Laser_hit()
+		remove_laser(true)
+	else:
 		remove_laser(true)  # Removes the laser ANYWAY
 
 func handle_modifiers(ship):

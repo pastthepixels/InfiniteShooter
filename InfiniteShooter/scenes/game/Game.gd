@@ -3,6 +3,8 @@ extends Node
 # To do with creating enemies
 var enemy_scene = LoadingScreen.access_scene("res://scenes/entities/enemies/Enemy.tscn")
 
+var coincrate_scene = LoadingScreen.access_scene("res://scenes/entities/coincrate/CoinCrate.tscn")
+
 var boss_scene = LoadingScreen.access_scene("res://scenes/entities/bosses/Boss.tscn")
 
 var dock_scene = LoadingScreen.access_scene("res://scenes/entities/dock/DockingStation.tscn")
@@ -12,13 +14,18 @@ export(NodePath) var game_space
 onready var next_enemy_position = set_random_enemy_position()
 
 # Game mechanics variables
+
 var died = false
 
-var score = 0
+var score = 0 # Score => from enemies you kill
+
+var coins = 0 # Coins => from coin crates and can be used in upgrades
 
 var points = 0
 
 var level = 1
+
+var difficulty = 1
 
 var wave = 1
 
@@ -29,6 +36,10 @@ var possible_enemies = GameVariables.level_dependent_enemy_types[0][1]
 var max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 
 var waves_per_level = GameVariables.waves_per_level_range[0]
+
+var enemies_in_level = 0
+
+var crate_spawn_points = [] # Crates will spawn when the enemies in a level equals a number in this array
 
 var use_laser_modifiers = false # Whether or not to use laser modifiers
 
@@ -51,10 +62,25 @@ func _ready():
 	# Begins the countdown/plays appropiate music
 	$Countdown.start()
 	$GameMusic.start_game()
+	
+	set_coincrate_spawn()
 
 
 func _on_Countdown_finished():
 	make_enemies()
+
+func set_coincrate_spawn():
+	crate_spawn_points.clear()
+	for _i in range(0, GameVariables.crates_per_level):
+		crate_spawn_points.append(generate_crate_spawnpoint())
+
+func generate_crate_spawnpoint():
+	var spawnpoint = floor(rand_range(4, get_max_enemies_in_level() - 4))
+	if spawnpoint in crate_spawn_points or (spawnpoint-1) in crate_spawn_points or (spawnpoint+1) in crate_spawn_points:
+		return generate_crate_spawnpoint()
+	else:
+		return spawnpoint
+		
 
 #
 # Waves, levels, and score
@@ -75,16 +101,19 @@ func wave_up():
 		$HUD.update_level(level, 100 * wave/waves_per_level)
 
 func level_up():
+	difficulty += 1
 	level += 1
 	wave = 1
+	enemies_in_level = 0
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
 	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
+	set_coincrate_spawn()
 	# First, the docking station
 	var dock = dock_scene.instance()
 	get_node(game_space).add_child(dock)
 	yield(dock, "finished")
 	# Then, GUI stuff
-	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true), "completed")
+	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true, "Difficulty reset!" if fmod(level, GameVariables.reset_level) == 0 else ""), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
@@ -96,8 +125,15 @@ func level_up():
 	for enemy_types in GameVariables.level_dependent_enemy_types:
 		if enemy_types[0] == level:
 			possible_enemies = enemy_types[1]
+	# Resets difficulty if the level is a multiple of x
+	if fmod(level, GameVariables.reset_level) == 0:
+		reset()
+	
 	# Resumes enemy spawning after the popup
 	make_enemies()
+
+func get_max_enemies_in_level():
+	return waves_per_level * GameVariables.enemies_per_wave
 
 #
 # Making enemies
@@ -121,8 +157,13 @@ func make_enemy():
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = next_enemy_position
 	get_node(game_space).add_child(enemy)
-	enemy.initialize(level, possible_enemies)
+	enemy.initialize(difficulty, possible_enemies)
 	next_enemy_position = set_random_enemy_position()
+	
+	# Updates the number of enemies in the level/spawns coin crates
+	enemies_in_level += 1
+	if enemies_in_level in crate_spawn_points:
+		make_coincrate()
 
 	# Updates the HUD with the current amount of enemies in the wave
 	if GameVariables.enemies_per_wave > 0:
@@ -153,35 +194,58 @@ func make_boss():
 	boss.translation.z = Utils.screen_to_local(Vector2()).z - 5
 	boss.connect("died", self, "_on_Boss_died")
 	get_node(game_space).add_child(boss) # adds it to the scene
-	boss.initialize(level) # Initializes the enemy
+	yield(get_tree(), "idle_frame")
+	boss.initialize(difficulty) # Initializes the enemy
 	# Hides the indicator arrow after a while
 	yield(Utils.timeout(2), "timeout")
 	$GameSpace/IndicatorArrow.hide()
+
+func _on_CoinCrate_opened():
+	coins += GameVariables.coins_per_level/GameVariables.crates_per_level
+	$HUD.update_coins(coins)
+	
+
+func make_coincrate():
+	# Creates a coin crate
+	var coincrate = coincrate_scene.instance()
+	coincrate.translation = next_enemy_position
+	next_enemy_position = set_random_enemy_position()
+	coincrate.connect("opened", self, "_on_CoinCrate_opened")
+	get_node(game_space).add_child(coincrate) # adds it to the scene
+
+func reset():
+	$GameSpace/Player.reset()
+	waves_per_level = GameVariables.waves_per_level_range[0]
+	difficulty = 1
+	coins = 0
+	$HUD.update_coins(coins)
+
 
 func _on_Boss_died(_boss):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		level_up()
 		score += GameVariables.get_points_boss()
-		points += GameVariables.get_points_boss()
-		$HUD.update_points(points)
+		$HUD.update_score(score)
 
 func _on_Enemy_died(ship):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Score: "If an enemy didn't just slip away past the bottom of the screen, that means you probably killed it!"
 		score += GameVariables.get_points(ship.max_health)
-		points += GameVariables.get_points(ship.max_health)
-		$HUD.update_points(points)
+		$HUD.update_score(score)
 		_on_Enemy_exited_screen(ship)
+
+func is_last_enemy(ship):
+	return len(get_tree().get_nodes_in_group("enemies")) == 1 and get_tree().get_nodes_in_group("enemies")[0] == ship
 
 func _on_Enemy_exited_screen(ship):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
 		# Wave progression
-		if enemies_in_wave >= GameVariables.enemies_per_wave and len(get_tree().get_nodes_in_group("enemies")) == 1: # 1 because the ship would be the only one in the group
+		if enemies_in_wave >= GameVariables.enemies_per_wave and is_last_enemy(ship): # 1 because the ship would be the only one in the group
 			wave_up()
 
 		# Spawning new enemies
 		if autospawn_enemies == true and\
-			len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen + 1:
+			(len(get_tree().get_nodes_in_group("enemies")) < max_enemies_on_screen + 1) and (ship in get_tree().get_nodes_in_group("enemies")):
 			yield(Utils.timeout(0.2), "timeout")
 			make_enemy()
 
@@ -196,7 +260,6 @@ func _on_Player_died():
 	$HUD/AnimationPlayer.play("fade_out")
 	$GameMusic.autoswitch = false
 	Saving.create_leaderboard_entry(score)
-	save_game()
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield(Utils.timeout(1), "timeout") # AFTER waiting for a bit
 	$GameOverMenu.start()
@@ -223,15 +286,6 @@ func _on_Player_set_modifier():
 
 		GameVariables.LASER_MODIFIERS.none:
 			$HUD.update_gradient($HUD.TEXTURES.default)
-
-#
-# Saving and loading data
-#
-func save_game():
-	var save_data = Saving.load_userdata()
-	save_data.points += score
-	Saving.save_userdata(save_data)
-
 
 func _on_GameOverMenu_done_opening():
 	$GameOverMenu/GameStats.set_stats(level, wave, 100 * wave/waves_per_level, 100 * 1.0/GameVariables.enemies_per_wave, score)

@@ -4,7 +4,7 @@ var cannon_alternation = false
  
 var damage = 10
 
-var max_health = 2000
+var max_health = 2600
 
 var health
 

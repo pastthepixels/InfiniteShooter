@@ -56,17 +56,24 @@ margin_bottom = 375.0
 text = "In the top left corner is your HUD, displaying your health, the color of your laser, and your ammo levels. Be sure to watch how much ammo refills you have left!"
 autowrap = true
 
-[node name="Paragraph3" type="Label" parent="Content" index="5"]
+[node name="Paragraph6" type="Label" parent="Content" index="5"]
 margin_top = 395.0
 margin_right = 520.0
-margin_bottom = 458.0
+margin_bottom = 436.0
+text = "Make sure to look for coin crates each level -- they are what help you upgrade, but they can only be opened by your lasers!"
+autowrap = true
+
+[node name="Paragraph3" type="Label" parent="Content" index="6"]
+margin_top = 456.0
+margin_right = 520.0
+margin_bottom = 519.0
 text = "Lastly, each ship has a different type of power. I am also lazy, so this version of InfiniteShooter has only one ship. So what's its powerup? Press the left control key and find out!"
 autowrap = true
 
-[node name="Paragraph4" type="Label" parent="Content" index="6"]
-margin_top = 478.0
+[node name="Paragraph4" type="Label" parent="Content" index="7"]
+margin_top = 539.0
 margin_right = 520.0
-margin_bottom = 673.0
+margin_bottom = 734.0
 text = "Oh, and *actually* lastly, I hope you have as fun with InfiniteShooter as I do with making it! This is InfiniteShooter 4.0, which is the last major verion of InfiniteShooter before I just start adding more content per release. So I think I've finally made a sort of fun game! Thanks for playing it. It means everything to me. Oh, and don't forget to stop by InfiniteShooter's GitHub repository and contribute! (Disclaimer: I don't really know how to work with others, especially with Git/GitHub, so I wanted to apologize for that beforehand.) It'll be very appreciated! Again, thanks, and have fun!"
 autowrap = true
 

@@ -106,9 +106,9 @@ script = ExtResource( 2 )
 warning_theme = SubResource( 39 )
 
 [node name="Panel" type="PanelContainer" parent="."]
-margin_left = 226.0
+margin_left = 460.0
 margin_top = 9.0
-margin_right = 373.0
+margin_right = 607.0
 margin_bottom = 54.0
 custom_styles/panel = SubResource( 34 )
 

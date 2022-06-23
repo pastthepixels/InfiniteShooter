@@ -11,6 +11,7 @@ height = 2.90376
 
 [node name="Enemy" type="Spatial" groups=["enemies"]]
 script = ExtResource( 4 )
+auto_kill_percentage = 0.15
 
 [node name="Tween" type="Tween" parent="."]
 

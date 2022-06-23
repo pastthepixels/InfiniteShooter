@@ -39,8 +39,12 @@ func _process(_delta):
 #
 # Updating the status bar
 #
-func update_points(points):
-	status_bar.get_node("MarginContainer/Labels/Points").text = "%s" % points
+func update_coins(coins):
+	status_bar.get_node("MarginContainer/Labels/Coins").text = "$%s" % coins
+
+
+func update_score(score):
+	status_bar.get_node("MarginContainer/Labels/Score").text = "%s" % score
 
 
 func update_level(level, progress):
@@ -112,9 +116,16 @@ func update_ammo(value, refills):
 #
 # Alerting text to the player
 #
-func alert(text, duration, switchto_text="", switch_sky=false):
+func alert(text, duration, switchto_text="", switch_sky=false, subtext=""):
 	# Sets text and shows the label
 	$Alert/Label.text = text
+	# Sets subtext if entered
+	if subtext != "":
+		$Alert/CenterContainer/Subtext.show()
+		$Alert/CenterContainer/Subtext/MarginContainer/Label.text = subtext
+	else:
+		$Alert/CenterContainer/Subtext.hide()
+	
 	# Fades in
 	$Alert/AnimationPlayer.play("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")

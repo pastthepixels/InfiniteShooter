@@ -13,8 +13,7 @@ var PATHS = {
 }
 
 var default_userdata = {
-	# Points (not to be confused with score; this is an accumulation of scores)
-	"points": 0,
+	"score": 0,
 	# Player variables
 	"damage": 20,
 	"health": 100,
@@ -35,7 +34,7 @@ var default_settings = {
 }
 
 #
-# Userdata -- Player information and points (total score accumulated)
+# Userdata -- Player information and total score accumulated
 #
 func load_userdata():
 	if file.file_exists(PATHS.userdata):

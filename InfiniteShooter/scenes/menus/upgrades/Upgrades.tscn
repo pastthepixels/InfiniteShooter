@@ -27,7 +27,7 @@ bus = "SFX"
 
 [node name="Music" type="AudioStreamPlayer" parent="." index="1"]
 stream = ExtResource( 6 )
-volume_db = -5.0
+volume_db = -3.0
 bus = "Music"
 
 [node name="Title" parent="Content" index="0"]
@@ -40,24 +40,24 @@ margin_bottom = 114.0
 custom_constants/separation = 20
 
 [node name="Points" type="Label" parent="Content/Stats" index="0"]
-margin_right = 69.0
+margin_right = 28.0
 margin_bottom = 29.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_styles/normal = SubResource( 1 )
-text = "0 points"
+text = "$0"
 
 [node name="Damage" type="Label" parent="Content/Stats" index="1"]
-margin_left = 89.0
+margin_left = 48.0
 margin_top = 5.0
-margin_right = 171.0
+margin_right = 170.0
 margin_bottom = 24.0
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 text = "30 damage/shot"
 
 [node name="Health" type="Label" parent="Content/Stats" index="2"]
-margin_left = 191.0
+margin_left = 190.0
 margin_top = 5.0
-margin_right = 266.0
+margin_right = 265.0
 margin_bottom = 24.0
 custom_colors/font_color = Color( 0.27451, 1, 0.27451, 1 )
 text = "100 health"

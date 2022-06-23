@@ -13,6 +13,7 @@ font_data = ExtResource( 1 )
 [node name="Leaderboard" instance=ExtResource( 5 )]
 script = ExtResource( 3 )
 stats_label = ExtResource( 6 )
+list_length = 12
 
 [node name="SelectSquare" parent="." index="2" instance=ExtResource( 4 )]
 options_path = NodePath("../Content/Options")

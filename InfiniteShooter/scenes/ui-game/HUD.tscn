@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -301,6 +301,18 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="StyleBoxFlat" id=69]
+bg_color = Color( 1, 1, 1, 0.156863 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.27451 )
+
+[sub_resource type="ShaderMaterial" id=70]
+shader = ExtResource( 2 )
+shader_param/lod = 2.0
+
 [sub_resource type="DynamicFont" id=27]
 size = 64
 font_data = ExtResource( 1 )
@@ -442,7 +454,7 @@ show_behind_parent = true
 material = SubResource( 35 )
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 218.0
+margin_right = 267.0
 margin_bottom = 47.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -451,7 +463,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="HUD/StatusBar"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 218.0
+margin_right = 267.0
 margin_bottom = 47.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 8
@@ -461,7 +473,7 @@ custom_constants/margin_bottom = 8
 [node name="Labels" type="HBoxContainer" parent="HUD/StatusBar/MarginContainer"]
 margin_left = 10.0
 margin_top = 8.0
-margin_right = 206.0
+margin_right = 255.0
 margin_bottom = 37.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -525,11 +537,24 @@ texture_under = SubResource( 15 )
 texture_progress = SubResource( 17 )
 nine_patch_stretch = true
 
-[node name="Points" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
+[node name="Coins" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
 margin_left = 171.0
-margin_right = 196.0
+margin_right = 205.0
 margin_bottom = 28.0
 custom_colors/font_color = Color( 1, 0.823529, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_styles/normal = SubResource( 66 )
+text = "$0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="HUD/StatusBar/MarginContainer/Labels"]
+margin_left = 220.0
+margin_right = 245.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 0, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_styles/normal = SubResource( 66 )
@@ -572,6 +597,50 @@ anims/fade_alert = SubResource( 28 )
 [node name="Sound" type="AudioStreamPlayer" parent="Alert"]
 stream = ExtResource( 3 )
 bus = "SFX"
+
+[node name="CenterContainer" type="CenterContainer" parent="Alert"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 60.5
+margin_bottom = 105.5
+
+[node name="Subtext" type="PanelContainer" parent="Alert/CenterContainer"]
+visible = false
+margin_left = 531.0
+margin_top = 20.0
+margin_right = 535.0
+margin_bottom = 24.0
+custom_styles/panel = SubResource( 69 )
+
+[node name="Blur" type="ColorRect" parent="Alert/CenterContainer/Subtext"]
+show_behind_parent = true
+material = SubResource( 70 )
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 145.0
+margin_bottom = 43.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Alert/CenterContainer/Subtext"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 145.0
+margin_bottom = 43.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 8
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Alert/CenterContainer/Subtext/MarginContainer"]
+margin_left = 10.0
+margin_top = 8.0
+margin_right = 133.0
+margin_bottom = 33.0
+text = "Sample Text"
+align = 1
 
 [node name="Label" type="Label" parent="Alert"]
 anchor_top = 0.5

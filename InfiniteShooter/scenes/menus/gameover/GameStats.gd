@@ -24,7 +24,7 @@ func set_stats(level, wave, level_progress, wave_progress, points):
 	$ReloadBoop.play()
 
 
-func _on_Tween_tween_step(object, key, elapsed, value):
+func _on_Tween_tween_step(_object, _key, _elapsed, _value):
 	$Stats/Level/Level/Label.text = "Level %s" % level
 	$Stats/Level/Wave/Label.text = "Wave %s" % wave
 	$Stats/Points/Points.text = "%s" % points

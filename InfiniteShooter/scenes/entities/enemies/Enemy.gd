@@ -1,5 +1,8 @@
 extends Spatial
 
+# Custom stuff
+export(float) var auto_kill_percentage
+
 # Damage, health, and enemy type
 
 var enemy_type = GameVariables.ENEMY_TYPES.values()[randi() % GameVariables.ENEMY_TYPES.size()]
@@ -24,7 +27,7 @@ var use_laser_modifiers = (randi() % 10 == 1)
 
 # Powerups
 
-var force_powerup
+var force_powerup # Forces powerups to spawn/not spawn if set to true/false
 
 var powerup_randomness = 5 # 1/x chance that a non-ammo-related powerup will be available
 
@@ -62,7 +65,7 @@ var enemy_types = {
 
 var enemy_model
 
-func initialize(difficulty, possible_enemy_types=null):
+func initialize(level, possible_enemy_types=null):
 	if possible_enemy_types != null:
 		enemy_type = possible_enemy_types[randi() % possible_enemy_types.size()]
 	
@@ -70,64 +73,36 @@ func initialize(difficulty, possible_enemy_types=null):
 	match enemy_type:
 		GameVariables.ENEMY_TYPES.normal:
 			enemy_model = enemy_types["normal"].instance()
-			# Sets enemy stats
-			max_health = 40
-			damage = 6
-			speed_mult = 2
 
 		GameVariables.ENEMY_TYPES.small:
 			enemy_model = enemy_types["small"].instance()
-			# Sets enemy stats
-			max_health = 10
-			damage = 5
-			speed_mult = 3
 
 		GameVariables.ENEMY_TYPES.tank:
 			enemy_model = enemy_types["tank"].instance()
-			# Sets enemy stats
-			max_health = 75
-			damage = 8
-			speed_mult = 1.6
 		
 		GameVariables.ENEMY_TYPES.gigatank:
 			enemy_model = enemy_types["gigatank"].instance()
-			# Sets enemy stats
-			max_health = 125
-			damage = 10
-			speed_mult = 1
 		
 		GameVariables.ENEMY_TYPES.explosive:
 			enemy_model = enemy_types["explosive"].instance()
-			# Sets enemy stats
-			max_health = 2
-			damage = 100
-			speed_mult = 1.2
 		
 		GameVariables.ENEMY_TYPES.multishot:
 			enemy_model = enemy_types["multishot"].instance()
-			# Sets enemy stats
-			max_health = 60
-			damage = 4
-			speed_mult = .7
 		
 		GameVariables.ENEMY_TYPES.quadshot:
 			enemy_model = enemy_types["quadshot"].instance()
-			# Sets enemy stats
-			max_health = 45
-			damage = 8
-			speed_mult = 1.8
 	
 	# Adds the enemy model
 	add_child(enemy_model)
 	
-	# Removes other enemy ships
-	for child in get_children():
-		if child.has_node("Ship") and child != enemy_model: #COMMON FACTOR BETWEEN ALL ENEMY SHIP MODELS: THEY HAVE THE NODE "SHIP"
-			child.queue_free()
+	# Sets enemy stats
+	max_health = GameVariables.get_enemy_stats(enemy_type)["max_health"]
+	damage = GameVariables.get_enemy_stats(enemy_type)["damage"]
+	speed_mult = GameVariables.get_enemy_stats(enemy_type)["speed_mult"]
 	
 	# Does math on the max health/damage to implement difficulty
-	max_health	+= GameVariables.health_diff * (difficulty - 1)
-	damage		+= GameVariables.damage_diff * (difficulty - 1)
+	max_health	+= GameVariables.health_diff * (level - 1)
+	damage		+= GameVariables.damage_diff * (level - 1)
 	
 	# Sets the current health as the new max health
 	self.health = max_health
@@ -162,7 +137,7 @@ func initialize(difficulty, possible_enemy_types=null):
 # To move the ship/calculate health
 var previous_health
 func _process(_delta):
-	if has_node("/root/Game/GameSpace/Player") and enemy_model.has_node("OutlineAnimations") and (get_health_percent() < GameVariables.powerup_health_ratio or health < GameVariables.powerup_health_points):
+	if has_node("/root/Game/GameSpace/Player") and enemy_model.has_node("OutlineAnimations") and (get_health_percent() < GameVariables.gkill_health_ratio or test_hurt(get_node("/root/Game/GameSpace/Player").damage) <= 0):
 		enemy_model.get_node("OutlineAnimations").play("FlashOutline")
 	if health != previous_health:
 		previous_health = health
@@ -198,7 +173,7 @@ func explode_ship(silent=false):
 	set_process(false)
 	
 	# Powerups
-	if $VisibilityNotifier.is_on_screen() and has_node(self.get_path()):
+	if $VisibilityNotifier.is_on_screen() and has_node(self.get_path()) and force_powerup != false:
 		var powerup = powerup_scene.instance()
 		powerup.translation = translation
 		if force_powerup == true and use_laser_modifiers == false: # <-- Forced custom powerups
@@ -279,7 +254,13 @@ func _on_VisibilityNotifier_screen_exited():
 		explode_ship(true)
 
 func hurt(hurt_amount):
-	health -= hurt_amount
+	health = test_hurt(hurt_amount)
+
+func test_hurt(hurt_amount): # Returns the health of an enemy IF it was hurt an amount
+	if (health - hurt_amount)/float(max_health) < auto_kill_percentage:
+		return 0
+	else:
+		return health - hurt_amount
 
 func get_health_percent() -> float:
 	return health / float(max_health)

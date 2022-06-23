@@ -51,6 +51,8 @@ visible = false
 
 [node name="Upgrades" parent="." instance=ExtResource( 16 )]
 pause_mode = 2
+player = NodePath("../GameSpace/Player")
+game = NodePath("..")
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 
