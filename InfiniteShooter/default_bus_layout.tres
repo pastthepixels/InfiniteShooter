@@ -4,7 +4,6 @@
 resource_name = "LowPassFilter"
 
 [resource]
-bus/0/volume_db = 3.04474
 bus/0/effect/0/effect = SubResource( 1 )
 bus/0/effect/0/enabled = false
 bus/1/name = "Music"

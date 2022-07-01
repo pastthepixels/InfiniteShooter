@@ -27,7 +27,6 @@ bus = "SFX"
 
 [node name="Music" type="AudioStreamPlayer" parent="." index="1"]
 stream = ExtResource( 6 )
-volume_db = -3.0
 bus = "Music"
 
 [node name="Title" parent="Content" index="0"]

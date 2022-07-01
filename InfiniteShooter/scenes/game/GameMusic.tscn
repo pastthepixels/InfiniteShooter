@@ -13,7 +13,6 @@
 [ext_resource path="res://music/game7.mp3" type="AudioStream" id=11]
 
 [node name="GameMusic" type="AudioStreamPlayer"]
-volume_db = -20.0
 bus = "Music"
 script = ExtResource( 1 )
 game_songs = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ) ]
