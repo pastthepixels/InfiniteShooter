@@ -106,10 +106,22 @@ var max_points_per_upgrade = 16 # <-- Note: For EITHER damage or health
 var enemy_difficulty
 
 # A function to set the difficulty of the game. (I mean, what more can I say?)
+var backups = {}
+var vars_to_backup = ["difficulty_health", "difficulty_damage", "enemies_on_screen_range", "enemies_per_wave", "target_purchasable_health", "target_purchasable_damage"]
+func back_up_vars():
+	backups.clear()
+	for variable in vars_to_backup:
+		backups[variable] = self[variable]
 
+func restore_vars():
+	for variable in vars_to_backup:
+		self[variable] = backups[variable]
+	
 func set_difficulty(difficulty):
-	difficulty_health = 0
-	difficulty_damage = 0
+	if backups.empty():
+		back_up_vars()
+	else:
+		restore_vars()
 	match difficulty:
 		DIFFICULTIES.easy:
 			difficulty_health = 0
@@ -119,16 +131,20 @@ func set_difficulty(difficulty):
 			pass
 
 		DIFFICULTIES.hard:
-			difficulty_health = 5
-			difficulty_damage = 3
-
-		DIFFICULTIES.nightmare:
 			difficulty_health = 10
 			difficulty_damage = 4
 
-		DIFFICULTIES.ultranightmare:
+		DIFFICULTIES.nightmare:
+			target_purchasable_health -= 3
+			target_purchasable_damage -= 3
 			difficulty_health = 20
-			difficulty_damage = 5
+			difficulty_damage = 6
+
+		DIFFICULTIES.ultranightmare:
+			target_purchasable_health -= 5
+			target_purchasable_damage -= 5
+			difficulty_health = 20
+			difficulty_damage = 6
 		
 		DIFFICULTIES.carnage: # Something... different.
 			enemies_on_screen_range = [10,10]
@@ -140,28 +156,28 @@ func _ready():
 
 # Misc. functions
 func get_enemy_stats(enemy_type):
-	var stats = enemy_stats[0]
+	var stats = enemy_stats[0].duplicate()
 	match enemy_type:
 		GameVariables.ENEMY_TYPES.normal:
-			stats = enemy_stats[0]
+			stats = enemy_stats[0].duplicate()
 			
 		GameVariables.ENEMY_TYPES.small:
-			stats = enemy_stats[1]
+			stats = enemy_stats[1].duplicate()
 		
 		GameVariables.ENEMY_TYPES.tank:
-			stats = enemy_stats[2]
+			stats = enemy_stats[2].duplicate()
 			
 		GameVariables.ENEMY_TYPES.gigatank:
-			stats = enemy_stats[3]
+			stats = enemy_stats[3].duplicate()
 			
 		GameVariables.ENEMY_TYPES.explosive:
-			stats = enemy_stats[4]
+			stats = enemy_stats[4].duplicate()
 			
 		GameVariables.ENEMY_TYPES.multishot:
-			stats = enemy_stats[5]
+			stats = enemy_stats[5].duplicate()
 			
 		GameVariables.ENEMY_TYPES.quadshot:
-			stats = enemy_stats[6]
+			stats = enemy_stats[6].duplicate()
 	
 	stats["max_health"] += difficulty_health
 	stats["damage"] += difficulty_damage

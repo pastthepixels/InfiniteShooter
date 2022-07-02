@@ -79,7 +79,6 @@ func _update_ammo_refills(new_value):
 func _process(_delta):
 	# Killing the player when it should die
 	if self.health == 0:
-		resume_time()
 		die_already()
 
 func _physics_process(_delta):
@@ -101,12 +100,6 @@ func _physics_process(_delta):
 		actual_velocity = lerp(actual_velocity, velocity, 0.6)
 		move_and_slide(actual_velocity * speed)
 	
-	# Ship powers
-	if Input.is_action_pressed("move_slow"):
-		slow_time()
-	elif Engine.time_scale == 0.5:
-		resume_time()
-	
 	# Shooting lasers (pressing+holding)
 	if Input.is_action_pressed("shoot_laser"):
 		if _ShootTimer_running == false:
@@ -119,16 +112,6 @@ func _physics_process(_delta):
 	# Clamping z positions and wrapping around the screen
 	translation.z = clamp(translation.z, Utils.top_left.z + SCREEN_EDGE_MARGIN, Utils.bottom_left.z - SCREEN_EDGE_MARGIN)
 	translation.x = clamp(translation.x, Utils.top_left.x + SCREEN_EDGE_MARGIN, Utils.top_right.x - SCREEN_EDGE_MARGIN)
-
-func slow_time():
-	Engine.time_scale = 0.5
-	CameraEquipment.set_animated_distortion(-0.15, -0.02)
-	AudioServer.set_bus_effect_enabled(0, 0, true)
-
-func resume_time():
-	Engine.time_scale = 1
-	CameraEquipment.set_animated_distortion(CameraEquipment.initial_warp_amount, CameraEquipment.initial_dispersion_amount)
-	AudioServer.set_bus_effect_enabled(0, 0, false)
 
 # Firing lasers (cont.d)
 func _input(event): # Keyboard taps

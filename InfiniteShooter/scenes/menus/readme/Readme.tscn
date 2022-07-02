@@ -42,39 +42,39 @@ margin_bottom = 187.0
 text = "Welcome to InfiniteShooter! The rules for this game are pretty straightforward: kill everything that moves. By default, the controls to do so are using the arrow keys to move and the spacebar to shoot."
 autowrap = true
 
-[node name="Paragraph5" type="Label" parent="Content" index="3"]
+[node name="Paragraph2" type="Label" parent="Content" index="3"]
 margin_top = 207.0
 margin_right = 520.0
-margin_bottom = 292.0
-text = "This game also has controller support, although I'm too lazy to allow you to remap buttons. Use the left stick for movement, the D-Pad for navigating the GUI, A/X to shoot or confirm, and the LB and RB buttons for using  your ship's ability. We'll get to that later."
+margin_bottom = 270.0
+text = "This game also has controller support, although I'm too lazy to allow you to remap buttons. Use the left stick for movement, the D-Pad for navigating the GUI, and A (Xbox)/X (PlayStation) to shoot or confirm."
 autowrap = true
 
-[node name="Paragraph2" type="Label" parent="Content" index="4"]
-margin_top = 312.0
+[node name="Paragraph3" type="Label" parent="Content" index="4"]
+margin_top = 290.0
 margin_right = 520.0
-margin_bottom = 375.0
+margin_bottom = 353.0
 text = "In the top left corner is your HUD, displaying your health, the color of your laser, and your ammo levels. Be sure to watch how much ammo refills you have left!"
 autowrap = true
 
-[node name="Paragraph6" type="Label" parent="Content" index="5"]
-margin_top = 395.0
+[node name="Paragraph4" type="Label" parent="Content" index="5"]
+margin_top = 373.0
 margin_right = 520.0
-margin_bottom = 436.0
-text = "Make sure to look for coin crates each level -- they are what help you upgrade, but they can only be opened by your lasers!"
+margin_bottom = 458.0
+text = "The longer you play, the more difficult the game will get! However, after ten levels, it will reset. (This unfortunately includes your upgrades/cash.) At the same time, new enemy types will be introduced every ten levels (excluding level 5), so watch out for that!"
 autowrap = true
 
-[node name="Paragraph3" type="Label" parent="Content" index="6"]
-margin_top = 456.0
+[node name="Paragraph5" type="Label" parent="Content" index="6"]
+margin_top = 478.0
 margin_right = 520.0
 margin_bottom = 519.0
-text = "Lastly, each ship has a different type of power. I am also lazy, so this version of InfiniteShooter has only one ship. So what's its powerup? Press the left control key and find out!"
+text = "Next, make sure to look for coin crates each level: you need the cash to upgrade your ship, but they can only be opened by your lasers!"
 autowrap = true
 
-[node name="Paragraph4" type="Label" parent="Content" index="7"]
+[node name="Paragraph6" type="Label" parent="Content" index="7"]
 margin_top = 539.0
 margin_right = 520.0
 margin_bottom = 734.0
-text = "Oh, and *actually* lastly, I hope you have as fun with InfiniteShooter as I do with making it! This is InfiniteShooter 4.0, which is the last major verion of InfiniteShooter before I just start adding more content per release. So I think I've finally made a sort of fun game! Thanks for playing it. It means everything to me. Oh, and don't forget to stop by InfiniteShooter's GitHub repository and contribute! (Disclaimer: I don't really know how to work with others, especially with Git/GitHub, so I wanted to apologize for that beforehand.) It'll be very appreciated! Again, thanks, and have fun!"
+text = "Oh, and lastly, I hope you have as much fun with InfiniteShooter as I do with making it! This is InfiniteShooter 0.4.0, which is hopefully the last major verion of InfiniteShooter before I start just adding more content per release. So I think I've finally made a sort of fun game! Thanks for playing it. It means everything to me. Oh, and don't forget to stop by InfiniteShooter's GitHub repository and contribute! (Disclaimer: I don't really know how to work with others, especially with Git/GitHub, so I wanted to apologize for that beforehand.) It'll be very appreciated! Again, thanks, and have fun!"
 autowrap = true
 
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

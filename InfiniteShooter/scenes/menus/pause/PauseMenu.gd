@@ -26,9 +26,6 @@ func _on_SelectSquare_selected():
 					$FullAlert.alert("Are you sure you would like to continue? Your progress will be reset after each run.", true)
 
 func toggle_pause():
-	if has_node("/root/Game") and get_node("/root/Game").has_node("GameSpace/Player"):
-		get_node("/root/Game/GameSpace/Player").resume_time()
-	
 	if is_visible():
 		$Title.text = "not paused"
 		rect_pivot_offset = rect_size/2
