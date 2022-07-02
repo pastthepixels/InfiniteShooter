@@ -7,6 +7,8 @@ var boss_type = GameVariables.BOSS_TYPES.values()[randi() % GameVariables.BOSS_T
 
 var health = 0 setget ,get_health
 
+var max_health setget ,get_max_health
+
 # Dying
 
 signal died(current_ship)
@@ -133,3 +135,6 @@ func _on_ship_body_entered(body):
 func _on_FinalExplosion_exploded():
 	if $LaserEffects.resetting: yield($LaserEffects, "finished_reset")
 	queue_free()
+
+func get_max_health():
+	return enemy_model.max_health
