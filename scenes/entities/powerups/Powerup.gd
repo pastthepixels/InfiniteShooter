@@ -5,7 +5,7 @@ var type = GameVariables.POWERUP_TYPES.values()[randi() % GameVariables.POWERUP_
 
 export var ammo_increase = 10  # 10 bullets
 
-export var health_increase = 40  # 40 HP
+export var health_increase_percent = .40  # 40% HP
 
 export(float) var SCREEN_EDGE_MARGIN # Can be same as what's set for Player.gd or larger
 
@@ -46,11 +46,7 @@ func _on_Powerup_body_entered(body):
 					body.ammo_refills += 1
 
 				GameVariables.POWERUP_TYPES.medkit:
-					if body.health + health_increase <= body.max_health:
-						body.health += health_increase
-
-					else:
-						body.health = body.max_health
+					body.health = min(body.health + (health_increase_percent*body.max_health), body.max_health)
 
 				GameVariables.POWERUP_TYPES.wipe:
 					body.modifier = GameVariables.LASER_MODIFIERS.none
