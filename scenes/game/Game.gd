@@ -215,6 +215,7 @@ func make_coincrate():
 
 func reset():
 	$GameSpace/Player.reset()
+	max_enemies_on_screen = GameVariables.enemies_on_screen_range[0]
 	waves_per_level = GameVariables.waves_per_level_range[0]
 	difficulty = 1
 	coins = 0
