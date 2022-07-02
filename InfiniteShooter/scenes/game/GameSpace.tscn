@@ -6,8 +6,9 @@
 [node name="GameSpace" type="Spatial"]
 
 [node name="MainLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 25, -30 )
+transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 20, -30 )
 light_energy = 2.0
+light_specular = 0.4
 
 [node name="Walls" type="Spatial" parent="."]
 script = ExtResource( 2 )

@@ -45,6 +45,14 @@ gradient = SubResource( 7 )
 
 [node name="Settings" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+colors = {
+"green": Color( 0.27, 1, 0.27, 1 ),
+"orange": Color( 1, 0.6, 0.27, 1 ),
+"purple": Color( 0.780392, 0, 1, 1 ),
+"red": Color( 1, 0.270588, 0.270588, 1 ),
+"white": Color( 1, 1, 1, 1 ),
+"yellow": Color( 1, 1, 0.27, 1 )
+}
 
 [node name="Title" parent="Content" index="0"]
 custom_styles/normal = SubResource( 20 )
@@ -379,7 +387,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 button_mask = 0
 text = "Medium"
 flat = true
-items = [ "Easy", null, false, 0, null, "Medium", null, false, 1, null, "Hard", null, false, 2, null, "Nightmare", null, false, 3, null, "Ultranightmare", null, false, 4, null ]
+items = [ "Easy", null, false, 0, null, "Medium", null, false, 1, null, "Hard", null, false, 2, null, "Nightmare", null, false, 3, null, "Ultranightmare", null, false, 4, null, "CARNAGE", null, false, 5, null ]
 selected = 1
 
 [node name="Sound" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="10" groups=["selectsquare_ignore"]]

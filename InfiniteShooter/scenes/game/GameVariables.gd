@@ -44,43 +44,43 @@ var enemy_stats = [
 		"name": "normal",
 		"max_health": 40,
 		"damage": 6,
-		"speed_mult": 2
+		"speed": 4
 	},
 	{
 		"name": "small",
 		"max_health": 10,
 		"damage": 5,
-		"speed_mult": 3
+		"speed": 6
 	},
 	{
 		"name": "tank",
 		"max_health": 60,
 		"damage": 8,
-		"speed_mult": 1.6
+		"speed": 3.2
 	},
 	{
 		"name": "gigatank",
 		"max_health": 200,
 		"damage": 12,
-		"speed_mult": 1
+		"speed": 2
 	},
 	{
 		"name": "explosive",
 		"max_health": 2,
 		"damage": 100,
-		"speed_mult": 1.2
+		"speed": 2.4
 	},
 	{
 		"name": "multishot",
 		"max_health": 80,
 		"damage": 4,
-		"speed_mult": .7
+		"speed": 1.4
 	},
 	{
 		"name": "quadshot",
 		"max_health": 100,
 		"damage": 8,
-		"speed_mult": 1.8
+		"speed": 3.6
 	}
 ]
 
@@ -92,7 +92,7 @@ enum LASER_MODIFIERS { none, fire, ice, corrosion }
 enum ENEMY_TYPES { normal, small, tank, explosive, multishot, quadshot, gigatank }
 enum BOSS_TYPES { normal, trishot, multishot }
 enum POWERUP_TYPES { ammo, medkit, wipe }
-enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare }
+enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare, carnage }
 
 #
 # Non-editable game mechanics variables (automatically set by the game)
@@ -108,9 +108,10 @@ var enemy_difficulty
 # A function to set the difficulty of the game. (I mean, what more can I say?)
 
 func set_difficulty(difficulty):
+	difficulty_health = 0
+	difficulty_damage = 0
 	match difficulty:
 		DIFFICULTIES.easy:
-			target_purchasable_health += 6
 			difficulty_health = 0
 			difficulty_damage = -2
 
@@ -122,14 +123,16 @@ func set_difficulty(difficulty):
 			difficulty_damage = 3
 
 		DIFFICULTIES.nightmare:
-			target_purchasable_health -= 4
 			difficulty_health = 10
 			difficulty_damage = 4
 
 		DIFFICULTIES.ultranightmare:
-			target_purchasable_health -= 6
 			difficulty_health = 20
 			difficulty_damage = 5
+		
+		DIFFICULTIES.carnage: # Something... different.
+			enemies_on_screen_range = [10,10]
+			enemies_per_wave = 50
 
 func _ready():
 	if enemy_difficulty == null:

@@ -98,4 +98,5 @@ material/1 = null
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 
+[connection signal="exploded" from="Explosion" to="." method="_on_Explosion_exploded"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

@@ -2,7 +2,7 @@ extends Control
 
 signal closed
 
-export var colors = { "red": Color(1, .27, .27), "green": Color(.27, 1, .27), "white": Color(1, 1, 1), "yellow": Color(1, 1, 0.27), "orange": Color(1, 0.6, 0.27) }
+export var colors = { "red": Color(1, .27, .27), "green": Color(.27, 1, .27), "white": Color(1, 1, 1), "yellow": Color(1, 1, 0.27), "orange": Color(1, 0.6, 0.27)}
 
 onready var settings = Saving.load_settings()
 
@@ -115,6 +115,9 @@ func set_settings():
 		
 		"Ultranightmare":
 			settings["difficulty"] = GameVariables.DIFFICULTIES.ultranightmare
+		
+		"CARNAGE":
+			settings["difficulty"] = GameVariables.DIFFICULTIES.carnage
 	
 	# Updates the GUI
 	update_gui()
@@ -188,6 +191,13 @@ func update_gui():
 			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
 				"custom_colors/font_color",
 				colors.red
+			)
+		
+		GameVariables.DIFFICULTIES.carnage:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected = 5
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.set(
+				"custom_colors/font_color",
+				colors.purple
 			)
 
 # To reset settings

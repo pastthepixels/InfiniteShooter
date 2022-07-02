@@ -265,6 +265,7 @@ tracks/0/keys = {
 }
 
 [node name="Explosive" type="Area"]
+collision_layer = 5
 script = ExtResource( 4 )
 
 [node name="OutlineAnimations" type="AnimationPlayer" parent="."]

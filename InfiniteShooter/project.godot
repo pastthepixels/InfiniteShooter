@@ -115,6 +115,11 @@ move_slow={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="Enemy ShipDetection"
+3d_physics/layer_3="Enemy aim-casting"
+
 [physics]
 
 common/enable_pause_aware_picking=true

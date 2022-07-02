@@ -5,9 +5,8 @@
 [ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui-game/HealthBar2D.tscn" type="PackedScene" id=9]
 
-[sub_resource type="CapsuleShape" id=8]
-radius = 1.87976
-height = 2.90376
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 4 )
 
 [node name="Enemy" type="Spatial" groups=["enemies"]]
 script = ExtResource( 4 )
@@ -18,11 +17,13 @@ auto_kill_percentage = 0.15
 [node name="LaserTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="ShipDetection" type="Area" parent="."]
+[node name="ShipDetection" type="Area" parent="." groups=["enemy_shipdetection"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="ShipDetection"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.71862 )
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 
 [node name="HealthBar2D" parent="." instance=ExtResource( 9 )]
 visible = false
@@ -34,7 +35,15 @@ ship = NodePath("..")
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 0, 10 )
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+
 [connection signal="timeout" from="LaserTimer" to="." method="_on_LaserTimer_timeout"]
 [connection signal="area_entered" from="ShipDetection" to="." method="_on_ShipDetection_area_entered"]
+[connection signal="area_exited" from="ShipDetection" to="." method="_on_ShipDetection_area_exited"]
 [connection signal="exploded" from="Explosion" to="." method="_on_Explosion_exploded"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

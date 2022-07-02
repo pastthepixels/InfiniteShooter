@@ -110,6 +110,7 @@ data = PoolVector3Array( 1, 0, -0.9667, 0.9, 0.1, 0.39, 1, 0, 0.4333, 1, 0, -0.9
 
 [node name="Normal" type="Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.255565 )
+collision_layer = 5
 
 [node name="OutlineAnimations" type="AnimationPlayer" parent="."]
 autoplay = "RESET"

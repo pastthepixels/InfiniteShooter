@@ -19,7 +19,9 @@ var alive = true
 
 # Enemy modifiers
 
-var speed_mult = 1 # Multiplier for speed (pretty straightforward)
+var initial_speed = 1
+
+var speed
 
 onready var use_homing_lasers = rand_range(0, 1) > .5
 
@@ -98,7 +100,8 @@ func initialize(level, possible_enemy_types=null):
 	# Sets enemy stats
 	max_health = GameVariables.get_enemy_stats(enemy_type)["max_health"]
 	damage = GameVariables.get_enemy_stats(enemy_type)["damage"]
-	speed_mult = GameVariables.get_enemy_stats(enemy_type)["speed_mult"]
+	initial_speed = GameVariables.get_enemy_stats(enemy_type)["speed"]
+	speed = initial_speed
 	
 	# Does math on the max health/damage to implement difficulty
 	max_health	+= GameVariables.health_diff * (level - 1)
@@ -109,6 +112,9 @@ func initialize(level, possible_enemy_types=null):
 	
 	# Gets the bounding box for the enemy ship model
 	bounding_box = enemy_model.get_node("Ship").get_aabb()
+	
+	# Does some physics-related stuff
+	$RayCast.add_exception(enemy_model)
 
 	# Starts all timers
 	$LaserTimer.start()
@@ -145,7 +151,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	if freeze_movement: return
-	translation.z += 2 * speed_mult * delta
+	translation.z += speed * delta
 
 
 func explode_ship(silent=false):
@@ -204,28 +210,17 @@ func _on_Explosion_exploded():
 
 
 func _on_LaserTimer_timeout():
-	if enemy_model.has_node("LaserGuns") == true:
+	if enemy_model.has_node("LaserGuns") == true and $RayCast.is_colliding() == false:
 		for LaserGun in enemy_model.get_node("LaserGuns").get_children():
 			LaserGun.fire()
 
-
 func _on_ShipDetection_area_entered(area):
-	if freeze_movement == false and area.get_parent().is_in_group("enemies") and speed_mult > area.get_parent().speed_mult and health > 0 and  area.get_parent().health > 0:
-		# Basciallly moving a ship from the center of another ship to beside it (left/right)
-		# Subtracting this makes you go left, adding this makes you go right
-		var common_formula = area.get_parent().bounding_box.size.x/2 + bounding_box.size.x/2 + .2
-		var direction = -1 # Goes left
-		# If we are closer to the right of the ship, go to the right
-		if translation.x > area.get_parent().translation.x:
-			direction = 1
-		# Now we try to switch the direction if the ship will go off screen.
-		if (area.get_parent().translation.x + (common_formula*direction)) > Utils.bottom_right.x:
-			direction = -1
-		elif (area.get_parent().translation.x + (common_formula*direction)) < Utils.bottom_left.x:
-			direction = 1
-		# Uses the Tween node to smoothly move around the other ship, preventing a collision
-		$Tween.interpolate_property(self, "translation:x", translation.x, area.get_parent().translation.x + (common_formula*direction), 1 * speed_mult, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
-		$Tween.start()
+	if speed > area.get_parent().speed:
+		speed = area.get_parent().speed
+
+func _on_ShipDetection_area_exited(area):
+	if speed != initial_speed:
+		speed = initial_speed
 
 func collide_ship(area):
 	# Kills the ship if it collides with other enemy ships

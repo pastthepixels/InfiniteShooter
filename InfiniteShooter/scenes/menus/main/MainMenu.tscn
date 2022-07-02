@@ -228,6 +228,14 @@ theme = null
 [node name="Readme" parent="." instance=ExtResource( 6 )]
 
 [node name="Settings" parent="." instance=ExtResource( 5 )]
+colors = {
+"green": Color( 0.27, 1, 0.27, 1 ),
+"orange": Color( 1, 0.6, 0.27, 1 ),
+"purple": Color( 0.780392, 0, 1, 1 ),
+"red": Color( 1, 0.270588, 0.270588, 1 ),
+"white": Color( 1, 1, 1, 1 ),
+"yellow": Color( 1, 1, 0.27, 1 )
+}
 
 [node name="Alert" parent="." instance=ExtResource( 9 )]
 

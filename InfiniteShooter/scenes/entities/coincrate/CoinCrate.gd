@@ -25,3 +25,7 @@ func _physics_process(delta):
 func _on_VisibilityNotifier_screen_exited():
 	if translation.z > 0: # Ensuring the [coin] left the BOTTOM of the screen
 		queue_free()
+
+
+func _on_Explosion_exploded():
+	queue_free()
