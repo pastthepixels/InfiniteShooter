@@ -22,9 +22,11 @@
 4. Profit
 
 # Hardware/software requirements
-**Minimum (tested) hardware**: AMD Ryzen 5 3500U with mobile graphics (essentially my laptop, a ThinkPad E595).
-**Recommended hardware**: Nvidia GeForce GTX 1050 or higher (essentially my computer)
-**Recommended (tested) OS**: Anything Linux (tested on Fedora/EndeavourOS)
+| Requirement type              | Specifications                                                                   |
+|-------------------------------|----------------------------------------------------------------------------------|
+| **Minimum (tested) hardware** | AMD Ryzen 5 3500U with mobile graphics (essentially my laptop, a ThinkPad E595). |
+| **Recommended hardware**      | Nvidia GeForce GTX 1050 or higher (essentially, my computer)                     |
+| **Recommended (tested) OS**   | Anything Linux (tested on Fedora/EndeavourOS)                                    |
 
 # Trivia
 This game was my final project for my Computing Science 10 class! The first ever version (before 1.0) was made ~June of 2021 and since then the game's received a lot of improvements.
