@@ -46,7 +46,7 @@ func fade_out():
 func error(error_text):
 	alert(error_text)
 	$ErrorSound.play()
-	Input.start_joy_vibration(0, 0.6, 1, .2) # Vibrates a controller if you have one
+	if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.6, 1, .2) # Vibrates a controller if you have one
 
 
 func _on_AlertTimer_timeout():

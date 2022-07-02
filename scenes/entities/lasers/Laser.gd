@@ -110,7 +110,7 @@ func _on_Laser_body_entered(body):
 		if body.godmode == false: body.health -= damage  # send them to BRAZIL
 		# Laser modifiers
 		handle_modifiers(body)
-		Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
+		if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit
 		remove_laser(true)  # Removes the laser
 	elif body.is_in_group("coincrates") and from_player == true:
 		body._on_Laser_hit()

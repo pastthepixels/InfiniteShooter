@@ -26,7 +26,7 @@ func explode():
 	$AnimationPlayer.stop()
 	# Vibrates the first controller and shakes the screen
 	if sound == true:
-		Input.start_joy_vibration(0, 0.5, 0.7, .2)
+		if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.5, 0.7, .2)
 		CameraEquipment.get_node("ShakeCamera").add_trauma(.4)
 	else:
 		$ExplosionSound.volume_db = -100

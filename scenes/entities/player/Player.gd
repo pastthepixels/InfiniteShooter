@@ -131,7 +131,7 @@ func fire_laser():
 			else:
 				$PlayerModel/LaserGun.use_laser_modifiers = false
 			$PlayerModel/LaserGun.fire()
-			Input.start_joy_vibration(0, 0.7, 1, .1)
+			if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.7, 1, .1)
 		if self.ammo <= 0 and self.ammo_refills > 0:
 			self.ammo_refills -= 1
 			$ReloadTimer.start()
