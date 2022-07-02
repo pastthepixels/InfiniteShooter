@@ -124,6 +124,9 @@ anims/fade_sounds = SubResource( 16 )
 
 [node name="BleedTimer" type="Timer" parent="."]
 
+[node name="ResetMaxTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="Fire" type="Particles" parent="."]
 emitting = false
 amount = 500
@@ -161,3 +164,4 @@ bus = "SFX"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="BleedTimer" to="." method="_on_BleedTimer_timeout"]
+[connection signal="timeout" from="ResetMaxTimer" to="." method="_on_ResetMaxTimer_timeout"]

@@ -53,7 +53,7 @@ func start_ice():
 # Timer stuff and resetting
 func _on_BleedTimer_timeout():
 	if get_node(ship).health > 0:
-		get_node(ship).health -= 5
+		get_node(ship).health -= (get_node(ship).max_health * .05)
 	else:
 		$AnimationPlayer.play("fade_sounds")
 
@@ -65,6 +65,7 @@ func _on_Timer_timeout():
 func reset():
 	resetting = true
 	if "freeze_movement" in get_parent(): get_parent().freeze_movement = false
+	$ResetMaxTimer.start()
 	$Fire.emitting = false
 	$Corrosion.emitting = false
 	$Ice.emitting = false
@@ -72,5 +73,13 @@ func reset():
 		$AnimationPlayer.play("fade_sounds")
 		yield($AnimationPlayer, "animation_finished")
 	if get_tree() != null: yield(get_tree(), "idle_frame")
+	emit_signal("finished_reset")
+	resetting = false
+
+
+func _on_ResetMaxTimer_timeout():
+	$IceSound.stop()
+	$FireSound.stop()
+	$CorrosionSound.stop()
 	emit_signal("finished_reset")
 	resetting = false
