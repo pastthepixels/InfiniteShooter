@@ -128,6 +128,7 @@ func level_up():
 	# Resets difficulty if the level is a multiple of x
 	if fmod(level, GameVariables.reset_level) == 0:
 		reset()
+		set_coincrate_spawn()
 	
 	# Resumes enemy spawning after the popup
 	make_enemies()
