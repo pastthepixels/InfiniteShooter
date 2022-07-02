@@ -42,5 +42,11 @@ For the time being, I'm just going to add changes to InfiniteShooter without cre
 3. Ensure there is some discussion on your issue and the general consensus is that your changes should be merged into the `dev` branch.
 4. I shall merge your changes, through means which I currently consider digital wizardry.
 
+## Naming scheme
+Here's a nifty table that outlines how InfiniteShooter releases are names
+| 0                                   | .x                                                              | .x                                 |
+|-------------------------------------|-----------------------------------------------------------------|------------------------------------|
+| Reserved for any important releases | Release number (any important releases deemed by myself ex. 0.2.0, 0.3.0, 0.4.0) | Point releases (bug fixes/patches) |
+
 # A disclaimer
 Note that for most of this, I wrote this having never used GitHub for anything other than my own projects. If you have something to improve here, please do so! And again, thank you for choosing to contribute to InfiniteShooter!
