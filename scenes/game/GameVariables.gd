@@ -60,7 +60,7 @@ var enemy_stats = [
 	},
 	{
 		"name": "gigatank",
-		"max_health": 200,
+		"max_health": 100,
 		"damage": 12,
 		"speed": 2
 	},
@@ -72,13 +72,13 @@ var enemy_stats = [
 	},
 	{
 		"name": "multishot",
-		"max_health": 80,
+		"max_health": 40,
 		"damage": 4,
 		"speed": 1.4
 	},
 	{
 		"name": "quadshot",
-		"max_health": 100,
+		"max_health": 60,
 		"damage": 8,
 		"speed": 3.6
 	}
