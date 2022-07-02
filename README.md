@@ -1,16 +1,16 @@
 <p align="center">
-  <img alt="InfiniteShooter" src="infiniteshooter-cover.png">
+  <img alt="InfiniteShooter" src="https://raw.githubusercontent.com/pastthepixels/InfiniteShooter-Assets/main/infiniteshooter-cover.png">
 </p>
 
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/52388215/147332184-7c2262d3-b041-420f-8051-5298ad01fb7a.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/147332236-6412a332-5ab9-4a66-818d-feb85b3e29f3.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/147332784-9d79dab5-10ce-4260-8121-8c918758fb7c.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/147332909-21ba5ab9-3838-4515-8dfc-7a558980df6c.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/147332310-53d4d3fb-4b13-476b-9961-f2fa91c698ca.png" width="200">
-  <img src="https://user-images.githubusercontent.com/52388215/147332459-4156d2dc-448f-4767-b2bb-b955777920fc.png" width="200">
+  <img src="https://user-images.githubusercontent.com/52388215/177012474-99e630c2-848d-475d-9029-bf6e833774f7.png" width="300">
+  <img src="https://user-images.githubusercontent.com/52388215/177012475-9d3886c6-79a1-4639-8996-4141a3e03748.png" width="300">
+  <img src="https://user-images.githubusercontent.com/52388215/177012476-ec639c29-2f11-434c-8bf9-7161cfea66e3.png" width="300">
+  <img src="https://user-images.githubusercontent.com/52388215/177012477-def09811-992b-45dd-b6be-2867da70f540.png" width="300">
+  <img src="https://user-images.githubusercontent.com/52388215/177012478-89541ddf-ee69-49dc-a954-c6f5cac3fd68.png" width="300">
+  <img src="https://user-images.githubusercontent.com/52388215/177012610-02c3edd4-6205-4d36-9a41-960d1dcb8aa1.png" width="300">
 </p>
 
 
@@ -22,9 +22,11 @@
 4. Profit
 
 # Hardware/software requirements
-**Minimum (tested) hardware**: AMD Ryzen 5 3500U with mobile graphics (essentially my laptop, a ThinkPad E595).
-**Recommended hardware**: Nvidia GeForce GTX 1050 or higher (essentially my computer)
-**Recommended (tested) OS**: Anything Linux (tested on Fedora/EndeavourOS)
+| Requirement type              | Specifications                                                                   |
+|-------------------------------|----------------------------------------------------------------------------------|
+| **Minimum (tested) hardware** | AMD Ryzen 5 3500U with mobile graphics (essentially my laptop, a ThinkPad E595). |
+| **Recommended hardware**      | Nvidia GeForce GTX 1050 or higher (essentially, my computer)                     |
+| **Recommended (tested) OS**   | Anything Linux (tested on Fedora/EndeavourOS)                                    |
 
 # Trivia
 This game was my final project for my Computing Science 10 class! The first ever version (before 1.0) was made ~June of 2021 and since then the game's received a lot of improvements.
