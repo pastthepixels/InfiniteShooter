@@ -1,9 +1,0 @@
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=InfiniteShooter
-GenericName=InfiniteShooter
-Comment=A shooter game
-Exec=InfiniteShooter.x86_64
-Icon=io.github.pastthepixels.InfiniteShooter
-Type=Application
-Categories=Game
