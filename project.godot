@@ -11,11 +11,10 @@ config_version=4
 [application]
 
 config/name="InfiniteShooter"
-config/description="A shooter game."
+config/description="A free-and-open-source vertical shooter."
 run/main_scene="res://scenes/menus/main/MainMenu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="InfiniteShooter"
-run/low_processor_mode=true
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://resources/icon.png"
 
