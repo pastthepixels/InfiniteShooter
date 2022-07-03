@@ -128,7 +128,7 @@ albedo_color = Color( 1, 0.27832, 0, 0.0196078 )
 
 [sub_resource type="SphereShape" id=34]
 resource_local_to_scene = true
-radius = 4.0
+radius = 0.0
 
 [sub_resource type="SpatialMaterial" id=31]
 flags_unshaded = true
@@ -351,7 +351,7 @@ shape = SubResource( 34 )
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "RESET"
+autoplay = "main"
 anims/Explode = SubResource( 29 )
 anims/RESET = SubResource( 24 )
 anims/main = SubResource( 25 )
