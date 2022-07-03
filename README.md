@@ -13,8 +13,14 @@
   <img src="https://user-images.githubusercontent.com/52388215/177012610-02c3edd4-6205-4d36-9a41-960d1dcb8aa1.png" width="300">
 </p>
 
+# Running the portable files
+Anything that isn't `InfiniteShooter.flatpak` is a portable executable you can run on your system. (Don't worry about losing your data if you move/delete the executable though. It should persist on your system.) Here's how to download and run an executable for your system:
+1. Have a 64-bit (x86_64, no Raspberry Pi's here) system. There are many ways to check for this, but if you're running a new-ish computer, you shouldn't have to worry about anything.
+2. Go to the Releases page and look for a file with your operating system's name on it (ex. something like `InfiniteShooter-WINDOWS.exe` for Windows or `InfiniteShooter-LINUX` for Linux, but you should use the Flatpak!).
+3. Download the file, then run it.
+4. Profit
 
-# Installation
+# Installing InfiniteShooter
 ## Linux (Flatpak)
 1. Go to the Releases tab.
 2. Download `InfiniteShooter.flatpak` from the latest version of InfiniteShooter
