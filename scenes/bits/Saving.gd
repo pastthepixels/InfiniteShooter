@@ -28,6 +28,7 @@ var default_settings = {
 	"shockwaves": true,
 	"fullscreen": false,
 	"fps_indicator": false,
+	"fps_limit": 0,
 	"musicvol": 100,
 	"sfxvol": 100,
 	"difficulty": GameVariables.DIFFICULTIES.medium
@@ -121,6 +122,9 @@ func save_settings(settings):
 	
 	# Makes the window fullscreen if desired
 	OS.window_fullscreen = settings["fullscreen"]
+
+	# Sets the frame rate limit per second
+	Engine.target_fps = settings["fps_limit"]
 	
 	# Sets difficulty
 	GameVariables.set_difficulty(int(settings["difficulty"]))

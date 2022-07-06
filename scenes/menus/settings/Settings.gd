@@ -92,7 +92,12 @@ func _input(event):
 				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Difficulty/OptionButton.selected += 1 if event.is_action_pressed("ui_right") else -1
 				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
 				set_settings()
-				
+
+			"FPSLimit":
+				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected += 1 if event.is_action_pressed("ui_right") else -1
+				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
+				set_settings()
+
 # To save/set settings
 func set_settings():
 	# Music/Sound Volume(s) <- GUI slider values
@@ -119,6 +124,9 @@ func set_settings():
 		"CARNAGE":
 			settings["difficulty"] = GameVariables.DIFFICULTIES.carnage
 	
+	# FPS Limit
+	settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
+
 	# Updates the GUI
 	update_gui()
 	
