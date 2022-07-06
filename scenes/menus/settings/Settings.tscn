@@ -636,42 +636,7 @@ margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Right"
 
-[node name="Slow" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="19"]
-margin_top = 797.0
-margin_right = 422.0
-margin_bottom = 816.0
-custom_constants/separation = 10
-
-[node name="Title" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow" index="0"]
-margin_right = 78.0
-margin_bottom = 19.0
-text = "Slow Time"
-
-[node name="Label" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow/Title" index="0"]
-margin_right = 40.0
-margin_bottom = 17.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Separator" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow" index="1"]
-margin_left = 88.0
-margin_right = 90.0
-margin_bottom = 19.0
-rect_min_size = Vector2( 2, 0 )
-color = Color( 1, 1, 1, 0.784314 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Key" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow" index="2"]
-margin_left = 100.0
-margin_right = 155.0
-margin_bottom = 19.0
-custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
-text = "Control"
-
-[node name="Confirm" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="20"]
+[node name="Confirm" type="HBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="19"]
 margin_top = 836.0
 margin_right = 422.0
 margin_bottom = 855.0
@@ -699,14 +664,14 @@ margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
-[node name="ApplyKeyBindings" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="21"]
+[node name="ApplyKeyBindings" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="20"]
 margin_top = 875.0
 margin_right = 422.0
 margin_bottom = 894.0
 custom_colors/font_color = Color( 1, 1, 0.27451, 1 )
 text = "Apply Key Bindings"
 
-[node name="BadStuff" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="22" groups=["selectsquare_ignore"]]
+[node name="BadStuff" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="21" groups=["selectsquare_ignore"]]
 show_behind_parent = true
 margin_top = 914.0
 margin_right = 422.0
@@ -730,7 +695,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResetGame" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="23"]
+[node name="ResetGame" type="Label" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="22"]
 margin_top = 964.0
 margin_right = 422.0
 margin_bottom = 983.0
