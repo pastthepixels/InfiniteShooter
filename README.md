@@ -22,10 +22,15 @@ Anything that isn't `InfiniteShooter.flatpak` is a portable executable you can r
 
 # Installing InfiniteShooter
 ## Linux (Flatpak)
-1. Go to the Releases tab.
-2. Download `InfiniteShooter.flatpak` from the latest version of InfiniteShooter
-3. Open the terminal in your downloads folder and type `flatpak install InfiniteShooter.flatpak`.
-4. Profit
+1. Ensure you have Flatpak installed on your system. It's shipped by default in Fedora.
+2. Enable Flathub if you haven't already
+```bash
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+3. Install InfiniteShooter!
+```bash
+flatpak install io.github.pastthepixels.InfiniteShooter
+```
 
 # Hardware/software requirements
 | Requirement type              | Specifications                                                                   |
@@ -44,3 +49,4 @@ EXTERNAL ASSETS FROM FREESOUND.ORG:
 - Firing lasers: https://freesound.org/people/Defunct3/sounds/77172/
 - Transitioning between scenes (ex. from the main menu to the game): https://freesound.org/people/qubodup/sounds/60013/
 All other assets are made by me using free software tools like Blender, Inkscape, GIMP, LMMS, and Audacity.
+They're CC-0 and you can find them at https://github.com/pastthepixels/InfiniteShooter-Assets
