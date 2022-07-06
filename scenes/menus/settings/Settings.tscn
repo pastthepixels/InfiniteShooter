@@ -715,3 +715,5 @@ visible = false
 
 [connection signal="selected" from="Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare" to="." method="_on_SelectSquare_selected"]
 [connection signal="update" from="Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare" to="." method="_on_SelectSquare_update"]
+[connection signal="key_set" from="KeyPopup" to="." method="_on_KeyPopup_key_set"]
+[connection signal="opened" from="KeyPopup" to="." method="_on_KeyPopup_opened"]

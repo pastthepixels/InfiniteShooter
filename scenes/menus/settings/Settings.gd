@@ -59,9 +59,6 @@ func _on_SelectSquare_selected():
 		"Right":
 			$KeyPopup.map_actions(["move_right", "ui_right"])
 		
-		"Slow":
-			$KeyPopup.map_actions(["move_slow"])
-		
 		"Confirm":
 			$KeyPopup.map_actions(["shoot_laser", "ui_accept"])
 			
@@ -215,17 +212,16 @@ func _on_ResetConfirmation_confirmed():
 
 # To do with keybindings
 func _on_KeyPopup_key_set():
-	$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.show()
+	$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.disabled = false
 	if "move_up" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Up/Key.text = $KeyPopup.set_actions["move_up"][1].as_text()
 	if "move_down" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Down/Key.text = $KeyPopup.set_actions["move_down"][1].as_text()
 	if "move_left" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Left/Key.text = $KeyPopup.set_actions["move_left"][1].as_text()
 	if "move_right" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Right/Key.text = $KeyPopup.set_actions["move_right"][1].as_text()
-	if "move_slow" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Slow/Key.text = $KeyPopup.set_actions["move_slow"][1].as_text()
 	if "shoot_laser" in $KeyPopup.set_actions: $Content/MarginContainer/ScrollContainer/MarginContainer/Options/Confirm/Key.text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
 
 
 func _on_KeyPopup_opened():
-	$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.hide()
+	$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare.disabled = true
 
 
 func _on_SelectSquare_update():

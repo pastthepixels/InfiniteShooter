@@ -12,6 +12,9 @@ export var index = 0
 # Vbox containing lables (options)
 onready var options = get_node(options_path)
 
+# Variable to disable the select square
+export(bool) var disabled = false
+
 # What object is selected
 var select_child
 
@@ -29,7 +32,7 @@ func _ready():
 
 
 func _input(event):
-	if visible == false or get_parent().visible == false or ("visible" in owner and owner.visible == false) or event.is_echo():
+	if disabled == true or visible == false or get_parent().visible == false or ("visible" in owner and owner.visible == false) or event.is_echo():
 		return  # If the select square is not visible, don't use it
 	
 	if ignore_hits > 0 and (event is InputEventKey or event is InputEventJoypadButton):
