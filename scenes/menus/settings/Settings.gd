@@ -125,27 +125,7 @@ func set_settings():
 			settings["difficulty"] = GameVariables.DIFFICULTIES.carnage
 	
 	# FPS Limit
-	match $Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected):
-		"25":
-			settings["fps_limit"] = 25
-		
-		"30":
-			settings["fps_limit"] = 30
-
-		"50":
-			settings["fps_limit"] = 50
-
-		"60":
-			settings["fps_limit"] = 60
-
-		"75":
-			settings["fps_limit"] = 75
-
-		"120":
-			settings["fps_limit"] = 120
-
-		"144":
-			settings["fps_limit"] = 144
+	settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
 
 	# Updates the GUI
 	update_gui()
