@@ -83,16 +83,16 @@ scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="Content/MarginContainer/ScrollContainer" index="0"]
 margin_right = 422.0
-margin_bottom = 983.0
+margin_bottom = 944.0
 
 [node name="SelectSquare" parent="Content/MarginContainer/ScrollContainer/MarginContainer" index="0" instance=ExtResource( 3 )]
 margin_right = 422.0
-margin_bottom = 983.0
+margin_bottom = 944.0
 options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer" index="1"]
 margin_right = 422.0
-margin_bottom = 983.0
+margin_bottom = 944.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false

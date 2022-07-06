@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/settings/KeyPopup.gd" type="Script" id=4]
-[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=5]
+[ext_resource path="res://scenes/ui-bits/SubmenuBackground.tscn" type="PackedScene" id=5]
 [ext_resource path="res://sounds/use-option.mp3" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
@@ -22,10 +22,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 5 )
-shader_param/lod = 2.0
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -48,9 +44,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
@@ -58,25 +51,7 @@ stream = ExtResource( 6 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade = SubResource( 1 )
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-copy_mode = 2
-rect = Rect2( 0, 0, 600, 800 )
-
-[node name="Blur" type="ColorRect" parent="BackBufferCopy"]
-material = SubResource( 2 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.392157 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Background" parent="." instance=ExtResource( 5 )]
 
 [node name="Foreground" type="Panel" parent="."]
 anchor_left = 0.5
