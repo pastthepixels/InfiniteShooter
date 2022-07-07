@@ -1,14 +1,43 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scenes/ui-bits/Alert.gd" type="Script" id=1]
-[ext_resource path="res://sounds/error.mp3" type="AudioStream" id=2]
-[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=3]
+[ext_resource path="res://resources/theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/ui-bits/Alert.gd" type="Script" id=2]
+[ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=3]
+[ext_resource path="res://sounds/error.mp3" type="AudioStream" id=4]
 
-[sub_resource type="Animation" id=1]
-resource_name = "slide"
+[sub_resource type="StyleBoxFlat" id=39]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 1, 0.960784, 0.792157, 0.156863 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 0.980392, 0.482353, 0.27451 )
+
+[sub_resource type="StyleBoxFlat" id=34]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 1, 1, 1, 0.156863 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.27451 )
+
+[sub_resource type="ShaderMaterial" id=38]
+shader = ExtResource( 3 )
+shader_param/lod = 2.0
+
+[sub_resource type="Animation" id=37]
+resource_name = "Hide"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:anchor_left")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -17,139 +46,131 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( -2, -2 ),
 "update": 0,
-"values": [ -0.2, 0.05 ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:anchor_right")
+tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( -2, -2 ),
-"update": 0,
-"values": [ -0.2, 0.05 ]
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id=35]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "Show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( -2, -2 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:rect_scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0.6, 0.6 ), Vector2( 1, 1 ) ]
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
-[node name="Alert" type="Label"]
-modulate = Color( 1, 1, 1, 0 )
-anchor_left = -0.2
-anchor_top = 0.95
-anchor_right = -0.2
-anchor_bottom = 0.95
-margin_top = -17.0
-margin_right = 83.0
-rect_scale = Vector2( 0.6, 0.6 )
-theme = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+[node name="Alert" type="CenterContainer"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -128.0
+margin_bottom = -64.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+warning_theme = SubResource( 39 )
+
+[node name="Panel" type="PanelContainer" parent="."]
+margin_left = 462.0
+margin_top = 11.0
+margin_right = 605.0
+margin_bottom = 52.0
+custom_styles/panel = SubResource( 34 )
+
+[node name="Blur" type="ColorRect" parent="Panel"]
+show_behind_parent = true
+material = SubResource( 38 )
+margin_right = 143.0
+margin_bottom = 41.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+margin_right = 143.0
+margin_bottom = 41.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 8
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Panel/MarginContainer"]
+margin_left = 10.0
+margin_top = 8.0
+margin_right = 133.0
+margin_bottom = 33.0
 text = "Sample Text"
-script = ExtResource( 1 )
-
-[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
-bus = "SFX"
-
-[node name="AlertTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/slide = SubResource( 1 )
+autoplay = "RESET"
+anims/Hide = SubResource( 37 )
+anims/RESET = SubResource( 35 )
+anims/Show = SubResource( 36 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 10.0
-margin_bottom = 10.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
-[node name="UserInputWarning" type="HBoxContainer" parent="."]
-margin_left = -9.0
-margin_top = -35.0
-margin_right = 146.0
-margin_bottom = -18.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
 
-[node name="Press" type="Label" parent="UserInputWarning"]
-margin_right = 51.0
-margin_bottom = 19.0
-text = "Press  "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Keyboard" type="Label" parent="UserInputWarning"]
-margin_left = 55.0
-margin_right = 95.0
-margin_bottom = 19.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Enter"
-
-[node name="ColorRect" type="ColorRect" parent="UserInputWarning/Keyboard"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -2.0
-margin_right = 2.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Controller" type="Label" parent="UserInputWarning"]
-visible = false
-margin_left = 49.0
-margin_right = 58.0
-margin_bottom = 17.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Y"
-
-[node name="ColorRect" type="ColorRect" parent="UserInputWarning/Controller"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -2.0
-margin_right = 2.0
-color = Color( 1, 1, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ToContinue" type="Label" parent="UserInputWarning"]
-margin_left = 99.0
-margin_right = 190.0
-margin_bottom = 19.0
-text = "  to continue"
-
-[connection signal="timeout" from="AlertTimer" to="." method="_on_AlertTimer_timeout"]
-[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

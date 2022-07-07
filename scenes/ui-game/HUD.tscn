@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=5]
 [ext_resource path="res://resources/theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/ui-game/HUD.gd" type="Script" id=7]
-[ext_resource path="res://scenes/ui-bits/HUDToast.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 1, 0.304688, 0.304688, 0.304688, 0.0470588 )
@@ -654,5 +654,5 @@ align = 1
 valign = 1
 
 [node name="HUDToast" parent="." instance=ExtResource( 8 )]
-visible = false
 is_warning = true
+animation_speed = 1.7

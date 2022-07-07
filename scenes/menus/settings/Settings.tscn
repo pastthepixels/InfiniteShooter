@@ -3,8 +3,8 @@
 [ext_resource path="res://scenes/menus/settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/settings/KeyPopup.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/ui-bits/Alert.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=20]
@@ -710,8 +710,7 @@ set_actions = {
 [node name="ResetConfirmation" parent="." index="4" instance=ExtResource( 8 )]
 visible = false
 
-[node name="Alert" parent="." index="5" instance=ExtResource( 7 )]
-visible = false
+[node name="Alert" parent="." index="5" instance=ExtResource( 4 )]
 
 [connection signal="selected" from="Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare" to="." method="_on_SelectSquare_selected"]
 [connection signal="update" from="Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare" to="." method="_on_SelectSquare_update"]

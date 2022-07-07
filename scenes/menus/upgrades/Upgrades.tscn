@@ -89,6 +89,5 @@ rect_min_size = Vector2( 0, 2 )
 options_path = NodePath("../Content/Options")
 
 [node name="Alert" parent="." index="6" instance=ExtResource( 5 )]
-visible = false
 
 [connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]

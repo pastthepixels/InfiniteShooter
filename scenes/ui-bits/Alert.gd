@@ -1,57 +1,33 @@
-extends Label
+extends CenterContainer
 
-signal finished
+export(StyleBox) var warning_theme
 
-export var user_confirmation = false
+export var is_warning = false
 
-var alerting = false
-
-var waiting = false
+export(float) var animation_speed = 1
 
 func _ready():
-	if Input.get_joy_name(0) != "":
-		$UserInputWarning/Keyboard.hide()
-		$UserInputWarning/Controller.show()
-	else:
-		$UserInputWarning/Keyboard.show()
-		$UserInputWarning/Controller.hide()
+	if is_warning == true:
+		$Panel.add_stylebox_override("panel", warning_theme)
 
-func _input(event):
-	if event.is_action_pressed("ui_dismiss") and waiting == true:
-		waiting = false
-		fade_out()
+func alert(text, duration=2):
+	$AnimationPlayer.stop()
+	$AnimationPlayer.playback_speed = animation_speed
+	$AnimationPlayer.play("Show")
+	$Panel/MarginContainer/Label.text = text
+	$Timer.wait_time = duration
 
-func alert(alert_text, duration=1):
-	alerting = true
-	# user confirmation stuff
-	$UserInputWarning.visible = user_confirmation
-	
-	# everything else
-	hide()
-	text = alert_text
-	$AnimationPlayer.play("slide")
-	# Fading out
-	if user_confirmation == false:
-		$AlertTimer.wait_time = duration
-		$AlertTimer.start()
-	else:
-		waiting = true
-
-func fade_out():
-	$AnimationPlayer.play_backwards("slide")
-	yield($AnimationPlayer, "animation_finished")
-	emit_signal("finished")
-
-
-func error(error_text):
-	alert(error_text)
+func error(text, duration=3):
+	alert(text, duration)
 	$ErrorSound.play()
 	if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.6, 1, .2) # Vibrates a controller if you have one
+	CameraEquipment.get_node("ShakeCamera").add_trauma(0.3)
 
 
-func _on_AlertTimer_timeout():
-	fade_out()
+func _on_Timer_timeout():
+	$AnimationPlayer.play("Hide")
 
 
-func _on_AnimationPlayer_animation_started(_anim_name):
-	visible = true
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "Show":
+		$Timer.start()
