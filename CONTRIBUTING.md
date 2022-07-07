@@ -1,5 +1,7 @@
 Contributing to InfiniteShooter
 ===============================
+> Note: For a full updated guide to working with InfiniteShooter, check out the [wiki page](https://github.com/pastthepixels/InfiniteShooter/wiki/Contributing-to-InfiniteShooter).
+
 First off, thanks for choosing to contribute to InfiniteShooter! Here's what you can do:
 ## Getting Started
 The first thing you should do when contributing to InfiniteShooter is to check out the issues. You can do so by clicking on the respective tab and looking for issues with the "good first issue" label. If there's none, you can look for some bugs and then read below on how to report issues for InfiniteShooter.
