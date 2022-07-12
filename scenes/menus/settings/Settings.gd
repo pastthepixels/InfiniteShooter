@@ -31,6 +31,10 @@ func _on_SelectSquare_selected():
 			settings["bloom"] = ! settings["bloom"]
 			set_settings()
 		
+		"VSync":
+			settings["vsync"] = ! settings["vsync"]
+			set_settings()
+		
 		"Fullscreen":
 			settings["fullscreen"] = ! settings["fullscreen"]
 			set_settings()
@@ -151,6 +155,10 @@ func update_gui():
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Shockwaves/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["shockwaves"] else colors.red
+	)
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/VSync/Title.set(
+		"custom_colors/font_color",
+		colors.green if settings["vsync"] else colors.red
 	)
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen/Title.set(
 		"custom_colors/font_color",

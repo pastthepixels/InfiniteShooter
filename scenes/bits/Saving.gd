@@ -26,6 +26,7 @@ var default_settings = {
 	"bloom": true,
 	"distortion": true,
 	"shockwaves": true,
+	"vsync": true,
 	"fullscreen": false,
 	"fps_indicator": false,
 	"fps_limit": 0,
@@ -122,6 +123,9 @@ func save_settings(settings):
 	
 	# Makes the window fullscreen if desired
 	OS.window_fullscreen = settings["fullscreen"]
+	
+	# Sets V-Sync
+	OS.vsync_enabled = settings["vsync"]
 
 	# Sets the frame rate limit per second
 	Engine.target_fps = settings["fps_limit"]
