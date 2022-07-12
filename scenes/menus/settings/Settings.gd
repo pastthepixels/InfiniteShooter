@@ -169,6 +169,23 @@ func update_gui():
 		colors.green if settings["fps_indicator"] else colors.red
 	)
 	
+	# FPS limit
+	match int(settings["fps_limit"]):
+		25:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 0
+		30:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 1
+		50:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 2
+		60:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 3
+		75:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 4
+		120:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 5
+		144:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 6
+	
 	# Difficulty
 	match int(settings["difficulty"]):
 		GameVariables.DIFFICULTIES.easy:
