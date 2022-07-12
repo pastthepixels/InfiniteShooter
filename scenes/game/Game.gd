@@ -75,7 +75,6 @@ func set_coincrate_spawn():
 	crate_spawn_points.clear()
 	for _i in range(0, GameVariables.crates_per_level):
 		crate_spawn_points.append(generate_crate_spawnpoint())
-	print(crate_spawn_points)
 
 func generate_crate_spawnpoint():
 	if get_max_enemies_in_level() < (2*crate_spawnpoint_margin): return 0 # Checks if the max enemies per level is smaller than the spawnpoint margin
