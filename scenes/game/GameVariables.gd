@@ -18,7 +18,7 @@ export(int) var max_powerups_on_screen = 5
 
 export var health_diff = 20 # <-- How much health all enemies go up by per level (constant value, HP)
 export var damage_diff = 3 # <-- How much damage all enemies/bosses go up by per level (constant value, also HP)
-export var health_diff_boss = 256 # <-- How much health all bosses go up by per level (constant value, also HP)
+export var health_diff_boss = 1500 # <-- How much health all bosses go up by per level (constant value, also HP)
 
 export var target_purchasable_health = 48
 export var target_purchasable_damage = 10
