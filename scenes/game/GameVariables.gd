@@ -100,6 +100,7 @@ enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare, carnage }
 # Difficulty
 var difficulty_health = 0
 var difficulty_damage = 0
+var difficulty_health_boss = 0
 
 var max_points_per_upgrade = 16 # <-- Note: For EITHER damage or health
 
