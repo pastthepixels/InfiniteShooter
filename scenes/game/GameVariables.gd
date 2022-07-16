@@ -39,6 +39,10 @@ var level_dependent_enemy_types = [
 	[30, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank, ENEMY_TYPES.explosive, ENEMY_TYPES.multishot, ENEMY_TYPES.quadshot, ENEMY_TYPES.gigatank]] # Level 9. Lastly, we introduce the Gigatank.
 ]
 
+# 
+var current_difficulty setget set_difficulty, get_difficulty
+var _current_difficulty = DIFFICULTIES.medium
+
 # Note: When you update this, make sure to update ENEMY_TYPES as well.
 # Stats for bosses are in their respective scripts.
 var enemy_stats = [
@@ -121,6 +125,7 @@ func restore_vars():
 		self[variable] = backups[variable]
 	
 func set_difficulty(difficulty):
+	_current_difficulty = difficulty
 	if backups.empty():
 		back_up_vars()
 	else:
@@ -179,6 +184,11 @@ func set_difficulty(difficulty):
 		DIFFICULTIES.carnage: # Something... different.
 			enemies_on_screen_range = [10,10]
 			enemies_per_wave = 50
+	
+	enemies_per_wave = 2
+
+func get_difficulty():
+	return _current_difficulty
 
 func _ready():
 	if enemy_difficulty == null:

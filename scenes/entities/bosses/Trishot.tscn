@@ -11,6 +11,7 @@ data = PoolVector3Array( 2.1442, 0.1713, 1.434, 3.6851, 0.1713, -1.1444, 2.1442,
 script = ExtResource( 3 )
 
 [node name="LaserTimer" type="Timer" parent="."]
+wait_time = 1.2
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.0278436, 0.159406 )
