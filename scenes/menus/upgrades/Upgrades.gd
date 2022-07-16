@@ -27,6 +27,7 @@ func show_animated():
 	read_upgrades() # <--- turns them into labels
 	update_gui()	# <-/
 	rect_pivot_offset = rect_size/2
+	$SelectSquare.show()
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
 	$Music.play()
