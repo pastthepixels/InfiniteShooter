@@ -10,6 +10,8 @@ export(float) var gkill_health_ratio = 0.35 # Percentage of enemy health it need
 export(int) var crates_per_level = 10 # How much crates you see per level (the more crates the more annoying they get but also the more opportunities you have to get coins_per_level)
 export(int) var coins_per_level = 2400 # How much coins you get per level
 
+export(int) var ammo_refills_target = 12
+
 export var enemies_on_screen_range = [2, 4] # [min,max]
 export var waves_per_level_range = [5, 10] # [min, max]
 export var enemies_per_wave = 10
@@ -108,7 +110,7 @@ var enemy_difficulty
 
 # A function to set the difficulty of the game. (I mean, what more can I say?)
 var backups = {}
-var vars_to_backup = ["difficulty_health", "difficulty_damage", "enemies_on_screen_range", "enemies_per_wave", "target_purchasable_health", "target_purchasable_damage"]
+var vars_to_backup = ["ammo_refills_target", "difficulty_health", "difficulty_damage", "enemies_on_screen_range", "enemies_per_wave", "target_purchasable_health", "target_purchasable_damage", "health_diff", "health_diff_boss", "damage_diff"]
 func back_up_vars():
 	backups.clear()
 	for variable in vars_to_backup:
@@ -125,27 +127,54 @@ func set_difficulty(difficulty):
 		restore_vars()
 	match difficulty:
 		DIFFICULTIES.easy:
+			health_diff = 10
+			health_diff_boss = 1500
 			difficulty_health = 0
-			difficulty_damage = -2
+			difficulty_health_boss = -100
+			
+			ammo_refills_target = 8
+			
+			difficulty_damage = -1
+			damage_diff = 2.5
 
 		DIFFICULTIES.medium:
 			pass
 
 		DIFFICULTIES.hard:
+			health_diff = 25
+			health_diff_boss = 1750
 			difficulty_health = 10
-			difficulty_damage = 4
+			difficulty_health_boss = 100
+			
+			ammo_refills_target = 14
+			
+			difficulty_damage = 0.5
+			damage_diff = 3
 
 		DIFFICULTIES.nightmare:
-			target_purchasable_health -= 3
-			target_purchasable_damage -= 3
-			difficulty_health = 20
-			difficulty_damage = 6
+			health_diff = 30
+			health_diff_boss = 2000
+			difficulty_health = 10
+			difficulty_health_boss = 100
+			enemies_per_wave = 15
+			
+			ammo_refills_target = 16
+			
+			difficulty_damage = 1
+			damage_diff = 3.2
 
 		DIFFICULTIES.ultranightmare:
-			target_purchasable_health -= 5
-			target_purchasable_damage -= 5
+			health_diff = 30
+			health_diff_boss = 2250
 			difficulty_health = 20
-			difficulty_damage = 6
+			difficulty_health_boss = 100
+			enemies_on_screen_range = [3, 5]
+			enemies_per_wave = 20
+			
+			ammo_refills_target = 18
+			
+			difficulty_damage = 1.5
+			damage_diff = 3.4
 		
 		DIFFICULTIES.carnage: # Something... different.
 			enemies_on_screen_range = [10,10]
