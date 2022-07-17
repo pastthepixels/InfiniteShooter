@@ -184,8 +184,6 @@ func set_difficulty(difficulty):
 		DIFFICULTIES.carnage: # Something... different.
 			enemies_on_screen_range = [10,10]
 			enemies_per_wave = 50
-	
-	enemies_per_wave = 2
 
 func get_difficulty():
 	return _current_difficulty
