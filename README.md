@@ -2,6 +2,8 @@
   <img alt="InfiniteShooter" src="https://raw.githubusercontent.com/pastthepixels/InfiniteShooter-Assets/main/infiniteshooter-cover.png">
 </p>
 
+<a href='https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
 <p float="left">
