@@ -8,6 +8,10 @@ onready var _animate_dispersion_amount = 0
 
 onready var orig_window_size = OS.window_size
 
+# Since the playback speed of SkyAnimations is changed with a Tween, we want to store what the playback speed should be in another variable
+# Probably a hacky way to do things, but also just works (tm)
+var _sky_playback_speed = 1
+
 export(Array, PanoramaSky) var skies
 
 
@@ -36,7 +40,7 @@ func slow_sky():
 	$Tween.interpolate_property(
 		$SkyAnimations,
 		"playback_speed",
-		1,
+		Saving.current_settings["skyanimations_speed"],
 		0,
 		3,
 		Tween.TRANS_QUAD
@@ -46,14 +50,13 @@ func slow_sky():
 func reset_sky_animation_speed():
 	var settings = Saving.load_settings()
 	$Tween.stop_all()
-	$SkyAnimations.playback_speed = settings["bg_mov"]
 
 func resume_sky():
 	$Tween.interpolate_property(
 		$SkyAnimations,
 		"playback_speed",
 		0,
-		1,
+		Saving.current_settings["skyanimations_speed"],
 		3,
 		Tween.TRANS_QUAD
 	)

@@ -134,7 +134,7 @@ func set_settings():
 	settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
 
 	# Background Movement
-	settings["bg_mov"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value
+	settings["skyanimations_speed"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value
 
 	# Updates the GUI
 	update_gui()
@@ -146,7 +146,7 @@ func update_gui():
 	# Music/Sound Volume(s) -> GUI slider values
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
-	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value = settings["bg_mov"]
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value = settings["skyanimations_speed"]
 
 	# Updates colors for some settings
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing/Title.set(
@@ -185,7 +185,7 @@ func update_gui():
 			flimit_options.select(item_idx)
 	
 	# Background movement speed
-	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x " + str(settings["bg_mov"]) + ")"
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x " + str(settings["skyanimations_speed"]) + ")"
 	
 	# Difficulty
 	match int(settings["difficulty"]):
