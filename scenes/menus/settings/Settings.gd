@@ -179,22 +179,12 @@ func update_gui():
 	)
 	
 	# FPS limit
-	match int(settings["fps_limit"]):
-		25:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 0
-		30:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 1
-		50:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 2
-		60:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 3
-		75:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 4
-		120:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 5
-		144:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 6
-
+	var flimit_options = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton
+	for item_idx in range(0, flimit_options.get_item_count()):
+		if int(flimit_options.get_item_text(item_idx)) == int(settings["fps_limit"]):
+			flimit_options.select(item_idx)
+	
+	# Background movement speed
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x " + str(settings["bg_mov"]) + ")"
 	
 	# Difficulty

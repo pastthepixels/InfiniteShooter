@@ -428,7 +428,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 button_mask = 0
 text = "60"
 flat = true
-items = [ "0", null, false, 0, null, "25", null, false, 1, null, "30", null, false, 2, null, "45", null, false, 3, null, "50", null, false, 4, null, "60", null, false, 5, null, "75", null, false, 6, null, "120", null, false, 7, null, "144", null, false, 8, null ]
+items = [ "25", null, false, 1, null, "30", null, false, 2, null, "45", null, false, 3, null, "50", null, false, 4, null, "60", null, false, 5, null, "75", null, false, 6, null, "120", null, false, 7, null, "144", null, false, 8, null ]
 selected = 5
 
 [node name="Gameplay" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="11" groups=["selectsquare_ignore"]]
