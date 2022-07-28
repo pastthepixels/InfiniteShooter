@@ -185,7 +185,7 @@ func update_gui():
 			flimit_options.select(item_idx)
 	
 	# Background movement speed
-	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x " + str(settings["skyanimations_speed"]) + ")"
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x%0.2f)" % settings["skyanimations_speed"]
 	
 	# Difficulty
 	match int(settings["difficulty"]):
