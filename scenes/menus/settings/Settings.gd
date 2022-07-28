@@ -31,6 +31,10 @@ func _on_SelectSquare_selected():
 			settings["bloom"] = ! settings["bloom"]
 			set_settings()
 		
+		"VSync":
+			settings["vsync"] = ! settings["vsync"]
+			set_settings()
+		
 		"Fullscreen":
 			settings["fullscreen"] = ! settings["fullscreen"]
 			set_settings()
@@ -152,6 +156,10 @@ func update_gui():
 		"custom_colors/font_color",
 		colors.green if settings["shockwaves"] else colors.red
 	)
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/VSync/Title.set(
+		"custom_colors/font_color",
+		colors.green if settings["vsync"] else colors.red
+	)
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/Fullscreen/Title.set(
 		"custom_colors/font_color",
 		colors.green if settings["fullscreen"] else colors.red
@@ -160,6 +168,23 @@ func update_gui():
 		"custom_colors/font_color",
 		colors.green if settings["fps_indicator"] else colors.red
 	)
+	
+	# FPS limit
+	match int(settings["fps_limit"]):
+		25:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 0
+		30:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 1
+		50:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 2
+		60:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 3
+		75:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 4
+		120:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 5
+		144:
+			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 6
 	
 	# Difficulty
 	match int(settings["difficulty"]):

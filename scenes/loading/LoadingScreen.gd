@@ -26,7 +26,7 @@ func loop_scenes(path): # from https://docs.godotengine.org/en/3.1/classes/class
 				print("Loaded scene " + path + "/" + file_name)
 			file_name = dir.get_next()
 	else:
-		print("An error occurred when trying to access the path.")
+		print("An error occurred when trying to access the path '", path, "'.")
 
 func instance_scenes_then_quit():
 	var progress = 0

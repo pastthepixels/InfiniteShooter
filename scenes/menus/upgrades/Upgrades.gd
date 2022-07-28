@@ -27,6 +27,7 @@ func show_animated():
 	read_upgrades() # <--- turns them into labels
 	update_gui()	# <-/
 	rect_pivot_offset = rect_size/2
+	$SelectSquare.show()
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
 	$Music.play()
@@ -35,9 +36,8 @@ func show_animated():
 func _on_SelectSquare_selected():
 	match $Content/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
 		"Back":
-			emit_signal("closed")
-			$AnimationPlayer.play("close")
-			$Music.stop() 
+			$SelectSquare.hide()
+			$QuitConfirm.alert("Are you sure you would like to go back to the game?", true)
 		
 		var name:
 			var upgrade = upgrade_lookup_table[name]
@@ -114,3 +114,13 @@ func update_gui():
 	$Content/Stats/Health.text = "%s health" % get_node(player).max_health
 	$Content/Stats/Damage.text = "%s damage/shot" % get_node(player).damage
 	$Content/Stats/Points.text = "$%s" % get_node(game).coins
+
+
+func _on_QuitConfirm_confirmed():
+	emit_signal("closed")
+	$AnimationPlayer.play("close")
+	$Music.stop() 
+
+
+func _on_QuitConfirm_exited():
+	$SelectSquare.show()

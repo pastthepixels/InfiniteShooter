@@ -10,6 +10,8 @@ export(float) var gkill_health_ratio = 0.35 # Percentage of enemy health it need
 export(int) var crates_per_level = 10 # How much crates you see per level (the more crates the more annoying they get but also the more opportunities you have to get coins_per_level)
 export(int) var coins_per_level = 2400 # How much coins you get per level
 
+export(int) var ammo_refills_target = 12
+
 export var enemies_on_screen_range = [2, 4] # [min,max]
 export var waves_per_level_range = [5, 10] # [min, max]
 export var enemies_per_wave = 10
@@ -18,7 +20,7 @@ export(int) var max_powerups_on_screen = 5
 
 export var health_diff = 20 # <-- How much health all enemies go up by per level (constant value, HP)
 export var damage_diff = 3 # <-- How much damage all enemies/bosses go up by per level (constant value, also HP)
-export var health_diff_boss = 256 # <-- How much health all bosses go up by per level (constant value, also HP)
+export var health_diff_boss = 1500 # <-- How much health all bosses go up by per level (constant value, also HP)
 
 export var target_purchasable_health = 48
 export var target_purchasable_damage = 10
@@ -36,6 +38,10 @@ var level_dependent_enemy_types = [
 	[20, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank, ENEMY_TYPES.explosive, ENEMY_TYPES.multishot, ENEMY_TYPES.quadshot]], # We are now introducing the quadshot enemy.
 	[30, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank, ENEMY_TYPES.explosive, ENEMY_TYPES.multishot, ENEMY_TYPES.quadshot, ENEMY_TYPES.gigatank]] # Level 9. Lastly, we introduce the Gigatank.
 ]
+
+# 
+var current_difficulty setget set_difficulty, get_difficulty
+var _current_difficulty = DIFFICULTIES.medium
 
 # Note: When you update this, make sure to update ENEMY_TYPES as well.
 # Stats for bosses are in their respective scripts.
@@ -100,6 +106,7 @@ enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare, carnage }
 # Difficulty
 var difficulty_health = 0
 var difficulty_damage = 0
+var difficulty_health_boss = 0
 
 var max_points_per_upgrade = 16 # <-- Note: For EITHER damage or health
 
@@ -107,7 +114,7 @@ var enemy_difficulty
 
 # A function to set the difficulty of the game. (I mean, what more can I say?)
 var backups = {}
-var vars_to_backup = ["difficulty_health", "difficulty_damage", "enemies_on_screen_range", "enemies_per_wave", "target_purchasable_health", "target_purchasable_damage"]
+var vars_to_backup = ["ammo_refills_target", "difficulty_health", "difficulty_damage", "enemies_on_screen_range", "enemies_per_wave", "target_purchasable_health", "target_purchasable_damage", "health_diff", "health_diff_boss", "damage_diff"]
 func back_up_vars():
 	backups.clear()
 	for variable in vars_to_backup:
@@ -118,37 +125,68 @@ func restore_vars():
 		self[variable] = backups[variable]
 	
 func set_difficulty(difficulty):
+	_current_difficulty = difficulty
 	if backups.empty():
 		back_up_vars()
 	else:
 		restore_vars()
 	match difficulty:
 		DIFFICULTIES.easy:
+			health_diff = 10
+			health_diff_boss = 1500
 			difficulty_health = 0
-			difficulty_damage = -2
+			difficulty_health_boss = -100
+			
+			ammo_refills_target = 8
+			
+			difficulty_damage = -1
+			damage_diff = 2.5
 
 		DIFFICULTIES.medium:
 			pass
 
 		DIFFICULTIES.hard:
+			health_diff = 25
+			health_diff_boss = 1750
 			difficulty_health = 10
-			difficulty_damage = 4
+			difficulty_health_boss = 100
+			
+			ammo_refills_target = 14
+			
+			difficulty_damage = 0.5
+			damage_diff = 3
 
 		DIFFICULTIES.nightmare:
-			target_purchasable_health -= 3
-			target_purchasable_damage -= 3
-			difficulty_health = 20
-			difficulty_damage = 6
+			health_diff = 30
+			health_diff_boss = 2000
+			difficulty_health = 10
+			difficulty_health_boss = 100
+			enemies_per_wave = 15
+			
+			ammo_refills_target = 16
+			
+			difficulty_damage = 1
+			damage_diff = 3.2
 
 		DIFFICULTIES.ultranightmare:
-			target_purchasable_health -= 5
-			target_purchasable_damage -= 5
+			health_diff = 30
+			health_diff_boss = 2250
 			difficulty_health = 20
-			difficulty_damage = 6
+			difficulty_health_boss = 100
+			enemies_on_screen_range = [3, 5]
+			enemies_per_wave = 20
+			
+			ammo_refills_target = 18
+			
+			difficulty_damage = 1.5
+			damage_diff = 3.4
 		
 		DIFFICULTIES.carnage: # Something... different.
 			enemies_on_screen_range = [10,10]
 			enemies_per_wave = 50
+
+func get_difficulty():
+	return _current_difficulty
 
 func _ready():
 	if enemy_difficulty == null:

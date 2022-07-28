@@ -191,7 +191,7 @@ func explode_ship(silent=false):
 		elif get_tree().get_nodes_in_group("players")[0].health_percent < .30 or (randi() % (powerup_randomness * 4)) == 1: # <-- Health
 			powerup.type = GameVariables.POWERUP_TYPES.medkit
 			get_parent().add_child(powerup)
-		elif (get_tree().get_nodes_in_group("players")[0].ammo_refills <= 8 or (randi() % (powerup_randomness * 8)) == 1 and get_tree().get_nodes_in_group("players")[0].ammo_refills <= 20) and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Ammo (rarer)
+		elif (get_tree().get_nodes_in_group("players")[0].ammo_refills <= GameVariables.ammo_refills_target or (randi() % (powerup_randomness * 8)) == 1 and get_tree().get_nodes_in_group("players")[0].ammo_refills <= 20) and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Ammo (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.ammo
 			get_parent().add_child(powerup)
 		elif (randi() % (powerup_randomness * 16)) == 1 and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Exploding everything (rarer)

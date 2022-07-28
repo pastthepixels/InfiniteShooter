@@ -45,6 +45,8 @@ var use_laser_modifiers = false # Whether or not to use laser modifiers
 
 var autospawn_enemies = false # Whether or not to spawn new enemies when they die (used within this script)
 
+var crate_spawnpoint_margin = 4 # See generate_crate_spawnpoint()
+
 #
 # Countdown timers, initialization, music, and _process
 #
@@ -75,8 +77,11 @@ func set_coincrate_spawn():
 		crate_spawn_points.append(generate_crate_spawnpoint())
 
 func generate_crate_spawnpoint():
-	var spawnpoint = floor(rand_range(4, get_max_enemies_in_level() - 4))
-	if spawnpoint in crate_spawn_points or (spawnpoint-1) in crate_spawn_points or (spawnpoint+1) in crate_spawn_points:
+	if get_max_enemies_in_level() < (2*crate_spawnpoint_margin): return 0 # Checks if the max enemies per level is smaller than the spawnpoint margin
+	var spawnpoint = floor(rand_range(crate_spawnpoint_margin, get_max_enemies_in_level() - crate_spawnpoint_margin))
+	if (spawnpoint in crate_spawn_points
+	or (spawnpoint-1) in crate_spawn_points
+	or (spawnpoint+1) in crate_spawn_points) and (get_max_enemies_in_level() - (2*crate_spawnpoint_margin) >= GameVariables.crates_per_level):
 		return generate_crate_spawnpoint()
 	else:
 		return spawnpoint
@@ -164,7 +169,7 @@ func make_enemy():
 	# Updates the number of enemies in the level/spawns coin crates
 	enemies_in_level += 1
 	if enemies_in_level in crate_spawn_points:
-		make_coincrate()
+		for _i in range(0, crate_spawn_points.count(float(enemies_in_level))): make_coincrate()
 
 	# Updates the HUD with the current amount of enemies in the wave
 	if GameVariables.enemies_per_wave > 0:
