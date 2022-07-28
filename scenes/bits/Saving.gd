@@ -29,7 +29,8 @@ var default_settings = {
 	"vsync": true,
 	"fullscreen": false,
 	"fps_indicator": false,
-	"fps_limit": 0,
+	"fps_limit": 60,
+	"bg_mov": 1.0,
 	"musicvol": 100,
 	"sfxvol": 100,
 	"difficulty": GameVariables.DIFFICULTIES.medium
@@ -129,6 +130,9 @@ func save_settings(settings):
 
 	# Sets the frame rate limit per second
 	Engine.target_fps = settings["fps_limit"]
+
+	# Sets the movement speed of background
+	CameraEquipment.get_node("Tween").playback_speed = settings["bg_mov"]
 	
 	# Sets difficulty
 	GameVariables.set_difficulty(int(settings["difficulty"]))
