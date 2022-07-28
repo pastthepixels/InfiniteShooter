@@ -99,6 +99,11 @@ func _input(event):
 				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 
+			"BackgroundMovement":
+				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value += 0.25 if event.is_action_pressed("ui_right") else -0.25
+				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
+				set_settings()
+
 # To save/set settings
 func set_settings():
 	# Music/Sound Volume(s) <- GUI slider values
@@ -128,6 +133,9 @@ func set_settings():
 	# FPS Limit
 	settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
 
+	# Background Movement
+	settings["bg_mov"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value
+
 	# Updates the GUI
 	update_gui()
 	
@@ -138,7 +146,8 @@ func update_gui():
 	# Music/Sound Volume(s) -> GUI slider values
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
-	
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value = settings["bg_mov"]
+
 	# Updates colors for some settings
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing/Title.set(
 		"custom_colors/font_color",
@@ -185,6 +194,8 @@ func update_gui():
 			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 5
 		144:
 			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 6
+
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x " + str(settings["bg_mov"]) + ")"
 	
 	# Difficulty
 	match int(settings["difficulty"]):

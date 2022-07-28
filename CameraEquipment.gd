@@ -44,8 +44,9 @@ func slow_sky():
 	$Tween.start()
 
 func reset_sky_animation_speed():
+	var settings = Saving.load_settings()
 	$Tween.stop_all()
-	$SkyAnimations.playback_speed = 1
+	$SkyAnimations.playback_speed = settings["bg_mov"]
 
 func resume_sky():
 	$Tween.interpolate_property(
