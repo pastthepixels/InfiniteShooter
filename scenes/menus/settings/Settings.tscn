@@ -83,16 +83,16 @@ scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="Content/MarginContainer/ScrollContainer" index="0"]
 margin_right = 422.0
-margin_bottom = 1022.0
+margin_bottom = 1072.0
 
 [node name="SelectSquare" parent="Content/MarginContainer/ScrollContainer/MarginContainer" index="0" instance=ExtResource( 3 )]
 margin_right = 422.0
-margin_bottom = 1022.0
+margin_bottom = 1072.0
 options_path = NodePath("../Options")
 
 [node name="Options" type="VBoxContainer" parent="Content/MarginContainer/ScrollContainer/MarginContainer" index="1"]
 margin_right = 422.0
-margin_bottom = 1022.0
+margin_bottom = 1072.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -400,8 +400,8 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 button_mask = 0
 text = "60"
 flat = true
-items = [ "25", null, false, 1, null, "30", null, false, 2, null, "45", null, false, 3, null, "50", null, false, 4, null, "60", null, false, 5, null, "75", null, false, 6, null, "120", null, false, 7, null, "144", null, false, 8, null ]
-selected = 5
+items = [ "25", null, false, 2, null, "30", null, false, 3, null, "45", null, false, 4, null, "50", null, false, 5, null, "60", null, false, 6, null, "75", null, false, 7, null, "120", null, false, 8, null, "144", null, false, 8, null, "Unlimited", null, false, 8, null ]
+selected = 4
 
 [node name="Gameplay" type="ColorRect" parent="Content/MarginContainer/ScrollContainer/MarginContainer/Options" index="10" groups=["selectsquare_ignore"]]
 show_behind_parent = true

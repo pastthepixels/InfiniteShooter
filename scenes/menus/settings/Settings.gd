@@ -131,7 +131,10 @@ func set_settings():
 			settings["difficulty"] = GameVariables.DIFFICULTIES.carnage
 	
 	# FPS Limit
-	settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
+	if $Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected).is_valid_float() == false:
+		settings["fps_limit"] = 0
+	else:
+		settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
 
 	# Background Movement
 	settings["skyanimations_speed"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value
@@ -181,7 +184,10 @@ func update_gui():
 	# FPS limit
 	var flimit_options = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton
 	for item_idx in range(0, flimit_options.get_item_count()):
-		if int(flimit_options.get_item_text(item_idx)) == int(settings["fps_limit"]):
+		if flimit_options.get_item_text(item_idx).is_valid_float() == false:
+			if int(settings["fps_limit"]) == 0:
+				flimit_options.select(item_idx)
+		elif int(flimit_options.get_item_text(item_idx)) == int(settings["fps_limit"]):
 			flimit_options.select(item_idx)
 	
 	# Background movement speed
