@@ -99,6 +99,11 @@ func _input(event):
 				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
 				set_settings()
 
+			"BackgroundMovement":
+				$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value += 0.25 if event.is_action_pressed("ui_right") else -0.25
+				$Content/MarginContainer/ScrollContainer/MarginContainer/SelectSquare/AcceptSound.play()
+				set_settings()
+
 # To save/set settings
 func set_settings():
 	# Music/Sound Volume(s) <- GUI slider values
@@ -126,7 +131,13 @@ func set_settings():
 			settings["difficulty"] = GameVariables.DIFFICULTIES.carnage
 	
 	# FPS Limit
-	settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
+	if $Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected).is_valid_float() == false:
+		settings["fps_limit"] = 0
+	else:
+		settings["fps_limit"] = int($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.get_item_text($Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected))
+
+	# Background Movement
+	settings["skyanimations_speed"] = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value
 
 	# Updates the GUI
 	update_gui()
@@ -138,7 +149,8 @@ func update_gui():
 	# Music/Sound Volume(s) -> GUI slider values
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/MusicVolume/TextureProgress.value = settings["musicvol"]
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/SFXVolume/TextureProgress.value = settings["sfxvol"]
-	
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/TextureProgress.value = settings["skyanimations_speed"]
+
 	# Updates colors for some settings
 	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/AntiAliasing/Title.set(
 		"custom_colors/font_color",
@@ -170,21 +182,16 @@ func update_gui():
 	)
 	
 	# FPS limit
-	match int(settings["fps_limit"]):
-		25:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 0
-		30:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 1
-		50:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 2
-		60:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 3
-		75:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 4
-		120:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 5
-		144:
-			$Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton.selected = 6
+	var flimit_options = $Content/MarginContainer/ScrollContainer/MarginContainer/Options/FPSLimit/FOptionButton
+	for item_idx in range(0, flimit_options.get_item_count()):
+		if flimit_options.get_item_text(item_idx).is_valid_float() == false:
+			if int(settings["fps_limit"]) == 0:
+				flimit_options.select(item_idx)
+		elif int(flimit_options.get_item_text(item_idx)) == int(settings["fps_limit"]):
+			flimit_options.select(item_idx)
+	
+	# Background movement speed
+	$Content/MarginContainer/ScrollContainer/MarginContainer/Options/BackgroundMovement/Hint.text = "(x%0.2f)" % settings["skyanimations_speed"]
 	
 	# Difficulty
 	match int(settings["difficulty"]):

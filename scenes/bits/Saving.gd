@@ -29,11 +29,14 @@ var default_settings = {
 	"vsync": true,
 	"fullscreen": false,
 	"fps_indicator": false,
-	"fps_limit": 0,
+	"fps_limit": 60,
+	"skyanimations_speed": 1.0,
 	"musicvol": 100,
 	"sfxvol": 100,
 	"difficulty": GameVariables.DIFFICULTIES.medium
 }
+
+var current_settings
 
 #
 # Userdata -- Player information and total score accumulated
@@ -92,6 +95,7 @@ func get_datetime():
 # Settings
 #
 func save_settings(settings):
+	current_settings = settings
 	# Sets music volume
 	AudioServer.set_bus_volume_db(
 		AudioServer.get_bus_index("Music"), linear2db(float(settings["musicvol"]) / 100)
@@ -129,6 +133,9 @@ func save_settings(settings):
 
 	# Sets the frame rate limit per second
 	Engine.target_fps = settings["fps_limit"]
+
+	# Sets the movement speed of the background (affects all animations)
+	CameraEquipment.get_node("SkyAnimations").playback_speed = settings["skyanimations_speed"]
 	
 	# Sets difficulty
 	GameVariables.set_difficulty(int(settings["difficulty"]))

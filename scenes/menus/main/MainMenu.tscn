@@ -168,9 +168,9 @@ align = 1
 valign = 1
 
 [node name="Readme" type="Label" parent="Menu/Options"]
-margin_top = 57.0
+margin_top = 114.0
 margin_right = 139.0
-margin_bottom = 89.0
+margin_bottom = 146.0
 rect_min_size = Vector2( 0, 32 )
 text = "instructions"
 align = 1
