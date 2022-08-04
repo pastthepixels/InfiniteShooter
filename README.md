@@ -2,7 +2,9 @@
   <img alt="InfiniteShooter" src="https://raw.githubusercontent.com/pastthepixels/InfiniteShooter-Assets/main/infiniteshooter-cover.png">
 </p>
 
-<a href='https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+<a style="float:left" href='https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+
+<a style="float:left" href="https://pastthepixels.itch.io/infiniteshooter">Now on itch.io!</a>
 
 <a href='https://github.com/pastthepixels/InfiniteShooter/releases/download/v0.4.1/InfiniteShooter-WINDOWS.x86_64.exe'>Download for Windows</a>
 
