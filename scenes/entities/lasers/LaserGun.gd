@@ -1,6 +1,6 @@
 extends Spatial
 
-export(NodePath) var sender = "../"
+export(NodePath) var sender = NodePath("../")
 
 export var show_cannon = true
 

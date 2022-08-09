@@ -30,6 +30,7 @@ var default_settings = {
 	"fullscreen": false,
 	"fps_indicator": false,
 	"fps_limit": 60,
+	"physics_fps": 60,
 	"skyanimations_speed": 1.0,
 	"musicvol": 100,
 	"sfxvol": 100,
@@ -70,13 +71,18 @@ func create_leaderboard_entry(score):
 		file.seek_end() # Goes to the end of the file to write a new line
 	file.store_line("%s ~> %s ~> %s" % [get_datetime(), score, get_datetime()]) # Writes a new line that looks like this: "$USERNAME ~> $SCORE ~> $DATE"
 
+func has_leaderboard():
+	var directory = Directory.new();
+	return directory.file_exists(PATHS.leaderboard)
+
 func load_leaderboard():
 	var scores = []
-	file.open(PATHS.leaderboard, File.READ)
-	for score_line in file.get_as_text().split("\n"):
-		if score_line.split(" ~> ").size() == 3:
-			scores.append(score_line.split(" ~> "))  # Excludes the last line which contains nothing
-	scores.sort_custom(self, "sort_leaderboard")
+	if has_leaderboard():
+		file.open(PATHS.leaderboard, File.READ)
+		for score_line in file.get_as_text().split("\n"):
+			if score_line.split(" ~> ").size() == 3:
+				scores.append(score_line.split(" ~> "))  # Excludes the last line which contains nothing
+		scores.sort_custom(self, "sort_leaderboard")
 	return scores
 
 func sort_leaderboard(a, b):  # Think of this like a JS sort function
@@ -133,6 +139,7 @@ func save_settings(settings):
 
 	# Sets the frame rate limit per second
 	Engine.target_fps = settings["fps_limit"]
+	Engine.iterations_per_second = settings["physics_fps"]
 
 	# Sets the movement speed of the background (affects all animations)
 	CameraEquipment.get_node("SkyAnimations").playback_speed = settings["skyanimations_speed"]
