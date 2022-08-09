@@ -49,6 +49,7 @@ var alive = true
 
 signal died
 
+# warning-ignore:unused_signal
 signal set_modifier # Godot will tell you this is never emitted. It is, just from Powerup.gd
 
 signal health_changed(value)
@@ -98,6 +99,7 @@ func _physics_process(_delta):
 	impulse_rotation = lerp(impulse_rotation, Vector3(), 0.1)
 	if freeze_movement == false:
 		actual_velocity = lerp(actual_velocity, velocity, 0.6)
+		# warning-ignore:return_value_discarded
 		move_and_slide(actual_velocity * speed)
 	
 	# Shooting lasers (pressing+holding)

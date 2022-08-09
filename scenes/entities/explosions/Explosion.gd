@@ -11,7 +11,7 @@ export var sound = true
 export var particles = true
 
 
-export(float, 0, 1) var opacity = 1
+export(float, 0, 1) var opacity = 1.0
 
 onready var original_transform = get_global_transform()
 

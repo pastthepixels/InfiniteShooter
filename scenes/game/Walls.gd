@@ -24,6 +24,7 @@ func _ready():
 	$RightWall.translation = Vector3(bounds.x, 0, -bounds.y)
 	# Then, fill them with thiles. Ensure that whenever the screen size is changed the tiles are filled again to fit the new screen size.
 	set_tiles()
+	# warning-ignore:return_value_discarded
 	get_tree().get_root().connect("size_changed", self, "set_tiles")
 
 func set_tiles():

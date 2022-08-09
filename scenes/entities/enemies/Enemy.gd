@@ -218,7 +218,7 @@ func _on_ShipDetection_area_entered(area):
 	if speed > area.get_parent().speed:
 		speed = area.get_parent().speed
 
-func _on_ShipDetection_area_exited(area):
+func _on_ShipDetection_area_exited(_area):
 	if speed != initial_speed:
 		speed = initial_speed
 

@@ -8,17 +8,17 @@ var wave_progress : int = 0
 var points : int = 0
 
 
-func set_stats(level, wave, level_progress, wave_progress, points):
-	$Stats/Level/Level/Progress.value = level_progress
-	$Stats/Level/Wave/Progress.value = wave_progress
+func set_stats(new_level, new_wave, new_level_progress, new_wave_progress, new_points):
+	$Stats/Level/Level/Progress.value = new_level_progress
+	$Stats/Level/Wave/Progress.value = new_wave_progress
 	$Tween.interpolate_property(self, "level",
-		self.level, level, 0.5,
+		self.level, new_level, 0.5,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.interpolate_property(self, "wave",
-		self.wave, wave, 0.5,
+		self.wave, new_wave, 0.5,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.interpolate_property(self, "points",
-		self.points, points, 2,
+		self.points, new_points, 2,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 	$ReloadBoop.play()

@@ -48,7 +48,6 @@ func slow_sky():
 	$Tween.start()
 
 func reset_sky_animation_speed():
-	var settings = Saving.load_settings()
 	$Tween.stop_all()
 
 func resume_sky():
