@@ -30,6 +30,7 @@ var default_settings = {
 	"fullscreen": false,
 	"fps_indicator": false,
 	"fps_limit": 60,
+	"physics_fps": 60,
 	"skyanimations_speed": 1.0,
 	"musicvol": 100,
 	"sfxvol": 100,
@@ -133,6 +134,7 @@ func save_settings(settings):
 
 	# Sets the frame rate limit per second
 	Engine.target_fps = settings["fps_limit"]
+	Engine.iterations_per_second = settings["physics_fps"]
 
 	# Sets the movement speed of the background (affects all animations)
 	CameraEquipment.get_node("SkyAnimations").playback_speed = settings["skyanimations_speed"]
