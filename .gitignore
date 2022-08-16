@@ -1,2 +1,5 @@
-# Compiled files for building Flatpaks
-Flatpak/build/*
+# Temporary Godot engine files
+.import/
+
+# Exported versions of InfiniteShooter
+Exported/
