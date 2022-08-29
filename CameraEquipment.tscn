@@ -333,25 +333,21 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 0, 0 )
 mesh = SubResource( 39 )
 skeleton = NodePath("../..")
-material/0 = null
 
 [node name="Right" type="MeshInstance" parent="BoundsHelpers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3, 0, 0 )
 mesh = SubResource( 39 )
 skeleton = NodePath("../Left")
-material/0 = null
 
 [node name="Top" type="MeshInstance" parent="BoundsHelpers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10 )
 mesh = SubResource( 40 )
 skeleton = NodePath("../..")
-material/0 = null
 
 [node name="Bottom" type="MeshInstance" parent="BoundsHelpers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
 mesh = SubResource( 40 )
 skeleton = NodePath("../..")
-material/0 = null
 
 [node name="ShakeCamera" type="Camera2D" parent="."]
 position = Vector2( 533.5, 400 )
