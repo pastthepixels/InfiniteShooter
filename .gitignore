@@ -1,5 +1,6 @@
 # Temporary Godot engine files
-.import/
+.import
+.import/*
 
 # Exported versions of InfiniteShooter
 Exported/
