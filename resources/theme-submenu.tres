@@ -1,10 +1,16 @@
-[gd_resource type="Theme" load_steps=25 format=2]
+[gd_resource type="Theme" load_steps=31 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://images/gui/off.svg" type="Texture" id=2]
 [ext_resource path="res://images/gui/on.svg" type="Texture" id=3]
+[ext_resource path="res://images/gui/radio-unchecked.svg" type="Texture" id=4]
+[ext_resource path="res://images/gui/radio-checked.svg" type="Texture" id=5]
 
 [sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 bg_color = Color( 0, 0, 0, 0.501961 )
 
 [sub_resource type="StyleBoxFlat" id=3]
@@ -102,6 +108,37 @@ content_margin_top = 10.0
 content_margin_bottom = 10.0
 bg_color = Color( 1, 1, 1, 0.141176 )
 
+[sub_resource type="StyleBoxFlat" id=25]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 1, 1, 0.141176 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.25098 )
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.101961, 0.101961, 0.101961, 1 )
+
+[sub_resource type="StyleBoxLine" id=28]
+color = Color( 1, 1, 1, 0.188235 )
+thickness = 3
+
+[sub_resource type="StyleBoxFlat" id=27]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.0666667, 0.0666667, 0.0666667, 0.980392 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 0.188235 )
+
 [sub_resource type="StyleBoxFlat" id=19]
 draw_center = false
 border_width_right = 9
@@ -139,9 +176,9 @@ Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = SubResource( 5 )
 CheckButton/icons/off = ExtResource( 2 )
-CheckButton/icons/off_disabled = null
+CheckButton/icons/off_disabled = ExtResource( 2 )
 CheckButton/icons/on = ExtResource( 3 )
-CheckButton/icons/on_disabled = null
+CheckButton/icons/on_disabled = ExtResource( 3 )
 HSlider/icons/grabber = SubResource( 11 )
 HSlider/icons/grabber_disabled = SubResource( 14 )
 HSlider/icons/grabber_highlight = SubResource( 16 )
@@ -149,6 +186,21 @@ HSlider/icons/tick = SubResource( 18 )
 HSlider/styles/grabber_area = SubResource( 7 )
 HSlider/styles/grabber_area_highlight = SubResource( 8 )
 HSlider/styles/slider = SubResource( 9 )
+LineEdit/styles/focus = SubResource( 3 )
+LineEdit/styles/normal = SubResource( 25 )
+LineEdit/styles/read_only = SubResource( 6 )
+OptionButton/constants/arrow_margin = 10
+Panel/styles/panel = SubResource( 26 )
+PopupMenu/constants/hseparation = 10
+PopupMenu/constants/vseparation = 14
+PopupMenu/icons/radio_checked = ExtResource( 5 )
+PopupMenu/icons/radio_unchecked = ExtResource( 4 )
+PopupMenu/styles/hover = SubResource( 4 )
+PopupMenu/styles/labeled_separator_left = SubResource( 28 )
+PopupMenu/styles/labeled_separator_right = SubResource( 28 )
+PopupMenu/styles/panel = SubResource( 27 )
+PopupMenu/styles/separator = SubResource( 28 )
+PopupPanel/styles/panel = SubResource( 27 )
 VScrollBar/styles/grabber = SubResource( 19 )
 VScrollBar/styles/grabber_highlight = SubResource( 23 )
 VScrollBar/styles/grabber_pressed = SubResource( 24 )

@@ -7,3 +7,7 @@ func _ready():
 
 func _on_Button_pressed():
 	$AnimationPlayer.play("close")
+
+
+func _on_UpgradeButton_pressed():
+	$Alert.error("Insufficient points.")

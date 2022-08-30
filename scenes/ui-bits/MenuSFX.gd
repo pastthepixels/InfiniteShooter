@@ -8,10 +8,12 @@ func _ready():
 
 
 func _on_SceneTree_node_added(node):
-	if node is Button:
+	if (node is Button) and (node is OptionButton == false):
 		add_button_sounds(node)
-	if node is HSlider or node is VSlider:
+	if (node is HSlider) or (node is VSlider):
 		add_slider_sounds(node)
+	if node is OptionButton:
+		add_optionbutton_sounds(node)
 
 func _on_Button_pressed():
 	$UseSound.play()
@@ -20,6 +22,9 @@ func _on_Button_button_down():
 	$DownSound.play()
 
 func _on_Slider_drag_ended(_value_changed):
+	$UseSound.play()
+
+func _on_OptionButton_item_selected(_index):
 	$UseSound.play()
 
 func _on_Slider_gui_input(event):
@@ -32,10 +37,7 @@ func _on_Slider_drag_started():
 
 func connect_existing_nodes(root):
 	for child in root.get_children():
-		if child is BaseButton:
-			add_button_sounds(child)
-		if (child is HSlider) or (child is VSlider):
-			add_slider_sounds(child)
+		_on_SceneTree_node_added(child)
 		connect_existing_nodes(child)
 
 func add_button_sounds(button):
@@ -46,3 +48,7 @@ func add_slider_sounds(slider):
 	slider.connect("drag_ended", self, "_on_Slider_drag_ended")
 	slider.connect("drag_started", self, "_on_Slider_drag_started")
 	slider.connect("gui_input", self, "_on_Slider_gui_input")
+
+func add_optionbutton_sounds(button):
+	button.connect("item_selected", self, "_on_OptionButton_item_selected")
+	button.connect("button_down", self, "_on_Button_button_down")
