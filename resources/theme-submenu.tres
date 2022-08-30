@@ -46,7 +46,7 @@ content_margin_bottom = 10.0
 bg_color = Color( 0.6, 0.6, 0.6, 0.698039 )
 
 [sub_resource type="Gradient" id=12]
-colors = PoolColorArray( 0.789062, 0.789062, 0.789062, 1, 0.521569, 0.521569, 0.521569, 1 )
+colors = PoolColorArray( 0.788235, 0.788235, 0.788235, 0.784314, 0.521569, 0.521569, 0.521569, 0.784314 )
 
 [sub_resource type="GradientTexture2D" id=11]
 gradient = SubResource( 12 )
