@@ -9,9 +9,6 @@
 [node name="Submenu" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="AnimationPlayer" parent="." index="0"]
-autoplay = "RESET"
-
 [node name="Title" parent="Content" index="0"]
 text = "widget factory"
 
