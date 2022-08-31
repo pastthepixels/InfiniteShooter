@@ -105,7 +105,6 @@ align = 1
 valign = 1
 
 [node name="Alert" parent="." instance=ExtResource( 7 )]
-visible = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
