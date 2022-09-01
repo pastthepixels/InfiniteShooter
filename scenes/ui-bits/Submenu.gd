@@ -14,5 +14,5 @@ func close_animated():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "open":
+	if anim_name == "open" and has_node(auto_select):
 		get_node(auto_select).grab_focus()
