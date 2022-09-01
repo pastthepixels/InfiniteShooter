@@ -19,7 +19,7 @@ func _input(event):
 		and $Menu/StartScreen.visible == true
 	):
 		# Plays the "gui-accept" sound and the main menu theme
-		$Menu/SelectSquare/AcceptSound.play()
+		MenuSFX.get_node("UseSound").play()
 		$Music.play()
 
 		# Hides the start screen and shows the options/other stuff
@@ -35,7 +35,7 @@ func _input(event):
 			$Title,
 			"translation",
 			$Title.translation,
-			Vector3(0, 6, -2),
+			Vector3(0, 8, -2),
 			$AnimationPlayer.current_animation_length + 2,
 			Tween.TRANS_QUAD,
 			Tween.EASE_OUT
@@ -50,48 +50,44 @@ func _input(event):
 			Tween.EASE_OUT
 		)
 		$Tween.start()
-		
-		# Allows things to be selected
-		$Menu/SelectSquare.show()
-		$Menu/SelectSquare.ignore_hits = 1
-
-func _on_SelectSquare_selected():
-	match $Menu/Options.get_child($Menu/SelectSquare.index).name:  # Now we see which option has been selected...
-		"Play":  # If it is the one named "play", play the game.
-			SceneTransition.start_game()
-
-		"Leaderboard":  # Same with selecting the leaderboard
-			$Leaderboard.show_animated()
-			$Title.hide()
-			$Menu/SelectSquare.hide()
-		
-		"Readme":  # Same with selecting the leaderboard
-			$Readme.show_animated()
-			$Title.hide()
-			$Menu/SelectSquare.hide()
-
-		"Settings":  # settings screen
-			$Settings.show_animated()
-			$Title.hide()
-			$Menu/SelectSquare.hide()
-
-		"Quit":  # Otherwise, quit the game
-			SceneTransition.quit_game()
-
 
 func _on_Settings_closed():
-	return_from_submenu()
+	$Title.show()
+	$Menu/Options/Settings.grab_focus()
 
 
 func _on_Leaderboard_closed():
-	return_from_submenu()
+	$Title.show()
+	$Menu/Options/Leaderboard.grab_focus()
 
 
 func _on_Readme_closed():
-	return_from_submenu()
-
-
-func return_from_submenu():
 	$Title.show()
-	$Menu/SelectSquare.show()
-	$Menu/SelectSquare.ignore_hits += 1
+	$Menu/Options/Readme.grab_focus()
+
+
+func _on_Play_pressed():
+	SceneTransition.start_game()
+
+
+func _on_Leaderboard_pressed():
+	$Leaderboard.show_animated()
+	$Title.hide()
+
+
+func _on_Readme_pressed():
+	$Readme.show_animated()
+	$Title.hide()
+
+
+func _on_Settings_pressed():
+	$Settings.show_animated()
+	$Title.hide()
+
+
+func _on_Quit_pressed():
+	SceneTransition.quit_game()
+
+
+func _on_Tween_tween_all_completed():
+	$Menu/Options/Play.grab_focus()
