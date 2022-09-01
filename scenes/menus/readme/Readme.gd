@@ -1,12 +1,5 @@
-extends Control
-
-signal closed
-
-func show_animated():
-	rect_pivot_offset = rect_size/2
-	$AnimationPlayer.play("open")
+extends "res://scenes/ui-bits/Submenu.gd"
 
 
-func _on_SelectSquare_selected():
-	emit_signal("closed")
-	$AnimationPlayer.play("close")
+func _on_Back_pressed():
+	close_animated()
