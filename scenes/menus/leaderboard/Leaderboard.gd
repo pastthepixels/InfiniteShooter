@@ -1,19 +1,8 @@
-extends Control
-
-signal closed
+extends "res://scenes/ui-bits/Submenu.gd"
 
 export(PackedScene) var stats_label
 
-export var list_length = 16
-
-func show_animated():
-	rect_pivot_offset = rect_size/2
-	$AnimationPlayer.play("open")
-
-
-func _on_SelectSquare_selected():
-	emit_signal("closed")
-	$AnimationPlayer.play("close")
+export(int) var list_length = 16
 
 
 func _ready():
@@ -24,9 +13,7 @@ func _ready():
 	if scores.size() == 0:
 		create_label("There are no scores yet!")
 		create_label("Finish a game to have your score listed.")
-		create_label("This screen lists the top 10 scores.")
-
-
+		create_label("This screen lists the top %s scores." % list_length)
 
 func create_label(text, number=null):
 	var label = stats_label.instance()
@@ -55,3 +42,7 @@ func create_label(text, number=null):
 	
 	$Content/Stats.add_child(label)
 	return label
+
+
+func _on_Back_pressed():
+	close_animated()
