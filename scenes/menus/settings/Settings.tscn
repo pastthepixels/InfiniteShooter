@@ -41,7 +41,6 @@ __meta__ = {
 margin_right = 499.0
 margin_bottom = 39.0
 text = "Back"
-align = 0
 
 [node name="Graphics" type="Label" parent="Content/ScrollContainer/Options" index="1"]
 margin_top = 59.0
