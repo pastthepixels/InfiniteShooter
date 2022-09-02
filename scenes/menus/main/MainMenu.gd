@@ -1,5 +1,7 @@
 extends Node
 
+var start_key_down = false
+
 func _ready():
 	CameraEquipment.reset_sky_animation_speed()
 	CameraEquipment.get_node("SkyAnimations").play("intro")
@@ -18,6 +20,7 @@ func _input(event):
 		and event.pressed
 		and $Menu/StartScreen.visible == true
 	):
+		start_key_down = true
 		# Plays the "gui-accept" sound and the main menu theme
 		MenuSFX.get_node("UseSound").play()
 		$Music.play()
@@ -50,6 +53,13 @@ func _input(event):
 			Tween.EASE_OUT
 		)
 		$Tween.start()
+	if (
+		(event is InputEventKey or event is InputEventJoypadButton)
+		and event.pressed == false
+		and start_key_down == true
+	):
+		start_key_down = false
+		$Menu/Options/Play.grab_focus()
 
 func _on_Settings_closed():
 	$Title.show()
@@ -87,7 +97,3 @@ func _on_Settings_pressed():
 
 func _on_Quit_pressed():
 	SceneTransition.quit_game()
-
-
-func _on_Tween_tween_all_completed():
-	$Menu/Options/Play.grab_focus()
