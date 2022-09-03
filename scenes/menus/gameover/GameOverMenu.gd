@@ -2,24 +2,24 @@ extends Control
 
 signal done_opening
 
+func _on_AnimationPlayer_animation_finished(_anim_name):
+	if _anim_name != "RESET":
+		$Options/Retry.grab_focus()
+		emit_signal("done_opening")
+
+
+func _on_Retry_pressed():
+	SceneTransition.restart_game()
+
+
+func _on_Quit_pressed():
+	SceneTransition.quit_game()
+
+
+func _on_MainMenu_pressed():
+	SceneTransition.main_menu()
+
+
 func start():
 	$AnimationPlayer.play("FadeAll")
 	CameraEquipment.slow_sky()
-
-
-func _on_SelectSquare_selected():
-	match $Options.get_child($SelectSquare.index).name:
-		"Retry":
-			SceneTransition.restart_game()
-
-		"Quit":
-			SceneTransition.quit_game()
-
-		"MainMenu":
-			SceneTransition.main_menu()
-
-
-func _on_AnimationPlayer_animation_finished(_anim_name):
-	if _anim_name != "RESET":
-		$SelectSquare/AnimationPlayer.play("Fade")
-		emit_signal("done_opening")
