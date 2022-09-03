@@ -40,6 +40,7 @@ func show_animated():
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
 	$Music.play()
+	$Content/Back.grab_focus()
 
 
 func _on_UpgradeLabel_button_pressed(label):
