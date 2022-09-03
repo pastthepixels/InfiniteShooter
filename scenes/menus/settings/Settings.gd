@@ -116,7 +116,7 @@ func _on_SFXVolume_HSlider_value_changed(value):
 
 # Resetting all data
 func _on_ResetGame_pressed():
-	$ResetConfirmation.alert("Press the confirm key to reset all userdata", true)
+	$ResetConfirmation.alert("Are you sure you want to reset ALL DATA for this game? What's done cannot be undone. No like seriously, all your data will be gone FOREVER.", true)
 
 func _on_ResetConfirmation_confirmed():
 	Saving.reset_all()
