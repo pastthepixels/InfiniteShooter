@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menus/gameover/GameOverMenu.gd" type="Script" id=2]
-[ext_resource path="res://scenes/ui-bits/SelectSquare.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resources/theme.tres" type="Theme" id=4]
+[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=3]
 [ext_resource path="res://scenes/menus/gameover/GameStats.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
@@ -116,7 +115,7 @@ font_data = ExtResource( 1 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 4 )
+theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -125,7 +124,6 @@ anims/FadeAll = SubResource( 1 )
 anims/RESET = SubResource( 4 )
 
 [node name="Titles" type="HBoxContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -160,56 +158,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectSquare" parent="." instance=ExtResource( 3 )]
-options_path = NodePath("../Options")
-auto_show = false
-
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -111.5
+margin_left = -130.0
 margin_top = 76.0
-margin_right = 112.5
+margin_right = 130.0
 margin_bottom = 222.0
 rect_min_size = Vector2( 224, 0 )
 custom_constants/separation = 25
 
-[node name="Retry" type="Label" parent="Options"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 224.0
-margin_bottom = 32.0
+[node name="Retry" type="Button" parent="Options"]
+margin_right = 260.0
+margin_bottom = 45.0
 rect_min_size = Vector2( 0, 32 )
+theme_type_variation = "LargeLabel"
 text = "replay"
-align = 1
-valign = 1
 
-[node name="Quit" type="Label" parent="Options"]
-modulate = Color( 1, 1, 1, 0 )
-margin_top = 57.0
-margin_right = 224.0
-margin_bottom = 89.0
+[node name="Quit" type="Button" parent="Options"]
+margin_top = 70.0
+margin_right = 260.0
+margin_bottom = 115.0
 rect_min_size = Vector2( 0, 32 )
+theme_type_variation = "LargeLabel"
 text = "quit"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MainMenu" type="Label" parent="Options"]
-modulate = Color( 1, 1, 1, 0 )
-margin_top = 114.0
-margin_right = 224.0
-margin_bottom = 146.0
+[node name="MainMenu" type="Button" parent="Options"]
+margin_top = 140.0
+margin_right = 260.0
+margin_bottom = 185.0
 rect_min_size = Vector2( 0, 32 )
+theme_type_variation = "LargeLabel"
 text = "back to main menu"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GameStats" parent="." instance=ExtResource( 5 )]
 anchor_left = 0.5
@@ -222,4 +204,6 @@ margin_right = 170.0
 margin_bottom = -80.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="selected" from="SelectSquare" to="." method="_on_SelectSquare_selected"]
+[connection signal="pressed" from="Options/Retry" to="." method="_on_Retry_pressed"]
+[connection signal="pressed" from="Options/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="Options/MainMenu" to="." method="_on_MainMenu_pressed"]
