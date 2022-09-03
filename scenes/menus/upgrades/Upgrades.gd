@@ -2,6 +2,14 @@ extends Control
 
 signal closed
 
+signal upgrade_health(amount)
+
+signal upgrade_damage(amount)
+
+signal subtract_coins(amount)
+
+signal request_player_stats()
+
 # Something that should NOT be saved but that is used at runtime
 # {"label name": upgrade}
 var upgrade_lookup_table = {}
@@ -10,9 +18,11 @@ var upgrade_lookup_table = {}
 var upgrades = []
 
 # Player/points
-export(NodePath) var player
+var _coins
 
-export(NodePath) var game
+var _max_health
+
+var _damage
 
 # Template for an upgrade label
 export(PackedScene) var upgrade_label
@@ -25,37 +35,37 @@ func show_animated():
 	reset_labels()
 	create_upgrades() # <-- Creates upgrades
 	read_upgrades() # <--- turns them into labels
-	update_gui()	# <-/
+	emit_signal("request_player_stats") # <-/
 	rect_pivot_offset = rect_size/2
-	$SelectSquare.show()
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
 	$Music.play()
 
 
-func _on_SelectSquare_selected():
-	match $Content/Options.get_child( $SelectSquare.index ).name: # Now we see which option has been selected...
-		"Back":
-			$SelectSquare.hide()
-			$QuitConfirm.alert("Are you sure you would like to go back to the game?", true)
-		
-		var name:
-			var upgrade = upgrade_lookup_table[name]
-			if upgrade.purchased == true:
-				$Alert.error("You have already purchased this upgrade.")
-			elif get_node(game).coins - upgrade.cost >= 0:
-				$Alert.alert("Upgrade purchased!")
-				get_node(player).max_health += upgrade.health
-				get_node(player).damage += upgrade.damage
-				get_node(game).coins -= upgrade.cost
-				update_gui()
-				get_node("Content/Options/" + name).modulate = Color(1, 1, 1, .5)
-				upgrade.purchased = true
-			else:
-				$Alert.error( "$%s needed." % ( upgrade.cost - get_node(game).coins ) )
-			get_node(game).get_node("HUD").update_coins(get_node(game).coins) # <-- Updates the get_node(game) HUD with the new coins
-			reroll_upgrades() # <-- Creates a new set of upgrades if all are purchased.
+func _on_UpgradeLabel_button_pressed(label):
+	var upgrade = upgrade_lookup_table[label.name]
+	if upgrade.purchased == true:
+		$Alert.error("You have already purchased this upgrade.")
+	elif _coins - upgrade.cost >= 0:
+		$Alert.alert("Upgrade purchased!")
+		emit_signal("upgrade_health", upgrade.health)
+		emit_signal("upgrade_damage", upgrade.damage)
+		emit_signal("subtract_coins", upgrade.cost)
+		emit_signal("request_player_stats")
+		label.get_node("Button").disabled = true
+		upgrade.purchased = true
+	else:
+		$Alert.error("$%s needed." % (upgrade.cost - _coins))
+	reroll_upgrades() # <-- Creates a new set of upgrades if all are purchased.
 
+func _on_QuitConfirm_confirmed():
+	emit_signal("closed")
+	$AnimationPlayer.play("close")
+	$Music.stop()
+
+
+func _on_Back_pressed():
+	$QuitConfirm.alert("Are you sure you would like to go back to the game?", true)
 
 # Creating an array of upgrades
 func create_upgrades():
@@ -82,11 +92,10 @@ func read_upgrades():
 # Creating a label (pretty straightforward)
 func create_label(text, cost, damage, health):
 	var label = upgrade_label.instance()
-	label.get_node("Name").text = text
-	label.get_node("Cost").text = "$%s" % cost
-	label.get_node("Damage").text = "+" + str(damage)
-	label.get_node("Health").text = "+" + str(health)
-	$Content/Options.add_child(label)
+	label.set_name(text)
+	label.set_stats(cost, damage, health)
+	label.connect("button_pressed", self, "_on_UpgradeLabel_button_pressed")
+	$Content/ScrollContainer/Upgrades.add_child(label)
 	return label
 
 
@@ -99,28 +108,23 @@ func reroll_upgrades():
 		$Alert.alert("All upgrades purchased! Creating a new set of upgrades...")
 		create_upgrades()
 		# Resets labels + variables related to them
-		$SelectSquare.index = 0
 		reset_labels()
 		# Creates new ones
 		read_upgrades()
 
 func reset_labels():
 	for label_name in upgrade_lookup_table.keys():
-		get_node("Content/Options/" + label_name).queue_free()
+		get_node("Content/ScrollContainer/Upgrades/" + label_name).queue_free()
 	upgrade_lookup_table.clear()
 
 # Updates the labels
+func update_player_information(max_health, damage, coins):
+	_max_health = max_health
+	_damage = damage
+	_coins = coins
+	update_gui()
+
 func update_gui():
-	$Content/Stats/Health.text = "%s health" % get_node(player).max_health
-	$Content/Stats/Damage.text = "%s damage/shot" % get_node(player).damage
-	$Content/Stats/Points.text = "$%s" % get_node(game).coins
-
-
-func _on_QuitConfirm_confirmed():
-	emit_signal("closed")
-	$AnimationPlayer.play("close")
-	$Music.stop() 
-
-
-func _on_QuitConfirm_exited():
-	$SelectSquare.show()
+	$Content/Stats/Health.text = "%s health" % _max_health
+	$Content/Stats/Damage.text = "%s damage/shot" % _damage
+	$Content/Stats/Coins.text = "$%s" % _coins
