@@ -12,26 +12,32 @@ func _input(event):
 			ignore_hits -= 1
 
 func _on_QuitAlert_confirmed():
+	ignore_all = false
 	toggle_pause()
 	SceneTransition.quit_game()
 
 func _on_MainAlert_confirmed():
+	ignore_all = false
 	toggle_pause()
 	SceneTransition.main_menu()
 
 func _on_MainAlert_exited():
+	ignore_all = false
 	$Options/MainMenu.grab_focus()
 
 func _on_QuitAlert_exited():
+	ignore_all = false
 	$Options/Quit.grab_focus()
 
 func _on_Return_pressed():
 	toggle_pause()
 
 func _on_MainMenu_pressed():
+	ignore_all = true
 	$MainAlert.alert("Are you sure you want to go back to the main menu?", true)
 
 func _on_Quit_pressed():
+	ignore_all = true
 	$QuitAlert.alert("Are you sure you want to quit?", true)
 
 func toggle_pause():
