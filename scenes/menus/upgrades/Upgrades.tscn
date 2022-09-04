@@ -85,8 +85,30 @@ margin_right = 520.0
 margin_bottom = 173.0
 text = "Done"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Content" index="3"]
+[node name="Sorting" type="HBoxContainer" parent="Content" index="3"]
 margin_top = 193.0
+margin_right = 520.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 15
+
+[node name="SortCategory" type="OptionButton" parent="Content/Sorting" index="0"]
+margin_right = 69.0
+margin_bottom = 39.0
+text = "Cost"
+items = [ "Cost", null, false, 0, null, "Health", null, false, 1, null, "Damage", null, false, 2, null ]
+selected = 0
+
+[node name="SortMode" type="OptionButton" parent="Content/Sorting" index="1"]
+margin_left = 84.0
+margin_right = 205.0
+margin_bottom = 39.0
+text = "Descending"
+items = [ "Descending", null, false, 0, null, "Ascending", null, false, 1, null ]
+selected = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Content" index="4"]
+margin_top = 252.0
 margin_right = 520.0
 margin_bottom = 730.0
 size_flags_vertical = 3
