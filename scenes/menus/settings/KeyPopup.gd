@@ -68,7 +68,16 @@ func set_keys():
 		if InputMap.action_has_event(action, set_actions[action][0]):
 			InputMap.action_erase_event(action, set_actions[action][0])
 			InputMap.action_add_event(action, set_actions[action][1])
+
 # The pizza is a lie!
+# BMS pizza ARG my beloved
+
+# Actually while we're at it how about another half life reference
+# IT STARTS WITH ONE LINE OF CODE
+# ONE COMMENT, I DON'T KNOW WHY
+# IT DOESN'T EVEN MATTER HOW MUCH YOU CODE
+# KEEP THAT IN MIND I DESIGNED THIS EASTER EGG TO EXPLAIN IN DUE TIME
+# MY CRIPPLING OKBUDDYHALFLIFE ADDICTION
 
 func _on_AnimationPlayer_animation_started(_anim_name):
 	show()
@@ -79,3 +88,12 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 		hide()
 		check_for_keys = true
 		emit_signal("key_set")
+
+# Returns keyboard keys mapped to an action
+func get_keys_for_action(action_text):
+	var keyboard_action_list = []
+	for action in InputMap.get_action_list(action_text):
+		if action is InputEventKey:
+			keyboard_action_list.append(action)
+	return keyboard_action_list
+	

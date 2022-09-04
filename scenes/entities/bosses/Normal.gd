@@ -8,6 +8,21 @@ var max_health = 3000
 
 var health
 
+func _ready():
+	match GameVariables.current_difficulty:
+		GameVariables.DIFFICULTIES.hard:
+			for cannon in $Boss.get_children():
+				if cannon.is_in_group("laserguns"):
+					cannon.use_laser_modifiers = true
+					cannon.laser_modifier = GameVariables.LASER_MODIFIERS.ice
+		
+		GameVariables.DIFFICULTIES.nightmare:
+			for cannon in $Boss.get_children():
+				if cannon.is_in_group("laserguns"):
+					cannon.follow_player = true
+					cannon.use_laser_modifiers = true
+					cannon.laser_modifier = GameVariables.LASER_MODIFIERS.ice
+
 func start():
 	$Boss/Cannon1.damage = damage
 	$Boss/Cannon2.damage = damage

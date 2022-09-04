@@ -51,8 +51,6 @@ visible = false
 
 [node name="Upgrades" parent="." instance=ExtResource( 16 )]
 pause_mode = 2
-player = NodePath("../GameSpace/Player")
-game = NodePath("..")
 
 [node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
 
@@ -64,4 +62,8 @@ visible = false
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]
 [connection signal="set_modifier" from="GameSpace/Player" to="." method="_on_Player_set_modifier"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]
+[connection signal="request_player_stats" from="Upgrades" to="." method="_on_Upgrades_request_player_stats"]
+[connection signal="subtract_coins" from="Upgrades" to="." method="_on_Upgrades_subtract_coins"]
+[connection signal="upgrade_damage" from="Upgrades" to="." method="_on_Upgrades_upgrade_damage"]
+[connection signal="upgrade_health" from="Upgrades" to="." method="_on_Upgrades_upgrade_health"]
 [connection signal="done_opening" from="GameOverMenu" to="." method="_on_GameOverMenu_done_opening"]

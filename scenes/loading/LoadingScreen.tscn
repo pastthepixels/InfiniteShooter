@@ -98,7 +98,6 @@ custom_styles/bg = SubResource( 3 )
 
 [node name="InitTimer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="ExitTimer" type="Timer" parent="."]
 wait_time = 0.5

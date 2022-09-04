@@ -4,7 +4,7 @@ export(StyleBox) var warning_theme
 
 export var is_warning = false
 
-export(float) var animation_speed = 1
+export(float) var animation_speed = 1.0
 
 func _ready():
 	if is_warning == true:

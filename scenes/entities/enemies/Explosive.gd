@@ -12,5 +12,4 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 
 func _on_Area_area_entered(area):
 	if area.get_parent().is_in_group("enemies"):
-		print(true)
 		area.get_parent().health -= get_parent().damage

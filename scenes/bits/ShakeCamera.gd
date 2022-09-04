@@ -35,6 +35,7 @@ func _ready():
 	noise.seed = randi()
 	noise.period = 4
 	noise.octaves = 2
+	# warning-ignore:return_value_discarded
 	get_tree().get_root().connect("size_changed", self, "center")
 	center()
 

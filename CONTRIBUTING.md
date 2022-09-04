@@ -1,5 +1,6 @@
 Contributing to InfiniteShooter
 ===============================
+<<<<<<< HEAD
 > Note: For a full updated guide to working with InfiniteShooter, check out the [wiki page](https://github.com/pastthepixels/InfiniteShooter/wiki/Contributing-to-InfiniteShooter).
 
 First off, thanks for choosing to contribute to InfiniteShooter! Here's what you can do:
@@ -52,3 +53,6 @@ Here's a nifty table that outlines how InfiniteShooter releases are names
 
 # A disclaimer
 Note that for most of this, I wrote this having never used GitHub for anything other than my own projects. If you have something to improve here, please do so! And again, thank you for choosing to contribute to InfiniteShooter!
+=======
+[Check out the wiki page!](https://github.com/pastthepixels/InfiniteShooter/wiki)
+>>>>>>> origin/stable

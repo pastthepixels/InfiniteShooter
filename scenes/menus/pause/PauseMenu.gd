@@ -11,28 +11,45 @@ func _input(event):
 		else:
 			ignore_hits -= 1
 
+func _on_QuitAlert_confirmed():
+	ignore_all = false
+	toggle_pause()
+	SceneTransition.quit_game()
 
-func _on_SelectSquare_selected():
-	if is_visible():
-		match $Options.get_child($SelectSquare.index).name:
-				"Retry":
-					for player in get_tree().get_nodes_in_group("players"):
-						player.set_process_input(false)  # To prevent the player from firing right as we unpause (since the input function runs at the same time)
-					toggle_pause()
-					SceneTransition.restart_game()
-				_:
-					ignore_hits += 1
-					$SelectSquare.hide()
-					$FullAlert.alert("Are you sure you would like to continue? Your progress will be reset after each run.", true)
+func _on_MainAlert_confirmed():
+	ignore_all = false
+	toggle_pause()
+	SceneTransition.main_menu()
+
+func _on_MainAlert_exited():
+	ignore_all = false
+	$Options/MainMenu.grab_focus()
+
+func _on_QuitAlert_exited():
+	ignore_all = false
+	$Options/Quit.grab_focus()
+
+func _on_Return_pressed():
+	toggle_pause()
+
+func _on_MainMenu_pressed():
+	ignore_all = true
+	$MainAlert.alert("Are you sure you want to go back to the main menu?", true)
+
+func _on_Quit_pressed():
+	ignore_all = true
+	$QuitAlert.alert("Are you sure you want to quit?", true)
 
 func toggle_pause():
 	if is_visible():
-		$Title.text = "not paused"
 		rect_pivot_offset = rect_size/2
 		$AnimationPlayer.play("FadeOut")
+		$Title.text = "not paused"
 		yield($AnimationPlayer, "animation_finished")
 	else:
+		rect_pivot_offset = rect_size/2
 		$AnimationPlayer.play("FadeIn")
+		$Options/Return.grab_focus()
 		$Title.text = "paused"
 	
 	visible = !visible
@@ -44,22 +61,3 @@ func toggle_pause():
 	else:
 		$Ambience.stop()
 		$ResumeSound.play()
-
-
-func _on_FullAlert_confirmed():
-	for player in get_tree().get_nodes_in_group("players"):
-			player.set_process_input(false)  # To prevent the player from firing right as we unpause (since the input function runs at the same time)
-	toggle_pause()
-	match $Options.get_child($SelectSquare.index).name:
-			"Retry":
-				SceneTransition.restart_game()
-
-			"Quit":
-				SceneTransition.quit_game()
-
-			"MainMenu":
-				SceneTransition.main_menu()
-
-
-func _on_FullAlert_exited():
-	$SelectSquare.show()

@@ -82,7 +82,3 @@ func _process(_delta):
 		emit_signal("update")
 		update()
 		$Background/Highlight.visible = Input.is_action_pressed("ui_accept")
-		if Input.is_action_pressed("ui_accept"):
-			pass
-		else:
-			pass
