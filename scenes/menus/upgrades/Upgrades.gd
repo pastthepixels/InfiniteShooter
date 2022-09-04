@@ -18,17 +18,20 @@ var upgrade_lookup_table = {}
 var upgrades = []
 
 # Player/points
-var _coins
+var _coins = 0
 
-var _max_health
+var _max_health = 0
 
-var _damage
+var _damage = 0
 
 # Template for an upgrade label
 export(PackedScene) var upgrade_label
 
 # Name generator
 export(Script) var name_generator
+
+# Sorting
+export var use_ascending_sort = false # If this set to true then it assumes you want to sort by descending
 
 # Shows and hides the menu with FADING
 func show_animated():
@@ -68,6 +71,28 @@ func _on_QuitConfirm_confirmed():
 func _on_Back_pressed():
 	$QuitConfirm.alert("Are you sure you would like to go back to the game?", true)
 
+func _on_SortCategory_item_selected(index):
+	match(index):
+		0: # Cost
+			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_cost")
+		
+		1: # Damage
+			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_damage")
+		
+		2: # Health
+			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_health")
+
+
+func _on_SortMode_item_selected(index):
+	match(index):
+		0: # Ascending
+			use_ascending_sort = true
+		1: # Descending
+			use_ascending_sort = false
+	# Force update
+	_on_SortCategory_item_selected($Content/Sorting/SortCategory.get_item_index($Content/Sorting/SortCategory.get_selected_id()))
+
+
 # Creating an array of upgrades
 func create_upgrades():
 	upgrades = []
@@ -89,6 +114,8 @@ func read_upgrades():
 		var label = create_label(upgrade["name"], upgrade["cost"], upgrade["damage"], upgrade["health"])
 		if upgrade["purchased"] == true: label.modulate = Color(1, 1, 1, .5)
 		upgrade_lookup_table[label.name] = upgrade
+		# Force resort
+	_on_SortCategory_item_selected($Content/Sorting/SortCategory.get_item_index($Content/Sorting/SortCategory.get_selected_id()))
 
 # Creating a label (pretty straightforward)
 func create_label(text, cost, damage, health):
@@ -129,3 +156,28 @@ func update_gui():
 	$Content/Stats/Health.text = "%s health" % _max_health
 	$Content/Stats/Damage.text = "%s damage/shot" % _damage
 	$Content/Stats/Coins.text = "$%s" % _coins
+
+# Sorting
+func parse_float(string):
+	var regex = RegEx.new()
+	regex.compile("[+|$]")
+	return float(regex.sub(string, ""))
+
+
+func sort_generic(label_a, label_b, node_path:NodePath):
+	if use_ascending_sort == true:
+		return parse_float(label_a.get_node(node_path).text) > parse_float(label_b.get_node(node_path).text)
+	else:
+		return parse_float(label_a.get_node(node_path).text) < parse_float(label_b.get_node(node_path).text)
+
+
+func sort_cost(label_a, label_b):
+	return sort_generic(label_a, label_b, "Stats/Cost")
+
+
+func sort_health(label_a, label_b):
+	return sort_generic(label_a, label_b, "Stats/Health")
+
+
+func sort_damage(label_a, label_b):
+	return sort_generic(label_a, label_b, "Stats/Damage")

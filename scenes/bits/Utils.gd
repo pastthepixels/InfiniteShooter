@@ -59,3 +59,14 @@ func true_rand_range(min_num, max_num):
 # Setting timeouts
 func timeout(seconds=1): # Usage: yield(Utils.timeout(1), "timeout")
 	return get_tree().create_timer(seconds)
+
+# Hacked together function to do some basic sorting
+# Modified from https://godotengine.org/qa/28998/how-do-i-sort-a-scroll-containers-contents
+func sort_container(box_container, node_with_function, function):
+	var child_list = box_container.get_children()
+	var num_children = child_list.size()
+	for ii in range(0, num_children):
+		for i in range(0, num_children):
+			if i+1 < num_children:
+				if node_with_function.call(function, box_container.get_child(i), box_container.get_child(i+1)) == true:
+					box_container.move_child(box_container.get_child(i+1),i)

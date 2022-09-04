@@ -45,7 +45,7 @@ func stop_scrolling():
 
 func set_stats(cost, damage, health):
 	$Stats/Cost.text = "$%s" % cost
-	$Stats/Damage.text = "+ %s" % damage
+	$Stats/Damage.text = "+ %0.2f" % damage
 	$Stats/Health.text = "+ %s" % health
 
 func set_name(text):
