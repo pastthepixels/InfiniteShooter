@@ -34,6 +34,7 @@ bg_color = Color( 0.27451, 1, 0.27451, 1 )
 script = ExtResource( 4 )
 upgrade_label = ExtResource( 7 )
 name_generator = ExtResource( 8 )
+use_ascending_sort = false
 
 [node name="ShowSound" type="AudioStreamPlayer" parent="." index="0"]
 stream = ExtResource( 2 )
@@ -85,8 +86,30 @@ margin_right = 520.0
 margin_bottom = 173.0
 text = "Done"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Content" index="3"]
+[node name="Sorting" type="HBoxContainer" parent="Content" index="3"]
 margin_top = 193.0
+margin_right = 520.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 20
+
+[node name="SortCategory" type="OptionButton" parent="Content/Sorting" index="0"]
+margin_right = 69.0
+margin_bottom = 39.0
+text = "Cost"
+items = [ "Cost", null, false, 0, null, "Damage", null, false, 1, null, "Health", null, false, 2, null ]
+selected = 0
+
+[node name="SortMode" type="OptionButton" parent="Content/Sorting" index="1"]
+margin_left = 89.0
+margin_right = 210.0
+margin_bottom = 39.0
+text = "Descending"
+items = [ "Ascending", null, false, 0, null, "Descending", null, false, 1, null ]
+selected = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Content" index="4"]
+margin_top = 252.0
 margin_right = 520.0
 margin_bottom = 730.0
 size_flags_vertical = 3
@@ -105,4 +128,6 @@ __meta__ = {
 visible = false
 
 [connection signal="pressed" from="Content/Back" to="." method="_on_Back_pressed"]
+[connection signal="item_selected" from="Content/Sorting/SortCategory" to="." method="_on_SortCategory_item_selected"]
+[connection signal="item_selected" from="Content/Sorting/SortMode" to="." method="_on_SortMode_item_selected"]
 [connection signal="confirmed" from="QuitConfirm" to="." method="_on_QuitConfirm_confirmed"]
