@@ -11,6 +11,7 @@ light_energy = 2.0
 light_specular = 0.4
 
 [node name="Walls" type="Spatial" parent="."]
+physics_interpolation_mode = 1
 script = ExtResource( 2 )
 bounds = Vector2( 13.333, 10 )
 speed = 10.0
@@ -19,9 +20,6 @@ speed = 10.0
 mesh_library = ExtResource( 1 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -30,9 +28,6 @@ __meta__ = {
 mesh_library = ExtResource( 1 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }

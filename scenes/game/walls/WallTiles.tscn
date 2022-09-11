@@ -20,22 +20,28 @@ data = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 
 [node name="WallTiles" type="Spatial"]
 
 [node name="Cube" type="MeshInstance" parent="."]
+physics_interpolation_mode = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3215, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 6 )
 
 [node name="StaticBody" type="StaticBody" parent="Cube"]
+physics_interpolation_mode = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube/StaticBody"]
+physics_interpolation_mode = 1
 shape = SubResource( 4 )
 
 [node name="Slant" type="MeshInstance" parent="."]
+physics_interpolation_mode = 1
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../Cube")
 material/0 = SubResource( 6 )
 
 [node name="StaticBody" type="StaticBody" parent="Slant"]
+physics_interpolation_mode = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="Slant/StaticBody"]
+physics_interpolation_mode = 1
 shape = SubResource( 5 )
