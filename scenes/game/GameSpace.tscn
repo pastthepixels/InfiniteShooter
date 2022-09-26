@@ -31,3 +31,5 @@ cell_center_y = false
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="Tween" type="Tween" parent="Walls"]

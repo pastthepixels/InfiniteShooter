@@ -7,7 +7,7 @@ export(int) var max_width = 4
 
 export(int) var min_width = 2
 
-export(float) var speed
+export(float) var speed # m/s
 
 # don't touch this
 enum SLANT_TYPES {DOWN, UP, FLAT}
@@ -67,6 +67,8 @@ func set_tiles():
 		# Draws UP
 		set_right_row(right_array[i], -right_array.size() + i, slant)
 		if i == right_array.size() - 1: set_right_row(right_array[i], -right_array.size() - 1, slant)
+	
+	update_tween()
 
 # Here we create an array called width_array, where each number is different from the previous
 # but only by 1 or -1. Then we "expand" that array so each number represents three rows that
@@ -128,7 +130,19 @@ func set_right_row(width=4, z=0, slant=SLANT_TYPES.FLAT):
 		$RightWall.set_cell_item(max_width+x, 0, z, 0, 0)
 
 # movemtn (sic)
+func update_tween():
+	$Tween.stop_all()
+	$Tween.remove_all()
+	$Tween.interpolate_property($LeftWall, "translation:z",
+		-bounds.y, left_array.size()-bounds.y, left_array.size() / speed,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT
+	)
+	$Tween.interpolate_property($RightWall, "translation:z",
+		-bounds.y, right_array.size()-bounds.y, left_array.size() / speed,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT
+	)
+	$Tween.repeat = true
+	$Tween.start()
+
 func _physics_process(delta):
-	var delta_translation = speed * delta * CameraEquipment.get_node("SkyAnimations").playback_speed
-	$LeftWall.translation.z = -bounds.y if $LeftWall.translation.z >= left_array.size()-bounds.y else $LeftWall.translation.z + delta_translation
-	$RightWall.translation.z = -bounds.y if $RightWall.translation.z >= right_array.size()-bounds.y else $RightWall.translation.z + delta_translation
+	$Tween.playback_speed = CameraEquipment.get_node("SkyAnimations").playback_speed
