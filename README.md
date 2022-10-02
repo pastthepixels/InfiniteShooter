@@ -49,5 +49,6 @@ EXTERNAL ASSETS FROM FREESOUND.ORG:
 - Freezing/corrosion: https://freesound.org/people/td6d/sounds/184225/
 - Firing lasers: https://freesound.org/people/Defunct3/sounds/77172/
 - Transitioning between scenes (ex. from the main menu to the game): https://freesound.org/people/qubodup/sounds/60013/
+
 All other assets are made by me using free software tools like Blender, Inkscape, GIMP, LMMS, and Audacity.
 They're CC-0 and you can find them at https://github.com/pastthepixels/InfiniteShooter-Assets
