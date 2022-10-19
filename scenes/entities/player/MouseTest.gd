@@ -1,23 +1,22 @@
 extends Node
 
+export var max_mouse_movement = 25 # Maximum movement in the X or Y direction
 
-var mouse_moved = false 
+export var speed = 1
 
-var max_rotation  = 25
-var interpolation_time = 4
+export var interpolation_time = 4
 
-var interpolation_vector_default : Vector2 = Vector2(0, 0)
+var mouse_moved = false
+
 var last_mouse_move_relative : Vector2
-var interpolate_torwards_vector : Vector2
-var current_interpolating_vector : Vector2
+var mouse_move_relative_interpolated : Vector2 # Interpolated to the last position the mouse was moved to
+var mouse_intensity : Vector2 # Mouse velocity, normalized (mouse_velocity_pixels / max_mouse_movement)
 
 func _ready():
-	#CameraEquipment.get_node("Camera").current = false
-	#$Spatial/Camera.current = true
-	LoadingScreen.disable()
+	if has_node("/root/MouseTest"): LoadingScreen.disable()
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed == true: # TODO: REMOVE/MOVE TO UTILS OR SOMETHING
+	if event is InputEventMouseButton and event.pressed == true:
 		if event.button_index == 1:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event.is_action_pressed("pause"):
@@ -25,29 +24,30 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		mouse_moved = true
-		last_mouse_move_relative = Vector2(clamp(event.relative.y, -max_rotation, max_rotation), 
-		clamp(event.relative.x, -max_rotation, max_rotation)) * -1
+		last_mouse_move_relative = Vector2(
+			clamp(event.relative.y, -max_mouse_movement, max_mouse_movement), 
+			clamp(event.relative.x, -max_mouse_movement, max_mouse_movement)
+		) * -1
 
 
 func _process(delta):
-
+	# Check if the mouse was just moved and reset last_mouse_move if it wasn't moved at all
 	if mouse_moved:
 		mouse_moved = false
-		interpolate_torwards_vector = last_mouse_move_relative
 	else:
-		interpolate_torwards_vector = interpolation_vector_default
-
-	current_interpolating_vector = current_interpolating_vector.linear_interpolate(interpolate_torwards_vector, 
-	interpolation_time * delta)
+		last_mouse_move_relative = Vector2(0, 0)
 	
-	var current_interpolating_vector_normalized = current_interpolating_vector / max_rotation
+	# Interpolate to the last position the mouse moved to 
+	mouse_move_relative_interpolated = mouse_move_relative_interpolated.linear_interpolate(last_mouse_move_relative, interpolation_time * delta)
+	mouse_intensity = mouse_move_relative_interpolated / max_mouse_movement
 	
-	$Control/Label.text = "%s" % current_interpolating_vector_normalized
+	# Printing and moving/rotating
+	$Control/Label.text = "(%.2f, %.2f)" % [mouse_intensity.x, mouse_intensity.y]
 	
-	$Spatial/MeshInstance.rotation_degrees.x = -current_interpolating_vector_normalized.x * 50
-	$Spatial/MeshInstance.rotation_degrees.z = current_interpolating_vector_normalized.y * 50
+	$Spatial/MeshInstance.rotation_degrees.x = -mouse_intensity.x * 60
+	$Spatial/MeshInstance.rotation_degrees.z = mouse_intensity.y * 60
 	
-	$Spatial/MeshInstance.translation.x -= current_interpolating_vector_normalized.y / 10
-	$Spatial/MeshInstance.translation.z -= current_interpolating_vector_normalized.x / 10
+	$Spatial/MeshInstance.translation.x -= mouse_intensity.y / 10 * speed
+	$Spatial/MeshInstance.translation.z -= mouse_intensity.x / 10 * speed
 	
-	$Spatial/MeshInstance/Label3D.text = "%s" % $Spatial/MeshInstance.translation
+	$Spatial/MeshInstance/Label3D.text = "(%.2f, %.2f)" % [$Spatial/MeshInstance.translation.x, $Spatial/MeshInstance.translation.z]
