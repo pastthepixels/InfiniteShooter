@@ -7,7 +7,10 @@ var ignore_all = false
 func _input(event):
 	if event.is_action_pressed("pause") and ignore_all == false:
 		if ignore_hits == 0: 
-			toggle_pause()
+			if is_visible():
+				_on_Return_pressed()
+			else:
+				toggle_pause()
 		else:
 			ignore_hits -= 1
 
@@ -30,6 +33,7 @@ func _on_QuitAlert_exited():
 	$Options/Quit.grab_focus()
 
 func _on_Return_pressed():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	toggle_pause()
 
 func _on_MainMenu_pressed():
@@ -47,6 +51,7 @@ func toggle_pause():
 		$Title.text = "not paused"
 		yield($AnimationPlayer, "animation_finished")
 	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		rect_pivot_offset = rect_size/2
 		$AnimationPlayer.play("FadeIn")
 		$Options/Return.grab_focus()

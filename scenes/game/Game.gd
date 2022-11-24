@@ -57,6 +57,8 @@ func _ready():
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
 	CameraEquipment.get_node("CameraAnimations").stop()
 	CameraEquipment.get_node("CameraAnimations").play("ZoomOut")
+	# Locks the cursor
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# HUD stuff
 	if waves_per_level > 0:
 		$HUD.update_level(level, 100 * wave/waves_per_level)
