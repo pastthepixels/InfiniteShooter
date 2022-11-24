@@ -1,48 +1,37 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/entities/player/MouseTest.gd" type="Script" id=1]
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/entities/player/MouseControls.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.0
 
 [sub_resource type="DynamicFont" id=2]
-size = 42
-outline_size = 5
+size = 32
+outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 2 )
 
-[node name="MouseTest" type="Node"]
+[node name="MouseTest" type="Spatial"]
 script = ExtResource( 1 )
-max_mouse_movement = 10
-speed = 2
-interpolation_time = 5
+speed_cursor = 40.0
 
-[node name="Spatial" type="Spatial" parent="."]
+[node name="MouseControls" parent="." instance=ExtResource( 3 )]
 
-[node name="MeshInstance" type="MeshInstance" parent="Spatial"]
+[node name="Cursor" type="Polygon2D" parent="."]
+scale = Vector2( 0.590909, 0.640625 )
+polygon = PoolVector2Array( 0, 0, 0, 54.6341, 13.5385, 43.7073, 20.3077, 54.6341, 28.7692, 49.9512, 22, 40.5854, 38.9231, 40.5854 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
 
-[node name="Label3D" type="Label3D" parent="Spatial/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+[node name="Label3D" type="Label3D" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9314 )
 billboard = 1
-text = "(0, 0)"
+text = "(0,0)"
 font = SubResource( 2 )
 
-[node name="Camera" type="Camera" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.26604 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, -0.866025, 0.5, 0, -0.5, -0.866025, 0, 3.29442, -19.8311 )
-light_energy = 0.3
-
-[node name="Control" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Label" type="Label" parent="Control"]
-anchor_right = 1.0
-margin_bottom = 25.0
-text = "Stuff prints here"
-align = 2
+[connection signal="mouse_moved" from="MouseControls" to="." method="_on_MouseControls_mouse_moved"]
