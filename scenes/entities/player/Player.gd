@@ -25,7 +25,7 @@ export(float) var SCREEN_EDGE_MARGIN
 
 export(Vector2) var mouse_compensation_factor = Vector2(1.0, 1.0) # mouse too slow :(
 
-var speed = 14
+export var speed = 14
 
 var actual_velocity = Vector3()
 
