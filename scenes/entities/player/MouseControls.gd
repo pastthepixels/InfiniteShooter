@@ -4,6 +4,8 @@ signal mouse_moved(mouse_intensity)
 
 export(float) var sensitivity = 1.0
 
+export(bool) var use_sensitivity_from_settings = false
+
 export(int) var max_mouse_speed = 500 # Maximum movement in pixels/second
 
 export(bool) var pointer_lock_enabled = false
@@ -19,6 +21,9 @@ var mouse_intensity : Vector2 setget ,get_mouse_intensity
 var _mouse_intensity : Vector2
 
 
+func _ready():
+	if use_sensitivity_from_settings == true:
+		sensitivity = Saving.current_settings["mouse_sensitivity"]
 
 # _input: Calculate the intensity of each mouse movement and multiply it by -1 because for some reason down is positive for Godot???
 func _input(event):

@@ -34,6 +34,7 @@ var default_settings = {
 	"skyanimations_speed": 1.0,
 	"musicvol": 100,
 	"sfxvol": 100,
+	"mouse_sensitivity": 1.0,
 	"difficulty": GameVariables.DIFFICULTIES.medium
 }
 

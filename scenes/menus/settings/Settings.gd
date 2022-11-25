@@ -4,6 +4,10 @@ onready var settings = Saving.load_settings()
 
 # Loads GUI on init
 func _ready():
+	# Showing if it's the only scene
+	if get_parent() == get_tree().get_root():
+		LoadingScreen.disable()
+		show_animated()
 	# Graphics
 	get_node("%Options/AntiAliasing").pressed = settings["antialiasing"]
 	get_node("%Options/Bloom").pressed = settings["bloom"]
@@ -39,7 +43,8 @@ func _ready():
 	get_node("%InputKeys/Left/Key").text =	$KeyPopup.get_keys_for_action("move_left")[0].as_text()
 	get_node("%InputKeys/Right/Key").text =	$KeyPopup.get_keys_for_action("move_right")[0].as_text()
 	get_node("%InputKeys/Laser/Key").text =	$KeyPopup.get_keys_for_action("shoot_laser")[0].as_text()
-
+	# Input > Mouse input
+	get_node("%Options/MouseSensitivity/HSlider").value = settings["mouse_sensitivity"]
 # Going back
 func _on_Back_pressed():
 	close_animated()
@@ -151,3 +156,9 @@ func _on_KeyPopup_key_set():
 	if "move_left" in $KeyPopup.set_actions:	get_node("%InputKeys/Left/Key").text = $KeyPopup.set_actions["move_left"][1].as_text()
 	if "move_right" in $KeyPopup.set_actions:	get_node("%InputKeys/Right/Key").text = $KeyPopup.set_actions["move_right"][1].as_text()
 	if "shoot_laser" in $KeyPopup.set_actions:	get_node("%InputKeys/Laser/Key").text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
+
+# Mouse sensitivity
+func _on_MouseSensitivity_HSlider_value_changed(value):
+	settings["mouse_sensitivity"] = value
+	$Content/ScrollContainer/Options/MouseSensitivity/Hint.text = "(x%0.2f)" % settings["mouse_sensitivity"]
+	Saving.save_settings(settings)

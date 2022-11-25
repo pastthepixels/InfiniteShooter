@@ -23,6 +23,7 @@ infinite_ammo = true
 
 [node name="MouseControls" parent="." instance=ExtResource( 7 )]
 sensitivity = 1.5
+use_sensitivity_from_settings = true
 max_mouse_speed = 1500
 
 [node name="ReloadStart" type="AudioStreamPlayer" parent="."]
