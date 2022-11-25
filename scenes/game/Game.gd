@@ -80,7 +80,6 @@ func set_coincrate_spawn():
 
 func generate_crate_spawnpoint():
 	if get_max_enemies_in_level() < (2*crate_spawnpoint_margin):
-		print(true)
 		return 0 # Checks if the max enemies per level is smaller than the spawnpoint margin
 	var spawnpoint = floor(rand_range(crate_spawnpoint_margin, get_max_enemies_in_level() - crate_spawnpoint_margin))
 	if (spawnpoint in crate_spawn_points

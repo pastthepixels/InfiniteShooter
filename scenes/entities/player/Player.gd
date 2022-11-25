@@ -91,7 +91,6 @@ func _physics_process(delta):
 	# Movement
 	var leftright = clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1)
 	var updown =	clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1)
-	print($MouseControls.mouse_intensity.x)
 	if leftright == 0: leftright = -$MouseControls.mouse_intensity.x * mouse_compensation_factor.x
 	if updown == 0: updown = $MouseControls.mouse_intensity.y * mouse_compensation_factor.y
 	delta_rotation -= Vector3(updown, 0, leftright)

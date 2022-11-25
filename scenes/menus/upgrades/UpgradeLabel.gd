@@ -15,7 +15,6 @@ func _process(delta):
 				label.rect_position.x -= scroll_speed * delta
 				if label.rect_position.x < -label.rect_size.x:
 					$Control.move_child(label, 1)
-					print(scroll_mirror_padding)
 					label.rect_position.x = $Control.get_child(0).rect_size.x + $Control.get_child(0).rect_position.x + scroll_mirror_padding
 
 func _on_Button_pressed():

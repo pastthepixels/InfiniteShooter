@@ -50,10 +50,9 @@ var previous_rand_numbers = [0, 0, 0]
 func true_rand_range(min_num, max_num):
 	var rand = rand_range(min_num, max_num)
 	if rand in previous_rand_numbers:
-		print(true)
+		pass
 	previous_rand_numbers.push_front(rand)
 	previous_rand_numbers.remove(0)
-	print(previous_rand_numbers)
 	return rand
 
 # Setting timeouts
