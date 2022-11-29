@@ -18,7 +18,7 @@ axis_lock_motion_y = true
 move_lock_y = true
 script = ExtResource( 3 )
 SCREEN_EDGE_MARGIN = 1.5
-mouse_compensation_factor = Vector2( 1.5, 1.5 )
+mouse_compensation_factor = Vector2( 2.2, 2.2 )
 infinite_ammo = true
 
 [node name="MouseControls" parent="." instance=ExtResource( 7 )]
