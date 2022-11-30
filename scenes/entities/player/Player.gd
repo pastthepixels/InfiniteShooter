@@ -23,7 +23,9 @@ var damage = Saving.default_userdata.damage
 # Movement variables
 export(float) var SCREEN_EDGE_MARGIN
 
-var speed = 14
+export(Vector2) var mouse_compensation_factor = Vector2(1.0, 1.0) # mouse too slow :(
+
+export var speed = 14
 
 var actual_velocity = Vector3()
 
@@ -77,18 +79,20 @@ func _update_ammo_refills(new_value):
 	ammo_refills = new_value
 	emit_signal("ammo_changed", float(ammo) / float(max_ammo), ammo_refills)
 
-func _process(_delta):
+func _process(delta):
 	# Killing the player when it should die
 	if self.health == 0:
 		die_already()
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	var velocity = impulse_velocity
 	var delta_rotation = impulse_rotation  # The new rotation the player will have (NORMALIZED VECTOR)
 	
 	# Movement
 	var leftright = clamp(Input.get_axis("move_left", "move_right") * 2, -1, 1)
 	var updown =	clamp(Input.get_axis("move_down", "move_up") * 2, -1, 1)
+	if leftright == 0: leftright = -$MouseControls.mouse_intensity.x * mouse_compensation_factor.x
+	if updown == 0: updown = $MouseControls.mouse_intensity.y * mouse_compensation_factor.y
 	delta_rotation -= Vector3(updown, 0, leftright)
 	velocity.x += leftright
 	velocity.z -= updown
@@ -103,7 +107,7 @@ func _physics_process(_delta):
 		move_and_slide(actual_velocity * speed)
 	
 	# Shooting lasers (pressing+holding)
-	if Input.is_action_pressed("shoot_laser"):
+	if Input.is_action_pressed("shoot_laser") or Input.is_mouse_button_pressed(1):
 		if _ShootTimer_running == false:
 			_ShootTimer_running = true
 			$ShootTimer.start()
@@ -115,12 +119,14 @@ func _physics_process(_delta):
 	translation.z = clamp(translation.z, Utils.top_left.z + SCREEN_EDGE_MARGIN, Utils.bottom_left.z - SCREEN_EDGE_MARGIN)
 	translation.x = clamp(translation.x, Utils.top_left.x + SCREEN_EDGE_MARGIN, Utils.top_right.x - SCREEN_EDGE_MARGIN)
 
-# Firing lasers (cont.d)
-func _input(event): # Keyboard taps
-	if OS.get_ticks_msec() - _last_laser_tap_time > laser_spam_threshold and event.is_action_pressed("shoot_laser"):
+# Input
+func _input(event):
+	# Fires a laser IF the player is found to not spam the spacebar (or what-have-you)
+	if OS.get_ticks_msec() - _last_laser_tap_time > laser_spam_threshold and (event.is_action_pressed("shoot_laser") or (event is InputEventMouseButton and Input.is_mouse_button_pressed(1))):
 			_last_laser_tap_time = OS.get_ticks_msec()
 			fire_laser()
 
+# Fires a laser from $PlayerModel/LaserGun
 func fire_laser():
 	if self.ammo == 0 and self.ammo_refills <= 0:
 		$AmmoClick.play()
@@ -139,6 +145,13 @@ func fire_laser():
 			$ReloadTimer.start()
 			$ReloadStart.play()
 			$ReloadBoop.play()
+
+# Reloading
+func _on_ReloadTimer_timeout():
+	self.ammo += 1
+	if self.ammo == max_ammo:
+		$ReloadTimer.stop()
+		$ReloadBoop.stop()
 
 
 # When the player collides with enemies
@@ -166,14 +179,6 @@ func on_enemy_collision(enemy):
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
 		impulse_rotation.x = actual_velocity.z * 2
-
-
-# Reloading
-func reload():
-	self.ammo += 1
-	if self.ammo == max_ammo:
-		$ReloadTimer.stop()
-		$ReloadBoop.stop()
 
 
 func die_already():

@@ -57,6 +57,8 @@ func _ready():
 	CameraEquipment.get_node("SkyAnimations").play("SkyRotate")
 	CameraEquipment.get_node("CameraAnimations").stop()
 	CameraEquipment.get_node("CameraAnimations").play("ZoomOut")
+	# Locks the cursor
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# HUD stuff
 	if waves_per_level > 0:
 		$HUD.update_level(level, 100 * wave/waves_per_level)
@@ -78,7 +80,6 @@ func set_coincrate_spawn():
 
 func generate_crate_spawnpoint():
 	if get_max_enemies_in_level() < (2*crate_spawnpoint_margin):
-		print(true)
 		return 0 # Checks if the max enemies per level is smaller than the spawnpoint margin
 	var spawnpoint = floor(rand_range(crate_spawnpoint_margin, get_max_enemies_in_level() - crate_spawnpoint_margin))
 	if (spawnpoint in crate_spawn_points

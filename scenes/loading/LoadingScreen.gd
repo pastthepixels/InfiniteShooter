@@ -59,6 +59,12 @@ func _on_ExitTimer_timeout():
 	$AnimationPlayer.play("FadeOut")
 	hide()
 
+func disable():
+	get_tree().paused = false
+	CameraEquipment.get_node("ShakeCamera").ignore_shake = false
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
+	queue_free()
+
 func access_scene(path):
 	for scene_path in scenes:
 		if scene_path.resource_path == path:

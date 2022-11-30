@@ -30,7 +30,7 @@ scroll_horizontal_enabled = false
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer" index="0"]
 unique_name_in_owner = true
 margin_right = 520.0
-margin_bottom = 1677.0
+margin_bottom = 1725.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 __meta__ = {
@@ -404,18 +404,47 @@ margin_bottom = 1542.0
 text = "Apply key binds"
 align = 0
 
-[node name="DangerZone" type="Label" parent="Content/ScrollContainer/Options" index="21"]
+[node name="MouseSensitivity" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="21"]
 margin_top = 1562.0
 margin_right = 499.0
-margin_bottom = 1618.0
+margin_bottom = 1590.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/ScrollContainer/Options/MouseSensitivity" index="0"]
+margin_top = 4.0
+margin_right = 133.0
+margin_bottom = 23.0
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="Content/ScrollContainer/Options/MouseSensitivity" index="1"]
+margin_left = 143.0
+margin_right = 446.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="Hint" type="Label" parent="Content/ScrollContainer/Options/MouseSensitivity" index="2"]
+margin_left = 456.0
+margin_top = 4.0
+margin_right = 499.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 64, 0 )
+text = "(x 1.0)"
+
+[node name="DangerZone" type="Label" parent="Content/ScrollContainer/Options" index="22"]
+margin_top = 1610.0
+margin_right = 499.0
+margin_bottom = 1666.0
 theme = ExtResource( 1 )
 theme_type_variation = "SeparatorLabel"
 text = "Dangerous Options"
 
-[node name="ResetGame" type="Button" parent="Content/ScrollContainer/Options" index="22"]
-margin_top = 1638.0
+[node name="ResetGame" type="Button" parent="Content/ScrollContainer/Options" index="23"]
+margin_top = 1686.0
 margin_right = 499.0
-margin_bottom = 1677.0
+margin_bottom = 1725.0
 custom_colors/font_color_focus = Color( 1, 0.356863, 0.356863, 1 )
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 custom_colors/font_color_hover = Color( 1, 0.458824, 0.458824, 1 )
@@ -450,6 +479,7 @@ visible = false
 [connection signal="pressed" from="Content/ScrollContainer/Options/InputKeys/Right/Key" to="." method="_map_right_key"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/InputKeys/Laser/Key" to="." method="_map_shoot_key"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/ApplyBindings" to="." method="_on_ApplyBindings_pressed"]
+[connection signal="value_changed" from="Content/ScrollContainer/Options/MouseSensitivity/HSlider" to="." method="_on_MouseSensitivity_HSlider_value_changed"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/ResetGame" to="." method="_on_ResetGame_pressed"]
 [connection signal="key_set" from="KeyPopup" to="." method="_on_KeyPopup_key_set"]
 [connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]
