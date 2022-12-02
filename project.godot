@@ -28,6 +28,7 @@ Saving="*res://scenes/bits/Saving.gd"
 LoadingScreen="*res://scenes/loading/LoadingScreen.tscn"
 Resize="*res://scenes/bits/resize.gd"
 MenuSFX="*res://scenes/ui-bits/MenuSFX.tscn"
+QuitPrompt="*res://scenes/menus/quit/QuitPrompt.tscn"
 
 [display]
 

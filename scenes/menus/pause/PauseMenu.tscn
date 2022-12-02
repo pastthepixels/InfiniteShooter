@@ -190,7 +190,7 @@ margin_right = 224.0
 margin_bottom = 185.0
 rect_min_size = Vector2( 0, 32 )
 theme_type_variation = "LargeLabel"
-text = "quit game"
+text = "save and quit"
 
 [node name="MainAlert" parent="." instance=ExtResource( 9 )]
 visible = false
