@@ -6,7 +6,6 @@ onready var settings = Saving.load_settings()
 func _ready():
 	# Showing if it's the only scene
 	if get_parent() == get_tree().get_root():
-		LoadingScreen.disable()
 		show_animated()
 	# Graphics
 	get_node("%Options/AntiAliasing").pressed = settings["antialiasing"]

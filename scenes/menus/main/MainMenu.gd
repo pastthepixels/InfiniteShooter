@@ -59,7 +59,7 @@ func _input(event):
 		and start_key_down == true
 	):
 		start_key_down = false
-		$Menu/Options/Play.grab_focus()
+		$Menu/Options.grab_focus()
 
 func _on_Settings_closed():
 	$Title.show()

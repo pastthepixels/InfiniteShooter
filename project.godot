@@ -39,7 +39,7 @@ window/stretch/aspect="keep_height"
 
 [gui]
 
-theme/custom="res://resources/theme.tres"
+theme/custom="res://resources/theme-submenu.tres"
 theme/custom_font="res://resources/default_font.tres"
 
 [importer_defaults]

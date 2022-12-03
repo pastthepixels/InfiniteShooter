@@ -4,6 +4,11 @@ signal closed
 
 export(NodePath) var auto_select
 
+func _ready():
+	# Showing if it's the only scene
+	if get_parent() == get_tree().get_root():
+		show_animated()
+
 func show_animated():
 	rect_pivot_offset = rect_size/2
 	$AnimationPlayer.play("open")

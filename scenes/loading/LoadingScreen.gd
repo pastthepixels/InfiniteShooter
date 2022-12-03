@@ -5,6 +5,10 @@ export var file_path = "res://scenes/entities/" # Has to have that forward slash
 var scenes = []
 
 func _ready():
+	# Auto-disabling
+	if has_node("/root/MainMenu") == false and has_node("/root/Game") == false:
+		disable()
+		return
 	get_tree().paused = true
 	CameraEquipment.get_node("ShakeCamera").ignore_shake = true
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
