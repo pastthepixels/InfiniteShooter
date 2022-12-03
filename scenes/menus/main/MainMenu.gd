@@ -59,7 +59,7 @@ func _input(event):
 		and start_key_down == true
 	):
 		start_key_down = false
-		$Menu/Options.grab_focus()
+		$Menu/Options.get_child(0).grab_focus()
 
 func _on_Settings_closed():
 	$Title.show()
