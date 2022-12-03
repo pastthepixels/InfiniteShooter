@@ -9,10 +9,14 @@ func _ready():
 
 func set_status_unsaved():
 	$HBoxContainer/Label.editable = true
-	$HBoxContainer/Play.disabled = true
+	$HBoxContainer/Label.selecting_enabled = true
+	$HBoxContainer/Label.focus_mode = Control.FOCUS_ALL
+	$HBoxContainer/Play.text = "New game"
 	$HBoxContainer/Indicator.modulate = indicator_modulate_unsaved
 
 func set_status_saved():
 	$HBoxContainer/Label.editable = false
-	$HBoxContainer/Play.disabled = false
+	$HBoxContainer/Label.selecting_enabled = false
+	$HBoxContainer/Label.focus_mode = Control.FOCUS_NONE
+	$HBoxContainer/Play.text = "Continue"
 	$HBoxContainer/Indicator.modulate = indicator_modulate_saved

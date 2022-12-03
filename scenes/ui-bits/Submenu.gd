@@ -12,8 +12,8 @@ func _ready():
 func show_animated():
 	rect_pivot_offset = rect_size/2
 	$AnimationPlayer.play("open")
-
-func close_animated():
+	
+func hide_animated():
 	emit_signal("closed")
 	$AnimationPlayer.play("close")
 

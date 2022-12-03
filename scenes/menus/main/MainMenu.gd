@@ -75,9 +75,14 @@ func _on_Readme_closed():
 	$Title.show()
 	$Menu/Options/Readme.grab_focus()
 
+func _on_SaveScreen_closed():
+	$Title.show()
+	$Menu/Options/Play.grab_focus()
+
 
 func _on_Play_pressed():
-	SceneTransition.start_game()
+	$SaveScreen.show_animated()
+	$Title.hide()
 
 
 func _on_Leaderboard_pressed():

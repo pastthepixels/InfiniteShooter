@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/menus/saving/SaveSlot.gd" type="Script" id=1]
 
@@ -15,6 +15,13 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0, 0, 0, 0.0784314 )
 
 [node name="SaveSlot" type="PanelContainer"]
 anchor_right = 1.0
@@ -40,19 +47,17 @@ custom_styles/panel = SubResource( 2 )
 
 [node name="Label" type="LineEdit" parent="HBoxContainer"]
 margin_left = 25.0
-margin_right = 897.0
+margin_right = 899.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
+custom_colors/font_color_uneditable = Color( 0.878431, 0.878431, 0.878431, 1 )
+custom_styles/read_only = SubResource( 3 )
 text = "Untitled Save"
-
-[node name="Save" type="Button" parent="HBoxContainer"]
-margin_left = 917.0
-margin_right = 974.0
-margin_bottom = 39.0
-text = "Save"
+clear_button_enabled = true
 
 [node name="Play" type="Button" parent="HBoxContainer"]
-margin_left = 994.0
+margin_left = 919.0
 margin_right = 1047.0
 margin_bottom = 39.0
+rect_min_size = Vector2( 128, 0 )
 text = "Play"

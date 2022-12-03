@@ -64,3 +64,5 @@ margin_top = 592.0
 margin_right = 520.0
 margin_bottom = 730.0
 size_flags_vertical = 3
+
+[connection signal="pressed" from="Content/Back" to="." method="_on_Back_pressed"]

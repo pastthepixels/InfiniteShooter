@@ -46,7 +46,7 @@ func _ready():
 	get_node("%Options/MouseSensitivity/HSlider").value = settings["mouse_sensitivity"]
 # Going back
 func _on_Back_pressed():
-	close_animated()
+	hide_animated()
 
 # Graphics toggles
 func _on_AntiAliasing_toggled(button_pressed):
