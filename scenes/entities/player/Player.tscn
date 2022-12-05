@@ -19,7 +19,6 @@ move_lock_y = true
 script = ExtResource( 3 )
 SCREEN_EDGE_MARGIN = 1.5
 mouse_compensation_factor = Vector2( 2.2, 2.2 )
-infinite_ammo = true
 
 [node name="MouseControls" parent="." instance=ExtResource( 7 )]
 sensitivity = 1.5
@@ -63,7 +62,6 @@ from_player = true
 [node name="LaserEffects" parent="." instance=ExtResource( 1 )]
 ship = NodePath("..")
 
-[connection signal="mouse_moved" from="MouseControls" to="." method="_on_MouseControls_mouse_moved"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

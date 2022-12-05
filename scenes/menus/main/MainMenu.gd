@@ -20,7 +20,7 @@ func _input(event):
 		and event.pressed
 		and $Menu/StartScreen.visible == true
 	):
-		start_key_down = true
+		if (event is InputEventMouseButton) == false: start_key_down = true
 		# Plays the "gui-accept" sound and the main menu theme
 		MenuSFX.get_node("UseSound").play()
 		$Music.play()

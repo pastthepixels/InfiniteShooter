@@ -6,6 +6,7 @@
 
 [node name="SaveScreen" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+auto_select = NodePath("Content/Back")
 
 [node name="Content" parent="." index="2"]
 custom_constants/separation = 25
@@ -66,3 +67,7 @@ margin_bottom = 730.0
 size_flags_vertical = 3
 
 [connection signal="pressed" from="Content/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Content/Slots/Slot1" to="." method="_on_Slot1_pressed"]
+[connection signal="pressed" from="Content/Slots/Slot2" to="." method="_on_Slot2_pressed"]
+[connection signal="pressed" from="Content/Slots/Slot3" to="." method="_on_Slot3_pressed"]
+[connection signal="pressed" from="Content/Slots/Slot4" to="." method="_on_Slot4_pressed"]

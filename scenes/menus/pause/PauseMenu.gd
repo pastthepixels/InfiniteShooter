@@ -17,11 +17,13 @@ func _input(event):
 func _on_QuitAlert_confirmed():
 	ignore_all = false
 	toggle_pause()
+	Saving.save_game()
 	SceneTransition.quit_game()
 
 func _on_MainAlert_confirmed():
 	ignore_all = false
 	toggle_pause()
+	Saving.save_game()
 	SceneTransition.main_menu()
 
 func _on_MainAlert_exited():

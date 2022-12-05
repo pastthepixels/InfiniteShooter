@@ -1,5 +1,7 @@
 extends Control
 
+signal loaded_game
+
 onready var root = get_tree().get_root()
 
 var game_scene = preload("res://scenes/game/Game.tscn")
@@ -40,7 +42,14 @@ func start_game():
 	open()
 	yield(wait(), "completed")
 	call_deferred("_deferred_goto_scene", game_scene)
+	yield(get_tree(), "idle_frame") # Wait until the scene has been switched to close
+	emit_signal("loaded_game")
 	close()
+
+func continue_game():
+	start_game()
+	yield(self, "loaded_game")
+	Saving.load_game()
 
 func restart_game():
 	open()

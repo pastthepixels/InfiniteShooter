@@ -21,7 +21,6 @@ _data = {
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
-game_space = NodePath("GameSpace")
 
 [node name="GameMusic" parent="." instance=ExtResource( 13 )]
 
@@ -30,6 +29,7 @@ stream = ExtResource( 7 )
 bus = "SFX"
 
 [node name="GameSpace" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
 
 [node name="IndicatorArrow" parent="GameSpace" instance=ExtResource( 10 )]
 visible = false
