@@ -69,3 +69,23 @@ func sort_container(box_container, node_with_function, function):
 			if i+1 < num_children:
 				if node_with_function.call(function, box_container.get_child(i), box_container.get_child(i+1)) == true:
 					box_container.move_child(box_container.get_child(i+1),i)
+
+# Matching variable types (used in Saving.gd
+func match_variable_types(original, value):
+	match typeof(original):
+		TYPE_NIL:
+			return null
+		TYPE_BOOL:
+			return bool(value)
+		TYPE_INT:
+			return int(value)
+		TYPE_REAL:
+			return float(value)
+		TYPE_STRING:
+			return str(value)
+		TYPE_ARRAY:
+			for i in value.size():
+				value[i] = match_variable_types(original[i if i in original else -1], value[i])
+			return value
+		_:
+			return value
