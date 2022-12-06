@@ -60,9 +60,13 @@ var default_save_json = [
 		"save": {}
 	},
 	{
+		"path": "/root/Game/GameSpace/Player/LaserEffects",
+		"save": {}
+	},
+	{
 		"path": "/root/CameraEquipment",
 		"save": {}
-	}
+	},
 ]
 
 var current_save_slot = 0
@@ -280,12 +284,9 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 	# 1. Update variables for all nodes
 	for node in save_json: # Assumes the node that is being saved has a function where it returns a dict of variables/values
 		for key in node.save:
-			get_node(node.path)[key] = node.save[key]
+			if key in get_node(node.path):
+				get_node(node.path)[key] = Utils.match_variable_types(get_node(node.path)[key], node.save[key])
 			### EDGE CASES ###
-			# Game.possible_enemies has to have integers as GameVariables.ENEMY_TYPES is an enum consisting of integers
-			if key == "possible_enemies" and node.path == "/root/Game":
-				for i in node.save[key].size():
-					node.save[key][i] = int(node.save[key][i])
 			# Ensuring the player's max health is set before its health
 			if key == "health" and node.path == "/root/Game/GameSpace/Player":
 				get_node(node.path)["max_health"] = node.save["max_health"]
@@ -294,8 +295,19 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 			if key == "ammo" and node.path == "/root/Game/GameSpace/Player":
 				get_node(node.path)["max_ammo"] = node.save["max_ammo"]
 				get_node(node.path)[key] = node.save[key]
+		### MORE EDGE CASES ###
+		# Loading LaserEffects saves
+		if "LaserEffects" in node.path:
+			get_node(node.path).load_save(node.save)
 	# 2. Update the GUI
 	get_node("/root/Game").update_status_bar()
+
+func delete_save(slot=current_save_slot):
+	dir.remove(PATHS.save_file % slot)
+	# Add in the metadata that the save is no longer active
+	var slot_data = load_save_slot_data()
+	slot_data[slot].active = false
+	save_save_slot_data(slot_data)
 
 func save_exists(slot=current_save_slot):
 	return file.file_exists(PATHS.save_file % slot)

@@ -1,8 +1,8 @@
 extends Spatial
 
-export(NodePath) var ship
+enum EFFECTS { corrosion, fire, ice }
 
-var resetting = false
+export(NodePath) var ship
 
 export var emission_radius = .8
 
@@ -10,7 +10,33 @@ export var disabled = false
 
 signal finished_reset
 
+var current_effect : int = -1
+
+var resetting = false
+
 var sender # The sender of the laser that hits `ship`
+
+# Saving/loading
+func save():
+	return {
+		"current_effect": current_effect,
+		"duration": $Timer.time_left,
+		"wait_time": $BleedTimer.wait_time
+	}
+
+func load_save(save): # See the above function for what "save" is exactly
+	match(int(save["current_effect"])):
+		EFFECTS.corrosion:
+			bleed(save["wait_time"], save["duration"])
+			start_corrosion()
+		
+		EFFECTS.fire:
+			bleed(save["wait_time"], save["duration"])
+			start_fire()
+		
+		EFFECTS.ice:
+			freeze(save["wait_time"])
+			start_ice()
 
 func _ready():
 	$Fire.process_material.emission_sphere_radius = emission_radius
@@ -34,17 +60,22 @@ func freeze(duration):
 
 # Particle effects
 func start_fire():
+	current_effect = EFFECTS.fire
+	print(current_effect)
 	if disabled == true or get_parent().health <= 0: return
 	$FireSound.play()
 	$Fire.emitting = true
 
 
 func start_corrosion():
+	current_effect = EFFECTS.corrosion
+	print(current_effect)
 	if disabled == true or get_parent().health <= 0: return
 	$CorrosionSound.play()
 	$Corrosion.emitting = true
 
 func start_ice():
+	current_effect = EFFECTS.ice
 	if disabled == true or get_parent().health <= 0: return
 	$IceSound.play()
 	$Ice.emitting = true
@@ -67,6 +98,7 @@ func _on_Timer_timeout():
 
 func reset():
 	resetting = true
+	current_effect = -1
 	if "freeze_movement" in get_parent(): get_parent().freeze_movement = false
 	$ResetMaxTimer.start()
 	$Fire.emitting = false
@@ -81,6 +113,7 @@ func reset():
 
 
 func _on_ResetMaxTimer_timeout():
+	current_effect = -1
 	$IceSound.stop()
 	$FireSound.stop()
 	$CorrosionSound.stop()
