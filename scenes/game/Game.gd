@@ -312,6 +312,7 @@ func _on_Player_died():
 	$HUD/AnimationPlayer.play("fade_out")
 	$GameMusic.autoswitch = false
 	Saving.create_leaderboard_entry(score)
+	Saving.delete_save()
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield(Utils.timeout(1), "timeout") # AFTER waiting for a bit
 	$GameOverMenu.start()
