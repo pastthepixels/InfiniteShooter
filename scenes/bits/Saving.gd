@@ -285,6 +285,14 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 			if key == "possible_enemies" and node.path == "/root/Game":
 				for i in node.save[key].size():
 					node.save[key][i] = int(node.save[key][i])
+			# Ensuring the player's max health is set before its health
+			if key == "health" and node.path == "/root/Game/GameSpace/Player":
+				get_node(node.path)["max_health"] = node.save["max_health"]
+				get_node(node.path)[key] = node.save[key]
+			# same with ammo
+			if key == "ammo" and node.path == "/root/Game/GameSpace/Player":
+				get_node(node.path)["max_ammo"] = node.save["max_ammo"]
+				get_node(node.path)[key] = node.save[key]
 	# 2. Update the GUI
 	get_node("/root/Game").update_status_bar()
 
