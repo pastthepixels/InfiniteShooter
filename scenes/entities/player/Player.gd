@@ -26,15 +26,15 @@ var modifier = GameVariables.LASER_MODIFIERS.none
 
 func save():
 	return {
+		"max_health": max_health,
+		"max_ammo": max_ammo,
 		"godmode": godmode,
 		"infinite_ammo": infinite_ammo,
-		"max_ammo": max_ammo,
-		"ammo_refills": ammo_refills,
-		"max_health": max_health,
-		"damage": damage,
-		"health": health,
+		"modifier": modifier,
 		"ammo": ammo,
-		"modifier": modifier
+		"ammo_refills": ammo_refills,
+		"damage": damage,
+		"health": health
 	}
 
 ### DO NOT SAVE THESE VARIABLES ###
