@@ -15,21 +15,17 @@ var _sky_playback_speed = 1
 export(Array, PanoramaSky) var skies
 
 ## SAVE THIS ##
-var sky_index setget set_sky, get_sky_idx # Skybox as defined by an index of CameraEquipment.skies
+var sky_index = 0 setget set_sky # Skybox as defined by an index of CameraEquipment.skies
 
-var _sky_index = 1
 
 func save():
 	return {
-		"sky_index": get_sky_idx()
+		"sky_index": sky_index
 	}
 
 func _ready():
 	randomize()
 	VisualServer.canvas_item_set_z_index($FrameCounter.get_canvas_item(), 10)
-	
-	print(get_sky_idx())
-	print(sky_index)
 
 #
 # distortion stuff
@@ -73,11 +69,8 @@ func resume_sky():
 	$Tween.start()
 	
 func set_sky(sky_idx):
-	_sky_index = sky_idx
+	sky_index = sky_idx
 	$WorldEnvironment.environment.background_sky = skies[sky_idx]
-
-func get_sky_idx():
-	return _sky_index
 
 func set_rand_sky():
 	set_sky(generate_rand_sky_num())
