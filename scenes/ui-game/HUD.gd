@@ -56,6 +56,10 @@ func update_wave(wave, progress):
 	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Wave %s" % wave
 	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = progress
 
+func update_wave_boss():
+	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Boss fight"
+	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = 100
+
 #
 # Updating the top bars
 #

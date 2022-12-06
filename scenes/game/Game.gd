@@ -97,6 +97,9 @@ func update_status_bar(): # Called from Saving.tscn
 	# Updates the level/wave
 	$HUD.update_level(level, 100 * wave/waves_per_level)
 	$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
+	# Unless there's a boss rush/save indicates a boss will spawn, in which case we'll update the HUD to reflect that
+	if GameVariables.enemies_per_wave == 0 or wave == waves_per_level + 1:
+		$HUD.update_wave_boss()
 
 func _on_Countdown_finished():
 	make_enemies()
@@ -128,16 +131,18 @@ func wave_up():
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
+	# Updates the HUD
+	$HUD.update_wave(wave, 0)
+	$HUD.update_level(level, 100 * wave/waves_per_level)
+	# Spawns a boss/enemies
 	if wave == waves_per_level + 1:
-		yield(Utils.timeout(1), "timeout") # Waits exactly one second
-		make_boss() # then initiates a boss battle
+		$HUD.update_wave_boss()
+		yield(Utils.timeout(1), "timeout") # Waits exactly one second to give the player breathing room
+		make_boss() # then initiates a boss battle (and updates the hud because instead of a new wave there's a boss battle)
 	else:
 		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
 		# Resumes enemy spawning after the popup
 		make_enemies()
-		# Updates the HUD
-		$HUD.update_wave(wave, 0)
-		$HUD.update_level(level, 100 * wave/waves_per_level)
 
 func level_up():
 	difficulty += 1
@@ -182,6 +187,7 @@ func get_max_enemies_in_level():
 func make_enemies():
 	# If there are no enemies per wave or your savefile is set to spawn a boss, spawn a boss!
 	if GameVariables.enemies_per_wave == 0 or wave == waves_per_level + 1:
+		$HUD.update_wave_boss()
 		make_boss()
 		return
 	autospawn_enemies = true
