@@ -61,7 +61,6 @@ func freeze(duration):
 # Particle effects
 func start_fire():
 	current_effect = EFFECTS.fire
-	print(current_effect)
 	if disabled == true or get_parent().health <= 0: return
 	$FireSound.play()
 	$Fire.emitting = true
@@ -69,7 +68,6 @@ func start_fire():
 
 func start_corrosion():
 	current_effect = EFFECTS.corrosion
-	print(current_effect)
 	if disabled == true or get_parent().health <= 0: return
 	$CorrosionSound.play()
 	$Corrosion.emitting = true
