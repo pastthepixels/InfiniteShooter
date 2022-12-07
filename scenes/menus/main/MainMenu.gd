@@ -16,9 +16,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _input(event):
 	# If the start screen is still there, remove it! Also return the function so we don't trigger a menu option at the same time.
 	if (
-		(event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton)
-		and event.pressed
-		and $Menu/StartScreen.visible == true
+		(
+			((event is InputEventKey or event is InputEventJoypadButton) and event.pressed) or
+			(event is InputEventMouseButton and event.pressed == false)
+		) and $Menu/StartScreen.visible == true
 	):
 		if (event is InputEventMouseButton) == false: start_key_down = true
 		# Plays the "gui-accept" sound and the main menu theme
