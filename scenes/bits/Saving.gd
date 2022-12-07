@@ -38,7 +38,8 @@ var default_settings = {
 	"musicvol": 100,
 	"sfxvol": 100,
 	"mouse_sensitivity": 1.0,
-	"difficulty": GameVariables.DIFFICULTIES.medium
+	"difficulty": GameVariables.DIFFICULTIES.medium,
+	"quit_dialog_lines": false
 }
 
 var current_settings

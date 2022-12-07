@@ -161,3 +161,8 @@ func _on_MouseSensitivity_HSlider_value_changed(value):
 	settings["mouse_sensitivity"] = value
 	$Content/ScrollContainer/Options/MouseSensitivity/Hint.text = "(x%0.2f)" % settings["mouse_sensitivity"]
 	Saving.save_settings(settings)
+
+# Special lines for the quit dialog
+func _on_QuitLines_toggled(button_pressed):
+	settings["quit_dialog_lines"] = button_pressed
+	Saving.save_settings(settings)
