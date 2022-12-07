@@ -134,13 +134,19 @@ func wave_up():
 	# Updates the HUD
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 100 * wave/waves_per_level)
-	# Spawns a boss/enemies
+	# Saves and Spawns a boss/enemies
 	if wave == waves_per_level + 1:
+		### SAVES ###
+		Saving.save_game()
+		#############
 		$HUD.update_wave_boss()
 		yield(Utils.timeout(1), "timeout") # Waits exactly one second to give the player breathing room
 		make_boss() # then initiates a boss battle (and updates the hud because instead of a new wave there's a boss battle)
 	else:
 		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
+		### SAVES ###
+		Saving.save_game()
+		#############
 		# Resumes enemy spawning after the popup
 		make_enemies()
 
@@ -174,7 +180,9 @@ func level_up():
 	if fmod(level, GameVariables.reset_level) == 0:
 		reset()
 		set_coincrate_spawn()
-	
+	### SAVES ###
+	Saving.save_game()
+	#############
 	# Resumes enemy spawning after the popup
 	make_enemies()
 
