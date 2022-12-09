@@ -6,9 +6,9 @@
 
 <a style="float:left" href="https://pastthepixels.itch.io/infiniteshooter">Now on itch.io!</a>
 
-<a href='https://github.com/pastthepixels/InfiniteShooter/releases/download/v0.4.1/InfiniteShooter-WINDOWS.x86_64.exe'>Download for Windows</a>
+<a href='https://github.com/pastthepixels/InfiniteShooter/releases/latest/download/InfiniteShooter-WINDOWS.x86_64.exe'>Download for Windows</a>
 
-<a href='https://github.com/pastthepixels/InfiniteShooter/releases/download/v0.4.1/InfiniteShooter-MACOS.x86_64.zip'>Download for MacOS</a>
+<a href='https://github.com/pastthepixels/InfiniteShooter/releases/latest/download/InfiniteShooter-MACOS.x86_64.zip'>Download for MacOS</a>
 
 # Screenshots
 <!-- Have to do some HTML wizardry to get these screenshots to not be completely large and not side-by-side -->
