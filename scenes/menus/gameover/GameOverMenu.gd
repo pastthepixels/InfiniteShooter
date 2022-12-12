@@ -13,7 +13,7 @@ func _on_Retry_pressed():
 
 
 func _on_Quit_pressed():
-	SceneTransition.quit_game()
+	QuitPrompt.quit_game()
 
 
 func _on_MainMenu_pressed():

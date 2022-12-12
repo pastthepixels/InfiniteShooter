@@ -16,11 +16,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _input(event):
 	# If the start screen is still there, remove it! Also return the function so we don't trigger a menu option at the same time.
 	if (
-		(event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton)
-		and event.pressed
-		and $Menu/StartScreen.visible == true
+		(
+			((event is InputEventKey or event is InputEventJoypadButton) and event.pressed) or
+			(event is InputEventMouseButton and event.pressed == false)
+		) and $Menu/StartScreen.visible == true
 	):
-		start_key_down = true
+		if (event is InputEventMouseButton) == false: start_key_down = true
 		# Plays the "gui-accept" sound and the main menu theme
 		MenuSFX.get_node("UseSound").play()
 		$Music.play()
@@ -59,7 +60,7 @@ func _input(event):
 		and start_key_down == true
 	):
 		start_key_down = false
-		$Menu/Options/Play.grab_focus()
+		$Menu/Options.get_child(0).grab_focus()
 
 func _on_Settings_closed():
 	$Title.show()
@@ -75,9 +76,14 @@ func _on_Readme_closed():
 	$Title.show()
 	$Menu/Options/Readme.grab_focus()
 
+func _on_SaveScreen_closed():
+	$Title.show()
+	$Menu/Options/Play.grab_focus()
+
 
 func _on_Play_pressed():
-	SceneTransition.start_game()
+	$SaveScreen.show_animated()
+	$Title.hide()
 
 
 func _on_Leaderboard_pressed():
@@ -96,4 +102,4 @@ func _on_Settings_pressed():
 
 
 func _on_Quit_pressed():
-	SceneTransition.quit_game()
+	QuitPrompt.quit_game()

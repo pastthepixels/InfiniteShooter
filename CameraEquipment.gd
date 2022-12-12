@@ -14,6 +14,14 @@ var _sky_playback_speed = 1
 
 export(Array, PanoramaSky) var skies
 
+## SAVE THIS ##
+var sky_index = 0 setget set_sky # Skybox as defined by an index of CameraEquipment.skies
+
+
+func save():
+	return {
+		"sky_index": sky_index
+	}
 
 func _ready():
 	randomize()
@@ -61,6 +69,7 @@ func resume_sky():
 	$Tween.start()
 	
 func set_sky(sky_idx):
+	sky_index = sky_idx
 	$WorldEnvironment.environment.background_sky = skies[sky_idx]
 
 func set_rand_sky():

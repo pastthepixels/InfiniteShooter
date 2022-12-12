@@ -17,11 +17,13 @@ func _input(event):
 func _on_QuitAlert_confirmed():
 	ignore_all = false
 	toggle_pause()
+	#Saving.save_game()
 	SceneTransition.quit_game()
 
 func _on_MainAlert_confirmed():
 	ignore_all = false
 	toggle_pause()
+	#Saving.save_game()
 	SceneTransition.main_menu()
 
 func _on_MainAlert_exited():
@@ -38,11 +40,11 @@ func _on_Return_pressed():
 
 func _on_MainMenu_pressed():
 	ignore_all = true
-	$MainAlert.alert("Are you sure you want to go back to the main menu?", true)
+	$MainAlert.alert("Are you sure you want to go back to the main menu? Your progress will be saved after each wave/level.", true)
 
 func _on_Quit_pressed():
 	ignore_all = true
-	$QuitAlert.alert("Are you sure you want to quit?", true)
+	$QuitAlert.alert("Are you sure you want to quit? Your progress will be saved after each wave/level.", true)
 
 func toggle_pause():
 	if is_visible():

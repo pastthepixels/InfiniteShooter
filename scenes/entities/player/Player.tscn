@@ -14,12 +14,12 @@
 extents = Vector3( 0.906798, 0.0775551, 0.725836 )
 
 [node name="Player" type="KinematicBody" groups=["players"]]
+pause_mode = 1
 axis_lock_motion_y = true
 move_lock_y = true
 script = ExtResource( 3 )
 SCREEN_EDGE_MARGIN = 1.5
 mouse_compensation_factor = Vector2( 2.2, 2.2 )
-infinite_ammo = true
 
 [node name="MouseControls" parent="." instance=ExtResource( 7 )]
 sensitivity = 1.5
@@ -39,6 +39,7 @@ stream = ExtResource( 8 )
 bus = "SFX"
 
 [node name="RegenTimer" type="Timer" parent="."]
+pause_mode = 1
 wait_time = 0.5
 autostart = true
 
@@ -63,7 +64,6 @@ from_player = true
 [node name="LaserEffects" parent="." instance=ExtResource( 1 )]
 ship = NodePath("..")
 
-[connection signal="mouse_moved" from="MouseControls" to="." method="_on_MouseControls_mouse_moved"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

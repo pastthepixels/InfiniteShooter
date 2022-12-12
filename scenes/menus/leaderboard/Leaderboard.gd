@@ -45,4 +45,4 @@ func create_label(text, number=null):
 
 
 func _on_Back_pressed():
-	close_animated()
+	hide_animated()

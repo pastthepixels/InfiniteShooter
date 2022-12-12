@@ -1,17 +1,13 @@
 extends KinematicBody
 
-# MISC
-var _ShootTimer_running = false
-
-var _last_laser_tap_time = 0 # <-- Variable to help prevent over-spamming firing lasers
-
-var laser_spam_threshold = 100 # <-- Threshold in ms (you can edit this)
+### SAVE THESE VARIABLES ###
 
 # For debugging
 export var godmode = false
 
-# Userdata (set to the defaults)
+export var infinite_ammo = false
 
+# Userdata (set to the defaults)
 var max_ammo = Saving.default_userdata.max_ammo
 
 var ammo_refills = Saving.default_userdata.ammo_refills setget _update_ammo_refills
@@ -19,6 +15,42 @@ var ammo_refills = Saving.default_userdata.ammo_refills setget _update_ammo_refi
 var max_health = Saving.default_userdata.health
 
 var damage = Saving.default_userdata.damage
+
+# Health (taken from the max health)
+var health = max_health setget _update_health
+
+# Ammo (taken from the max ammo)
+var ammo = max_ammo setget _update_ammo
+
+var modifier = GameVariables.LASER_MODIFIERS.none
+
+func save():
+	return {
+		"max_health": max_health,
+		"max_ammo": max_ammo,
+		"godmode": godmode,
+		"infinite_ammo": infinite_ammo,
+		"modifier": modifier,
+		"ammo": ammo,
+		"ammo_refills": ammo_refills,
+		"damage": damage,
+		"health": health
+	}
+
+### DO NOT SAVE THESE VARIABLES ###
+
+# Health
+var health_percent setget ,get_health_percent
+
+# MISC
+var _ShootTimer_running = false
+
+var _last_laser_tap_time = 0 # <-- Variable to help prevent over-spamming firing lasers
+
+var laser_spam_threshold = 100 # <-- Threshold in ms (you can edit this)
+
+# Laser modifiers
+var freeze_movement = false
 
 # Movement variables
 export(float) var SCREEN_EDGE_MARGIN
@@ -32,19 +64,6 @@ var actual_velocity = Vector3()
 var impulse_velocity = Vector3()
 
 var impulse_rotation = Vector3()
-
-# Health (taken from the max health)
-var health = max_health setget _update_health
-
-var health_percent setget ,get_health_percent
-
-# Ammo (taken from the max ammo)
-export var infinite_ammo = false
-
-var ammo = max_ammo setget _update_ammo
-
-# Laser modifiers
-var freeze_movement = false
 
 # Signals
 var alive = true
@@ -60,8 +79,6 @@ signal ammo_changed(value, refills)
 
 # Laser "modifiers"
 var MODIFIERS = GameVariables.LASER_MODIFIERS
-
-var modifier = MODIFIERS.none
 
 # Setters and getters before we begin
 func get_health_percent() -> float:

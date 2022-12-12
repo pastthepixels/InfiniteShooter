@@ -6,7 +6,6 @@ onready var settings = Saving.load_settings()
 func _ready():
 	# Showing if it's the only scene
 	if get_parent() == get_tree().get_root():
-		LoadingScreen.disable()
 		show_animated()
 	# Graphics
 	get_node("%Options/AntiAliasing").pressed = settings["antialiasing"]
@@ -47,7 +46,7 @@ func _ready():
 	get_node("%Options/MouseSensitivity/HSlider").value = settings["mouse_sensitivity"]
 # Going back
 func _on_Back_pressed():
-	close_animated()
+	hide_animated()
 
 # Graphics toggles
 func _on_AntiAliasing_toggled(button_pressed):
@@ -161,4 +160,9 @@ func _on_KeyPopup_key_set():
 func _on_MouseSensitivity_HSlider_value_changed(value):
 	settings["mouse_sensitivity"] = value
 	$Content/ScrollContainer/Options/MouseSensitivity/Hint.text = "(x%0.2f)" % settings["mouse_sensitivity"]
+	Saving.save_settings(settings)
+
+# Special lines for the quit dialog
+func _on_QuitLines_toggled(button_pressed):
+	settings["quit_dialog_lines"] = button_pressed
 	Saving.save_settings(settings)

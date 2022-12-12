@@ -9,7 +9,10 @@ var PATHS = {
 	"leaderboard": "user://scores.txt",
 	"settings": "user://settings.json",
 	"keybindings": "user://keybindings.json",
-	"upgrades": "user://upgrades.txt"
+	"upgrades": "user://upgrades.txt",
+	"saves": "user://saves/", # Needed to check if the folder exists
+	"save_file": "user://saves/save%s.json", # Replace %s with save number
+	"save_slot_data": "user://saves/data.json"
 }
 
 var default_userdata = {
@@ -35,10 +38,46 @@ var default_settings = {
 	"musicvol": 100,
 	"sfxvol": 100,
 	"mouse_sensitivity": 1.0,
-	"difficulty": GameVariables.DIFFICULTIES.medium
+	"difficulty": GameVariables.DIFFICULTIES.medium,
+	"quit_dialog_lines": false
 }
 
 var current_settings
+
+var default_save_slot_data = [ # By default there's 4. You can add more but it will break SaveScreen.tscn
+	{ "name": "", "active": false },
+	{ "name": "", "active": false },
+	{ "name": "", "active": false },
+	{ "name": "", "active": false }
+]
+
+var default_save_json = [
+	{
+		"path": "/root/Game",
+		"save": {}
+	},
+	{
+		"path": "/root/Game/GameSpace/Player",
+		"save": {}
+	},
+	{
+		"path": "/root/Game/GameSpace/Player/LaserEffects",
+		"save": {}
+	},
+	{
+		"path": "/root/CameraEquipment",
+		"save": {}
+	},
+]
+
+var current_save_slot = 0
+
+#
+# Check if every folder necessary exists
+#
+func _ready():
+	if dir.dir_exists(PATHS.saves) == false:
+		dir.make_dir(PATHS.saves)
 
 #
 # Userdata -- Player information and total score accumulated
@@ -50,11 +89,11 @@ func load_userdata():
 		if line == "":
 			print("Something has gone very wrong with your userdata.txt file. A new one has been created.")
 			save_userdata(Saving.default_userdata)
-			return Saving.default_userdata
+			return Saving.default_userdata.duplicate()
 		else:
 			return parse_json(line)
 	else:
-		return Saving.default_userdata
+		return Saving.default_userdata.duplicate()
 
 func save_userdata(userdata):
 	file.open(PATHS.userdata, File.WRITE)
@@ -157,7 +196,7 @@ func save_settings(settings):
 # To load settings
 func load_settings():
 	if file.file_exists(PATHS.settings) == false:
-		return default_settings
+		return default_settings.duplicate()
 	else:
 		file.open(PATHS.settings, File.READ)
 		var settings = parse_json(file.get_line())
@@ -209,10 +248,10 @@ func save_upgrades(upgrades_list): # As defined in /scenes/menus/upgrades/Upgrad
 	file.close()
 
 func load_upgrades():
-	if file.file_exists("user://upgrades.txt") == false: # If the file `upgrades.txt` does not exist, create a batch of upgrades and save them. Then proceed to read them.
+	if file.file_exists(PATHS.upgrades) == false: # If the file `upgrades.txt` does not exist, create a batch of upgrades and save them. Then proceed to read them.
 		return []
 	else:
-		file.open( "user://upgrades.txt", File.READ )
+		file.open(PATHS.upgrades, File.READ)
 		return file.get_var(true)
 
 #
@@ -226,3 +265,62 @@ func reset_all():
 			if dir.current_is_dir() == false:
 				dir.remove("user://" + file_name)
 			file_name = dir.get_next()
+
+#
+# Saving/loading games
+#
+func save_game(slot=current_save_slot):
+	var save_json = default_save_json.duplicate()
+	for node in save_json: # Assumes the node that is being saved has a function where it returns a dict of variables/values
+		node.save = get_node(node.path).save()
+	file.open(PATHS.save_file % slot, File.WRITE)
+	file.store_string(to_json(save_json))
+	file.close()
+	$AnimationPlayer.play("SaveLabel")
+	
+
+func load_game(slot=current_save_slot): # Only to be run when there's /root/Game exists and is loaded.
+	file.open(PATHS.save_file % slot, File.READ)
+	var save_json = parse_json(file.get_as_text())
+	# 1. Update variables for all nodes
+	for node in save_json: # Assumes the node that is being saved has a function where it returns a dict of variables/values
+		for key in node.save:
+			if key in get_node(node.path):
+				get_node(node.path)[key] = Utils.match_variable_types(get_node(node.path)[key], node.save[key])
+			### EDGE CASES ###
+			# Ensuring the player's max health is set before its health
+			if key == "health" and node.path == "/root/Game/GameSpace/Player":
+				get_node(node.path)["max_health"] = node.save["max_health"]
+				get_node(node.path)[key] = node.save[key]
+			# same with ammo
+			if key == "ammo" and node.path == "/root/Game/GameSpace/Player":
+				get_node(node.path)["max_ammo"] = node.save["max_ammo"]
+				get_node(node.path)[key] = node.save[key]
+		### MORE EDGE CASES ###
+		# Loading LaserEffects saves
+		if "LaserEffects" in node.path:
+			get_node(node.path).load_save(node.save)
+	# 2. Update the GUI
+	get_node("/root/Game").update_status_bar()
+
+func delete_save(slot=current_save_slot):
+	dir.remove(PATHS.save_file % slot)
+	# Add in the metadata that the save is no longer active
+	var slot_data = load_save_slot_data()
+	slot_data[slot].active = false
+	save_save_slot_data(slot_data)
+
+func save_exists(slot=current_save_slot):
+	return file.file_exists(PATHS.save_file % slot)
+
+func save_save_slot_data(data):
+	file.open(PATHS.save_slot_data, File.WRITE)
+	file.store_string(to_json(data))
+	file.close()
+
+func load_save_slot_data():
+	if file.file_exists(PATHS.save_slot_data) == false:
+		return default_save_slot_data.duplicate()
+	else:
+		file.open(PATHS.save_slot_data, File.READ)
+		return parse_json(file.get_as_text())

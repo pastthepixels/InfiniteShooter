@@ -1,27 +1,10 @@
 extends Node
 
-# To do with creating enemies
-var enemy_scene = LoadingScreen.access_scene("res://scenes/entities/enemies/Enemy.tscn")
-
-var coincrate_scene = LoadingScreen.access_scene("res://scenes/entities/coincrate/CoinCrate.tscn")
-
-var boss_scene = LoadingScreen.access_scene("res://scenes/entities/bosses/Boss.tscn")
-
-var dock_scene = LoadingScreen.access_scene("res://scenes/entities/dock/DockingStation.tscn")
-
-export(NodePath) var game_space
-
-onready var next_enemy_position = set_random_enemy_position()
-
-# Game mechanics variables
-
-var died = false
+### SAVE THESE VARIABLES ###
 
 var score = 0 # Score => from enemies you kill
 
 var coins = 0 # Coins => from coin crates and can be used in upgrades
-
-var points = 0
 
 var level = 1
 
@@ -39,13 +22,45 @@ var waves_per_level = GameVariables.waves_per_level_range[0]
 
 var enemies_in_level = 0
 
+var use_laser_modifiers = false # Whether or not to use laser modifiers
+
 var crate_spawn_points = [] # Crates will spawn when the enemies in a level equals a number in this array
 
-var use_laser_modifiers = false # Whether or not to use laser modifiers
+var crate_spawnpoint_margin = 4 # See generate_crate_spawnpoint()
+
+func save():
+	return {
+		"score": score,
+		"coins": coins,
+		"level": level,
+		"difficulty": difficulty,
+		"wave": wave,
+		"enemies_in_wave": enemies_in_wave,
+		"possible_enemies": possible_enemies,
+		"max_enemies_on_screen": max_enemies_on_screen,
+		"waves_per_level": waves_per_level,
+		"enemies_in_level": enemies_in_level,
+		"use_laser_modifiers": use_laser_modifiers,
+		"crate_spawn_points": crate_spawn_points,
+		"crate_spawnpoint_margin": crate_spawnpoint_margin
+	}
+
+## DON'T SAVE THESE ONES ###
+
+var died = false
 
 var autospawn_enemies = false # Whether or not to spawn new enemies when they die (used within this script)
 
-var crate_spawnpoint_margin = 4 # See generate_crate_spawnpoint()
+# To do with creating enemies
+var enemy_scene = LoadingScreen.access_scene("res://scenes/entities/enemies/Enemy.tscn")
+
+var coincrate_scene = LoadingScreen.access_scene("res://scenes/entities/coincrate/CoinCrate.tscn")
+
+var boss_scene = LoadingScreen.access_scene("res://scenes/entities/bosses/Boss.tscn")
+
+var dock_scene = LoadingScreen.access_scene("res://scenes/entities/dock/DockingStation.tscn")
+
+onready var next_enemy_position = set_random_enemy_position()
 
 #
 # Countdown timers, initialization, music, and _process
@@ -64,11 +79,27 @@ func _ready():
 		$HUD.update_level(level, 100 * wave/waves_per_level)
 		$HUD.update_wave(wave, 100 * 1.0/GameVariables.enemies_per_wave)
 	# Begins the countdown/plays appropiate music
-	$Countdown.start()
+	if has_node("Countdown"):
+		$Countdown.start()
+	else:
+		make_enemies()
+	if $PauseMenu.visible == true: $PauseMenu.hide()
 	$GameMusic.start_game()
 	
 	set_coincrate_spawn()
 
+func update_status_bar(): # Called from Saving.tscn
+	# Updates coins/score
+	$HUD.update_coins(coins)
+	$HUD.update_score(score)
+	# Updates laser modifiers
+	_on_Player_set_modifier()
+	# Updates the level/wave
+	$HUD.update_level(level, 100 * wave/waves_per_level)
+	$HUD.update_wave(wave, 100 * enemies_in_wave/GameVariables.enemies_per_wave)
+	# Unless there's a boss rush/save indicates a boss will spawn, in which case we'll update the HUD to reflect that
+	if GameVariables.enemies_per_wave == 0 or wave == waves_per_level + 1:
+		$HUD.update_wave_boss()
 
 func _on_Countdown_finished():
 	make_enemies()
@@ -100,16 +131,24 @@ func wave_up():
 	# Switches the wave number and (if possible) levels up
 	wave += 1
 	enemies_in_wave = 0
+	# Updates the HUD
+	$HUD.update_wave(wave, 0)
+	$HUD.update_level(level, 100 * wave/waves_per_level)
+	# Saves and Spawns a boss/enemies
 	if wave == waves_per_level + 1:
-		yield(Utils.timeout(1), "timeout") # Waits exactly one second
-		make_boss() # then initiates a boss battle
+		### SAVES ###
+		Saving.save_game()
+		#############
+		$HUD.update_wave_boss()
+		yield(Utils.timeout(1), "timeout") # Waits exactly one second to give the player breathing room
+		make_boss() # then initiates a boss battle (and updates the hud because instead of a new wave there's a boss battle)
 	else:
 		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
+		### SAVES ###
+		Saving.save_game()
+		#############
 		# Resumes enemy spawning after the popup
 		make_enemies()
-		# Updates the HUD
-		$HUD.update_wave(wave, 0)
-		$HUD.update_level(level, 100 * wave/waves_per_level)
 
 func level_up():
 	difficulty += 1
@@ -121,7 +160,8 @@ func level_up():
 	set_coincrate_spawn()
 	# First, the docking station
 	var dock = dock_scene.instance()
-	get_node(game_space).add_child(dock)
+	get_node("%GameSpace").add_child(dock)
+	dock.set_owner(get_node("%GameSpace"))
 	yield(dock, "finished")
 	# Then, GUI stuff
 	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true, "Difficulty reset!" if fmod(level, GameVariables.reset_level) == 0 else ""), "completed")
@@ -140,7 +180,9 @@ func level_up():
 	if fmod(level, GameVariables.reset_level) == 0:
 		reset()
 		set_coincrate_spawn()
-	
+	### SAVES ###
+	Saving.save_game()
+	#############
 	# Resumes enemy spawning after the popup
 	make_enemies()
 
@@ -151,7 +193,9 @@ func get_max_enemies_in_level():
 # Making enemies
 #
 func make_enemies():
-	if GameVariables.enemies_per_wave == 0:
+	# If there are no enemies per wave or your savefile is set to spawn a boss, spawn a boss!
+	if GameVariables.enemies_per_wave == 0 or wave == waves_per_level + 1:
+		$HUD.update_wave_boss()
 		make_boss()
 		return
 	autospawn_enemies = true
@@ -168,7 +212,8 @@ func make_enemy():
 
 	# Sets the enemy ship's position to a random X point and just above the screen, then adds it to the scene and initializes it.
 	enemy.translation = next_enemy_position
-	get_node(game_space).add_child(enemy)
+	get_node("%GameSpace").add_child(enemy)
+	enemy.set_owner(get_node("%GameSpace"))
 	enemy.initialize(difficulty, possible_enemies)
 	next_enemy_position = set_random_enemy_position()
 	
@@ -205,7 +250,8 @@ func make_boss():
 	var boss = boss_scene.instance()
 	boss.translation.z = Utils.screen_to_local(Vector2()).z - 5
 	boss.connect("died", self, "_on_Boss_died")
-	get_node(game_space).add_child(boss) # adds it to the scene
+	get_node("%GameSpace").add_child(boss) # adds it to the scene
+	boss.set_owner(get_node("%GameSpace"))
 	yield(get_tree(), "idle_frame")
 	boss.initialize(difficulty) # Initializes the enemy
 	# Hides the indicator arrow after a while
@@ -223,7 +269,8 @@ func make_coincrate():
 	coincrate.translation = next_enemy_position
 	next_enemy_position = set_random_enemy_position()
 	coincrate.connect("opened", self, "_on_CoinCrate_opened")
-	get_node(game_space).add_child(coincrate) # adds it to the scene
+	get_node("%GameSpace").add_child(coincrate) # adds it to the scene
+	coincrate.set_owner(get_node("%GameSpace"))
 
 func reset():
 	$GameSpace/Player.reset()
@@ -273,6 +320,7 @@ func _on_Player_died():
 	$HUD/AnimationPlayer.play("fade_out")
 	$GameMusic.autoswitch = false
 	Saving.create_leaderboard_entry(score)
+	Saving.delete_save()
 	# Shows the "game over" menu and prevents the player from pausing the game
 	yield(Utils.timeout(1), "timeout") # AFTER waiting for a bit
 	$GameOverMenu.start()

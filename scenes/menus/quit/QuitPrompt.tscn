@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/quit/QuitPrompt.gd" type="Script" id=2]
+
+[node name="QuitPrompt" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+lines = [ "Are you sure you want to quit this great game?", "Let's beat it -- this is turning into a bloodbath!", "Go ahead and leave. See if I care.", "Don't leave yet -- there's an enemy ship around that corner!", "Ya know, next time you come in here I'm gonna toast ya.", "You're trying to say you like Doom better than me, right?", "Please don't leave, there's more enemy ships to toast!", "I would leave if I were you. Doom is much better." ]
+default_line = "Are you sure you want to quit?"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="FullAlert" parent="CanvasLayer" instance=ExtResource( 1 )]
+
+[connection signal="confirmed" from="CanvasLayer/FullAlert" to="." method="_on_FullAlert_confirmed"]
