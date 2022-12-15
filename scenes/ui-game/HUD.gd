@@ -17,65 +17,64 @@ var _previous_ammo = 0
 # Textures vased on laser types
 enum TEXTURES { fire, ice, corrosion, default }
 
-export (GradientTexture) var default_gradient
+export (Color) var corrosion_color
 
-export (GradientTexture) var corrosion_gradient
+export (Color) var fire_color
 
-export (GradientTexture) var fire_gradient
-
-export (GradientTexture) var ice_gradient
-
-# Other variables
-onready var status_bar = get_node("HUD/StatusBar")
+export (Color) var ice_color
 
 func _process(_delta):
 	if _previous_health != animated_health:
 		_previous_health = animated_health
-		$HUD/ProgressBars/HealthBar.value = animated_health
+		get_node("%HealthBar").value = animated_health
 	if _previous_ammo != animated_ammo:
 		_previous_ammo = animated_ammo
-		$HUD/ProgressBars/AmmoBar.value = animated_ammo
+		get_node("%AmmoBar").value = animated_ammo
 
 #
 # Updating the status bar
 #
 func update_coins(coins):
-	status_bar.get_node("MarginContainer/Labels/Coins").text = "$%s" % coins
+	get_node("%StatusBar").get_node("Coins").text = "$%s" % coins
 
 
 func update_score(score):
-	status_bar.get_node("MarginContainer/Labels/Score").text = "%s" % score
+	get_node("%StatusBar").get_node("Score").text = "%s" % score
 
 
 func update_level(level, progress):
-	status_bar.get_node("MarginContainer/Labels/Level/Label").text = "Level %s" % level
-	status_bar.get_node("MarginContainer/Labels/Level/Progress").value = progress
+	get_node("%StatusBar").get_node("Level/Label").text = "Level %s" % level
+	get_node("%StatusBar").get_node("Level/Progress").value = progress
 
 
 func update_wave(wave, progress):
-	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Wave %s" % wave
-	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = progress
+	get_node("%StatusBar").get_node("Wave/Label").text = "Wave %s" % wave
+	get_node("%StatusBar").get_node("Wave/Progress").value = progress
 
 func update_wave_boss():
-	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Boss fight"
-	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = 100
+	get_node("%StatusBar").get_node("Wave/Label").text = "Boss fight"
+	get_node("%StatusBar").get_node("Wave/Progress").value = 100
 
 #
 # Updating the top bars
 #
 func update_gradient(texture):
+	get_node("%StatusBar/LaserModifier").visible = true
 	match(texture):
 		TEXTURES.fire:
-			$HUD/ProgressBars.texture = fire_gradient
+			get_node("%StatusBar/LaserModifier/Label").text = "Fire"
+			get_node("%StatusBar/LaserModifier/Panel").color = fire_color
 		
 		TEXTURES.ice:
-			$HUD/ProgressBars.texture = ice_gradient
+			get_node("%StatusBar/LaserModifier/Label").text = "Ice"
+			get_node("%StatusBar/LaserModifier/Panel").color = ice_color
 		
 		TEXTURES.corrosion:
-			$HUD/ProgressBars.texture = corrosion_gradient
+			get_node("%StatusBar/LaserModifier/Label").text = "Corrosion"
+			get_node("%StatusBar/LaserModifier/Panel").color = corrosion_color
 		
 		TEXTURES.default:
-			$HUD/ProgressBars.texture = default_gradient
+			get_node("%StatusBar/LaserModifier").visible = false
 
 
 func update_health(value : float, hp):
@@ -89,7 +88,7 @@ func update_health(value : float, hp):
 		Tween.EASE_IN
 	)
 	
-	$HUD/ProgressBars/HealthBar/HealthPoints.text = String(int(hp))
+	get_node("%HealthBar/HealthPoints").text = String(int(hp))
 	
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
@@ -114,8 +113,8 @@ func update_ammo(value, refills):
 	)
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
-	$HUD/ProgressBars/AmmoBar/Refills.text = str(refills)
-	$HUD/ProgressBars/AmmoBar/Refills.visible = not refills == 0
+	get_node("%AmmoBar/Refills").text = str(refills)
+	get_node("%AmmoBar/Refills").visible = not refills == 0
 
 #
 # Alerting text to the player
