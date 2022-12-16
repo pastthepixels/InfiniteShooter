@@ -150,6 +150,12 @@ func wave_up():
 		# Resumes enemy spawning after the popup
 		make_enemies()
 
+func show_docking_station():
+	var dock = dock_scene.instance()
+	get_node("%GameSpace").add_child(dock)
+	dock.set_owner(get_node("%GameSpace"))
+	dock.connect("finished", self, "level_up")
+
 func level_up():
 	difficulty += 1
 	level += 1
@@ -158,21 +164,13 @@ func level_up():
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
 	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
 	set_coincrate_spawn()
-	# First, the docking station
-	var dock = dock_scene.instance()
-	get_node("%GameSpace").add_child(dock)
-	dock.set_owner(get_node("%GameSpace"))
-	yield(dock, "finished")
 	# Then, GUI stuff
-	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true, "Difficulty reset!" if fmod(level, GameVariables.reset_level) == 0 else ""), "completed")
+	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true, generate_level_notice(level)), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
 	# Game mechanics stuff (introducing new features on certain levels)
-	match level:
-		2:
-			yield(Utils.timeout(1), "timeout")
-			use_laser_modifiers = true
+	introduce_game_mechanics(level)
 	for enemy_types in GameVariables.level_dependent_enemy_types:
 		if enemy_types[0] == level:
 			possible_enemies = enemy_types[1]
@@ -185,6 +183,30 @@ func level_up():
 	#############
 	# Resumes enemy spawning after the popup
 	make_enemies()
+
+func generate_level_notice(level): # Ex: new enemy in x levels
+	# For when something is being introduced for the current level
+	if fmod(level, GameVariables.reset_level) == 0: return "Difficulty reset!"
+	if level == GameVariables.level_dependent_game_mechanics["laser_modifiers"]: return "Introduced laser modifiers!"
+	
+	var levels_to_next_enemy = 0
+	for enemy_types in GameVariables.level_dependent_enemy_types:
+		if enemy_types[0] == level:
+			return "New enemy type introduced!"
+		elif (enemy_types[0] - level) < levels_to_next_enemy or levels_to_next_enemy < 0:
+			levels_to_next_enemy = enemy_types[0] - level
+	
+	# For when something is being introced in a few levels
+	if levels_to_next_enemy > 0 and levels_to_next_enemy < 5: return "New enemy in %s levels" % levels_to_next_enemy
+	
+	var levels_to_next_mechanic = (GameVariables.level_dependent_game_mechanics["laser_modifiers"] - level)
+	if levels_to_next_mechanic > 0 and levels_to_next_mechanic < 5:
+		return "Laser mechanics will be introduced in %s levels" % levels_to_next_mechanic
+
+func introduce_game_mechanics(level):
+	if level == GameVariables.level_dependent_game_mechanics["laser_modifiers"]:
+		yield(Utils.timeout(1), "timeout")
+		use_laser_modifiers = true
 
 func get_max_enemies_in_level():
 	return waves_per_level * GameVariables.enemies_per_wave
@@ -283,7 +305,7 @@ func reset():
 
 func _on_Boss_died(_boss):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
-		level_up()
+		show_docking_station()
 		score += GameVariables.get_points_boss()
 		$HUD.update_score(score)
 
@@ -335,18 +357,7 @@ func _on_Player_health_changed(value):
 
 
 func _on_Player_set_modifier():
-	match($GameSpace/Player.modifier):
-		GameVariables.LASER_MODIFIERS.fire:
-			$HUD.update_gradient($HUD.TEXTURES.fire)
-
-		GameVariables.LASER_MODIFIERS.ice:
-			$HUD.update_gradient($HUD.TEXTURES.ice)
-
-		GameVariables.LASER_MODIFIERS.corrosion:
-			$HUD.update_gradient($HUD.TEXTURES.corrosion)
-
-		GameVariables.LASER_MODIFIERS.none:
-			$HUD.update_gradient($HUD.TEXTURES.default)
+	$HUD.update_laser_modifier_label($GameSpace/Player.modifier)
 
 func _on_GameOverMenu_done_opening():
 	$GameOverMenu/GameStats.set_stats(level, wave, 100 * wave/waves_per_level, 100 * 1.0/GameVariables.enemies_per_wave, score)

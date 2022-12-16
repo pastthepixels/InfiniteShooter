@@ -15,8 +15,6 @@ var _previous_health = 0
 var _previous_ammo = 0
 
 # Textures vased on laser types
-enum TEXTURES { fire, ice, corrosion, default }
-
 export (Color) var corrosion_color
 
 export (Color) var fire_color
@@ -30,6 +28,9 @@ func _process(_delta):
 	if _previous_ammo != animated_ammo:
 		_previous_ammo = animated_ammo
 		get_node("%AmmoBar").value = animated_ammo
+
+func _ready():
+	update_laser_modifier_label()
 
 #
 # Updating the status bar
@@ -58,22 +59,22 @@ func update_wave_boss():
 #
 # Updating the top bars
 #
-func update_gradient(texture):
+func update_laser_modifier_label(modifier=GameVariables.LASER_MODIFIERS.none):
 	get_node("%StatusBar/LaserModifier").visible = true
-	match(texture):
-		TEXTURES.fire:
+	match(modifier):
+		GameVariables.LASER_MODIFIERS.fire:
 			get_node("%StatusBar/LaserModifier/Label").text = "Fire"
 			get_node("%StatusBar/LaserModifier/Panel").color = fire_color
 		
-		TEXTURES.ice:
+		GameVariables.LASER_MODIFIERS.ice:
 			get_node("%StatusBar/LaserModifier/Label").text = "Ice"
 			get_node("%StatusBar/LaserModifier/Panel").color = ice_color
 		
-		TEXTURES.corrosion:
+		GameVariables.LASER_MODIFIERS.corrosion:
 			get_node("%StatusBar/LaserModifier/Label").text = "Corrosion"
 			get_node("%StatusBar/LaserModifier/Panel").color = corrosion_color
 		
-		TEXTURES.default:
+		GameVariables.LASER_MODIFIERS.none:
 			get_node("%StatusBar/LaserModifier").visible = false
 
 
@@ -121,13 +122,11 @@ func update_ammo(value, refills):
 #
 func alert(text, duration, switchto_text="", switch_sky=false, subtext=""):
 	# Sets text and shows the label
-	$Alert/Label.text = text
-	# Sets subtext if entered
-	if subtext != "":
-		$Alert/CenterContainer/Subtext.show()
-		$Alert/CenterContainer/Subtext/MarginContainer/Label.text = subtext
-	else:
-		$Alert/CenterContainer/Subtext.hide()
+	get_node("%AlertContents/Title").text = text
+	
+	# Sets the subtitle if entered
+	get_node("%AlertContents/Subtitle").visible = subtext != ""
+	get_node("%AlertContents/Subtitle").text = subtext
 	
 	# Fades in
 	$Alert/AnimationPlayer.play("fade_alert")
@@ -137,7 +136,7 @@ func alert(text, duration, switchto_text="", switch_sky=false, subtext=""):
 	if switchto_text != "": # This variable is for animations like when the level is increased, showing the previous and new level.
 		CameraEquipment.get_node("ShakeCamera").add_trauma(.3)
 		$Alert/Sound.play()
-		$Alert/Label.text = switchto_text
+		get_node("%AlertContents/Title").text = switchto_text
 		if switch_sky == true:
 			CameraEquipment.set_rand_sky()
 	yield(Utils.timeout(duration/2), "timeout")
