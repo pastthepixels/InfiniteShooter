@@ -53,3 +53,6 @@ func alert(text, is_confirmation=false):
 	$AnimationPlayer.play("RESET")
 	$AnimationPlayer.play("fade")
 	$Sound.play()
+
+func confirm(text):
+	alert(text, true)
