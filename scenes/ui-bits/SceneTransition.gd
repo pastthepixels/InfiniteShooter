@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 signal loaded_game
 
@@ -9,23 +9,22 @@ var game_scene = preload("res://scenes/game/Game.tscn")
 var menu_scene = preload("res://scenes/menus/main/MainMenu.tscn")
 
 func _ready():
-	VisualServer.canvas_item_set_z_index(get_canvas_item(), 100)  # Tells Godot that this will be drawn over absolutely anything and everything else -- this is a transition, after all.
-	hide()
+	$CanvasLayer.hide()
 
 
 func open():
-	show()
+	$CanvasLayer.show()
 	$SoundEffect.pitch_scale = rand_range(0.9, 1.1)
 	$SoundEffect.play()
-	$AnimationPlayer.play("In")
+	get_node("%SceneTransitionDoor/AnimationPlayer").play_backwards("Animation")
 
 func close():
-	$AnimationPlayer.play("Out")
-	yield($AnimationPlayer, "animation_finished")
-	hide()
+	get_node("%SceneTransitionDoor/AnimationPlayer").play("Animation")
+	yield(get_node("%SceneTransitionDoor/AnimationPlayer"), "animation_finished")
+	$CanvasLayer.hide()
 
 func wait():
-	yield($AnimationPlayer, "animation_finished")
+	yield(get_node("%SceneTransitionDoor/AnimationPlayer"), "animation_finished")
 	yield(get_tree(), "idle_frame")
 
 func _deferred_goto_scene(scene):
