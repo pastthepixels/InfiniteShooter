@@ -166,3 +166,8 @@ func _on_MouseSensitivity_HSlider_value_changed(value):
 func _on_QuitLines_toggled(button_pressed):
 	settings["quit_dialog_lines"] = button_pressed
 	Saving.save_settings(settings)
+
+# Logs in the loading screen
+func _on_LoadScreenLog_toggled(button_pressed):
+	settings["load_screen_live_log"] = button_pressed
+	Saving.save_settings(settings)

@@ -29,8 +29,8 @@ scroll_horizontal_enabled = false
 
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer" index="0"]
 unique_name_in_owner = true
-margin_right = 520.0
-margin_bottom = 1789.0
+margin_right = 499.0
+margin_bottom = 1853.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 __meta__ = {
@@ -191,15 +191,21 @@ theme_type_variation = "SeparatorLabel"
 text = "Accessibility"
 
 [node name="QuitLines" type="CheckButton" parent="Content/ScrollContainer/Options" index="14"]
-margin_top = 135.0
-margin_right = 499.0
-margin_bottom = 179.0
-text = "Custom lines in the quit prompt"
-
-[node name="BackgroundMovement" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="15"]
 margin_top = 912.0
 margin_right = 499.0
-margin_bottom = 940.0
+margin_bottom = 956.0
+text = "Custom lines in the quit prompt"
+
+[node name="LoadScreenLog" type="CheckButton" parent="Content/ScrollContainer/Options" index="15"]
+margin_top = 976.0
+margin_right = 499.0
+margin_bottom = 1020.0
+text = "Progress logs in the loading screen"
+
+[node name="BackgroundMovement" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="16"]
+margin_top = 1040.0
+margin_right = 499.0
+margin_bottom = 1068.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/BackgroundMovement" index="0"]
@@ -224,18 +230,18 @@ margin_right = 499.0
 margin_bottom = 23.0
 text = "(x 1.0)"
 
-[node name="Sound" type="Label" parent="Content/ScrollContainer/Options" index="16"]
-margin_top = 960.0
+[node name="Sound" type="Label" parent="Content/ScrollContainer/Options" index="17"]
+margin_top = 1088.0
 margin_right = 499.0
-margin_bottom = 1016.0
+margin_bottom = 1144.0
 theme = ExtResource( 1 )
 theme_type_variation = "SeparatorLabel"
 text = "Sound"
 
-[node name="MusicVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="17"]
-margin_top = 1036.0
+[node name="MusicVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="18"]
+margin_top = 1164.0
 margin_right = 499.0
-margin_bottom = 1064.0
+margin_bottom = 1192.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -256,10 +262,10 @@ rect_min_size = Vector2( 256, 0 )
 step = 10.0
 value = 100.0
 
-[node name="SFXVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="18"]
-margin_top = 1084.0
+[node name="SFXVolume" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="19"]
+margin_top = 1212.0
 margin_right = 499.0
-margin_bottom = 1112.0
+margin_bottom = 1240.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -280,19 +286,19 @@ rect_min_size = Vector2( 256, 0 )
 step = 10.0
 value = 100.0
 
-[node name="Input" type="Label" parent="Content/ScrollContainer/Options" index="19"]
-margin_top = 1132.0
+[node name="Input" type="Label" parent="Content/ScrollContainer/Options" index="20"]
+margin_top = 1260.0
 margin_right = 499.0
-margin_bottom = 1188.0
+margin_bottom = 1316.0
 theme = ExtResource( 1 )
 theme_type_variation = "SeparatorLabel"
 text = "Input"
 
-[node name="InputKeys" type="VBoxContainer" parent="Content/ScrollContainer/Options" index="20"]
+[node name="InputKeys" type="VBoxContainer" parent="Content/ScrollContainer/Options" index="21"]
 unique_name_in_owner = true
-margin_top = 1208.0
+margin_top = 1336.0
 margin_right = 499.0
-margin_bottom = 1483.0
+margin_bottom = 1611.0
 custom_constants/separation = 20
 
 [node name="Up" type="HBoxContainer" parent="Content/ScrollContainer/Options/InputKeys" index="0"]
@@ -403,17 +409,17 @@ rect_min_size = Vector2( 128, 0 )
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
-[node name="ApplyBindings" type="Button" parent="Content/ScrollContainer/Options" index="21"]
-margin_top = 1503.0
+[node name="ApplyBindings" type="Button" parent="Content/ScrollContainer/Options" index="22"]
+margin_top = 1631.0
 margin_right = 499.0
-margin_bottom = 1542.0
+margin_bottom = 1670.0
 text = "Apply key binds"
 align = 0
 
-[node name="MouseSensitivity" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="22"]
-margin_top = 1562.0
+[node name="MouseSensitivity" type="HBoxContainer" parent="Content/ScrollContainer/Options" index="23"]
+margin_top = 1690.0
 margin_right = 499.0
-margin_bottom = 1590.0
+margin_bottom = 1718.0
 custom_constants/separation = 10
 
 [node name="Title" type="Label" parent="Content/ScrollContainer/Options/MouseSensitivity" index="0"]
@@ -424,7 +430,7 @@ text = "Mouse Sensitivity"
 
 [node name="HSlider" type="HSlider" parent="Content/ScrollContainer/Options/MouseSensitivity" index="1"]
 margin_left = 143.0
-margin_right = 446.0
+margin_right = 425.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 max_value = 2.0
@@ -432,25 +438,25 @@ step = 0.05
 value = 1.0
 
 [node name="Hint" type="Label" parent="Content/ScrollContainer/Options/MouseSensitivity" index="2"]
-margin_left = 456.0
+margin_left = 435.0
 margin_top = 4.0
 margin_right = 499.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 64, 0 )
 text = "(x 1.0)"
 
-[node name="DangerZone" type="Label" parent="Content/ScrollContainer/Options" index="23"]
-margin_top = 1610.0
+[node name="DangerZone" type="Label" parent="Content/ScrollContainer/Options" index="24"]
+margin_top = 1738.0
 margin_right = 499.0
-margin_bottom = 1666.0
+margin_bottom = 1794.0
 theme = ExtResource( 1 )
 theme_type_variation = "SeparatorLabel"
 text = "Dangerous Options"
 
-[node name="ResetGame" type="Button" parent="Content/ScrollContainer/Options" index="24"]
-margin_top = 1686.0
+[node name="ResetGame" type="Button" parent="Content/ScrollContainer/Options" index="25"]
+margin_top = 1814.0
 margin_right = 499.0
-margin_bottom = 1725.0
+margin_bottom = 1853.0
 custom_colors/font_color_focus = Color( 1, 0.356863, 0.356863, 1 )
 custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
 custom_colors/font_color_hover = Color( 1, 0.458824, 0.458824, 1 )
@@ -477,6 +483,7 @@ visible = false
 [connection signal="item_selected" from="Content/ScrollContainer/Options/PhysicsFPS/OptionButton" to="." method="_on_PhysicsFPS_OptionButton_item_selected"]
 [connection signal="item_selected" from="Content/ScrollContainer/Options/Difficulty/OptionButton" to="." method="_on_Difficulty_OptionButton_item_selected"]
 [connection signal="toggled" from="Content/ScrollContainer/Options/QuitLines" to="." method="_on_QuitLines_toggled"]
+[connection signal="toggled" from="Content/ScrollContainer/Options/LoadScreenLog" to="." method="_on_LoadScreenLog_toggled"]
 [connection signal="value_changed" from="Content/ScrollContainer/Options/BackgroundMovement/HSlider" to="." method="_on_BackgroundMovement_HSlider_value_changed"]
 [connection signal="value_changed" from="Content/ScrollContainer/Options/MusicVolume/HSlider" to="." method="_on_MusicVolume_HSlider_value_changed"]
 [connection signal="value_changed" from="Content/ScrollContainer/Options/SFXVolume/HSlider" to="." method="_on_SFXVolume_HSlider_value_changed"]

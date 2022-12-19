@@ -12,6 +12,7 @@ font_data = ExtResource( 1 )
 bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0 )
 draw_center = false
 border_width_left = 6
 border_width_top = 6
@@ -33,6 +34,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( -2, -2 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restore_settings"
+} ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -62,10 +77,6 @@ visible = true
 [node name="Cover" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -100.0
-margin_top = -100.0
-margin_right = 100.0
-margin_bottom = 100.0
 
 [node name="Background" type="ColorRect" parent="Cover"]
 anchor_right = 1.0
@@ -81,6 +92,9 @@ margin_top = -32.5
 margin_right = 98.5
 margin_bottom = 32.5
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.25098 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 2
 custom_fonts/font = SubResource( 1 )
 text = "loading"
 align = 1
@@ -95,6 +109,16 @@ margin_bottom = 68.5
 custom_colors/font_color = Color( 0, 0, 0, 0 )
 custom_styles/fg = SubResource( 2 )
 custom_styles/bg = SubResource( 3 )
+value = 60.0
+
+[node name="Stats" type="RichTextLabel" parent="Cover"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 5
+custom_colors/default_color = Color( 0, 0, 0, 0.313726 )
+bbcode_enabled = true
+scroll_following = true
 
 [node name="InitTimer" type="Timer" parent="."]
 one_shot = true

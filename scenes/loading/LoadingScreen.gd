@@ -9,9 +9,7 @@ func _ready():
 	if has_node("/root/MainMenu") == false and has_node("/root/Game") == false:
 		disable()
 		return
-	get_tree().paused = true
-	CameraEquipment.get_node("ShakeCamera").ignore_shake = true
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+	disable_settings()
 	$InitTimer.start()
 
 func _on_InitTimer_timeout():
@@ -28,10 +26,13 @@ func loop_scenes(path): # from https://docs.godotengine.org/en/3.1/classes/class
 				loop_scenes(path + file_name)
 			elif ".tscn" in file_name:
 				scenes.append(load(path + "/" + file_name))
-				print("Loaded scene " + path + "/" + file_name)
+				print_to_gui("Loaded scene %s/%s" % [path, file_name])
 			file_name = dir.get_next()
 	else:
-		print("An error occurred when trying to access the path '", path, "'.")
+		print_to_gui(
+			"An error occurred when trying to access the path '%s'." % path,
+			"[color=#FF0000]An error occurred when trying to access the path '%s'.[/color]" % path
+			)
 
 func instance_scenes_then_quit():
 	var progress = 0
@@ -51,17 +52,29 @@ func instance_scenes_then_quit():
 			scene.fire_laser()
 		if scene.is_in_group("explosions"):
 			scene.explode()
+		print_to_gui(
+			"Cached scene %s" % scene_path.resource_path,
+			"[b]Cached scene %s[/b]" % scene_path.resource_path
+			)
 	$ExitTimer.start()
 
 func _on_ExitTimer_timeout():
-	get_tree().paused = false
-	CameraEquipment.get_node("ShakeCamera").ignore_shake = false
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
-	
 	# Hides everything but still runs in the background so we can access scenes
 	$Instances.queue_free()
 	$AnimationPlayer.play("FadeOut")
 	hide()
+
+func disable_settings():
+	$Cover/Label/ProgressBar.value = 0
+	get_node("%Stats").visible = Saving.load_settings(File.new())["load_screen_live_log"]
+	get_tree().paused = true
+	CameraEquipment.get_node("ShakeCamera").ignore_shake = true
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+
+func restore_settings(): # Retore settings we disabled
+	get_tree().paused = false
+	CameraEquipment.get_node("ShakeCamera").ignore_shake = false
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
 
 func disable():
 	get_tree().paused = false
@@ -74,3 +87,10 @@ func access_scene(path):
 		if scene_path.resource_path == path:
 			return scene_path
 	return load(path)
+
+func print_to_gui(string, bbcode_text=null): # Prints to stdout and to the GUI
+	print(string)
+	if bbcode_text == null:
+		get_node("%Stats").bbcode_text += ("\n" if get_node("%Stats").text != "" else "") + string
+	else:
+		get_node("%Stats").bbcode_text += ("\n" if get_node("%Stats").bbcode_text != "" else "") + bbcode_text
