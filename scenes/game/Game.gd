@@ -150,6 +150,14 @@ func wave_up():
 		# Resumes enemy spawning after the popup
 		make_enemies()
 
+func decide_level_prompt(): # Decide on what to prompt the player with after each level.
+	if fmod(level + 1, GameVariables.reset_level) == 0:
+		yield(Utils.timeout(2), "timeout")
+		CameraEquipment.get_node("WarpPlane").warp()
+		CameraEquipment.get_node("WarpPlane").connect("finished", self, "level_up")
+	else:
+		show_docking_station()
+
 func show_docking_station():
 	var dock = dock_scene.instance()
 	get_node("%GameSpace").add_child(dock)
@@ -165,7 +173,7 @@ func level_up():
 	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
 	set_coincrate_spawn()
 	# Then, GUI stuff
-	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, true, generate_level_notice(level)), "completed")
+	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, generate_level_notice(level)), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()
@@ -305,7 +313,7 @@ func reset():
 
 func _on_Boss_died(_boss):
 	if has_node("GameSpace/Player") and get_node("GameSpace/Player").health > 0:
-		show_docking_station()
+		decide_level_prompt()
 		score += GameVariables.get_points_boss()
 		$HUD.update_score(score)
 

@@ -120,7 +120,7 @@ func update_ammo(value, refills):
 #
 # Alerting text to the player
 #
-func alert(text, duration, switchto_text="", switch_sky=false, subtext=""):
+func alert(text, duration, switchto_text="", subtext=""):
 	# Sets text and shows the label
 	get_node("%AlertContents/Title").text = text
 	
@@ -137,8 +137,6 @@ func alert(text, duration, switchto_text="", switch_sky=false, subtext=""):
 		CameraEquipment.get_node("ShakeCamera").add_trauma(.3)
 		$Alert/Sound.play()
 		get_node("%AlertContents/Title").text = switchto_text
-		if switch_sky == true:
-			CameraEquipment.set_rand_sky()
 	yield(Utils.timeout(duration/2), "timeout")
 	# Fades out
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
