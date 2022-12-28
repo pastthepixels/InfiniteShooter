@@ -2,7 +2,9 @@ extends Label3D
 
 export(bool) var free_once_complete = false
 
-export(float) var animation_length = 0.500 # in milliseconds
+export(float) var spread = 1.5
+
+export(float) var animation_length = .800 # in milliseconds
 
 var global_position
 
@@ -17,7 +19,7 @@ func activate(text=""):
 	animate()
 
 func animate():
-	var rand_pos = Vector3(2*randf() - 1, 0, 2*randf() - 1)
+	var rand_pos = Vector3(2*randf() - 1, 0, 2*randf() - 1) * spread
 	$Tween.interpolate_property(
 		self,
 		"translation",
