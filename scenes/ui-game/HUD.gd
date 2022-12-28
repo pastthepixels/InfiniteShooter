@@ -128,6 +128,9 @@ func alert(text, duration, switchto_text="", subtext=""):
 	get_node("%AlertContents/Subtitle").visible = subtext != ""
 	get_node("%AlertContents/Subtitle").text = subtext
 	
+	# Makes the HSeparator visible if both the subtitle and progress bar are
+	get_node("%AlertContents/HSeparator").visible = get_node("%AlertContents/Subtitle").visible == true and get_node("%AlertContents/ProgressBar").visible == true
+	
 	# Fades in
 	$Alert/AnimationPlayer.play("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
@@ -142,3 +145,17 @@ func alert(text, duration, switchto_text="", subtext=""):
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
 	$Alert.hide()
+
+func hide_alert_progress():
+	get_node("%AlertContents/ProgressHint").visible = false
+	get_node("%AlertContents/ProgressBar").visible = false
+
+func set_alert_progress(value, max_value=100, hint=""):
+	# Sets the hint on the progress bar (ex. "5 waves left" or "1 level until next difficulty reset")
+	get_node("%AlertContents/ProgressHint").visible = hint != ""
+	get_node("%AlertContents/ProgressHint").text = hint
+	
+	# Sets the progress bar
+	get_node("%AlertContents/ProgressBar").visible = true
+	get_node("%AlertContents/ProgressBar").max_value = max_value
+	get_node("%AlertContents/ProgressBar").value = value
