@@ -117,10 +117,10 @@ func explode_ship():
 	$LaserEffects.reset()
 	$Explosions.show()
 	$Tween.stop_all()
-	$DamageIndicator.activate("+%d" % GameVariables.get_points_boss())
 	for explosion in $Explosions.get_children():
 		explosion.explode()
 		yield(Utils.timeout(0.15), "timeout")
+	$DamageIndicator.activate("+%d" % GameVariables.get_points_boss())
 
 func hurt(damage):
 	enemy_model.health -= damage
