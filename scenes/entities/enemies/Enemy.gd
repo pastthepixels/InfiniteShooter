@@ -213,7 +213,7 @@ func _on_Explosion_exploded():
 func _on_LaserTimer_timeout():
 	if enemy_model.has_node("LaserGuns") == true and $RayCast.is_colliding() == false:
 		for LaserGun in enemy_model.get_node("LaserGuns").get_children():
-			if "fire" in LaserGun: LaserGun.fire()
+			if LaserGun.has_method("fire"): LaserGun.fire()
 
 func _on_ShipDetection_area_entered(area):
 	if speed > area.get_parent().speed:
