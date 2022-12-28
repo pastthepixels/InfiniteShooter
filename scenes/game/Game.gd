@@ -210,6 +210,8 @@ func generate_level_notice(level): # Ex: new enemy in x levels
 	var levels_to_next_mechanic = (GameVariables.level_dependent_game_mechanics["laser_modifiers"] - level)
 	if levels_to_next_mechanic > 0 and levels_to_next_mechanic < 5:
 		return "Laser mechanics will be introduced in %s levels" % levels_to_next_mechanic
+	
+	return "" # Returns "" instead of null
 
 func introduce_game_mechanics(level):
 	if level == GameVariables.level_dependent_game_mechanics["laser_modifiers"]:
