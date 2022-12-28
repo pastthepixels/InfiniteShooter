@@ -143,6 +143,10 @@ func wave_up():
 		yield(Utils.timeout(1), "timeout") # Waits exactly one second to give the player breathing room
 		make_boss() # then initiates a boss battle (and updates the hud because instead of a new wave there's a boss battle)
 	else:
+		if waves_per_level - wave > 0:
+			$HUD.set_alert_progress(wave, waves_per_level, "%d wave(s) until next level" % (waves_per_level - wave))
+		else:
+			$HUD.hide_alert_progress()
 		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
 		### SAVES ###
 		Saving.save_game()
@@ -173,6 +177,10 @@ func level_up():
 	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
 	set_coincrate_spawn()
 	# Then, GUI stuff
+	if fmod(level, GameVariables.reset_level) != 0:
+		$HUD.set_alert_progress(10 - (get_next_reset_level(level) - level), 10, "Difficulty reset in %d level(s)" % (get_next_reset_level(level) - level))
+	else:
+		$HUD.hide_alert_progress()
 	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, generate_level_notice(level)), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
@@ -211,11 +219,10 @@ func generate_level_notice(level): # Ex: new enemy in x levels
 	if levels_to_next_mechanic > 0 and levels_to_next_mechanic < 5:
 		return "Laser mechanics will be introduced in %s level(s)" % levels_to_next_mechanic
 	
-	var levels_to_next_reset = (GameVariables.reset_level * ceil(level / GameVariables.reset_level)) - level
-	if levels_to_next_reset > 0 and levels_to_next_reset < 5:
-		return "Difficulty will be reset in %s level(s)" % levels_to_next_mechanic
-	
 	return "" # Returns "" instead of null
+
+func get_next_reset_level(level):
+	return GameVariables.reset_level * ceil(float(level) / float(GameVariables.reset_level))
 
 func introduce_game_mechanics(level):
 	if level == GameVariables.level_dependent_game_mechanics["laser_modifiers"]:
