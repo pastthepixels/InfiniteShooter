@@ -14,3 +14,9 @@ func increase_sky_intensity():
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	emit_signal("finished")
+
+# If you go the main menu in the middle of a warp sequence, this code is the only thing between you and a borked game.
+func _process(_delta):
+	if $AnimationPlayer.is_playing() and has_node("/root/Game") == false:
+		CameraEquipment.get_node("SkyAnimations2").play("RESET")
+		$AnimationPlayer.play("RESET")
