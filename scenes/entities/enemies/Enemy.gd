@@ -197,8 +197,9 @@ func explode_ship(silent=false):
 		elif (randi() % (powerup_randomness * 16)) == 1 and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Exploding everything (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.wipe
 			get_parent().add_child(powerup)
-			
+	
 	# then explodes
+	$DamageIndicator.activate("+%d" % GameVariables.get_points(max_health))
 	if silent == false:
 		$Explosion.explode()
 	else:

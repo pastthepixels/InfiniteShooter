@@ -17,6 +17,7 @@ func _on_Laser_hit():
 	$CoinCrate.hide()
 	$AnimationPlayer.play("RESET")
 	$Explosion.explode()
+	$DamageIndicator.activate("$%.2f" % (GameVariables.coins_per_level/GameVariables.crates_per_level))
 
 func _physics_process(delta):
 	translation.z += delta * speed

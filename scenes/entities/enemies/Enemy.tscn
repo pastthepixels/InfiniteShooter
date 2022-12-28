@@ -1,12 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/entities/lasereffects/LaserEffects.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/bits/DamageIndicator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/entities/enemies/Enemy.gd" type="Script" id=4]
 [ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui-game/HealthBar2D.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 4 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 64
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="Enemy" type="Spatial" groups=["enemies"]]
 script = ExtResource( 4 )
@@ -29,6 +38,11 @@ shape = SubResource( 1 )
 visible = false
 
 [node name="Explosion" parent="." instance=ExtResource( 5 )]
+
+[node name="DamageIndicator" parent="." instance=ExtResource( 2 )]
+visible = false
+modulate = Color( 0, 1, 1, 1 )
+font = SubResource( 18 )
 
 [node name="LaserEffects" parent="." instance=ExtResource( 1 )]
 ship = NodePath("..")
