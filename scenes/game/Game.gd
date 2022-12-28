@@ -205,11 +205,15 @@ func generate_level_notice(level): # Ex: new enemy in x levels
 			levels_to_next_enemy = enemy_types[0] - level
 	
 	# For when something is being introced in a few levels
-	if levels_to_next_enemy > 0 and levels_to_next_enemy < 5: return "New enemy in %s levels" % levels_to_next_enemy
+	if levels_to_next_enemy > 0 and levels_to_next_enemy < 5: return "New enemy in %s level(s)" % levels_to_next_enemy
 	
 	var levels_to_next_mechanic = (GameVariables.level_dependent_game_mechanics["laser_modifiers"] - level)
 	if levels_to_next_mechanic > 0 and levels_to_next_mechanic < 5:
-		return "Laser mechanics will be introduced in %s levels" % levels_to_next_mechanic
+		return "Laser mechanics will be introduced in %s level(s)" % levels_to_next_mechanic
+	
+	var levels_to_next_reset = (GameVariables.reset_level * ceil(level / GameVariables.reset_level)) - level
+	if levels_to_next_reset > 0 and levels_to_next_reset < 5:
+		return "Difficulty will be reset in %s level(s)" % levels_to_next_mechanic
 	
 	return "" # Returns "" instead of null
 
