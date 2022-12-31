@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://models/coincrate/Base.material" type="Material" id=1]
 [ext_resource path="res://models/coincrate/Coin.material" type="Material" id=2]
 [ext_resource path="res://scenes/entities/explosions/Explosion.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/entities/coincrate/CoinCrate.gd" type="Script" id=4]
 [ext_resource path="res://sounds/use-powerup.mp3" type="AudioStream" id=5]
+[ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://scenes/bits/DamageIndicator.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -68,6 +70,13 @@ surfaces/1 = {
 "vertex_count": 24
 }
 
+[sub_resource type="DynamicFont" id=18]
+size = 64
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 6 )
+
 [node name="CoinCrate" type="RigidBody" groups=["coincrates"]]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 mode = 1
@@ -91,12 +100,16 @@ shape = SubResource( 5 )
 [node name="CoinCrate" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 1 )
-material/0 = null
-material/1 = null
 
 [node name="Explosion" parent="." instance=ExtResource( 3 )]
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+
+[node name="DamageIndicator" parent="." instance=ExtResource( 7 )]
+modulate = Color( 1, 0.823529, 0, 1 )
+text = "$0"
+font = SubResource( 18 )
+free_once_complete = true
 
 [connection signal="exploded" from="Explosion" to="." method="_on_Explosion_exploded"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]

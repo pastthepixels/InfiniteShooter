@@ -30,6 +30,9 @@ export(int) var coins_per_upgrade = 1400
 export(int) var max_damage_per_upgrade = 3
 export(int) var max_health_per_upgrade = 16
 
+#
+# Level dependent variables (certain levels will have certain things introduced)
+#
 # 3-D ARRAY: Each line is a level and an array containg the enemy types avaiable
 var level_dependent_enemy_types = [
 	[1, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank]], # We start with the 3 basic types.
@@ -38,6 +41,9 @@ var level_dependent_enemy_types = [
 	[20, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank, ENEMY_TYPES.explosive, ENEMY_TYPES.multishot, ENEMY_TYPES.quadshot]], # We are now introducing the quadshot enemy.
 	[30, [ENEMY_TYPES.normal, ENEMY_TYPES.small, ENEMY_TYPES.tank, ENEMY_TYPES.explosive, ENEMY_TYPES.multishot, ENEMY_TYPES.quadshot, ENEMY_TYPES.gigatank]] # Level 9. Lastly, we introduce the Gigatank.
 ]
+var level_dependent_game_mechanics = {
+	"laser_modifiers": 2 # Laser modifiers are introduced at level 2
+}
 
 # 
 var current_difficulty setget set_difficulty, get_difficulty

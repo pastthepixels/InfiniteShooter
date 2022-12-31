@@ -31,6 +31,9 @@ func recalculate():
 func screen_to_local(vector2):
 	return viewport.get_camera().project_position(vector2, viewport.get_camera().translation.y)
 
+func screen_to_local_custom_camera(camera, vector2): # There's no method overloading in GDScript :(
+	return camera.project_position(vector2, camera.translation.y)
+
 # Converts a local coordinate to a screen one
 func local_to_screen(vector3):
 	return viewport.get_camera().unproject_position(vector3)

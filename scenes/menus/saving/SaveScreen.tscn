@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/saving/SaveSlot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/menus/saving/SaveScreen.gd" type="Script" id=3]
+[ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=4]
 
 [node name="SaveScreen" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -66,8 +67,16 @@ margin_right = 520.0
 margin_bottom = 730.0
 size_flags_vertical = 3
 
+[node name="FullAlert" parent="." index="3" instance=ExtResource( 4 )]
+visible = false
+
 [connection signal="pressed" from="Content/Back" to="." method="_on_Back_pressed"]
+[connection signal="delete_save" from="Content/Slots/Slot1" to="." method="_on_Slot1_delete_save"]
 [connection signal="pressed" from="Content/Slots/Slot1" to="." method="_on_Slot1_pressed"]
+[connection signal="delete_save" from="Content/Slots/Slot2" to="." method="_on_Slot2_delete_save"]
 [connection signal="pressed" from="Content/Slots/Slot2" to="." method="_on_Slot2_pressed"]
+[connection signal="delete_save" from="Content/Slots/Slot3" to="." method="_on_Slot3_delete_save"]
 [connection signal="pressed" from="Content/Slots/Slot3" to="." method="_on_Slot3_pressed"]
+[connection signal="delete_save" from="Content/Slots/Slot4" to="." method="_on_Slot4_delete_save"]
 [connection signal="pressed" from="Content/Slots/Slot4" to="." method="_on_Slot4_pressed"]
+[connection signal="confirmed" from="FullAlert" to="." method="_on_FullAlert_confirmed"]

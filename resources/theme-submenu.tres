@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=34 format=2]
+[gd_resource type="Theme" load_steps=37 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://images/gui/off.svg" type="Texture" id=2]
@@ -149,6 +149,33 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 1, 1, 1, 0.188235 )
 
+[sub_resource type="DynamicFont" id=32]
+size = 18
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=33]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 1, 1, 1, 0.141176 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 0.25098 )
+
+[sub_resource type="StyleBoxFlat" id=34]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 0.784314 )
+
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 5.0
 content_margin_top = 25.0
@@ -223,6 +250,11 @@ PopupMenu/styles/labeled_separator_right = SubResource( 28 )
 PopupMenu/styles/panel = SubResource( 27 )
 PopupMenu/styles/separator = SubResource( 28 )
 PopupPanel/styles/panel = SubResource( 27 )
+ProgressBar/colors/font_color = Color( 1, 1, 1, 1 )
+ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+ProgressBar/fonts/font = SubResource( 32 )
+ProgressBar/styles/bg = SubResource( 33 )
+ProgressBar/styles/fg = SubResource( 34 )
 SeparatorLabel/base_type = "Label"
 SeparatorLabel/styles/normal = SubResource( 1 )
 VScrollBar/styles/grabber = SubResource( 19 )

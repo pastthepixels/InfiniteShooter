@@ -120,6 +120,7 @@ func explode_ship():
 	for explosion in $Explosions.get_children():
 		explosion.explode()
 		yield(Utils.timeout(0.15), "timeout")
+	$DamageIndicator.activate("+%d" % GameVariables.get_points_boss())
 
 func hurt(damage):
 	enemy_model.health -= damage

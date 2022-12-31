@@ -197,8 +197,9 @@ func explode_ship(silent=false):
 		elif (randi() % (powerup_randomness * 16)) == 1 and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Exploding everything (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.wipe
 			get_parent().add_child(powerup)
-			
+	
 	# then explodes
+	$DamageIndicator.activate("+%d" % GameVariables.get_points(max_health))
 	if silent == false:
 		$Explosion.explode()
 	else:
@@ -212,7 +213,7 @@ func _on_Explosion_exploded():
 func _on_LaserTimer_timeout():
 	if enemy_model.has_node("LaserGuns") == true and $RayCast.is_colliding() == false:
 		for LaserGun in enemy_model.get_node("LaserGuns").get_children():
-			LaserGun.fire()
+			if LaserGun.has_method("fire"): LaserGun.fire()
 
 func _on_ShipDetection_area_entered(area):
 	if speed > area.get_parent().speed:

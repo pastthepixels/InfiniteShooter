@@ -47,12 +47,20 @@ custom_styles/panel = SubResource( 2 )
 
 [node name="Label" type="LineEdit" parent="HBoxContainer"]
 margin_left = 25.0
-margin_right = 899.0
+margin_right = 804.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 custom_colors/font_color_uneditable = Color( 0.878431, 0.878431, 0.878431, 1 )
 custom_styles/read_only = SubResource( 3 )
 placeholder_text = "Untitled Save"
+
+[node name="Delete" type="Button" parent="HBoxContainer"]
+margin_left = 824.0
+margin_right = 899.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+disabled = true
+text = "Delete"
 
 [node name="Play" type="Button" parent="HBoxContainer"]
 margin_left = 919.0
@@ -61,4 +69,5 @@ margin_bottom = 39.0
 rect_min_size = Vector2( 128, 0 )
 text = "Play"
 
+[connection signal="pressed" from="HBoxContainer/Delete" to="." method="_on_Delete_pressed"]
 [connection signal="pressed" from="HBoxContainer/Play" to="." method="_on_Play_pressed"]

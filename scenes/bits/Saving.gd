@@ -39,7 +39,8 @@ var default_settings = {
 	"sfxvol": 100,
 	"mouse_sensitivity": 1.0,
 	"difficulty": GameVariables.DIFFICULTIES.medium,
-	"quit_dialog_lines": false
+	"quit_dialog_lines": false,
+	"load_screen_live_log": false
 }
 
 var current_settings
@@ -194,7 +195,7 @@ func save_settings(settings):
 
 
 # To load settings
-func load_settings():
+func load_settings(file=self.file):
 	if file.file_exists(PATHS.settings) == false:
 		return default_settings.duplicate()
 	else:

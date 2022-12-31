@@ -2,6 +2,8 @@ extends "res://scenes/ui-bits/Submenu.gd"
 
 var saves
 
+var slot_to_delete = 0
+
 func update():
 	saves = Saving.load_save_slot_data()
 	for i in saves.size():
@@ -38,11 +40,19 @@ func _on_Slot1_pressed(is_saved):
 	update_slot_data($Content/Slots/Slot1)
 	start_game(is_saved)
 
+func _on_Slot1_delete_save():
+	slot_to_delete = 0
+	$FullAlert.confirm("Are you sure you want to delete your first save slot?")
+
 
 func _on_Slot2_pressed(is_saved):
 	Saving.current_save_slot = 1
 	update_slot_data($Content/Slots/Slot2)
 	start_game(is_saved)
+
+func _on_Slot2_delete_save():
+	slot_to_delete = 1
+	$FullAlert.confirm("Are you sure you want to delete your second save slot?")
 
 
 func _on_Slot3_pressed(is_saved):
@@ -50,8 +60,21 @@ func _on_Slot3_pressed(is_saved):
 	update_slot_data($Content/Slots/Slot3)
 	start_game(is_saved)
 
+func _on_Slot3_delete_save():
+	slot_to_delete = 2
+	$FullAlert.confirm("Are you sure you want to delete your third save slot?")
+
 
 func _on_Slot4_pressed(is_saved):
 	Saving.current_save_slot = 3
 	update_slot_data($Content/Slots/Slot4)
 	start_game(is_saved)
+
+func _on_Slot4_delete_save():
+	slot_to_delete = 3
+	$FullAlert.confirm("Are you sure you want to delete your fourth save slot?")
+
+
+func _on_FullAlert_confirmed():
+	Saving.delete_save(slot_to_delete)
+	update()

@@ -1,5 +1,7 @@
 extends Control
 
+export var alert_duration = 3 # In seconds
+
 # Variables that display in-game variables
 
 var level_progress = 0
@@ -15,67 +17,67 @@ var _previous_health = 0
 var _previous_ammo = 0
 
 # Textures vased on laser types
-enum TEXTURES { fire, ice, corrosion, default }
+export (Color) var corrosion_color
 
-export (GradientTexture) var default_gradient
+export (Color) var fire_color
 
-export (GradientTexture) var corrosion_gradient
-
-export (GradientTexture) var fire_gradient
-
-export (GradientTexture) var ice_gradient
-
-# Other variables
-onready var status_bar = get_node("HUD/StatusBar")
+export (Color) var ice_color
 
 func _process(_delta):
 	if _previous_health != animated_health:
 		_previous_health = animated_health
-		$HUD/ProgressBars/HealthBar.value = animated_health
+		get_node("%HealthBar").value = animated_health
 	if _previous_ammo != animated_ammo:
 		_previous_ammo = animated_ammo
-		$HUD/ProgressBars/AmmoBar.value = animated_ammo
+		get_node("%AmmoBar").value = animated_ammo
+
+func _ready():
+	update_laser_modifier_label()
 
 #
 # Updating the status bar
 #
 func update_coins(coins):
-	status_bar.get_node("MarginContainer/Labels/Coins").text = "$%s" % coins
+	get_node("%StatusBar").get_node("Coins").text = "$%s" % coins
 
 
 func update_score(score):
-	status_bar.get_node("MarginContainer/Labels/Score").text = "%s" % score
+	get_node("%StatusBar").get_node("Score").text = "%s" % score
 
 
 func update_level(level, progress):
-	status_bar.get_node("MarginContainer/Labels/Level/Label").text = "Level %s" % level
-	status_bar.get_node("MarginContainer/Labels/Level/Progress").value = progress
+	get_node("%StatusBar").get_node("Level/Label").text = "Level %s" % level
+	get_node("%StatusBar").get_node("Level/Progress").value = progress
 
 
 func update_wave(wave, progress):
-	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Wave %s" % wave
-	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = progress
+	get_node("%StatusBar").get_node("Wave/Label").text = "Wave %s" % wave
+	get_node("%StatusBar").get_node("Wave/Progress").value = progress
 
 func update_wave_boss():
-	status_bar.get_node("MarginContainer/Labels/Wave/Label").text = "Boss fight"
-	status_bar.get_node("MarginContainer/Labels/Wave/Progress").value = 100
+	get_node("%StatusBar").get_node("Wave/Label").text = "Boss fight"
+	get_node("%StatusBar").get_node("Wave/Progress").value = 100
 
 #
 # Updating the top bars
 #
-func update_gradient(texture):
-	match(texture):
-		TEXTURES.fire:
-			$HUD/ProgressBars.texture = fire_gradient
+func update_laser_modifier_label(modifier=GameVariables.LASER_MODIFIERS.none):
+	get_node("%StatusBar/LaserModifier").visible = true
+	match(modifier):
+		GameVariables.LASER_MODIFIERS.fire:
+			get_node("%StatusBar/LaserModifier/Label").text = "Fire"
+			get_node("%StatusBar/LaserModifier/Panel").color = fire_color
 		
-		TEXTURES.ice:
-			$HUD/ProgressBars.texture = ice_gradient
+		GameVariables.LASER_MODIFIERS.ice:
+			get_node("%StatusBar/LaserModifier/Label").text = "Ice"
+			get_node("%StatusBar/LaserModifier/Panel").color = ice_color
 		
-		TEXTURES.corrosion:
-			$HUD/ProgressBars.texture = corrosion_gradient
+		GameVariables.LASER_MODIFIERS.corrosion:
+			get_node("%StatusBar/LaserModifier/Label").text = "Corrosion"
+			get_node("%StatusBar/LaserModifier/Panel").color = corrosion_color
 		
-		TEXTURES.default:
-			$HUD/ProgressBars.texture = default_gradient
+		GameVariables.LASER_MODIFIERS.none:
+			get_node("%StatusBar/LaserModifier").visible = false
 
 
 func update_health(value : float, hp):
@@ -89,7 +91,7 @@ func update_health(value : float, hp):
 		Tween.EASE_IN
 	)
 	
-	$HUD/ProgressBars/HealthBar/HealthPoints.text = String(int(hp))
+	get_node("%HealthBar/HealthPoints").text = String(int(hp))
 	
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
@@ -114,35 +116,67 @@ func update_ammo(value, refills):
 	)
 	if not $ProgressTween.is_active():
 		$ProgressTween.start()
-	$HUD/ProgressBars/AmmoBar/Refills.text = str(refills)
-	$HUD/ProgressBars/AmmoBar/Refills.visible = not refills == 0
+	get_node("%AmmoBar/Refills").text = str(refills)
+	get_node("%AmmoBar/Refills").visible = not refills == 0
 
 #
 # Alerting text to the player
 #
-func alert(text, duration, switchto_text="", switch_sky=false, subtext=""):
+func alert(text, switchto_text="", subtext=""):
 	# Sets text and shows the label
-	$Alert/Label.text = text
-	# Sets subtext if entered
-	if subtext != "":
-		$Alert/CenterContainer/Subtext.show()
-		$Alert/CenterContainer/Subtext/MarginContainer/Label.text = subtext
-	else:
-		$Alert/CenterContainer/Subtext.hide()
+	get_node("%AlertContents/Title").text = text
+	
+	# Sets the subtitle if entered
+	get_node("%AlertContents/Subtitle").visible = subtext != ""
+	get_node("%AlertContents/Subtitle").text = subtext
+	
+	# Makes the HSeparator visible if both the subtitle and progress bar are
+	get_node("%AlertContents/HSeparator").visible = get_node("%AlertContents/Subtitle").visible == true and get_node("%AlertContents/ProgressBar").visible == true
+	
+	# Animates the progress bar
+	$Alert/Tween.stop_all()
+	$Alert/Tween.interpolate_property(
+		get_node("%AlertContents/ProgressBar"),
+		"value",
+		0,
+		get_node("%AlertContents/ProgressBar").value,
+		$Alert/AnimationPlayer.get_animation("fade_alert").length + alert_duration/2,
+		$Alert/Tween.TRANS_CUBIC,
+		$Alert/Tween.EASE_IN
+	)
+	$Alert/Tween.start()
 	
 	# Fades in
 	$Alert/AnimationPlayer.play("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
+	
 	# Waits
-	yield(Utils.timeout(duration/2), "timeout")
+	yield(Utils.timeout(alert_duration/2), "timeout")
+	
+	# Animates text (e.g. Wave 2 > Wave 3)
 	if switchto_text != "": # This variable is for animations like when the level is increased, showing the previous and new level.
 		CameraEquipment.get_node("ShakeCamera").add_trauma(.3)
 		$Alert/Sound.play()
-		$Alert/Label.text = switchto_text
-		if switch_sky == true:
-			CameraEquipment.set_rand_sky()
-	yield(Utils.timeout(duration/2), "timeout")
+		get_node("%AlertContents/Title").text = switchto_text
+	
+	# Waits again
+	yield(Utils.timeout(alert_duration/2), "timeout")
+	
 	# Fades out
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
 	$Alert.hide()
+
+func hide_alert_progress():
+	get_node("%AlertContents/ProgressHint").visible = false
+	get_node("%AlertContents/ProgressBar").visible = false
+
+func set_alert_progress(value, max_value=100, hint=""):
+	# Sets the hint on the progress bar (ex. "5 waves left" or "1 level until next difficulty reset")
+	get_node("%AlertContents/ProgressHint").visible = hint != ""
+	get_node("%AlertContents/ProgressHint").text = hint
+	
+	# Sets the progress bar
+	get_node("%AlertContents/ProgressBar").visible = true
+	get_node("%AlertContents/ProgressBar").max_value = max_value
+	get_node("%AlertContents/ProgressBar").value = value
