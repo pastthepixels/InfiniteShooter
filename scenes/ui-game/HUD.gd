@@ -131,16 +131,35 @@ func alert(text, duration, switchto_text="", subtext=""):
 	# Makes the HSeparator visible if both the subtitle and progress bar are
 	get_node("%AlertContents/HSeparator").visible = get_node("%AlertContents/Subtitle").visible == true and get_node("%AlertContents/ProgressBar").visible == true
 	
+	# Animates the progress bar
+	$Alert/Tween.stop_all()
+	$Alert/Tween.interpolate_property(
+		get_node("%AlertContents/ProgressBar"),
+		"value",
+		0,
+		get_node("%AlertContents/ProgressBar").value,
+		$Alert/AnimationPlayer.get_animation("fade_alert").length + duration/2,
+		$Alert/Tween.TRANS_CUBIC,
+		$Alert/Tween.EASE_IN
+	)
+	$Alert/Tween.start()
+	
 	# Fades in
 	$Alert/AnimationPlayer.play("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
+	
 	# Waits
 	yield(Utils.timeout(duration/2), "timeout")
+	
+	# Animates text (e.g. Wave 2 > Wave 3)
 	if switchto_text != "": # This variable is for animations like when the level is increased, showing the previous and new level.
 		CameraEquipment.get_node("ShakeCamera").add_trauma(.3)
 		$Alert/Sound.play()
 		get_node("%AlertContents/Title").text = switchto_text
+	
+	# Waits again
 	yield(Utils.timeout(duration/2), "timeout")
+	
 	# Fades out
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
 	yield($Alert/AnimationPlayer, "animation_finished")
