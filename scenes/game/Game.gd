@@ -147,7 +147,7 @@ func wave_up():
 			$HUD.set_alert_progress(wave, waves_per_level, "%d wave(s) until next level" % (waves_per_level - wave))
 		else:
 			$HUD.hide_alert_progress()
-		yield($HUD.alert("Wave %s" % (wave - 1), 2, "Wave %s" % wave), "completed")
+		yield($HUD.alert("Wave %s" % (wave - 1), "Wave %s" % wave), "completed")
 		### SAVES ###
 		Saving.save_game()
 		#############
@@ -181,7 +181,7 @@ func level_up():
 		$HUD.set_alert_progress(10 - (get_next_reset_level(level) - level), 10, "Difficulty reset in %d level(s)" % (get_next_reset_level(level) - level))
 	else:
 		$HUD.hide_alert_progress()
-	yield($HUD.alert("Level %s" % (level - 1), 2, "Level %s" % level, generate_level_notice(level)), "completed")
+	yield($HUD.alert("Level %s" % (level - 1), "Level %s" % level, generate_level_notice(level)), "completed")
 	$HUD.update_wave(wave, 0)
 	$HUD.update_level(level, 0)
 	$LevelSound.play()

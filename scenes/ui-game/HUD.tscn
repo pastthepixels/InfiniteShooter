@@ -562,34 +562,34 @@ text = "Alert title"
 align = 1
 valign = 1
 
-[node name="Subtitle" type="Label" parent="Alert/CenterContainer/AlertContents"]
+[node name="ProgressBar" type="ProgressBar" parent="Alert/CenterContainer/AlertContents"]
 margin_top = 80.0
 margin_right = 262.0
-margin_bottom = 115.0
-custom_styles/normal = SubResource( 75 )
-text = "Alert subtitle"
-align = 1
-
-[node name="HSeparator" type="HSeparator" parent="Alert/CenterContainer/AlertContents"]
-margin_top = 130.0
-margin_right = 262.0
-margin_bottom = 134.0
-
-[node name="ProgressBar" type="ProgressBar" parent="Alert/CenterContainer/AlertContents"]
-margin_top = 149.0
-margin_right = 262.0
-margin_bottom = 165.0
+margin_bottom = 96.0
 rect_min_size = Vector2( 0, 16 )
 theme = ExtResource( 5 )
 value = 60.0
 percent_visible = false
 
 [node name="ProgressHint" type="Label" parent="Alert/CenterContainer/AlertContents"]
+margin_top = 111.0
+margin_right = 262.0
+margin_bottom = 146.0
+custom_styles/normal = SubResource( 75 )
+text = "X Y until next Z!"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Alert/CenterContainer/AlertContents"]
+margin_top = 161.0
+margin_right = 262.0
+margin_bottom = 165.0
+
+[node name="Subtitle" type="Label" parent="Alert/CenterContainer/AlertContents"]
 margin_top = 180.0
 margin_right = 262.0
 margin_bottom = 215.0
 custom_styles/normal = SubResource( 75 )
-text = "X Y until next Z!"
+text = "Alert subtitle"
 align = 1
 
 [node name="Tween" type="Tween" parent="Alert"]

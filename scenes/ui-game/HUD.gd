@@ -1,5 +1,7 @@
 extends Control
 
+export var alert_duration = 3 # In seconds
+
 # Variables that display in-game variables
 
 var level_progress = 0
@@ -120,7 +122,7 @@ func update_ammo(value, refills):
 #
 # Alerting text to the player
 #
-func alert(text, duration, switchto_text="", subtext=""):
+func alert(text, switchto_text="", subtext=""):
 	# Sets text and shows the label
 	get_node("%AlertContents/Title").text = text
 	
@@ -138,7 +140,7 @@ func alert(text, duration, switchto_text="", subtext=""):
 		"value",
 		0,
 		get_node("%AlertContents/ProgressBar").value,
-		$Alert/AnimationPlayer.get_animation("fade_alert").length + duration/2,
+		$Alert/AnimationPlayer.get_animation("fade_alert").length + alert_duration/2,
 		$Alert/Tween.TRANS_CUBIC,
 		$Alert/Tween.EASE_IN
 	)
@@ -149,7 +151,7 @@ func alert(text, duration, switchto_text="", subtext=""):
 	yield($Alert/AnimationPlayer, "animation_finished")
 	
 	# Waits
-	yield(Utils.timeout(duration/2), "timeout")
+	yield(Utils.timeout(alert_duration/2), "timeout")
 	
 	# Animates text (e.g. Wave 2 > Wave 3)
 	if switchto_text != "": # This variable is for animations like when the level is increased, showing the previous and new level.
@@ -158,7 +160,7 @@ func alert(text, duration, switchto_text="", subtext=""):
 		get_node("%AlertContents/Title").text = switchto_text
 	
 	# Waits again
-	yield(Utils.timeout(duration/2), "timeout")
+	yield(Utils.timeout(alert_duration/2), "timeout")
 	
 	# Fades out
 	$Alert/AnimationPlayer.play_backwards("fade_alert")
