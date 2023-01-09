@@ -244,3 +244,11 @@ func get_points(health): # Input parameter == enemy max health
 
 func get_points_boss():
 	return 1000
+
+#
+# Saving
+#
+func save():
+	return {
+		"current_difficulty": _current_difficulty
+	}
