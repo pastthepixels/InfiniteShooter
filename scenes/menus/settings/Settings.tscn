@@ -166,7 +166,7 @@ margin_right = 361.0
 margin_bottom = 29.0
 mouse_default_cursor_shape = 16
 size_flags_horizontal = 3
-text = "Difficulty"
+text = "Difficulty of new runs"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
