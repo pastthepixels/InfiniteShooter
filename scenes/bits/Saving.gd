@@ -282,7 +282,10 @@ func save_game(slot=current_save_slot):
 	file.store_string(to_json(save_json))
 	file.close()
 	$AnimationPlayer.play("SaveLabel")
-	
+
+func get_save_json(slot=current_save_slot): 
+	file.open(PATHS.save_file % slot, File.READ)
+	return parse_json(file.get_as_text())
 
 func load_game(slot=current_save_slot): # Only to be run when there's /root/Game exists and is loaded.
 	file.open(PATHS.save_file % slot, File.READ)

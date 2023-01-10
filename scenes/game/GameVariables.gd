@@ -129,6 +129,29 @@ func back_up_vars():
 func restore_vars():
 	for variable in vars_to_backup:
 		self[variable] = backups[variable]
+
+func name_difficulty(difficulty):
+	match difficulty:
+		DIFFICULTIES.easy:
+			return "Easy"
+		
+		DIFFICULTIES.medium:
+			return "Medium"
+		
+		DIFFICULTIES.hard:
+			return "Hard"
+		
+		DIFFICULTIES.harder:
+			return "Harder"
+		
+		DIFFICULTIES.hardest:
+			return "Hardest"
+		
+		DIFFICULTIES.carnage:
+			return "CARNAGE"
+		
+		_:
+			return ""
 	
 func set_difficulty(difficulty):
 	_current_difficulty = difficulty
