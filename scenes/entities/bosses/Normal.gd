@@ -16,7 +16,7 @@ func _ready():
 					cannon.use_laser_modifiers = true
 					cannon.laser_modifier = GameVariables.LASER_MODIFIERS.ice
 		
-		GameVariables.DIFFICULTIES.nightmare:
+		GameVariables.DIFFICULTIES.harder:
 			for cannon in $Boss.get_children():
 				if cannon.is_in_group("laserguns"):
 					cannon.follow_player = true

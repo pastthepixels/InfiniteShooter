@@ -104,7 +104,7 @@ enum LASER_MODIFIERS { none, fire, ice, corrosion }
 enum ENEMY_TYPES { normal, small, tank, explosive, multishot, quadshot, gigatank }
 enum BOSS_TYPES { normal, trishot, multishot }
 enum POWERUP_TYPES { ammo, medkit, wipe }
-enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare, carnage }
+enum DIFFICULTIES { easy, medium, hard, harder, hardest, carnage }
 
 #
 # Non-editable game mechanics variables (automatically set by the game)
@@ -162,7 +162,7 @@ func set_difficulty(difficulty):
 			difficulty_damage = 0.5
 			damage_diff = 3
 
-		DIFFICULTIES.nightmare:
+		DIFFICULTIES.harder:
 			health_diff = 30
 			health_diff_boss = 2000
 			difficulty_health = 10
@@ -174,7 +174,7 @@ func set_difficulty(difficulty):
 			difficulty_damage = 1
 			damage_diff = 3.2
 
-		DIFFICULTIES.ultranightmare:
+		DIFFICULTIES.hardest:
 			health_diff = 30
 			health_diff_boss = 2250
 			difficulty_health = 20
