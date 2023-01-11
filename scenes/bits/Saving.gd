@@ -54,6 +54,10 @@ var default_save_slot_data = [ # By default there's 4. You can add more but it w
 
 var default_save_json = [
 	{
+		"path": "/root/GameVariables",
+		"save": {}
+	},
+	{
 		"path": "/root/Game",
 		"save": {}
 	},
@@ -68,7 +72,7 @@ var default_save_json = [
 	{
 		"path": "/root/CameraEquipment",
 		"save": {}
-	},
+	}
 ]
 
 var current_save_slot = 0
@@ -273,12 +277,15 @@ func reset_all():
 func save_game(slot=current_save_slot):
 	var save_json = default_save_json.duplicate()
 	for node in save_json: # Assumes the node that is being saved has a function where it returns a dict of variables/values
-		node.save = get_node(node.path).save()
+		if "path" in node: node.save = get_node(node.path).save()
 	file.open(PATHS.save_file % slot, File.WRITE)
 	file.store_string(to_json(save_json))
 	file.close()
 	$AnimationPlayer.play("SaveLabel")
-	
+
+func get_save_json(slot=current_save_slot): 
+	file.open(PATHS.save_file % slot, File.READ)
+	return parse_json(file.get_as_text())
 
 func load_game(slot=current_save_slot): # Only to be run when there's /root/Game exists and is loaded.
 	file.open(PATHS.save_file % slot, File.READ)

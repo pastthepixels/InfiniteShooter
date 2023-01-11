@@ -25,9 +25,9 @@ func _ready():
 			get_node("%Options/Difficulty/OptionButton").selected = 1
 		GameVariables.DIFFICULTIES.hard:
 			get_node("%Options/Difficulty/OptionButton").selected = 2
-		GameVariables.DIFFICULTIES.nightmare:
+		GameVariables.DIFFICULTIES.harder:
 			get_node("%Options/Difficulty/OptionButton").selected = 3
-		GameVariables.DIFFICULTIES.ultranightmare:
+		GameVariables.DIFFICULTIES.hardest:
 			get_node("%Options/Difficulty/OptionButton").selected = 4
 		GameVariables.DIFFICULTIES.carnage:
 			get_node("%Options/Difficulty/OptionButton").selected = 5
@@ -96,9 +96,9 @@ func _on_Difficulty_OptionButton_item_selected(index):
 		2:
 			settings["difficulty"] = GameVariables.DIFFICULTIES.hard
 		3:
-			settings["difficulty"] = GameVariables.DIFFICULTIES.nightmare
+			settings["difficulty"] = GameVariables.DIFFICULTIES.harder
 		4:
-			settings["difficulty"] = GameVariables.DIFFICULTIES.ultranightmare
+			settings["difficulty"] = GameVariables.DIFFICULTIES.hardest
 		5:
 			settings["difficulty"] = GameVariables.DIFFICULTIES.carnage
 	Saving.save_settings(settings)

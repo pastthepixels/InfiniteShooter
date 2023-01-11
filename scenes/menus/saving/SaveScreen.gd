@@ -10,6 +10,7 @@ func update():
 		if saves[i].active == true and Saving.save_exists(i):
 			get_node("Content/Slots/Slot%s" % (i+1)).set_status_saved()
 			get_node("Content/Slots/Slot%s/HBoxContainer/Label" % (i+1)).text = saves[i].name
+			get_node("Content/Slots/Slot%s" % (i+1)).set_tooltip(Saving.get_save_json(i))
 		else:
 			get_node("Content/Slots/Slot%s" % (i+1)).set_status_unsaved()
 

@@ -166,7 +166,7 @@ margin_right = 361.0
 margin_bottom = 29.0
 mouse_default_cursor_shape = 16
 size_flags_horizontal = 3
-text = "Difficulty"
+text = "Difficulty of new runs"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -179,7 +179,7 @@ margin_bottom = 39.0
 rect_min_size = Vector2( 128, 0 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Medium"
-items = [ "Easy", null, false, 0, null, "Medium", null, false, 1, null, "Hard", null, false, 2, null, "Nightmare", null, false, 3, null, "Ultranightmare", null, false, 4, null, "CARNAGE", null, false, 5, null ]
+items = [ "Easy", null, false, 0, null, "Medium", null, false, 1, null, "Hard", null, false, 2, null, "Harder", null, false, 3, null, "Hardest", null, false, 4, null, "CARNAGE", null, false, 5, null ]
 selected = 1
 
 [node name="Accessibility" type="Label" parent="Content/ScrollContainer/Options" index="13"]

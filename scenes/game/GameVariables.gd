@@ -104,7 +104,7 @@ enum LASER_MODIFIERS { none, fire, ice, corrosion }
 enum ENEMY_TYPES { normal, small, tank, explosive, multishot, quadshot, gigatank }
 enum BOSS_TYPES { normal, trishot, multishot }
 enum POWERUP_TYPES { ammo, medkit, wipe }
-enum DIFFICULTIES { easy, medium, hard, nightmare, ultranightmare, carnage }
+enum DIFFICULTIES { easy, medium, hard, harder, hardest, carnage }
 
 #
 # Non-editable game mechanics variables (automatically set by the game)
@@ -129,6 +129,29 @@ func back_up_vars():
 func restore_vars():
 	for variable in vars_to_backup:
 		self[variable] = backups[variable]
+
+func name_difficulty(difficulty):
+	match difficulty:
+		DIFFICULTIES.easy:
+			return "Easy"
+		
+		DIFFICULTIES.medium:
+			return "Medium"
+		
+		DIFFICULTIES.hard:
+			return "Hard"
+		
+		DIFFICULTIES.harder:
+			return "Harder"
+		
+		DIFFICULTIES.hardest:
+			return "Hardest"
+		
+		DIFFICULTIES.carnage:
+			return "CARNAGE"
+		
+		_:
+			return ""
 	
 func set_difficulty(difficulty):
 	_current_difficulty = difficulty
@@ -162,7 +185,7 @@ func set_difficulty(difficulty):
 			difficulty_damage = 0.5
 			damage_diff = 3
 
-		DIFFICULTIES.nightmare:
+		DIFFICULTIES.harder:
 			health_diff = 30
 			health_diff_boss = 2000
 			difficulty_health = 10
@@ -174,7 +197,7 @@ func set_difficulty(difficulty):
 			difficulty_damage = 1
 			damage_diff = 3.2
 
-		DIFFICULTIES.ultranightmare:
+		DIFFICULTIES.hardest:
 			health_diff = 30
 			health_diff_boss = 2250
 			difficulty_health = 20
@@ -244,3 +267,11 @@ func get_points(health): # Input parameter == enemy max health
 
 func get_points_boss():
 	return 1000
+
+#
+# Saving
+#
+func save():
+	return {
+		"current_difficulty": _current_difficulty
+	}

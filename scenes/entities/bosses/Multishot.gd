@@ -13,10 +13,10 @@ func _ready():
 		GameVariables.DIFFICULTIES.easy:
 			$LaserTimer.wait_time *= 1.4
 			
-		GameVariables.DIFFICULTIES.nightmare:
+		GameVariables.DIFFICULTIES.harder:
 			$LaserTimer.wait_time *= 0.9
 			
-		GameVariables.DIFFICULTIES.ultranightmare:
+		GameVariables.DIFFICULTIES.hardest:
 			for cannon in $Boss.get_children():
 				if cannon.is_in_group("laserguns"):
 					cannon.use_laser_modifiers = true
