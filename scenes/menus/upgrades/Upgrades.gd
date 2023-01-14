@@ -1,6 +1,4 @@
-extends Control
-
-signal closed
+extends "res://scenes/ui-bits/Submenu.gd"
 
 signal upgrade_health(amount)
 
@@ -44,7 +42,7 @@ func show_animated():
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
 	$Music.play()
-	$Content/Back.grab_focus()
+	$"Content/NavigationButtons/Back".grab_focus()
 
 
 func _on_UpgradeLabel_button_pressed(label):
@@ -76,13 +74,13 @@ func _on_Back_pressed():
 func _on_SortCategory_item_selected(index):
 	match(index):
 		0: # Cost
-			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_cost")
+			Utils.sort_container(get_node("%Upgrades"), self, "sort_cost")
 		
 		1: # Damage
-			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_damage")
+			Utils.sort_container(get_node("%Upgrades"), self, "sort_damage")
 		
 		2: # Health
-			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_health")
+			Utils.sort_container(get_node("%Upgrades"), self, "sort_health")
 
 
 func _on_SortMode_item_selected(index):
@@ -92,7 +90,7 @@ func _on_SortMode_item_selected(index):
 		1: # Descending
 			use_ascending_sort = false
 	# Force update
-	_on_SortCategory_item_selected($Content/Sorting/SortCategory.get_item_index($Content/Sorting/SortCategory.get_selected_id()))
+	_on_SortCategory_item_selected(get_node("%Sorting/SortCategory").get_item_index(get_node("%Sorting/SortCategory").get_selected_id()))
 
 
 # Creating an array of upgrades
@@ -117,7 +115,7 @@ func read_upgrades():
 		if upgrade["purchased"] == true: label.modulate = Color(1, 1, 1, .5)
 		upgrade_lookup_table[label.name] = upgrade
 		# Force resort
-	_on_SortCategory_item_selected($Content/Sorting/SortCategory.get_item_index($Content/Sorting/SortCategory.get_selected_id()))
+	_on_SortCategory_item_selected(get_node("%Sorting/SortCategory").get_item_index(get_node("%Sorting/SortCategory").get_selected_id()))
 
 # Creating a label (pretty straightforward)
 func create_label(text, cost, damage, health):
@@ -125,7 +123,7 @@ func create_label(text, cost, damage, health):
 	label.set_name(text)
 	label.set_stats(cost, damage, health)
 	label.connect("button_pressed", self, "_on_UpgradeLabel_button_pressed")
-	$Content/ScrollContainer/Upgrades.add_child(label)
+	get_node("%Upgrades").add_child(label)
 	return label
 
 
@@ -183,3 +181,19 @@ func sort_health(label_a, label_b):
 
 func sort_damage(label_a, label_b):
 	return sort_generic(label_a, label_b, "Stats/Damage")
+
+# Switching tabs
+func _on_ChangeTab_pressed():
+	if $Content/TabContainer.current_tab == $Content/TabContainer.get_child_count() -1:
+		$Content/TabContainer.current_tab = 0
+	else:
+		$Content/TabContainer.current_tab += 1
+
+
+func _on_TabContainer_tab_changed(tab):
+	match tab:
+		0:
+			$"Content/NavigationButtons/ChangeTab".text = "Switch to loadout"
+		
+		1:
+			$"Content/NavigationButtons/ChangeTab".text = "Switch to upgrades"

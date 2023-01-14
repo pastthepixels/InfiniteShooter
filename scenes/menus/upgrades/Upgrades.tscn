@@ -44,6 +44,11 @@ bus = "SFX"
 stream = ExtResource( 6 )
 bus = "Music"
 
+[node name="Content" parent="." index="4"]
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="Title" parent="Content" index="0"]
 text = "upgrades"
 
@@ -80,27 +85,53 @@ custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
 custom_styles/normal = SubResource( 3 )
 text = "100 health"
 
-[node name="Back" type="Button" parent="Content" index="2"]
+[node name="NavigationButtons" type="HBoxContainer" parent="Content" index="2"]
 margin_top = 134.0
 margin_right = 520.0
 margin_bottom = 173.0
+custom_constants/separation = 20
+
+[node name="Back" type="Button" parent="Content/NavigationButtons" index="0"]
+margin_right = 250.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
 text = "Done"
 
-[node name="Sorting" type="HBoxContainer" parent="Content" index="3"]
+[node name="ChangeTab" type="Button" parent="Content/NavigationButtons" index="1"]
+margin_left = 270.0
+margin_right = 520.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+text = "Switch to loadout"
+
+[node name="TabContainer" type="TabContainer" parent="Content" index="3"]
 margin_top = 193.0
 margin_right = 520.0
-margin_bottom = 232.0
+margin_bottom = 730.0
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Upgrades" type="VBoxContainer" parent="Content/TabContainer" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 56.0
+custom_constants/separation = 20
+
+[node name="Sorting" type="HBoxContainer" parent="Content/TabContainer/Upgrades" index="0"]
+unique_name_in_owner = true
+margin_right = 520.0
+margin_bottom = 39.0
 rect_min_size = Vector2( 200, 0 )
 custom_constants/separation = 20
 
-[node name="SortCategory" type="OptionButton" parent="Content/Sorting" index="0"]
+[node name="SortCategory" type="OptionButton" parent="Content/TabContainer/Upgrades/Sorting" index="0"]
 margin_right = 69.0
 margin_bottom = 39.0
 text = "Cost"
 items = [ "Cost", null, false, 0, null, "Damage", null, false, 1, null, "Health", null, false, 2, null ]
 selected = 0
 
-[node name="SortMode" type="OptionButton" parent="Content/Sorting" index="1"]
+[node name="SortMode" type="OptionButton" parent="Content/TabContainer/Upgrades/Sorting" index="1"]
 margin_left = 89.0
 margin_right = 210.0
 margin_bottom = 39.0
@@ -108,26 +139,38 @@ text = "Descending"
 items = [ "Ascending", null, false, 0, null, "Descending", null, false, 1, null ]
 selected = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Content" index="4"]
-margin_top = 252.0
+[node name="ScrollContainer" type="ScrollContainer" parent="Content/TabContainer/Upgrades" index="1"]
+margin_top = 59.0
 margin_right = 520.0
-margin_bottom = 730.0
+margin_bottom = 481.0
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
 
-[node name="Upgrades" type="VBoxContainer" parent="Content/ScrollContainer" index="0"]
+[node name="Upgrades" type="VBoxContainer" parent="Content/TabContainer/Upgrades/ScrollContainer" index="0"]
+unique_name_in_owner = true
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Loadout" type="ScrollContainer" parent="Content/TabContainer" index="1"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LoadoutUpgrades" type="VBoxContainer" parent="Content/TabContainer/Loadout" index="0"]
+unique_name_in_owner = true
+custom_constants/separation = 20
 
 [node name="Alert" parent="." index="5" instance=ExtResource( 5 )]
 
 [node name="QuitConfirm" parent="." index="6" instance=ExtResource( 9 )]
 visible = false
 
-[connection signal="pressed" from="Content/Back" to="." method="_on_Back_pressed"]
-[connection signal="item_selected" from="Content/Sorting/SortCategory" to="." method="_on_SortCategory_item_selected"]
-[connection signal="item_selected" from="Content/Sorting/SortMode" to="." method="_on_SortMode_item_selected"]
+[connection signal="pressed" from="Content/NavigationButtons/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Content/NavigationButtons/ChangeTab" to="." method="_on_ChangeTab_pressed"]
+[connection signal="tab_changed" from="Content/TabContainer" to="." method="_on_TabContainer_tab_changed"]
+[connection signal="item_selected" from="Content/TabContainer/Upgrades/Sorting/SortCategory" to="." method="_on_SortCategory_item_selected"]
+[connection signal="item_selected" from="Content/TabContainer/Upgrades/Sorting/SortMode" to="." method="_on_SortMode_item_selected"]
 [connection signal="confirmed" from="QuitConfirm" to="." method="_on_QuitConfirm_confirmed"]
