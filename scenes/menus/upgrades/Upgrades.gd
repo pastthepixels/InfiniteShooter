@@ -8,6 +8,12 @@ signal subtract_coins(amount)
 
 signal request_player_stats()
 
+# Name generator
+var name_generator = preload("res://scenes/menus/upgrades/NameGenerator.gd")
+
+# Enhancements
+var enhancements = preload("res://scenes/variables/Enhancements.gd")
+
 # Something that should NOT be saved but that is used at runtime
 # {"label name": upgrade}
 var upgrade_lookup_table = {}
@@ -25,8 +31,8 @@ var _damage = 0
 # Template for an upgrade label
 export(PackedScene) var upgrade_label
 
-# Name generator
-export(Script) var name_generator
+# Template for an enhancement label
+export(PackedScene) var enhancement_label
 
 # Sorting
 export var use_ascending_sort = false # If this set to true then it assumes you want to sort by descending
@@ -69,7 +75,7 @@ func _on_QuitConfirm_confirmed():
 
 
 func _on_Back_pressed():
-	$QuitConfirm.alert("Are you sure you would like to go back to the game?", true)
+	$QuitConfirm.alert()
 
 func _on_SortCategory_item_selected(index):
 	match(index):
@@ -197,3 +203,20 @@ func _on_TabContainer_tab_changed(tab):
 		
 		1:
 			$"Content/NavigationButtons/ChangeTab".text = "Switch to upgrades"
+
+# Loads enhancements/loadout upgrades
+func _on_LoadoutUpgrades_ready():
+	var possible_enhancements = enhancements.new()
+	for enhancement in possible_enhancements.laser_enhancements:
+		var label = create_loadout_label(enhancement)
+		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Lasers").get_index() + possible_enhancements.laser_enhancements.find(enhancement) + 1)
+	
+	for enhancement in possible_enhancements.ship_enhancements:
+		var label = create_loadout_label(enhancement)
+		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Ship").get_index() + possible_enhancements.ship_enhancements.find(enhancement) + 1)
+
+func create_loadout_label(json):
+	var label = enhancement_label.instance()
+	label.load_from_json(json)
+	get_node("%LoadoutUpgrades").add_child(label)
+	return label

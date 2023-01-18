@@ -22,7 +22,7 @@ config/icon="res://resources/icon.png"
 
 CameraEquipment="*res://CameraEquipment.tscn"
 SceneTransition="*res://scenes/ui-bits/SceneTransition.tscn"
-GameVariables="*res://scenes/game/GameVariables.gd"
+GameVariables="*res://scenes/variables/GameVariables.gd"
 Utils="*res://scenes/bits/Utils.gd"
 LoadingScreen="*res://scenes/loading/LoadingScreen.tscn"
 Resize="*res://scenes/bits/resize.gd"

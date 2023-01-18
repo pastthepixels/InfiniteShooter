@@ -29,7 +29,7 @@ scroll_horizontal_enabled = false
 
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer" index="0"]
 unique_name_in_owner = true
-margin_right = 499.0
+margin_right = 520.0
 margin_bottom = 1853.0
 size_flags_horizontal = 3
 custom_constants/separation = 20

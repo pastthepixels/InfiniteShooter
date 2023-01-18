@@ -12,7 +12,7 @@ export var use_laser_modifiers = false
 
 export var from_player = false
 
-export(preload("res://scenes/game/GameVariables.gd").LASER_MODIFIERS) var laser_modifier
+export(preload("res://scenes/variables/GameVariables.gd").LASER_MODIFIERS) var laser_modifier
 
 var laser_scene = LoadingScreen.access_scene("res://scenes/entities/lasers/Laser.tscn")
 

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=41 format=2]
+[gd_resource type="Theme" load_steps=42 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://images/gui/off.svg" type="Texture" id=2]
@@ -38,8 +38,8 @@ border_width_bottom = 3
 border_color = Color( 1, 1, 1, 0.25098 )
 
 [sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 10.0
-content_margin_right = 10.0
+content_margin_left = 20.0
+content_margin_right = 20.0
 content_margin_top = 10.0
 content_margin_bottom = 10.0
 bg_color = Color( 1, 1, 1, 0.141176 )
@@ -102,6 +102,13 @@ content_margin_bottom = 10.0
 bg_color = Color( 1, 1, 1, 0.392157 )
 
 [sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 1, 1, 0.141176 )
+
+[sub_resource type="StyleBoxFlat" id=40]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 10.0
@@ -265,6 +272,8 @@ HSlider/icons/tick = SubResource( 18 )
 HSlider/styles/grabber_area = SubResource( 7 )
 HSlider/styles/grabber_area_highlight = SubResource( 8 )
 HSlider/styles/slider = SubResource( 9 )
+IconButton/base_type = "Button"
+IconButton/styles/normal = SubResource( 40 )
 Label/fonts/font = SubResource( 29 )
 LargeLabel/base_type = "Label"
 LargeLabel/fonts/font = SubResource( 30 )
