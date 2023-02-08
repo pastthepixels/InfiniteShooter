@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="InfiniteShooter" src="https://raw.githubusercontent.com/pastthepixels/InfiniteShooter-Assets/main/infiniteshooter-cover.png">
+  <img alt="InfiniteShooter" src="https://raw.githubusercontent.com/pastthepixels/InfiniteShooter-Assets/main/Images/Banners and covers/infiniteshooter-cover.png">
 </p>
 
 <a style="float:left" href='https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
