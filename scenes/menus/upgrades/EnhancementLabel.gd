@@ -12,6 +12,10 @@ export(bool) var purchased = false setget set_purchased
 
 export(int) var id
 
+signal purchase_request(coins)
+
+signal equip_failed()
+
 func _ready():
 	set_purchased(purchased)
 	set_active(active)
@@ -34,6 +38,7 @@ func set_active(is_active):
 func set_purchased(is_purchased):
 	purchased = is_purchased
 	$HBoxContainer/Equip.disabled = !is_purchased
+	$HBoxContainer/Purchase.disabled = is_purchased
 
 func load_from_json(json):
 	id = int(json["id"])
@@ -45,4 +50,27 @@ func load_from_json(json):
 
 
 func _on_Info_pressed():
-	$FullAlert.alert(description)
+	$Description.alert(description)
+
+
+func _on_Purchase_pressed():
+	$PurchaseDialog.alert()
+
+
+func _on_PurchaseDialog_confirmed():
+	emit_signal("purchase_request", upgrade_cost)
+
+func complete_purchase():
+	# Sets the label to being purchased
+	set_purchased(true)
+	# Purchases an upgrade with Enhancements.gd
+	Enhancements.purchase_enhancement(id)
+
+
+func _on_Equip_toggled(button_pressed):
+	if button_pressed == true and Enhancements.check_equipped_enhancements(id) == true:
+		Enhancements.activate_enhancement(id)
+	else:
+		if button_pressed == true: emit_signal("equip_failed")
+		$HBoxContainer/Equip.pressed = false
+		Enhancements.disable_enhancement(id)

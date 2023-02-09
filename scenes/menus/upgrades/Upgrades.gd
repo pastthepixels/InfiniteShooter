@@ -11,9 +11,6 @@ signal request_player_stats()
 # Name generator
 var name_generator = preload("res://scenes/menus/upgrades/NameGenerator.gd")
 
-# Enhancements
-var enhancements = preload("res://scenes/variables/Enhancements.gd")
-
 # Something that should NOT be saved but that is used at runtime
 # {"label name": upgrade}
 var upgrade_lookup_table = {}
@@ -206,17 +203,31 @@ func _on_TabContainer_tab_changed(tab):
 
 # Loads enhancements/loadout upgrades
 func _on_LoadoutUpgrades_ready():
-	var possible_enhancements = enhancements.new()
-	for enhancement in possible_enhancements.laser_enhancements:
+	for enhancement in Enhancements.laser_enhancements:
 		var label = create_loadout_label(enhancement)
-		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Lasers").get_index() + possible_enhancements.laser_enhancements.find(enhancement) + 1)
+		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Lasers").get_index() + Enhancements.laser_enhancements.find(enhancement) + 1)
 	
-	for enhancement in possible_enhancements.ship_enhancements:
+	for enhancement in Enhancements.ship_enhancements:
 		var label = create_loadout_label(enhancement)
-		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Ship").get_index() + possible_enhancements.ship_enhancements.find(enhancement) + 1)
+		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Ship").get_index() + Enhancements.ship_enhancements.find(enhancement) + 1)
 
 func create_loadout_label(json):
 	var label = enhancement_label.instance()
 	label.load_from_json(json)
 	get_node("%LoadoutUpgrades").add_child(label)
+	label.connect("purchase_request", self, "_on_EnhancementLabel_purchase_request", [label])
+	label.connect("equip_failed", self, "_on_EnhancementLabel_equip_failed")
 	return label
+
+func _on_EnhancementLabel_equip_failed():
+	$Alert.error("Max number of upgrades of this type equipped.")
+
+func _on_EnhancementLabel_purchase_request(cost, label):
+	if _coins - cost >= 0:
+		$Alert.alert("Enhancement purchased!")
+		emit_signal("subtract_coins", cost)
+		emit_signal("request_player_stats")
+		label.complete_purchase()
+	else:
+		$Alert.error("$%s needed." % (cost - _coins))
+	

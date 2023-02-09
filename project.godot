@@ -29,6 +29,7 @@ Resize="*res://scenes/bits/resize.gd"
 MenuSFX="*res://scenes/ui-bits/MenuSFX.tscn"
 QuitPrompt="*res://scenes/menus/quit/QuitPrompt.tscn"
 Saving="*res://scenes/bits/Saving.tscn"
+Enhancements="*res://scenes/variables/Enhancements.gd"
 
 [display]
 

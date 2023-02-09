@@ -26,7 +26,7 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 description = "This is the upgrade's description."
 
-[node name="FullAlert" parent="." instance=ExtResource( 3 )]
+[node name="Description" parent="." instance=ExtResource( 3 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -34,6 +34,17 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 1057.0
 margin_bottom = 54.0
+
+[node name="PurchaseDialog" parent="." instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1057.0
+margin_bottom = 54.0
+text = "Are you sure you would like to unlock this enhancement?"
+is_confirmation = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 10.0
@@ -60,27 +71,30 @@ __meta__ = {
 [node name="Label" type="Label" parent="HBoxContainer"]
 margin_left = 95.0
 margin_top = 12.0
-margin_right = 841.0
+margin_right = 881.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 text = "Enhancement Label"
 
 [node name="Info" type="Button" parent="HBoxContainer"]
-margin_left = 856.0
-margin_right = 904.0
+margin_left = 896.0
+margin_right = 924.0
 margin_bottom = 44.0
 text = "?"
 
 [node name="Equip" type="CheckButton" parent="HBoxContainer"]
-margin_left = 919.0
-margin_right = 963.0
+margin_left = 939.0
+margin_right = 983.0
 margin_bottom = 44.0
 theme_type_variation = "IconButton"
 
 [node name="Purchase" type="Button" parent="HBoxContainer"]
-margin_left = 978.0
+margin_left = 998.0
 margin_right = 1047.0
 margin_bottom = 44.0
 text = "Buy"
 
+[connection signal="confirmed" from="PurchaseDialog" to="." method="_on_PurchaseDialog_confirmed"]
 [connection signal="pressed" from="HBoxContainer/Info" to="." method="_on_Info_pressed"]
+[connection signal="toggled" from="HBoxContainer/Equip" to="." method="_on_Equip_toggled"]
+[connection signal="pressed" from="HBoxContainer/Purchase" to="." method="_on_Purchase_pressed"]
