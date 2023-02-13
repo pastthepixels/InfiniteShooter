@@ -358,6 +358,7 @@ func _on_Enemy_exited_screen(ship):
 func _on_Player_died():
 	died = true
 	$PauseMenu.set_process_input(false)
+	$WeaponSwitcher.set_process_input(false)
 	$HUD.update_health(0, 0)
 	$GameSpace/IndicatorArrow.hide()
 	$HUD/AnimationPlayer.play("fade_out")
@@ -399,3 +400,11 @@ func _on_Upgrades_upgrade_health(amount):
 
 func _on_Upgrades_request_player_stats():
 	$Upgrades.update_player_information($GameSpace/Player.max_health, $GameSpace/Player.damage, coins)
+
+
+func _on_WeaponSwitcher_request_process_input(enabled):
+	$GameSpace/Player.set_process_input(enabled)
+	$GameSpace/Player.set_physics_process(enabled)
+
+func is_submenu_visible():
+	return has_node("Countdown") or $WeaponSwitcher.visible or $Upgrades.visible or $PauseMenu.visible or $HUD/Alert.visible

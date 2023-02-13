@@ -3,10 +3,10 @@
 [ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/WeaponSwitcher/WeaponSwitcher.gd" type="Script" id=2]
 
-[node name="Submenu" instance=ExtResource( 1 )]
-visible = true
+[node name="WeaponSwitcher" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 auto_select = NodePath("CenterContainer/SlotContainer/Slot1")
+slow_scale_to = 0.4
 
 [node name="Content" parent="." index="2"]
 visible = false

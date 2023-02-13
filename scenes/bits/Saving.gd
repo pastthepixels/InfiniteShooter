@@ -43,7 +43,7 @@ var default_settings = {
 	"load_screen_live_log": false
 }
 
-var current_settings
+var current_settings = default_settings
 
 var default_save_slot_data = [ # By default there's 4. You can add more but it will break SaveScreen.tscn
 	{ "name": "", "active": false },

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/game/GameSpace.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/game/Game.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/ui-game/Countdown.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/entities/indicator/IndicatorArrow.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/menus/WeaponSwitcher/WeaponSwitcher.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/game/GameMusic.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/menus/upgrades/Upgrades.tscn" type="PackedScene" id=16]
 
@@ -50,6 +51,8 @@ visible = false
 
 [node name="Countdown" parent="." instance=ExtResource( 8 )]
 
+[node name="WeaponSwitcher" parent="." instance=ExtResource( 11 )]
+
 [node name="Upgrades" parent="." instance=ExtResource( 16 )]
 pause_mode = 2
 
@@ -63,6 +66,7 @@ visible = false
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]
 [connection signal="set_modifier" from="GameSpace/Player" to="." method="_on_Player_set_modifier"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]
+[connection signal="request_process_input" from="WeaponSwitcher" to="." method="_on_WeaponSwitcher_request_process_input"]
 [connection signal="request_player_stats" from="Upgrades" to="." method="_on_Upgrades_request_player_stats"]
 [connection signal="subtract_coins" from="Upgrades" to="." method="_on_Upgrades_subtract_coins"]
 [connection signal="upgrade_damage" from="Upgrades" to="." method="_on_Upgrades_upgrade_damage"]
