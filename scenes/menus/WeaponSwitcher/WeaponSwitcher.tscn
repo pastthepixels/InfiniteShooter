@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui-bits/Submenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/WeaponSwitcher/WeaponSwitcher.gd" type="Script" id=2]
+
+[node name="Submenu" instance=ExtResource( 1 )]
+visible = true
+script = ExtResource( 2 )
+auto_select = NodePath("CenterContainer/SlotContainer/Slot1")
+
+[node name="Content" parent="." index="2"]
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="." index="3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SlotContainer" type="HBoxContainer" parent="CenterContainer" index="0"]
+unique_name_in_owner = true
+margin_left = 319.0
+margin_top = 380.0
+margin_right = 748.0
+margin_bottom = 419.0
+custom_constants/separation = 20
+
+[node name="Slot1" type="Button" parent="CenterContainer/SlotContainer" index="0"]
+margin_right = 90.0
+margin_bottom = 39.0
+toggle_mode = true
+text = "Weapon 1"
+
+[node name="Slot2" type="Button" parent="CenterContainer/SlotContainer" index="1"]
+margin_left = 110.0
+margin_right = 203.0
+margin_bottom = 39.0
+toggle_mode = true
+text = "Weapon 2"
+
+[node name="Slot3" type="Button" parent="CenterContainer/SlotContainer" index="2"]
+margin_left = 223.0
+margin_right = 316.0
+margin_bottom = 39.0
+toggle_mode = true
+text = "Weapon 3"
+
+[node name="Slot4" type="Button" parent="CenterContainer/SlotContainer" index="3"]
+margin_left = 336.0
+margin_right = 429.0
+margin_bottom = 39.0
+toggle_mode = true
+text = "Weapon 4"
