@@ -69,8 +69,8 @@ func complete_purchase():
 
 func _on_Equip_toggled(button_pressed):
 	if button_pressed == true and Enhancements.check_equipped_enhancements(id) == true:
-		Enhancements.activate_enhancement(id)
+		Enhancements.set_enhancement_active(id, true)
 	else:
 		if button_pressed == true: emit_signal("equip_failed")
 		$HBoxContainer/Equip.pressed = false
-		Enhancements.disable_enhancement(id)
+		Enhancements.set_enhancement_active(id, false)

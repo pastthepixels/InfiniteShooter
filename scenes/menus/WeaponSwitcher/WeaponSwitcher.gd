@@ -9,6 +9,8 @@ signal slot_selected(slot)
 signal request_process_input(enabled)
 
 func _ready():
+	_on_Enhancements_active_enhancements_changed()
+	Enhancements.connect("active_enhancements_changed", self, "_on_Enhancements_active_enhancements_changed")
 	for button in $"%SlotContainer".get_children():
 		button.connect("pressed", self, "_on_SlotButton_pressed", [button])
 
@@ -37,8 +39,17 @@ func slow_game():
 	
 	time_scale = Engine.time_scale
 	Engine.time_scale = slow_scale_to
+	$AnimationPlayer.playback_speed = 1 / slow_scale_to
 
 func restore_speed():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	emit_signal("request_process_input", true)
 	Engine.time_scale = time_scale
+	$AnimationPlayer.playback_speed = 1
+
+func _on_Enhancements_active_enhancements_changed():
+	print(true)
+	for i in range(0, $"%SlotContainer".get_child_count()):
+		get_node("%SlotContainer/Slot" + String(i + 1)).visible = Enhancements.get_weapon_slot(i) != null
+		if Enhancements.get_weapon_slot(i) != null: get_node("%SlotContainer/Slot" + String(i + 1)).text = Enhancements.get_weapon_slot(i)["name"]
+

@@ -145,7 +145,7 @@ func reroll_upgrades():
 
 func reset_labels():
 	for label_name in upgrade_lookup_table.keys():
-		get_node("Content/ScrollContainer/Upgrades/" + label_name).queue_free()
+		if has_node("Content/ScrollContainer/Upgrades/" + label_name): get_node("Content/ScrollContainer/Upgrades/" + label_name).queue_free()
 	upgrade_lookup_table.clear()
 
 # Updates the labels
@@ -230,4 +230,3 @@ func _on_EnhancementLabel_purchase_request(cost, label):
 		label.complete_purchase()
 	else:
 		$Alert.error("$%s needed." % (cost - _coins))
-	

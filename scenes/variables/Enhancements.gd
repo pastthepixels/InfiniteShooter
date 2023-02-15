@@ -7,6 +7,8 @@ export var max_activated_laser_enhancements = 4
 
 export var max_activated_ship_enhancements = 2
 
+signal active_enhancements_changed()
+
 var laser_enhancements = [
 	{
 		"id": 0,
@@ -97,6 +99,7 @@ func purchase_enhancement(id):
 
 func set_enhancement_active(id, active : bool):
 	find(id)["active"] = active
+	emit_signal("active_enhancements_changed")
 
 func get_activated_enhancements():
 	var counter_lasers = 0
@@ -116,8 +119,12 @@ func check_equipped_enhancements(id):
 	elif find(id) in laser_enhancements:
 		return get_activated_enhancements()[0] < max_activated_laser_enhancements
 
-func activate_enhancement(id):
-	find(id)["active"] = true
-
-func disable_enhancement(id):
-	find(id)["active"] = false
+# WEAPON SLOTS AREN'T REAL.
+# YOU'VE BEEN LIED TO YOUR ENTIRE LIFE.
+func get_weapon_slot(index):
+	var counter = 0
+	for enhancement in (laser_enhancements):
+		if "active" in enhancement and enhancement["active"] == true:
+			if counter == index:
+				return enhancement
+			counter += 1
