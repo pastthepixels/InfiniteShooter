@@ -4,6 +4,8 @@ var ignore_hits = 0
 
 var ignore_all = false
 
+var previous_time_scale
+
 func _input(event):
 	if event.is_action_pressed("pause") and ignore_all == false:
 		if ignore_hits == 0: 
@@ -51,7 +53,10 @@ func toggle_pause():
 		$AnimationPlayer.play("FadeOut")
 		$Title.text = "not paused"
 		yield($AnimationPlayer, "animation_finished")
+		Engine.time_scale = previous_time_scale
 	else:
+		previous_time_scale = Engine.time_scale
+		Engine.time_scale = 1
 		rect_pivot_offset = rect_size/2
 		$AnimationPlayer.play("FadeIn")
 		$Options/Return.grab_focus()

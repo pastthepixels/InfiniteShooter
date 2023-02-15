@@ -84,6 +84,7 @@ var ship_enhancements = [
 ]
 
 func save():
+	print(true)
 	return {
 		"laser_enhancements": laser_enhancements,
 		"ship_enhancements": ship_enhancements

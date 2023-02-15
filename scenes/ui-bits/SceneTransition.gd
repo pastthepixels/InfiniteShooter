@@ -60,4 +60,5 @@ func main_menu():
 	open()
 	yield(wait(), "completed")
 	call_deferred("_deferred_goto_scene", menu_scene)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 	close()
