@@ -34,7 +34,6 @@ func _input(event):
 			hide_animated()
 
 func slow_game():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	emit_signal("request_process_input", false)
 	
 	time_scale = Engine.time_scale
@@ -42,7 +41,6 @@ func slow_game():
 	$AnimationPlayer.playback_speed = 1 / slow_scale_to
 
 func restore_speed():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	emit_signal("request_process_input", true)
 	Engine.time_scale = time_scale
 	$AnimationPlayer.playback_speed = 1

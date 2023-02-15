@@ -21,6 +21,5 @@ func _on_MainMenu_pressed():
 
 
 func start():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	$AnimationPlayer.play("FadeAll")
 	CameraEquipment.slow_sky()

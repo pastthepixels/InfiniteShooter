@@ -33,7 +33,7 @@ func _input(event):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
+
 	if event is InputEventMouseMotion:
 		mouse_moved = true
 		var mouse_speed = event.relative / get_process_delta_time() * -1
@@ -45,6 +45,22 @@ func get_mouse_intensity():
 	return _mouse_intensity if mouse_moved == true else Vector2(0, 0)
 
 func _process(delta):
+	if is_screen_open():
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if get_tree().paused == false:
+		calculate_mouse_movement()
+
+func is_screen_open():
+	if has_node("/root/Game") == false: return true
+	for node in get_tree().get_nodes_in_group("menus"):
+		if node.is_visible_in_tree():
+			return true
+	return false
+
+func calculate_mouse_movement():
 	if mouse_moved == true and timer == 0:
 		mouse_moved = false
 		timer = frames_until_mouse_reset

@@ -36,7 +36,6 @@ export var use_ascending_sort = false # If this set to true then it assumes you 
 
 # Shows and hides the menu with FADING
 func show_animated():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	reset_labels()
 	create_upgrades() # <-- Creates upgrades
 	read_upgrades() # <--- turns them into labels
@@ -68,7 +67,6 @@ func _on_QuitConfirm_confirmed():
 	emit_signal("closed")
 	$AnimationPlayer.play("close")
 	$Music.stop()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _on_Back_pressed():
