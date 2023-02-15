@@ -72,6 +72,10 @@ var default_save_json = [
 	{
 		"path": "/root/CameraEquipment",
 		"save": {}
+	},
+	{
+		"path": "/root/Enhancements",
+		"save": {}
 	}
 ]
 
