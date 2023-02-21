@@ -67,6 +67,7 @@ visible = false
 [connection signal="set_modifier" from="GameSpace/Player" to="." method="_on_Player_set_modifier"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]
 [connection signal="request_process_input" from="WeaponSwitcher" to="." method="_on_WeaponSwitcher_request_process_input"]
+[connection signal="slot_selected" from="WeaponSwitcher" to="." method="_on_WeaponSwitcher_slot_selected"]
 [connection signal="request_player_stats" from="Upgrades" to="." method="_on_Upgrades_request_player_stats"]
 [connection signal="subtract_coins" from="Upgrades" to="." method="_on_Upgrades_subtract_coins"]
 [connection signal="upgrade_damage" from="Upgrades" to="." method="_on_Upgrades_upgrade_damage"]

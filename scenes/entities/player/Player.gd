@@ -8,6 +8,8 @@ export var godmode = false
 export var infinite_ammo = false
 
 # Userdata (set to the defaults)
+var weapon_slot : int = 0
+
 var max_ammo = Saving.default_userdata.max_ammo
 
 var ammo_refills = Saving.default_userdata.ammo_refills setget _update_ammo_refills

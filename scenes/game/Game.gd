@@ -408,3 +408,8 @@ func _on_WeaponSwitcher_request_process_input(enabled):
 
 func is_submenu_visible():
 	return has_node("Countdown") or $WeaponSwitcher.visible or $Upgrades.visible or $PauseMenu.visible or $HUD/Alert.visible
+
+
+func _on_WeaponSwitcher_slot_selected(slot):
+	print("Weapon at slot %s selected" % slot)
+	$GameSpace/Player.weapon_slot = slot
