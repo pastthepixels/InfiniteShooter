@@ -312,6 +312,10 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 		# Loading LaserEffects saves
 		if "LaserEffects" in node.path:
 			get_node(node.path).load_save(node.save)
+		# Loading Enhancements saves
+		if "Enhancements" in node.path:
+			Enhancements.emit_signal("updated")
+			Enhancements.emit_signal("active_enhancements_changed")
 	# 2. Update the GUI
 	get_node("/root/Game").update_status_bar()
 

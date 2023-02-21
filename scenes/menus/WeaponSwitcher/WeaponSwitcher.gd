@@ -46,7 +46,6 @@ func restore_speed():
 	$AnimationPlayer.playback_speed = 1
 
 func _on_Enhancements_active_enhancements_changed():
-	print(true)
 	for i in range(0, $"%SlotContainer".get_child_count()):
 		get_node("%SlotContainer/Slot" + String(i + 1)).visible = Enhancements.get_weapon_slot(i) != null
 		if Enhancements.get_weapon_slot(i) != null: get_node("%SlotContainer/Slot" + String(i + 1)).text = Enhancements.get_weapon_slot(i)["name"]

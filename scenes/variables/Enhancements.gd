@@ -7,6 +7,8 @@ export var max_activated_laser_enhancements = 4
 
 export var max_activated_ship_enhancements = 2
 
+signal updated() # For when restoring enhancements
+
 signal active_enhancements_changed()
 
 var laser_enhancements = [
@@ -84,7 +86,6 @@ var ship_enhancements = [
 ]
 
 func save():
-	print(true)
 	return {
 		"laser_enhancements": laser_enhancements,
 		"ship_enhancements": ship_enhancements

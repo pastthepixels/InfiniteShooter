@@ -45,6 +45,7 @@ func show_animated():
 	$ShowSound.play()
 	$Music.play()
 	$"Content/NavigationButtons/Back".grab_focus()
+	Enhancements.connect("updated", self, "_on_LoadoutUpgrades_ready")
 
 
 func _on_UpgradeLabel_button_pressed(label):
@@ -228,3 +229,10 @@ func _on_EnhancementLabel_purchase_request(cost, label):
 		label.complete_purchase()
 	else:
 		$Alert.error("$%s needed." % (cost - _coins))
+
+
+# FOR DEBUGGING PURPOSES ONLY
+func _input(event):
+	if event is InputEventKey and event.scancode == KEY_U:
+		if visible == false and (get_node("/root/Game").is_submenu_visible() == false if has_node("/root/Game") else true):
+			show_animated()
