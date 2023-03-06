@@ -297,9 +297,18 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 	# 1. Update variables for all nodes
 	for node in save_json: # Assumes the node that is being saved has a function where it returns a dict of variables/values
 		for key in node.save:
+			var previous_value
 			if key in get_node(node.path):
+				previous_value = get_node(node.path)[key]
 				get_node(node.path)[key] = Utils.match_variable_types(get_node(node.path)[key], node.save[key])
 			### EDGE CASES ###
+			# Setting enhancements values non-destructively
+			if "_enhancements" in key and node.path == "/root/Enhancements":
+				for index in range(0, previous_value.size()):
+					for enhancement_key in previous_value[index]:
+						get_node(node.path)[key][index][enhancement_key] = Utils.match_variable_types(previous_value[index][enhancement_key], get_node(node.path)[key][index][enhancement_key])
+						if (enhancement_key in get_node(node.path)[key][index]) == false:
+							get_node(node.path)[key][index][enhancement_key] = previous_value[index][enhancement_key]
 			# Ensuring the player's max health is set before its health
 			if key == "health" and node.path == "/root/Game/GameSpace/Player":
 				get_node(node.path)["max_health"] = node.save["max_health"]
@@ -313,9 +322,11 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 		if "LaserEffects" in node.path:
 			get_node(node.path).load_save(node.save)
 		# Loading Enhancements saves
-		if "Enhancements" in node.path:
+		if node.path == "/root/Enhancements":
+			print("Emitting signal...")
 			Enhancements.emit_signal("updated")
 			Enhancements.emit_signal("active_enhancements_changed")
+			print("...done")
 	# 2. Update the GUI
 	get_node("/root/Game").update_status_bar()
 

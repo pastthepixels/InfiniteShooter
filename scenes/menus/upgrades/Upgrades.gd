@@ -34,6 +34,9 @@ export(PackedScene) var enhancement_label
 # Sorting
 export var use_ascending_sort = false # If this set to true then it assumes you want to sort by descending
 
+func _ready():
+	Enhancements.connect("updated", self, "_on_LoadoutUpgrades_ready")
+
 # Shows and hides the menu with FADING
 func show_animated():
 	reset_labels()
@@ -45,7 +48,6 @@ func show_animated():
 	$ShowSound.play()
 	$Music.play()
 	$"Content/NavigationButtons/Back".grab_focus()
-	Enhancements.connect("updated", self, "_on_LoadoutUpgrades_ready")
 
 
 func _on_UpgradeLabel_button_pressed(label):
@@ -202,6 +204,7 @@ func _on_TabContainer_tab_changed(tab):
 
 # Loads enhancements/loadout upgrades
 func _on_LoadoutUpgrades_ready():
+	print("Called _on_LoadoutUpgrades_ready()")
 	for enhancement in Enhancements.laser_enhancements:
 		var label = create_loadout_label(enhancement)
 		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Lasers").get_index() + Enhancements.laser_enhancements.find(enhancement) + 1)

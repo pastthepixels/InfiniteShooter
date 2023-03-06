@@ -8,7 +8,7 @@ export var godmode = false
 export var infinite_ammo = false
 
 # Userdata (set to the defaults)
-var weapon_slot : int = 0
+var weapon_slot : int = 0 setget set_weapon_slot
 
 var max_ammo = Saving.default_userdata.max_ammo
 
@@ -145,6 +145,10 @@ func _input(event):
 			_last_laser_tap_time = OS.get_ticks_msec()
 			fire_laser()
 
+func set_weapon_slot(slot):
+	weapon_slot = slot
+	$PlayerModel/LaserGun.type = Enhancements.get_weapon_slot(slot).laser_type if Enhancements.get_weapon_slot(slot) != null else 0
+	
 # Fires a laser from $PlayerModel/LaserGun
 func fire_laser():
 	if self.ammo == 0 and self.ammo_refills <= 0:

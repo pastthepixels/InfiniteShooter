@@ -11,6 +11,8 @@ signal updated() # For when restoring enhancements
 
 signal active_enhancements_changed()
 
+var LASER_TYPES = preload("res://scenes/entities/lasers/LaserGun.gd").TYPES
+
 var laser_enhancements = [
 	{
 		"id": 0,
@@ -18,43 +20,50 @@ var laser_enhancements = [
 		"name": "Standard Lasers",
 		"description": "Standard-issue lasers for every ship. Fires once from the central cannon.",
 		"purchased": true,
-		"active": true
+		"active": true,
+		"laser_type": LASER_TYPES.DEFAULT
 	},
 	{
 		"id": 1,
 		"cost": 4000,
 		"name": "Double Shot",
-		"description": "Fires two lasers from the central cannon in the same direction."
+		"description": "Fires two lasers from the central cannon in the same direction.",
+		"laser_type": LASER_TYPES.DEFAULT
 	},
 	{
 		"id": 2,
 		"cost": 4000,
 		"name": "Triple Shot",
-		"description": "Fires three lasers from the central cannon, two to the side."
+		"description": "Fires three lasers from the central cannon, two to the side.",
+		"laser_type": LASER_TYPES.DEFAULT
 	},
 	{
 		"id": 3,
 		"cost": 4000,
 		"name": "Triple Cannons",
-		"description": "Fires a laser from each cannon."
+		"description": "Fires a laser from each cannon.",
+		"laser_type": LASER_TYPES.DEFAULT
 	},
 	{
 		"id": 4,
 		"cost": 4000,
 		"name": "Plasma Shot",
-		"description": "Slower but larger shots from the central cannon that do 1.5x damage."
+		"description": "Slower but larger shots from the central cannon that do 1.5x damage.",
+		"laser_type": LASER_TYPES.PLASMA
 	},
 	{
 		"id": 5,
 		"cost": 4000,
 		"name": "Homing Lasers",
-		"description": "Lasers follow selected targets."
+		"description": "Lasers follow selected targets.",
+		"laser_type": LASER_TYPES.HOMING
 	},
 	{
 		"id": 6,
 		"cost": 4000,
 		"name": "Space Mines",
-		"description": "Place explosives that can be detonated when ships run over them. Make sure to not accidentially damage yourself!"
+		"description": "Place explosives that can be detonated when ships run over them. Make sure to not accidentially damage yourself!",
+		"laser_type": LASER_TYPES.MINES
 	},
 ]
 

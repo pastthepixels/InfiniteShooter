@@ -25,6 +25,7 @@ func _ready():
 		particles_instance.set_emitting(true)
 		particles_instance.draw_pass_1 = PlaneMesh.new()
 		self.add_child(particles_instance)
+		particles_instance.set_owner(self)
 
 # As stated in the tutorial, this basically creates new instances of particles
 # so their materials are forced to be compiled and cached instead of compiling

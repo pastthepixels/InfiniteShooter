@@ -109,13 +109,9 @@ transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0 )
 visible = false
 material_override = SubResource( 3 )
 mesh = SubResource( 1 )
-material/0 = null
-material/1 = null
 
 [node name="Ship" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
-material/0 = null
-material/1 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
@@ -125,20 +121,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00617421 )
 
 [node name="LaserGun" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 1.1 )
-sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun2" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.1, 0, 0 )
-sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun3" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.1, 0, 0 )
-sender = NodePath("../..")
 show_cannon = false
 
 [node name="LaserGun4" parent="LaserGuns" instance=ExtResource( 3 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1.1 )
-sender = NodePath("../..")
 show_cannon = false

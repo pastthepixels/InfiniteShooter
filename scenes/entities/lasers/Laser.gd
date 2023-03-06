@@ -13,14 +13,14 @@ export var follow_speed = 3
 export var attack_direction = Vector3(0, 0, 1) # Goes up. Also, this is a normalized vector.
 # This is a variable used internally and you shouldn't have to use this. Instead, change the laser's y rotation.
 
-# A variable for... the "sender" of a laser
-var sender
+# A variable for... the "sender" of a laser. Apparently set_owner doesn't work???
+var sender : Node
 
 # Following the player
 
-onready var followed_player = get_tree().get_nodes_in_group("players")[randi() % get_tree().get_nodes_in_group("players").size()] if len(get_tree().get_nodes_in_group("players")) > 0 else null
+var followed_entity
 
-export var follow_player = false
+export var follow_entity = false
 
 # Laser "modifiers"
 
@@ -44,12 +44,15 @@ export (Color) var ice_color
 
 export (Color) var corrosion_color
 
+func set_sender(node : Node):
+	sender = node
+
 
 func _ready():
 	set_laser()
 	
-	if follow_player == true:
-		speed /= 5 # <-- To make homing lasers go slower
+	if follow_entity == true:
+		speed /= 2.5 # <-- To make homing lasers go slower
 		$FollowTimer.start()
 	
 	if from_player == true:
@@ -61,8 +64,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	if follow_player == true and is_instance_valid(followed_player) and followed_player.health > 0:
-		look_at(followed_player.translation, Vector3(0, 1, 0))
+	if follow_entity == true and is_instance_valid(followed_entity) and followed_entity.health > 0:
+		look_at(followed_entity.translation, Vector3(0, 1, 0))
 		rotation.y += deg2rad(180)# <-- To make homing lasers go TOWARD the player instead of away from them
 	translation += attack_direction.rotated(Vector3(0, 1, 0), rotation.y) * speed * delta
 
@@ -95,8 +98,8 @@ func set_color(color):
 
 # Called when the laser collides with objects
 func _on_Laser_area_entered(area):
-	if $InvincibilityTimer.time_left > 0 and sender in get_overlapping_areas():
-		return # If a timer deeming if a laser would be in a ship (one second max) is running and the laser is colliding with its sender, there's a good chance it spawned in its sender. Just return this function.
+	if area.get_owner() == get_owner() or area == get_owner():
+		return
 	if (area.get_parent().is_in_group("enemies") or area.get_parent().is_in_group("bosses")) and area == area.get_parent().enemy_model:  # If the area this is colliding with is an enemy (and it is from the player)
 		area.get_parent().hurt(damage) # subtract health from the enemy
 		# Laser modifiers
@@ -106,7 +109,10 @@ func _on_Laser_area_entered(area):
 		remove_laser(true) # Removes the laser
 
 func _on_Laser_body_entered(body):
-	if body.is_in_group("players") and from_player == false: # If the area this is colliding with is the PLAYER (and it is from the enemy)
+	if body.get_owner() == get_owner() or body == sender:
+		return
+	
+	if body.is_in_group("players"): # If the area this is colliding with is the PLAYER 
 		if body.godmode == false: body.health -= damage  # send them to BRAZIL
 		# Laser modifiers
 		handle_modifiers(body)
@@ -175,7 +181,3 @@ func _on_VisibilityNotifier_screen_exited():
 func _on_FollowTimer_timeout():
 	$EOLSound.play()
 	remove_laser(false)
-
-func _on_Laser_area_exited(area):
-	if area == sender or area.get_parent() == sender:
-		$InvincibilityTimer.stop() # Immediately after lasers exit a ship it will be open for hitting the ship
