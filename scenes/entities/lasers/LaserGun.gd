@@ -14,11 +14,11 @@ export var damage = 20
 
 export var use_laser_modifiers = false
 
-export var from_player = false
-
 export(preload("res://scenes/variables/GameVariables.gd").LASER_MODIFIERS) var laser_modifier
 
 var laser_scene = LoadingScreen.access_scene("res://scenes/entities/lasers/Laser.tscn")
+
+var plasma_scene = LoadingScreen.access_scene("res://scenes/entities/lasers/Plasma.tscn")
 
 var selected_entity
 
@@ -54,8 +54,7 @@ func fire(type=self.type):
 				laser = fire_default_laser()
 		
 		TYPES.PLASMA:
-			print("Plasma lasers not implemented yet.")
-			return
+			laser = fire_default_plasma()
 		
 		TYPES.MINES:
 			print("Mines not implemented yet.")
@@ -72,20 +71,19 @@ func fire(type=self.type):
 	laser.translation = global_transform.origin
 	laser.rotation.y = global_transform.basis.get_euler().y
 	laser.translation.y = 0
+	
+	# Setting the sender of the laser
+	laser.set_sender(get_node(self.sender))
 
 	# Adds the laser to the GameSpace node
 	if has_node("/root/Game/GameSpace"):
 		get_node("/root/Game/GameSpace").add_child(laser)
 	else:
 		get_parent().add_child(laser)
-		
-	laser.set_sender(get_node(self.sender))
 
 func fire_default_laser():
 	# Creating the laser
 	var laser = laser_scene.instance()
-	laser.from_player = from_player
-	
 
 	# Setting the laser's damage
 	laser.damage = damage
@@ -94,5 +92,14 @@ func fire_default_laser():
 	if use_laser_modifiers:
 		laser.modifier = laser_modifier
 		laser.set_laser()
+
+	return laser
+
+func fire_default_plasma():
+	# Creating the laser
+	var laser = plasma_scene.instance()
+	
+	# Setting the laser's damage
+	laser.damage = damage
 
 	return laser
