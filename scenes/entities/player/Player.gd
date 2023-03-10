@@ -117,7 +117,7 @@ func _physics_process(delta):
 	velocity.z -= updown
 	
 	# Sets position/rotation
-	$PlayerModel.rotation = lerp($PlayerModel.rotation, delta_rotation * .6, .4)
+	$Ship/PlayerModel.rotation = lerp($Ship/PlayerModel.rotation, delta_rotation * .6, .4)
 	impulse_velocity = lerp(impulse_velocity, Vector3(), 0.1)
 	impulse_rotation = lerp(impulse_rotation, Vector3(), 0.1)
 	if freeze_movement == false:
@@ -147,22 +147,16 @@ func _input(event):
 
 func set_weapon_slot(slot):
 	weapon_slot = slot
-	$PlayerModel/LaserGun.type = Enhancements.get_weapon_slot(slot).laser_type if Enhancements.get_weapon_slot(slot) != null else 0
+	$LaserController.laser_type = Enhancements.get_weapon_slot(slot).laser_type if Enhancements.get_weapon_slot(slot) != null else 0
 	
-# Fires a laser from $PlayerModel/LaserGun
+# Fires a laser from $Ship/PlayerModel/LaserGun
 func fire_laser():
 	if self.ammo == 0 and self.ammo_refills <= 0:
 		$AmmoClick.play()
 	elif $ReloadTimer.time_left == 0:
 		if self.ammo > 0:
 			if infinite_ammo == false: self.ammo -= 1
-			$PlayerModel/LaserGun.damage = damage
-			if modifier != MODIFIERS.none:
-				$PlayerModel/LaserGun.set_modifier(modifier)
-			else:
-				$PlayerModel/LaserGun.use_laser_modifiers = false
-			$PlayerModel/LaserGun.fire()
-			if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.7, 1, .1)
+			$LaserController.fire()
 		if self.ammo <= 0 and self.ammo_refills > 0:
 			self.ammo_refills -= 1
 			$ReloadTimer.start()
@@ -216,7 +210,7 @@ func die_already():
 	set_process_input(false)
 	emit_signal("died")
 	$Explosion.explode()
-	$PlayerModel.hide()
+	$Ship.hide()
 	$CollisionShape.disabled = true
 	$RegenTimer.stop()
 	$ShootTimer.stop()

@@ -22,9 +22,6 @@ script = ExtResource( 3 )
 SCREEN_EDGE_MARGIN = 1.5
 mouse_compensation_factor = Vector2( 2.2, 2.2 )
 
-[node name="LaserController" type="Node" parent="."]
-script = ExtResource( 10 )
-
 [node name="MouseControls" parent="." instance=ExtResource( 7 )]
 sensitivity = 1.5
 use_sensitivity_from_settings = true
@@ -62,14 +59,73 @@ enabled = true
 cast_to = Vector3( 0, 50, 0 )
 collide_with_areas = true
 
-[node name="PlayerModel" parent="." instance=ExtResource( 2 )]
+[node name="LaserController" type="Node" parent="."]
+script = ExtResource( 10 )
+node_path = NodePath("../Ship/LaserGuns")
+fire_type = 3
+damage = 1000.0
 
-[node name="LaserGun" parent="PlayerModel" instance=ExtResource( 9 )]
+[node name="Ship" type="Spatial" parent="."]
+
+[node name="PlayerModel" parent="Ship" instance=ExtResource( 2 )]
+
+[node name="LaserGuns" type="Spatial" parent="Ship"]
+
+[node name="Single" type="Spatial" parent="Ship/LaserGuns"]
+
+[node name="LaserGun" parent="Ship/LaserGuns/Single" instance=ExtResource( 9 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.8 )
-sender = NodePath("../..")
-raycast = NodePath("../../LaserRayCast")
+visible = false
+sender = NodePath("../../..")
 show_cannon = false
-from_player = true
+
+[node name="Double" type="Spatial" parent="Ship/LaserGuns"]
+visible = false
+
+[node name="LaserGun" parent="Ship/LaserGuns/Double" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2, 0, -0.8 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="LaserGun2" parent="Ship/LaserGuns/Double" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.2, 0, -0.8 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="Triple" type="Spatial" parent="Ship/LaserGuns"]
+visible = false
+
+[node name="LaserGun" parent="Ship/LaserGuns/Triple" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.8 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="LaserGun2" parent="Ship/LaserGuns/Triple" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.532314, 0, -0.680559 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="LaserGun3" parent="Ship/LaserGuns/Triple" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.532, 0, -0.681 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="Dispersed" type="Spatial" parent="Ship/LaserGuns"]
+
+[node name="LaserGun" parent="Ship/LaserGuns/Dispersed" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.8 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="LaserGun2" parent="Ship/LaserGuns/Dispersed" instance=ExtResource( 9 )]
+transform = Transform( -0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0.2, 0, -0.851173 )
+sender = NodePath("../../..")
+show_cannon = false
+
+[node name="LaserGun3" parent="Ship/LaserGuns/Dispersed" instance=ExtResource( 9 )]
+transform = Transform( -0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.2, 0, -0.851173 )
+sender = NodePath("../../..")
+show_cannon = false
 
 [node name="Explosion" parent="." instance=ExtResource( 4 )]
 
