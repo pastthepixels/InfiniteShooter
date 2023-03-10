@@ -283,9 +283,12 @@ func set_random_enemy_position(times_ran=0):
 	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
 	if enemies_in_wave == 0:
 		$GameSpace/IndicatorArrow.translation.x = 0
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if position.distance_to(enemy.translation) <= 3:
-			return set_random_enemy_position(times_ran + 1)
+	# If the program has been running for a certain amount of times, there's likely this wall of enemies that just spawned.
+	# So we can only check for reasonable positions for new enemies to, well, a reasonable amount of times.
+	if times_ran < 10:
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			if position.distance_to(enemy.translation) <= 3:
+				return set_random_enemy_position(times_ran + 1)
 	return position
 
 func make_boss():
