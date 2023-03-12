@@ -53,10 +53,6 @@ func fire(type=self.type):
 		TYPES.PLASMA:
 			laser = fire_default_plasma()
 		
-		TYPES.MINES:
-			print("Mines not implemented yet.")
-			return
-		
 		TYPES.BEAM:
 			print("Laser beams not implemented yet.")
 			return
