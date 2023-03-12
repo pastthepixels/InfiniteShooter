@@ -68,7 +68,11 @@ func complete_purchase():
 
 
 func _on_Equip_toggled(button_pressed):
-	if button_pressed == true and Enhancements.check_equipped_enhancements(id) == true:
+	# Checks in case you're unequipping all laser/ship enhancements
+	if button_pressed == false and Enhancements.check_minimum_enhancements(id) == false:
+		$HBoxContainer/Equip.pressed = true
+	# Checks if you're equipping more laser/ship enhancments than is allowed
+	elif button_pressed == true and Enhancements.check_maximum_enhancements(id) == true:
 		Enhancements.set_enhancement_active(id, true)
 	else:
 		if button_pressed == true: emit_signal("equip_failed")

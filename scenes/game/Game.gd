@@ -415,3 +415,6 @@ func is_submenu_visible():
 
 func _on_WeaponSwitcher_slot_selected(slot):
 	$GameSpace/Player.weapon_slot = slot
+
+func get_selected_slot():
+	return $GameSpace/Player.weapon_slot

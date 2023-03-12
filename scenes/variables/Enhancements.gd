@@ -120,6 +120,9 @@ func purchase_enhancement(id):
 func set_enhancement_active(id, active : bool):
 	find(id)["active"] = active
 	emit_signal("active_enhancements_changed")
+	# If the currently seleced slot is the one that has been deactivated, set the current slot to the first one (index 0)
+	if has_node("/root/Game") and get_weapon_slot(get_node("/root/Game").get_selected_slot()) == null:
+		get_node("/root/Game")._on_WeaponSwitcher_slot_selected(0)
 
 func get_activated_enhancements():
 	var counter_lasers = 0
@@ -132,15 +135,22 @@ func get_activated_enhancements():
 			counter_ship += 1
 	return [counter_lasers, counter_ship]
 
-# Returns true if you can still equip enhancements
-func check_equipped_enhancements(id):
+# Returns true if the number of equipped enhancements is less than the number of max enhancements to equip
+func check_maximum_enhancements(id):
 	if find(id) in ship_enhancements:
 		return get_activated_enhancements()[1] < max_activated_ship_enhancements
 	elif find(id) in laser_enhancements:
 		return get_activated_enhancements()[0] < max_activated_laser_enhancements
 
+# Returns true if there are more than 1 laser enhancements selected.
+# You have to have at least one to play the game.
+func check_minimum_enhancements(id):
+	if find(id) in laser_enhancements:
+		return get_activated_enhancements()[0] > 1
+
 # WEAPON SLOTS AREN'T REAL.
 # YOU'VE BEEN LIED TO YOUR ENTIRE LIFE.
+# Gets an enhancement at an index of a weapon slot (ex: 0, 1, 2, 3)
 func get_weapon_slot(index):
 	var counter = 0
 	for enhancement in (laser_enhancements):

@@ -158,6 +158,7 @@ func fire_laser():
 	elif $ReloadTimer.time_left == 0:
 		if self.ammo > 0:
 			if infinite_ammo == false: self.ammo -= 1
+			set_weapon_slot(weapon_slot)
 			$LaserController.damage = damage
 			$LaserController.fire()
 		if self.ammo <= 0 and self.ammo_refills > 0:
