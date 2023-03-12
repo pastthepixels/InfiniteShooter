@@ -11,8 +11,12 @@ var menu_scene = preload("res://scenes/menus/main/MainMenu.tscn")
 func _ready():
 	$CanvasLayer.hide()
 
+func is_visible():
+	return get_node("%SceneTransitionDoor/AnimationPlayer").is_playing() or get_node("%SceneTransitionDoor").visible
+
 
 func open():
+	Engine.time_scale = 1
 	$CanvasLayer.show()
 	$SoundEffect.pitch_scale = rand_range(0.9, 1.1)
 	$SoundEffect.play()

@@ -53,7 +53,7 @@ func toggle_pause():
 		$AnimationPlayer.play("FadeOut")
 		$Title.text = "not paused"
 		yield($AnimationPlayer, "animation_finished")
-		Engine.time_scale = previous_time_scale
+		if SceneTransition.is_visible() == false: Engine.time_scale = previous_time_scale
 	else:
 		previous_time_scale = Engine.time_scale
 		Engine.time_scale = 1
