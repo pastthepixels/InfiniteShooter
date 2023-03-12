@@ -36,7 +36,8 @@ func save():
 		"ammo": ammo,
 		"ammo_refills": ammo_refills,
 		"damage": damage,
-		"health": health
+		"health": health,
+		"weapon_slot": weapon_slot
 	}
 
 ### DO NOT SAVE THESE VARIABLES ###
