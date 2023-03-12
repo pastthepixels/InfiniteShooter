@@ -324,10 +324,8 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 			get_node(node.path).load_save(node.save)
 		# Loading Enhancements saves
 		if node.path == "/root/Enhancements":
-			print("Emitting signal...")
 			Enhancements.emit_signal("updated")
 			Enhancements.emit_signal("active_enhancements_changed")
-			print("...done")
 	# 2. Update the GUI
 	get_node("/root/Game").update_status_bar()
 
