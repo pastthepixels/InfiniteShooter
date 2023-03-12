@@ -13,6 +13,8 @@ signal active_enhancements_changed()
 
 var LASER_TYPES = preload("res://scenes/entities/lasers/LaserGun.gd").TYPES
 
+var FIRE_TYPES = preload("res://scenes/entities/player/LaserController.gd").TYPES
+
 var laser_enhancements = [
 	{
 		"id": 0,
@@ -21,50 +23,57 @@ var laser_enhancements = [
 		"description": "Standard-issue lasers for every ship. Fires once from the central cannon.",
 		"purchased": true,
 		"active": true,
-		"laser_type": LASER_TYPES.DEFAULT
+		"laser_type": LASER_TYPES.DEFAULT,
+		"fire_type": FIRE_TYPES.Single
 	},
 	{
 		"id": 1,
 		"cost": 4000,
 		"name": "Double Shot",
 		"description": "Fires two lasers from the central cannon in the same direction.",
-		"laser_type": LASER_TYPES.DEFAULT
+		"laser_type": LASER_TYPES.DEFAULT,
+		"fire_type": FIRE_TYPES.Double
 	},
 	{
 		"id": 2,
 		"cost": 4000,
 		"name": "Triple Shot",
 		"description": "Fires three lasers from the central cannon, two to the side.",
-		"laser_type": LASER_TYPES.DEFAULT
+		"laser_type": LASER_TYPES.DEFAULT,
+		"fire_type": FIRE_TYPES.Dispersed
 	},
 	{
 		"id": 3,
 		"cost": 4000,
 		"name": "Triple Cannons",
 		"description": "Fires a laser from each cannon.",
-		"laser_type": LASER_TYPES.DEFAULT
+		"laser_type": LASER_TYPES.DEFAULT,
+		"fire_type": FIRE_TYPES.Triple
 	},
 	{
 		"id": 4,
 		"cost": 4000,
 		"name": "Plasma Shot",
 		"description": "Slower but larger shots from the central cannon that do 1.5x damage.",
-		"laser_type": LASER_TYPES.PLASMA
+		"laser_type": LASER_TYPES.PLASMA,
+		"fire_type": FIRE_TYPES.Single
 	},
 	{
 		"id": 5,
 		"cost": 4000,
 		"name": "Homing Lasers",
 		"description": "Lasers follow selected targets.",
-		"laser_type": LASER_TYPES.HOMING
+		"laser_type": LASER_TYPES.HOMING,
+		"fire_type": FIRE_TYPES.Single
 	},
 	{
 		"id": 6,
 		"cost": 4000,
-		"name": "Space Mines",
-		"description": "Place explosives that can be detonated when ships run over them. Make sure to not accidentially damage yourself!",
-		"laser_type": LASER_TYPES.MINES
-	},
+		"name": "Plasma Wall",
+		"description": "Fires a plasma shot from each cannon.",
+		"laser_type": LASER_TYPES.PLASMA,
+		"fire_type": FIRE_TYPES.Triple
+	}
 ]
 
 var ship_enhancements = [

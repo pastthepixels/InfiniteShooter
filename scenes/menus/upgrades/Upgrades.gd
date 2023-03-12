@@ -204,7 +204,11 @@ func _on_TabContainer_tab_changed(tab):
 
 # Loads enhancements/loadout upgrades
 func _on_LoadoutUpgrades_ready():
-	print("Called _on_LoadoutUpgrades_ready()")
+	# Removes existing labels
+	for child in get_node("%LoadoutUpgrades").get_children():
+		if child.is_in_group("enhancementlabels"):
+			child.queue_free()
+	
 	for enhancement in Enhancements.laser_enhancements:
 		var label = create_loadout_label(enhancement)
 		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Lasers").get_index() + Enhancements.laser_enhancements.find(enhancement) + 1)

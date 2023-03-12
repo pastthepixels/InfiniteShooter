@@ -18,7 +18,7 @@ content_margin_top = 5.0
 content_margin_bottom = 5.0
 bg_color = Color( 1, 1, 1, 1 )
 
-[node name="EnhancementLabel" type="PanelContainer"]
+[node name="EnhancementLabel" type="PanelContainer" groups=["enhancementlabels"]]
 anchor_right = 1.0
 margin_bottom = 14.0
 theme = ExtResource( 1 )

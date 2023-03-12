@@ -46,12 +46,9 @@ func fire(type=self.type):
 	var laser
 	match type:
 		TYPES.HOMING:
-			if selected_entity != null:
-				laser = fire_default_laser()
-				laser.follow_entity = true
-				laser.followed_entity = selected_entity
-			else:
-				laser = fire_default_laser()
+			laser = fire_default_laser()
+			laser.follow_entity = true
+			laser.followed_entity = selected_entity
 		
 		TYPES.PLASMA:
 			laser = fire_default_plasma()

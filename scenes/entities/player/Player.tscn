@@ -53,17 +53,9 @@ wait_time = 0.15
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
-[node name="LaserRayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.0665642, -1.15009 )
-enabled = true
-cast_to = Vector3( 0, 50, 0 )
-collide_with_areas = true
-
 [node name="LaserController" type="Node" parent="."]
 script = ExtResource( 10 )
 node_path = NodePath("../Ship/LaserGuns")
-fire_type = 3
-damage = 1000.0
 
 [node name="Ship" type="Spatial" parent="."]
 
@@ -72,10 +64,10 @@ damage = 1000.0
 [node name="LaserGuns" type="Spatial" parent="Ship"]
 
 [node name="Single" type="Spatial" parent="Ship/LaserGuns"]
+visible = false
 
 [node name="LaserGun" parent="Ship/LaserGuns/Single" instance=ExtResource( 9 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.8 )
-visible = false
 sender = NodePath("../../..")
 show_cannon = false
 
@@ -101,16 +93,17 @@ sender = NodePath("../../..")
 show_cannon = false
 
 [node name="LaserGun2" parent="Ship/LaserGuns/Triple" instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.532314, 0, -0.680559 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.532314, 0, -0.798921 )
 sender = NodePath("../../..")
 show_cannon = false
 
 [node name="LaserGun3" parent="Ship/LaserGuns/Triple" instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.532, 0, -0.681 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.532, 0, -0.799362 )
 sender = NodePath("../../..")
 show_cannon = false
 
 [node name="Dispersed" type="Spatial" parent="Ship/LaserGuns"]
+visible = false
 
 [node name="LaserGun" parent="Ship/LaserGuns/Dispersed" instance=ExtResource( 9 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.8 )

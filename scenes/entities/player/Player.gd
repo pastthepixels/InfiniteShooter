@@ -148,6 +148,7 @@ func _input(event):
 func set_weapon_slot(slot):
 	weapon_slot = slot
 	$LaserController.laser_type = Enhancements.get_weapon_slot(slot).laser_type if Enhancements.get_weapon_slot(slot) != null else 0
+	$LaserController.fire_type = Enhancements.get_weapon_slot(slot).fire_type if Enhancements.get_weapon_slot(slot) != null else 0
 	
 # Fires a laser from $Ship/PlayerModel/LaserGun
 func fire_laser():
@@ -156,6 +157,7 @@ func fire_laser():
 	elif $ReloadTimer.time_left == 0:
 		if self.ammo > 0:
 			if infinite_ammo == false: self.ammo -= 1
+			$LaserController.damage = damage
 			$LaserController.fire()
 		if self.ammo <= 0 and self.ammo_refills > 0:
 			self.ammo_refills -= 1

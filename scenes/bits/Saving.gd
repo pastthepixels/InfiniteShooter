@@ -306,9 +306,10 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 			if "_enhancements" in key and node.path == "/root/Enhancements":
 				for index in range(0, previous_value.size()):
 					for enhancement_key in previous_value[index]:
-						get_node(node.path)[key][index][enhancement_key] = Utils.match_variable_types(previous_value[index][enhancement_key], get_node(node.path)[key][index][enhancement_key])
 						if (enhancement_key in get_node(node.path)[key][index]) == false:
 							get_node(node.path)[key][index][enhancement_key] = previous_value[index][enhancement_key]
+						else:
+							get_node(node.path)[key][index][enhancement_key] = Utils.match_variable_types(previous_value[index][enhancement_key], get_node(node.path)[key][index][enhancement_key])
 			# Ensuring the player's max health is set before its health
 			if key == "health" and node.path == "/root/Game/GameSpace/Player":
 				get_node(node.path)["max_health"] = node.save["max_health"]
