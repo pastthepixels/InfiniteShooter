@@ -306,7 +306,12 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 			if "_enhancements" in key and node.path == "/root/Enhancements":
 				for index in range(0, previous_value.size()):
 					for enhancement_key in previous_value[index]:
-						if (enhancement_key in get_node(node.path)[key][index]) == false:
+						# Remember: get_node(node.path) == the SAVED value and previous_value == the CODED IN, DEFAULT value
+						if index >= get_node(node.path)[key].size():
+							# First, we need to check if the enhancement even exists in the first place. If it doesn't,
+							# which could likely be caused by using an older save on a new version, add it to the save.
+							get_node(node.path)[key].append(previous_value[index])
+						elif (enhancement_key in get_node(node.path)[key][index]) == false:
 							get_node(node.path)[key][index][enhancement_key] = previous_value[index][enhancement_key]
 						else:
 							get_node(node.path)[key][index][enhancement_key] = Utils.match_variable_types(previous_value[index][enhancement_key], get_node(node.path)[key][index][enhancement_key])
