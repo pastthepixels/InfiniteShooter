@@ -124,6 +124,9 @@ func set_enhancement_active(id, active : bool):
 	if has_node("/root/Game") and get_weapon_slot(get_node("/root/Game").get_selected_slot()) == null:
 		get_node("/root/Game")._on_WeaponSwitcher_slot_selected(0)
 
+func is_enhancement_active(id):
+	return find(id)["active"]
+
 func get_activated_enhancements():
 	var counter_lasers = 0
 	var counter_ship = 0

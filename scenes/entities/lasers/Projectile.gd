@@ -140,20 +140,29 @@ func handle_modifiers(ship):
 	match modifier:
 		MODIFIERS.fire:
 			if ship.is_in_group("players"):
-				ship.get_node("LaserEffects").bleed(1, 8)
+				if Enhancements.is_enhancement_active(101): # Lowers burning damage
+					ship.get_node("LaserEffects").bleed(2, 8)
+				else:
+					ship.get_node("LaserEffects").bleed(1, 8)
 			else:
 				ship.get_node("LaserEffects").bleed(.5, 10)
 			ship.get_node("LaserEffects").start_fire()
 			ship.get_node("LaserEffects").sender = sender
 		MODIFIERS.corrosion:
 			if ship.is_in_group("players"):
-				ship.get_node("LaserEffects").bleed(2, 20)
+				if Enhancements.is_enhancement_active(102): # Lowers corrosive duration
+					ship.get_node("LaserEffects").bleed(2, 20)
+				else:
+					ship.get_node("LaserEffects").bleed(2, 10)
 			else:
 				ship.get_node("LaserEffects").bleed(0.6, 8)
 			ship.get_node("LaserEffects").start_corrosion()
 			ship.get_node("LaserEffects").sender = sender
 		MODIFIERS.ice:
-			ship.get_node("LaserEffects").freeze(3)
+			if ship.is_in_group("players") and Enhancements.is_enhancement_active(103):
+				ship.get_node("LaserEffects").freeze(1.5)
+			else:
+				ship.get_node("LaserEffects").freeze(3)
 			ship.get_node("LaserEffects").start_ice()
 			ship.get_node("LaserEffects").sender = sender
 
