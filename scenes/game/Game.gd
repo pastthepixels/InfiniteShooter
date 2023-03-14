@@ -176,6 +176,8 @@ func level_up():
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
 	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
 	set_coincrate_spawn()
+	if Enhancements.is_enhancement_active(104):
+		$GameSpace/Player.ammo_refills += 2
 	# Then, GUI stuff
 	if fmod(level, GameVariables.reset_level) != 0:
 		$HUD.set_alert_progress(10 - (get_next_reset_level(level) - level), 10, "Difficulty reset in %d level(s)" % (get_next_reset_level(level) - level))

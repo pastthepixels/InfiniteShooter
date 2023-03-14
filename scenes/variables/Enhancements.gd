@@ -100,6 +100,12 @@ var ship_enhancements = [
 		"cost": 4000,
 		"name": "Ice Resistance",
 		"description": "Decrease the amount of time your ship freezes by 1/2."
+	},
+	{
+		"id": 104,
+		"cost": 4000,
+		"name": "Extra Lasers",
+		"description": "Start each level with two additional laser refills."
 	}
 ]
 
