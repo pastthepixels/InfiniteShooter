@@ -125,7 +125,7 @@ func _on_Laser_body_entered(body):
 		return
 	
 	if body.is_in_group("players"): # If the area this is colliding with is the PLAYER 
-		if body.godmode == false: body.health -= damage * damage_multiplier  # send them to BRAZIL
+		body.health -= damage * damage_multiplier  # send them to BRAZIL
 		# Laser modifiers
 		handle_modifiers(body)
 		if CameraEquipment.get_node("ShakeCamera").ignore_shake == false: Input.start_joy_vibration(0, 0.6, 1, .1)  # vibrate any controllers a bit

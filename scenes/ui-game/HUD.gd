@@ -10,11 +10,15 @@ var animated_health = 100
 
 var animated_ammo = 100
 
+var animated_shield = 100
+
 var low_health = false
 
 var _previous_health = 0
 
 var _previous_ammo = 0
+
+var _previous_shield = 0
 
 # Textures vased on laser types
 export (Color) var corrosion_color
@@ -27,12 +31,22 @@ func _process(_delta):
 	if _previous_health != animated_health:
 		_previous_health = animated_health
 		get_node("%HealthBar").value = animated_health
+	if _previous_shield != animated_shield:
+		_previous_shield = animated_shield
+		get_node("%ShieldBar").value = animated_shield
 	if _previous_ammo != animated_ammo:
 		_previous_ammo = animated_ammo
 		get_node("%AmmoBar").value = animated_ammo
 
 func _ready():
 	update_laser_modifier_label()
+	Enhancements.connect("active_enhancements_changed", self, "_on_Enhancements_active_enhancements_changed")
+
+func _on_Enhancements_active_enhancements_changed():
+	# Overrides update_shield_enabled()
+	$HUD/ShieldBar.visible = Enhancements.is_enhancement_active(100)
+
+# TODO: Code to show what laser enhancement is currently selected
 
 #
 # Updating the status bar
@@ -103,6 +117,25 @@ func update_health(value : float, hp):
 	elif value > 0.4 and $AnimationPlayer.is_playing() == false and low_health == true and $Vignette.visible == true:
 		low_health = false
 		$AnimationPlayer.play("FadeOutVignette")
+
+func update_shield(value : float, shield):
+	$ProgressTween.interpolate_property(
+		self,
+		"animated_shield",
+		animated_shield,
+		value * 100,
+		0.2,
+		Tween.TRANS_LINEAR,
+		Tween.EASE_IN
+	)
+	
+	get_node("%ShieldBar/ShieldPoints").text = String(int(shield))
+	
+	if not $ProgressTween.is_active():
+		$ProgressTween.start()
+
+func update_shield_enabled(enabled):
+	$HUD/ShieldBar.visible = enabled
 
 func update_ammo(value, refills):
 	$ProgressTween.interpolate_property(

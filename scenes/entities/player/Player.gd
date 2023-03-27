@@ -21,6 +21,11 @@ var damage = Saving.default_userdata.damage
 # Health (taken from the max health)
 var health = max_health setget _update_health
 
+# Shield (taken from the max shield)
+var shield = 0 setget _update_shield
+
+var shield_enabled = false setget set_shield_enabled, get_shield_enabled
+
 # Ammo (taken from the max ammo)
 var ammo = max_ammo setget _update_ammo
 
@@ -78,6 +83,10 @@ signal set_modifier # Godot will tell you this is never emitted. It is, just fro
 
 signal health_changed(value)
 
+signal shield_changed(value)
+
+signal shield_enabled_changed(value)
+
 signal ammo_changed(value, refills)
 
 # Laser "modifiers"
@@ -87,9 +96,39 @@ var MODIFIERS = GameVariables.LASER_MODIFIERS
 func get_health_percent() -> float:
 	return health / float(max_health)
 
+func get_shield_percent() -> float:
+	return shield / float(get_max_shield())
+
+func get_shield_enabled():
+	if Enhancements.is_enhancement_active(100):
+		return true
+	else:
+		return shield_enabled
+
+func set_shield_enabled(new_value):
+	shield_enabled = new_value
+	emit_signal("shield_enabled_changed", shield_enabled)
+
 func _update_health(new_value):
+	if godmode == true and new_value < health:
+		return
+	# If the player is losing health and shields are enabled
+	if get_shield_enabled() == true and new_value < health:
+		# Get the amount the health decreased by
+		var difference = health - new_value
+		var new_shield = shield - difference
+		_update_shield(new_shield)
+		# If the shield didn't absorb all the damage, send the rest to the health
+		if new_shield < 0:
+			new_value = health - abs(new_shield)
+		else:
+			new_value = health
 	health = clamp(new_value, 0, max_health)
 	emit_signal("health_changed", get_health_percent())
+
+func _update_shield(new_value):
+	shield = clamp(new_value, 0, get_max_shield())
+	emit_signal("shield_changed", get_shield_percent())
 
 func _update_ammo(new_value):
 	ammo = clamp(new_value, 0, max_ammo)
@@ -195,8 +234,8 @@ func on_enemy_collision(enemy):
 		if enemy.is_in_group("bosses"):
 			enemy.hurt(20)
 			deduct_health = enemy.health
-		if deduct_health > 0 and godmode == false:
-			self.health = clamp(self.health - deduct_health, max_health * 0.05, self.max_health)
+		if deduct_health > 0:
+			_update_health(clamp(self.health - deduct_health, max_health * 0.05, self.max_health))
 		impulse_velocity = actual_velocity * -2
 		impulse_rotation.z = actual_velocity.x * -2
 		impulse_rotation.x = actual_velocity.z * 2
@@ -227,7 +266,11 @@ func die_already():
  # Regenerates a bit of health every time this function is called.
 func _on_RegenTimer_timeout():
 	if self.health < max_health:
-		self.health += max_health*0.01
+		_update_health(health + max_health*0.01)
+		emit_signal("health_changed", get_health_percent())
+	if self.shield < get_max_shield() and get_shield_enabled() == true:
+		_update_shield(shield + get_max_shield()*0.02)
+		emit_signal("shield_changed", get_shield_percent())
 
 
 func _on_Explosion_exploded():
@@ -241,7 +284,7 @@ func _on_ShootTimer_timeout():
 func regenerate():
 	if self.ammo_refills < Saving.default_userdata.ammo_refills:
 		self.ammo_refills = Saving.default_userdata.ammo_refills
-	self.health = self.max_health
+	_update_health(self.max_health)
 
 func reset():
 	max_ammo = Saving.default_userdata.max_ammo
@@ -249,3 +292,7 @@ func reset():
 	max_health = Saving.default_userdata.health
 	health = max_health
 	damage = Saving.default_userdata.damage
+
+# Shields == 1/4 of health
+func get_max_shield() -> float:
+	return max_health * 0.25

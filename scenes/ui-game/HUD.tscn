@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/BackgroundBlur.gdshader" type="Shader" id=2]
@@ -105,7 +105,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=71]
+[sub_resource type="StyleBoxFlat" id=76]
 bg_color = Color( 0, 1, 0.113725, 1 )
 border_width_left = 3
 border_width_top = 3
@@ -120,6 +120,14 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 1, 1, 1, 0.27451 )
+
+[sub_resource type="StyleBoxFlat" id=77]
+bg_color = Color( 0.121569, 0.505882, 1, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.101624, 0.373325, 0.722656, 1 )
 
 [sub_resource type="StyleBoxFlat" id=72]
 bg_color = Color( 0.266667, 0.266667, 0.266667, 1 )
@@ -323,7 +331,7 @@ unique_name_in_owner = true
 margin_right = 242.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 200, 42 )
-custom_styles/fg = SubResource( 71 )
+custom_styles/fg = SubResource( 76 )
 custom_styles/bg = SubResource( 34 )
 value = 90.0
 percent_visible = false
@@ -345,11 +353,39 @@ custom_constants/shadow_as_outline = 1
 text = "100"
 valign = 1
 
-[node name="AmmoBar" type="ProgressBar" parent="HUD"]
+[node name="ShieldBar" type="ProgressBar" parent="HUD"]
 unique_name_in_owner = true
 margin_top = 62.0
 margin_right = 242.0
-margin_bottom = 88.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 200, 16 )
+custom_styles/fg = SubResource( 77 )
+custom_styles/bg = SubResource( 34 )
+value = 90.0
+percent_visible = false
+
+[node name="ShieldPoints" type="Label" parent="HUD/ShieldBar"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -1.0
+margin_right = 25.0
+margin_bottom = 2.0
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 0.121569, 0.505882, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "100"
+valign = 1
+
+[node name="AmmoBar" type="ProgressBar" parent="HUD"]
+unique_name_in_owner = true
+margin_top = 98.0
+margin_right = 242.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 200, 26 )
 custom_styles/fg = SubResource( 72 )
 custom_styles/bg = SubResource( 34 )
@@ -373,9 +409,9 @@ text = "8"
 valign = 1
 
 [node name="StatusBar" type="PanelContainer" parent="HUD"]
-margin_top = 108.0
+margin_top = 144.0
 margin_right = 97.0
-margin_bottom = 336.0
+margin_bottom = 372.0
 size_flags_horizontal = 0
 theme = ExtResource( 5 )
 custom_styles/panel = SubResource( 34 )

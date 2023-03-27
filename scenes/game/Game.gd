@@ -75,6 +75,7 @@ func _ready():
 	# Locks the cursor
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# HUD stuff
+	$HUD.update_shield_enabled($GameSpace/Player.shield_enabled)
 	if waves_per_level > 0:
 		$HUD.update_level(level, 100 * wave/waves_per_level)
 		$HUD.update_wave(wave, 100 * 1.0/GameVariables.enemies_per_wave)
@@ -382,6 +383,10 @@ func _on_Player_ammo_changed(value, refills):
 func _on_Player_health_changed(value):
 	$HUD.update_health(value, $GameSpace/Player.health)
 
+func _on_Player_shield_changed(value):
+	print(true)
+	$HUD.update_shield(value, $GameSpace/Player.shield)
+
 
 func _on_Player_set_modifier():
 	$HUD.update_laser_modifier_label($GameSpace/Player.modifier)
@@ -420,3 +425,7 @@ func _on_WeaponSwitcher_slot_selected(slot):
 
 func get_selected_slot():
 	return $GameSpace/Player.weapon_slot
+
+
+func _on_Player_shield_enabled_changed(value):
+	$HUD.update_shield_enabled(value)

@@ -41,7 +41,6 @@ bus = "SFX"
 
 [node name="RegenTimer" type="Timer" parent="."]
 pause_mode = 1
-wait_time = 0.5
 autostart = true
 
 [node name="ReloadTimer" type="Timer" parent="."]

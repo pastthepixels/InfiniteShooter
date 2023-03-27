@@ -65,6 +65,8 @@ visible = false
 [connection signal="died" from="GameSpace/Player" to="." method="_on_Player_died"]
 [connection signal="health_changed" from="GameSpace/Player" to="." method="_on_Player_health_changed"]
 [connection signal="set_modifier" from="GameSpace/Player" to="." method="_on_Player_set_modifier"]
+[connection signal="shield_changed" from="GameSpace/Player" to="." method="_on_Player_shield_changed"]
+[connection signal="shield_enabled_changed" from="GameSpace/Player" to="." method="_on_Player_shield_enabled_changed"]
 [connection signal="finished" from="Countdown" to="." method="_on_Countdown_finished"]
 [connection signal="request_process_input" from="WeaponSwitcher" to="." method="_on_WeaponSwitcher_request_process_input"]
 [connection signal="slot_selected" from="WeaponSwitcher" to="." method="_on_WeaponSwitcher_slot_selected"]
