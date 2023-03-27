@@ -384,7 +384,6 @@ func _on_Player_health_changed(value):
 	$HUD.update_health(value, $GameSpace/Player.health)
 
 func _on_Player_shield_changed(value):
-	print(true)
 	$HUD.update_shield(value, $GameSpace/Player.shield)
 
 
