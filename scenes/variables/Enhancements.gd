@@ -15,7 +15,7 @@ var LASER_TYPES = preload("res://scenes/entities/lasers/LaserGun.gd").TYPES
 
 var FIRE_TYPES = preload("res://scenes/entities/player/LaserController.gd").TYPES
 
-var laser_enhancements = [
+var default_laser_enhancements = [
 	{
 		"id": 0,
 		"cost": 0,
@@ -76,7 +76,7 @@ var laser_enhancements = [
 	}
 ]
 
-var ship_enhancements = [
+var default_ship_enhancements = [
 	{
 		"id": 100,
 		"cost": 4000,
@@ -109,6 +109,14 @@ var ship_enhancements = [
 	}
 ]
 
+var laser_enhancements = default_laser_enhancements
+
+var ship_enhancements = default_ship_enhancements
+
+func reset():
+	laser_enhancements = default_laser_enhancements
+	ship_enhancements = default_ship_enhancements
+
 func save():
 	return {
 		"laser_enhancements": laser_enhancements,
@@ -131,7 +139,7 @@ func set_enhancement_active(id, active : bool):
 		get_node("/root/Game")._on_WeaponSwitcher_slot_selected(0)
 
 func is_enhancement_active(id):
-	return find(id)["active"]
+	return find(id)["active"] if "active" in find(id) else false
 
 func get_activated_enhancements():
 	var counter_lasers = 0

@@ -44,6 +44,7 @@ func quit_game():
 func start_game():
 	open()
 	yield(wait(), "completed")
+	Enhancements.reset()
 	call_deferred("_deferred_goto_scene", game_scene)
 	yield(get_tree(), "idle_frame") # Wait until the scene has been switched to close
 	emit_signal("loaded_game")
