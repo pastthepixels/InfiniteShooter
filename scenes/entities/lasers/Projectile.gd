@@ -85,7 +85,7 @@ func set_laser():
 	if is_instance_valid(sender) == false: return
 	
 	# Sets the material of the laser
-	if sender.is_in_group("enemies"):
+	if sender.is_in_group("enemies") or sender.is_in_group("bosses"):
 		set_color(enemy_color)
 	elif sender.is_in_group("players"):
 		set_color(player_color)
