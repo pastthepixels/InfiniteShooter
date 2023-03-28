@@ -28,7 +28,7 @@ var default_laser_enhancements = [
 	},
 	{
 		"id": 1,
-		"cost": 4000,
+		"cost": 2000,
 		"name": "Double Shot",
 		"description": "Fires two lasers from the central cannon in the same direction.",
 		"laser_type": LASER_TYPES.DEFAULT,
@@ -52,7 +52,7 @@ var default_laser_enhancements = [
 	},
 	{
 		"id": 4,
-		"cost": 4000,
+		"cost": 8000,
 		"name": "Plasma Shot",
 		"description": "Slower but larger shots from the central cannon that do 1.5x damage.",
 		"laser_type": LASER_TYPES.PLASMA,
@@ -68,7 +68,7 @@ var default_laser_enhancements = [
 	},
 	{
 		"id": 6,
-		"cost": 4000,
+		"cost": 8000,
 		"name": "Plasma Wall",
 		"description": "Fires a plasma shot from each cannon.",
 		"laser_type": LASER_TYPES.PLASMA,
@@ -79,31 +79,31 @@ var default_laser_enhancements = [
 var default_ship_enhancements = [
 	{
 		"id": 100,
-		"cost": 4000,
+		"cost": 1000,
 		"name": "Shields",
 		"description": "25% of your health will become shields which can regenrate faster than your ship."
 	},
 	{
 		"id": 101,
-		"cost": 4000,
+		"cost": 2000,
 		"name": "Fire Resistance",
 		"description": "Decrease the damage dealt by burning by 1/2."
 	},
 	{
 		"id": 102,
-		"cost": 4000,
+		"cost": 2000,
 		"name": "Corrosive Resistance",
 		"description": "Decrease the duration of corrosion damage by 1/2."
 	},
 	{
 		"id": 103,
-		"cost": 4000,
+		"cost": 2000,
 		"name": "Ice Resistance",
 		"description": "Decrease the amount of time your ship freezes by 1/2."
 	},
 	{
 		"id": 104,
-		"cost": 4000,
+		"cost": 2000,
 		"name": "Extra Lasers",
 		"description": "Start each level with two additional laser refills."
 	}
