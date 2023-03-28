@@ -43,6 +43,8 @@ func instance_scenes_then_quit():
 		progress += 1
 		#
 		var scene = scene_path.instance()
+		if scene.is_in_group("lasers"):
+			scene.sender = self
 		$Instances.add_child(scene)
 		if scene.is_in_group("enemies") or scene.is_in_group("bosses"):
 			scene.initialize(1)

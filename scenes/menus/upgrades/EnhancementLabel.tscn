@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/theme-submenu.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/menus/upgrades/EnhancementLabel.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ui-bits/FullAlert.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.6, 0.6, 0.6, 0.25098 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 15.0
+content_margin_right = 15.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="EnhancementLabel" type="PanelContainer" groups=["enhancementlabels"]]
+anchor_right = 1.0
+margin_bottom = 14.0
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+description = "This is the upgrade's description."
+
+[node name="Description" parent="." instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1057.0
+margin_bottom = 54.0
+
+[node name="PurchaseDialog" parent="." instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1057.0
+margin_bottom = 54.0
+text = "Are you sure you would like to unlock this enhancement?"
+is_confirmation = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1057.0
+margin_bottom = 54.0
+rect_pivot_offset = Vector2( -373, -318 )
+custom_constants/separation = 15
+
+[node name="Cost" type="Label" parent="HBoxContainer"]
+margin_right = 80.0
+margin_bottom = 44.0
+size_flags_horizontal = 0
+size_flags_vertical = 7
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/normal = SubResource( 2 )
+text = "$COST"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 95.0
+margin_top = 12.0
+margin_right = 881.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+text = "Enhancement Label"
+
+[node name="Info" type="Button" parent="HBoxContainer"]
+margin_left = 896.0
+margin_right = 924.0
+margin_bottom = 44.0
+text = "?"
+
+[node name="Equip" type="CheckButton" parent="HBoxContainer"]
+margin_left = 939.0
+margin_right = 983.0
+margin_bottom = 44.0
+theme_type_variation = "IconButton"
+
+[node name="Purchase" type="Button" parent="HBoxContainer"]
+margin_left = 998.0
+margin_right = 1047.0
+margin_bottom = 44.0
+text = "Buy"
+
+[connection signal="confirmed" from="PurchaseDialog" to="." method="_on_PurchaseDialog_confirmed"]
+[connection signal="pressed" from="HBoxContainer/Info" to="." method="_on_Info_pressed"]
+[connection signal="toggled" from="HBoxContainer/Equip" to="." method="_on_Equip_toggled"]
+[connection signal="pressed" from="HBoxContainer/Purchase" to="." method="_on_Purchase_pressed"]

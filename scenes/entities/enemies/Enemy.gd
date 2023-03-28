@@ -96,6 +96,7 @@ func initialize(level, possible_enemy_types=null):
 	
 	# Adds the enemy model
 	add_child(enemy_model)
+	enemy_model.set_owner(self)
 	
 	# Sets enemy stats
 	max_health = GameVariables.get_enemy_stats(enemy_type)["max_health"]
@@ -184,19 +185,19 @@ func explode_ship(silent=false):
 		powerup.translation = translation
 		if force_powerup == true and use_laser_modifiers == false: # <-- Forced custom powerups
 			if powerup_type != null: powerup.type = powerup_type
-			get_parent().add_child(powerup)
+			get_owner().add_child(powerup)
 		elif use_laser_modifiers == true: # <-- Laser modifiers
 			powerup.modifier = laser_modifier
-			get_parent().add_child(powerup)
+			get_owner().add_child(powerup)
 		elif get_tree().get_nodes_in_group("players")[0].health_percent < .30 or (randi() % (powerup_randomness * 4)) == 1: # <-- Health
 			powerup.type = GameVariables.POWERUP_TYPES.medkit
-			get_parent().add_child(powerup)
+			get_owner().add_child(powerup)
 		elif (get_tree().get_nodes_in_group("players")[0].ammo_refills <= GameVariables.ammo_refills_target or (randi() % (powerup_randomness * 8)) == 1 and get_tree().get_nodes_in_group("players")[0].ammo_refills <= 20) and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Ammo (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.ammo
-			get_parent().add_child(powerup)
+			get_owner().add_child(powerup)
 		elif (randi() % (powerup_randomness * 16)) == 1 and len(get_tree().get_nodes_in_group("powerups")) < GameVariables.max_powerups_on_screen: # <-- Exploding everything (rarer)
 			powerup.type = GameVariables.POWERUP_TYPES.wipe
-			get_parent().add_child(powerup)
+			get_owner().add_child(powerup)
 	
 	# then explodes
 	$DamageIndicator.activate("+%d" % GameVariables.get_points(max_health))

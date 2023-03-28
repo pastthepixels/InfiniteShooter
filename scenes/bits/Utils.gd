@@ -92,3 +92,12 @@ func match_variable_types(original, value):
 			return value
 		_:
 			return value
+
+# Recursive until it finds a parent that is an entity
+func get_parent_entity(node):
+	if node.is_in_group("entities"):
+		return node
+	elif node.get_parent() == null:
+		return null
+	else:
+		return get_parent_entity(node.get_parent())

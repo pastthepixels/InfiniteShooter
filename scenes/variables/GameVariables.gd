@@ -118,7 +118,6 @@ var max_points_per_upgrade = 16 # <-- Note: For EITHER damage or health
 
 var enemy_difficulty
 
-# A function to set the difficulty of the game. (I mean, what more can I say?)
 var backups = {}
 var vars_to_backup = ["ammo_refills_target", "difficulty_health", "difficulty_damage", "enemies_on_screen_range", "enemies_per_wave", "target_purchasable_health", "target_purchasable_damage", "health_diff", "health_diff_boss", "damage_diff"]
 func back_up_vars():

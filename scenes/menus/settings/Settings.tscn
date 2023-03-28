@@ -29,7 +29,7 @@ scroll_horizontal_enabled = false
 
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer" index="0"]
 unique_name_in_owner = true
-margin_right = 499.0
+margin_right = 520.0
 margin_bottom = 1853.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
@@ -409,6 +409,27 @@ rect_min_size = Vector2( 128, 0 )
 custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
 text = "Space"
 
+[node name="WeaponSwitcher" type="HBoxContainer" parent="Content/ScrollContainer/Options/InputKeys" index="5"]
+margin_top = 236.0
+margin_right = 499.0
+margin_bottom = 275.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="Content/ScrollContainer/Options/InputKeys/WeaponSwitcher" index="0"]
+margin_top = 10.0
+margin_right = 361.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+text = "Open weapon switcher"
+
+[node name="Key" type="Button" parent="Content/ScrollContainer/Options/InputKeys/WeaponSwitcher" index="1"]
+margin_left = 371.0
+margin_right = 499.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 128, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 0.784314 )
+text = "Alt"
+
 [node name="ApplyBindings" type="Button" parent="Content/ScrollContainer/Options" index="22"]
 margin_top = 1631.0
 margin_right = 499.0
@@ -492,6 +513,7 @@ visible = false
 [connection signal="pressed" from="Content/ScrollContainer/Options/InputKeys/Down/Key" to="." method="_map_down_key"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/InputKeys/Right/Key" to="." method="_map_right_key"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/InputKeys/Laser/Key" to="." method="_map_shoot_key"]
+[connection signal="pressed" from="Content/ScrollContainer/Options/InputKeys/WeaponSwitcher/Key" to="." method="_map_switch_key"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/ApplyBindings" to="." method="_on_ApplyBindings_pressed"]
 [connection signal="value_changed" from="Content/ScrollContainer/Options/MouseSensitivity/HSlider" to="." method="_on_MouseSensitivity_HSlider_value_changed"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/ResetGame" to="." method="_on_ResetGame_pressed"]

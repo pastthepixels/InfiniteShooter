@@ -17,7 +17,7 @@ outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 3 )
 
-[node name="Enemy" type="Spatial" groups=["enemies"]]
+[node name="Enemy" type="Spatial" groups=["enemies", "entities"]]
 script = ExtResource( 4 )
 auto_kill_percentage = 0.15
 

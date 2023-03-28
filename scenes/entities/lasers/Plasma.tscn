@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/entities/lasers/Projectile.tscn" type="PackedScene" id=1]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id=2]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 1, 1, 1, 0.0784314 )
+roughness = 0.4
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[node name="Plasma" instance=ExtResource( 1 )]
+use_modifiers = false
+speed_multiplier = 0.5
+damage_multiplier = 1.25
+enemy_color = Color( 0.980392, 0.121569, 0.647059, 1 )
+player_color = Color( 0.858824, 0.364706, 0.886275, 1 )
+
+[node name="VisibilityNotifier" parent="." index="7"]
+aabb = AABB( -0.42247, -0.413602, -0.416827, 0.84494, 0.827203, 0.833654 )
+
+[node name="CollisionShape" parent="." index="8"]
+shape = SubResource( 1 )
+
+[node name="Laser" parent="." index="9"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )

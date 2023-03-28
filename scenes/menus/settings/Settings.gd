@@ -144,6 +144,9 @@ func _map_right_key():
 func _map_shoot_key():
 	$KeyPopup.map_actions(["shoot_laser", "ui_accept"])
 
+func _map_switch_key():
+	$KeyPopup.map_actions(["open_weapon_switcher"])
+
 func _on_ApplyBindings_pressed():
 	$Alert.alert("Key bindings saved and applied!")
 	$KeyPopup.set_keys()
@@ -155,6 +158,7 @@ func _on_KeyPopup_key_set():
 	if "move_left" in $KeyPopup.set_actions:	get_node("%InputKeys/Left/Key").text = $KeyPopup.set_actions["move_left"][1].as_text()
 	if "move_right" in $KeyPopup.set_actions:	get_node("%InputKeys/Right/Key").text = $KeyPopup.set_actions["move_right"][1].as_text()
 	if "shoot_laser" in $KeyPopup.set_actions:	get_node("%InputKeys/Laser/Key").text = $KeyPopup.set_actions["shoot_laser"][1].as_text()
+	if "open_weapon_switcher" in $KeyPopup.set_actions:	get_node("%InputKeys/WeaponSwitcher/Key").text = $KeyPopup.set_actions["open_weapon_switcher"][1].as_text()
 
 # Mouse sensitivity
 func _on_MouseSensitivity_HSlider_value_changed(value):

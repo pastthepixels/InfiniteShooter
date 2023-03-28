@@ -1,21 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/entities/lasers/Laser.gd" type="Script" id=1]
-[ext_resource path="res://sounds/laser-eol.mp3" type="AudioStream" id=2]
-[ext_resource path="res://sounds/laser-hit.mp3" type="AudioStream" id=3]
-[ext_resource path="res://sounds/laser-fire.mp3" type="AudioStream" id=4]
-[ext_resource path="res://materials/HitParticles.material" type="Material" id=5]
-[ext_resource path="res://scenes/bits/Particles.gd" type="Script" id=6]
-[ext_resource path="res://materials/DispersionParticles.material" type="Material" id=7]
-[ext_resource path="res://sounds/laser-fire-enemy.mp3" type="AudioStream" id=8]
+[ext_resource path="res://scenes/entities/lasers/Projectile.tscn" type="PackedScene" id=1]
 
-[sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.0499679, 0.0487588, 0.25 )
-
-[sub_resource type="PlaneMesh" id=7]
-size = Vector2( 0.1, 0.5 )
-
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=3]
 resource_local_to_scene = true
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
@@ -26,92 +13,7 @@ emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SpatialMaterial" id=16]
-flags_transparent = true
-vertex_color_use_as_albedo = true
-albedo_color = Color( 0.627451, 0.627451, 0.627451, 0.392157 )
+[node name="Laser" instance=ExtResource( 1 )]
 
-[sub_resource type="PlaneMesh" id=17]
-material = SubResource( 16 )
-size = Vector2( 0.06, 0.06 )
-
-[sub_resource type="SpatialMaterial" id=12]
-flags_transparent = true
-vertex_color_use_as_albedo = true
-albedo_color = Color( 0.392157, 0.392157, 0.392157, 1 )
-
-[sub_resource type="PlaneMesh" id=15]
-material = SubResource( 12 )
-size = Vector2( 0.05, 0.1 )
-
-[node name="Laser" type="Area" groups=["lasers"]]
-script = ExtResource( 1 )
-enemy_color = Color( 1, 0, 0, 1 )
-player_color = Color( 1, 1, 1, 1 )
-fire_color = Color( 1, 0.819608, 0, 1 )
-ice_color = Color( 0.00784314, 0, 1, 1 )
-corrosion_color = Color( 0, 1, 0.0627451, 1 )
-
-[node name="FollowTimer" type="Timer" parent="."]
-wait_time = 3.0
-
-[node name="InvincibilityTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
-[node name="LaserSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-bus = "SFX"
-
-[node name="EnemyLaserSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
-bus = "SFX"
-
-[node name="EOLSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
-bus = "SFX"
-
-[node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-bus = "SFX"
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
-aabb = AABB( -0.0521555, -0.0502256, -0.245932, 0.104311, 0.100451, 0.491863 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 6 )
-
-[node name="Laser" type="MeshInstance" parent="."]
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
-
-[node name="Particles" type="Particles" parent="."]
-emitting = false
-amount = 50
-lifetime = 10.0
-one_shot = true
-speed_scale = 20.0
-explosiveness = 1.0
-visibility_aabb = AABB( -4, -0.5, -4, 8, 1, 8 )
-process_material = ExtResource( 7 )
-draw_pass_1 = SubResource( 17 )
-script = ExtResource( 6 )
-
-[node name="HitParticles" type="Particles" parent="."]
-emitting = false
-amount = 30
-lifetime = 10.0
-one_shot = true
-speed_scale = 12.0
-explosiveness = 1.0
-randomness = 0.2
-visibility_aabb = AABB( -7.47943, -0.5, -9.16166, 14.9589, 1, 18.3233 )
-process_material = ExtResource( 5 )
-draw_pass_1 = SubResource( 15 )
-script = ExtResource( 6 )
-
-[connection signal="area_entered" from="." to="." method="_on_Laser_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_Laser_area_exited"]
-[connection signal="body_entered" from="." to="." method="_on_Laser_body_entered"]
-[connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
-[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[node name="Laser" parent="." index="9"]
+material/0 = SubResource( 3 )

@@ -11,8 +11,12 @@ var menu_scene = preload("res://scenes/menus/main/MainMenu.tscn")
 func _ready():
 	$CanvasLayer.hide()
 
+func is_visible():
+	return get_node("%SceneTransitionDoor/AnimationPlayer").is_playing() or get_node("%SceneTransitionDoor").visible
+
 
 func open():
+	Engine.time_scale = 1
 	$CanvasLayer.show()
 	$SoundEffect.pitch_scale = rand_range(0.9, 1.1)
 	$SoundEffect.play()
@@ -40,6 +44,7 @@ func quit_game():
 func start_game():
 	open()
 	yield(wait(), "completed")
+	Enhancements.reset()
 	call_deferred("_deferred_goto_scene", game_scene)
 	yield(get_tree(), "idle_frame") # Wait until the scene has been switched to close
 	emit_signal("loaded_game")
@@ -60,4 +65,5 @@ func main_menu():
 	open()
 	yield(wait(), "completed")
 	call_deferred("_deferred_goto_scene", menu_scene)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 	close()

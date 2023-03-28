@@ -154,7 +154,7 @@ outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 9 )
 
-[node name="Boss" type="Spatial" groups=["bosses"]]
+[node name="Boss" type="Spatial" groups=["bosses", "entities"]]
 script = ExtResource( 3 )
 paths = [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]
 

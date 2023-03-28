@@ -43,7 +43,7 @@ var default_settings = {
 	"load_screen_live_log": false
 }
 
-var current_settings
+var current_settings = default_settings
 
 var default_save_slot_data = [ # By default there's 4. You can add more but it will break SaveScreen.tscn
 	{ "name": "", "active": false },
@@ -71,6 +71,10 @@ var default_save_json = [
 	},
 	{
 		"path": "/root/CameraEquipment",
+		"save": {}
+	},
+	{
+		"path": "/root/Enhancements",
 		"save": {}
 	}
 ]
@@ -293,9 +297,24 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 	# 1. Update variables for all nodes
 	for node in save_json: # Assumes the node that is being saved has a function where it returns a dict of variables/values
 		for key in node.save:
+			var previous_value
 			if key in get_node(node.path):
+				previous_value = get_node(node.path)[key]
 				get_node(node.path)[key] = Utils.match_variable_types(get_node(node.path)[key], node.save[key])
 			### EDGE CASES ###
+			# Setting enhancements values non-destructively
+			if "_enhancements" in key and node.path == "/root/Enhancements":
+				for index in range(0, previous_value.size()):
+					for enhancement_key in previous_value[index]:
+						# Remember: get_node(node.path) == the SAVED value and previous_value == the CODED IN, DEFAULT value
+						if index >= get_node(node.path)[key].size():
+							# First, we need to check if the enhancement even exists in the first place. If it doesn't,
+							# which could likely be caused by using an older save on a new version, add it to the save.
+							get_node(node.path)[key].append(previous_value[index])
+						elif (enhancement_key in get_node(node.path)[key][index]) == false:
+							get_node(node.path)[key][index][enhancement_key] = previous_value[index][enhancement_key]
+						else:
+							get_node(node.path)[key][index][enhancement_key] = Utils.match_variable_types(previous_value[index][enhancement_key], get_node(node.path)[key][index][enhancement_key])
 			# Ensuring the player's max health is set before its health
 			if key == "health" and node.path == "/root/Game/GameSpace/Player":
 				get_node(node.path)["max_health"] = node.save["max_health"]
@@ -308,6 +327,10 @@ func load_game(slot=current_save_slot): # Only to be run when there's /root/Game
 		# Loading LaserEffects saves
 		if "LaserEffects" in node.path:
 			get_node(node.path).load_save(node.save)
+		# Loading Enhancements saves
+		if node.path == "/root/Enhancements":
+			Enhancements.emit_signal("updated")
+			Enhancements.emit_signal("active_enhancements_changed")
 	# 2. Update the GUI
 	get_node("/root/Game").update_status_bar()
 

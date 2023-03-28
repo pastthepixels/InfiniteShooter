@@ -1,6 +1,4 @@
-extends Control
-
-signal closed
+extends "res://scenes/ui-bits/Submenu.gd"
 
 signal upgrade_health(amount)
 
@@ -9,6 +7,9 @@ signal upgrade_damage(amount)
 signal subtract_coins(amount)
 
 signal request_player_stats()
+
+# Name generator
+var name_generator = preload("res://scenes/menus/upgrades/NameGenerator.gd")
 
 # Something that should NOT be saved but that is used at runtime
 # {"label name": upgrade}
@@ -27,15 +28,17 @@ var _damage = 0
 # Template for an upgrade label
 export(PackedScene) var upgrade_label
 
-# Name generator
-export(Script) var name_generator
+# Template for an enhancement label
+export(PackedScene) var enhancement_label
 
 # Sorting
 export var use_ascending_sort = false # If this set to true then it assumes you want to sort by descending
 
+func _ready():
+	Enhancements.connect("updated", self, "_on_LoadoutUpgrades_ready")
+
 # Shows and hides the menu with FADING
 func show_animated():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	reset_labels()
 	create_upgrades() # <-- Creates upgrades
 	read_upgrades() # <--- turns them into labels
@@ -44,7 +47,7 @@ func show_animated():
 	$AnimationPlayer.play("open")
 	$ShowSound.play()
 	$Music.play()
-	$Content/Back.grab_focus()
+	$"Content/NavigationButtons/Back".grab_focus()
 
 
 func _on_UpgradeLabel_button_pressed(label):
@@ -67,22 +70,21 @@ func _on_QuitConfirm_confirmed():
 	emit_signal("closed")
 	$AnimationPlayer.play("close")
 	$Music.stop()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _on_Back_pressed():
-	$QuitConfirm.alert("Are you sure you would like to go back to the game?", true)
+	$QuitConfirm.alert()
 
 func _on_SortCategory_item_selected(index):
 	match(index):
 		0: # Cost
-			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_cost")
+			Utils.sort_container(get_node("%Upgrades"), self, "sort_cost")
 		
 		1: # Damage
-			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_damage")
+			Utils.sort_container(get_node("%Upgrades"), self, "sort_damage")
 		
 		2: # Health
-			Utils.sort_container($Content/ScrollContainer/Upgrades, self, "sort_health")
+			Utils.sort_container(get_node("%Upgrades"), self, "sort_health")
 
 
 func _on_SortMode_item_selected(index):
@@ -92,7 +94,7 @@ func _on_SortMode_item_selected(index):
 		1: # Descending
 			use_ascending_sort = false
 	# Force update
-	_on_SortCategory_item_selected($Content/Sorting/SortCategory.get_item_index($Content/Sorting/SortCategory.get_selected_id()))
+	_on_SortCategory_item_selected(get_node("%Sorting/SortCategory").get_item_index(get_node("%Sorting/SortCategory").get_selected_id()))
 
 
 # Creating an array of upgrades
@@ -117,7 +119,7 @@ func read_upgrades():
 		if upgrade["purchased"] == true: label.modulate = Color(1, 1, 1, .5)
 		upgrade_lookup_table[label.name] = upgrade
 		# Force resort
-	_on_SortCategory_item_selected($Content/Sorting/SortCategory.get_item_index($Content/Sorting/SortCategory.get_selected_id()))
+	_on_SortCategory_item_selected(get_node("%Sorting/SortCategory").get_item_index(get_node("%Sorting/SortCategory").get_selected_id()))
 
 # Creating a label (pretty straightforward)
 func create_label(text, cost, damage, health):
@@ -125,7 +127,7 @@ func create_label(text, cost, damage, health):
 	label.set_name(text)
 	label.set_stats(cost, damage, health)
 	label.connect("button_pressed", self, "_on_UpgradeLabel_button_pressed")
-	$Content/ScrollContainer/Upgrades.add_child(label)
+	get_node("%Upgrades").add_child(label)
 	return label
 
 
@@ -144,7 +146,7 @@ func reroll_upgrades():
 
 func reset_labels():
 	for label_name in upgrade_lookup_table.keys():
-		get_node("Content/ScrollContainer/Upgrades/" + label_name).queue_free()
+		if has_node("Content/ScrollContainer/Upgrades/" + label_name): get_node("Content/ScrollContainer/Upgrades/" + label_name).queue_free()
 	upgrade_lookup_table.clear()
 
 # Updates the labels
@@ -183,3 +185,54 @@ func sort_health(label_a, label_b):
 
 func sort_damage(label_a, label_b):
 	return sort_generic(label_a, label_b, "Stats/Damage")
+
+# Switching tabs
+func _on_ChangeTab_pressed():
+	if $Content/TabContainer.current_tab == $Content/TabContainer.get_child_count() -1:
+		$Content/TabContainer.current_tab = 0
+	else:
+		$Content/TabContainer.current_tab += 1
+
+
+func _on_TabContainer_tab_changed(tab):
+	match tab:
+		0:
+			$"Content/NavigationButtons/ChangeTab".text = "Switch to loadout"
+		
+		1:
+			$"Content/NavigationButtons/ChangeTab".text = "Switch to upgrades"
+
+# Loads enhancements/loadout upgrades
+func _on_LoadoutUpgrades_ready():
+	# Removes existing labels
+	for child in get_node("%LoadoutUpgrades").get_children():
+		if child.is_in_group("enhancementlabels"):
+			child.queue_free()
+	
+	for enhancement in Enhancements.laser_enhancements:
+		var label = create_loadout_label(enhancement)
+		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Lasers").get_index() + Enhancements.laser_enhancements.find(enhancement) + 1)
+	
+	for enhancement in Enhancements.ship_enhancements:
+		var label = create_loadout_label(enhancement)
+		get_node("%LoadoutUpgrades").move_child(label, get_node("%LoadoutUpgrades/Ship").get_index() + Enhancements.ship_enhancements.find(enhancement) + 1)
+
+func create_loadout_label(json):
+	var label = enhancement_label.instance()
+	label.load_from_json(json)
+	get_node("%LoadoutUpgrades").add_child(label)
+	label.connect("purchase_request", self, "_on_EnhancementLabel_purchase_request", [label])
+	label.connect("equip_failed", self, "_on_EnhancementLabel_equip_failed")
+	return label
+
+func _on_EnhancementLabel_equip_failed():
+	$Alert.error("Max number of upgrades of this type equipped.")
+
+func _on_EnhancementLabel_purchase_request(cost, label):
+	if _coins - cost >= 0:
+		$Alert.alert("Enhancement purchased!")
+		emit_signal("subtract_coins", cost)
+		emit_signal("request_player_stats")
+		label.complete_purchase()
+	else:
+		$Alert.error("$%s needed." % (cost - _coins))

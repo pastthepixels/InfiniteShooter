@@ -75,6 +75,7 @@ func _ready():
 	# Locks the cursor
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# HUD stuff
+	$HUD.update_shield_enabled($GameSpace/Player.shield_enabled)
 	if waves_per_level > 0:
 		$HUD.update_level(level, 100 * wave/waves_per_level)
 		$HUD.update_wave(wave, 100 * 1.0/GameVariables.enemies_per_wave)
@@ -176,6 +177,8 @@ func level_up():
 	max_enemies_on_screen = clamp(max_enemies_on_screen+1, GameVariables.enemies_on_screen_range[0], GameVariables.enemies_on_screen_range[1])
 	waves_per_level = clamp(waves_per_level+1, GameVariables.waves_per_level_range[0], GameVariables.waves_per_level_range[1])
 	set_coincrate_spawn()
+	if Enhancements.is_enhancement_active(104):
+		$GameSpace/Player.ammo_refills += 2
 	# Then, GUI stuff
 	if fmod(level, GameVariables.reset_level) != 0:
 		$HUD.set_alert_progress(10 - (get_next_reset_level(level) - level), 10, "Difficulty reset in %d level(s)" % (get_next_reset_level(level) - level))
@@ -283,9 +286,12 @@ func set_random_enemy_position(times_ran=0):
 	$GameSpace/IndicatorArrow.translation = Vector3(position.x, 0, Utils.top_left.z + 0.8) # <-- Sets the position of the indicator arrow to let players know where the next ship is coming from
 	if enemies_in_wave == 0:
 		$GameSpace/IndicatorArrow.translation.x = 0
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if position.distance_to(enemy.translation) <= 3:
-			return set_random_enemy_position(times_ran + 1)
+	# If the program has been running for a certain amount of times, there's likely this wall of enemies that just spawned.
+	# So we can only check for reasonable positions for new enemies to, well, a reasonable amount of times.
+	if times_ran < 10:
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			if position.distance_to(enemy.translation) <= 3:
+				return set_random_enemy_position(times_ran + 1)
 	return position
 
 func make_boss():
@@ -358,6 +364,7 @@ func _on_Enemy_exited_screen(ship):
 func _on_Player_died():
 	died = true
 	$PauseMenu.set_process_input(false)
+	$WeaponSwitcher.set_process_input(false)
 	$HUD.update_health(0, 0)
 	$GameSpace/IndicatorArrow.hide()
 	$HUD/AnimationPlayer.play("fade_out")
@@ -375,6 +382,9 @@ func _on_Player_ammo_changed(value, refills):
 
 func _on_Player_health_changed(value):
 	$HUD.update_health(value, $GameSpace/Player.health)
+
+func _on_Player_shield_changed(value):
+	$HUD.update_shield(value, $GameSpace/Player.shield)
 
 
 func _on_Player_set_modifier():
@@ -399,3 +409,22 @@ func _on_Upgrades_upgrade_health(amount):
 
 func _on_Upgrades_request_player_stats():
 	$Upgrades.update_player_information($GameSpace/Player.max_health, $GameSpace/Player.damage, coins)
+
+
+func _on_WeaponSwitcher_request_process_input(enabled):
+	$GameSpace/Player.set_process_input(enabled)
+	$GameSpace/Player.set_physics_process(enabled)
+
+func is_submenu_visible():
+	return has_node("Countdown") or $WeaponSwitcher.visible or $Upgrades.visible or $PauseMenu.visible or $HUD/Alert.visible
+
+
+func _on_WeaponSwitcher_slot_selected(slot):
+	$GameSpace/Player.weapon_slot = slot
+
+func get_selected_slot():
+	return $GameSpace/Player.weapon_slot
+
+
+func _on_Player_shield_enabled_changed(value):
+	$HUD.update_shield_enabled(value)
