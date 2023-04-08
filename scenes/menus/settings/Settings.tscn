@@ -30,7 +30,7 @@ scroll_horizontal_enabled = false
 [node name="Options" type="VBoxContainer" parent="Content/ScrollContainer" index="0"]
 unique_name_in_owner = true
 margin_right = 520.0
-margin_bottom = 1853.0
+margin_bottom = 1971.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 __meta__ = {
@@ -484,6 +484,16 @@ custom_colors/font_color_hover = Color( 1, 0.458824, 0.458824, 1 )
 custom_colors/font_color_pressed = Color( 1, 0.352941, 0.352941, 1 )
 text = "Reset all data"
 
+[node name="OpenJukebox" type="Button" parent="Content/ScrollContainer/Options" index="26"]
+margin_top = 1814.0
+margin_right = 499.0
+margin_bottom = 1853.0
+custom_colors/font_color_focus = Color( 1, 0.356863, 0.356863, 1 )
+custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
+custom_colors/font_color_hover = Color( 1, 0.458824, 0.458824, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.352941, 0.352941, 1 )
+text = "Open jukebox"
+
 [node name="KeyPopup" parent="." index="3" instance=ExtResource( 6 )]
 visible = false
 
@@ -517,5 +527,6 @@ visible = false
 [connection signal="pressed" from="Content/ScrollContainer/Options/ApplyBindings" to="." method="_on_ApplyBindings_pressed"]
 [connection signal="value_changed" from="Content/ScrollContainer/Options/MouseSensitivity/HSlider" to="." method="_on_MouseSensitivity_HSlider_value_changed"]
 [connection signal="pressed" from="Content/ScrollContainer/Options/ResetGame" to="." method="_on_ResetGame_pressed"]
+[connection signal="pressed" from="Content/ScrollContainer/Options/OpenJukebox" to="." method="_on_OpenJukebox_pressed"]
 [connection signal="key_set" from="KeyPopup" to="." method="_on_KeyPopup_key_set"]
 [connection signal="confirmed" from="ResetConfirmation" to="." method="_on_ResetConfirmation_confirmed"]

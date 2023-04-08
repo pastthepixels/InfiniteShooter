@@ -1,0 +1,127 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://images/space.hdr" type="Texture" id=1]
+[ext_resource path="res://scenes/game/jukebox/jukebox.gd" type="Script" id=2]
+[ext_resource path="res://scenes/bits/WarpPlane.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/game/GameMusic.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/title-infiniteshooter/title.glb" type="PackedScene" id=5]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 1
+background_sky = SubResource( 1 )
+background_sky_custom_fov = 40.0
+background_energy = 1.5
+ambient_light_color = Color( 0.564706, 0.564706, 0.564706, 1 )
+ambient_light_energy = 4.75
+ambient_light_sky_contribution = 0.0
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 1, 1, 1, 1 )
+fog_sun_amount = 0.24
+tonemap_mode = 4
+tonemap_exposure = 1.5
+auto_exposure_enabled = true
+auto_exposure_scale = 0.15
+auto_exposure_speed = 2.0
+ssao_enabled = true
+dof_blur_far_distance = 20.0
+dof_blur_far_quality = 2
+glow_enabled = true
+glow_bloom = 0.1
+glow_hdr_luminance_cap = 0.6
+glow_bicubic_upscale = true
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[sub_resource type="Animation" id=3]
+resource_name = "Flash text"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( -2, -2, -2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.596078 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Jukebox" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="GameMusic" parent="." instance=ExtResource( 4 )]
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 64.0
+text = "Thanks for playing!"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Flash text"
+"anims/Flash text" = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+
+[node name="title" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.52957, 0 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.602526, 0.7981, 0, -0.7981, -0.602526, 0, 14.1016, -4.74473 )
+
+[node name="WarpPlane" parent="." instance=ExtResource( 3 )]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -79.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1047.0
+margin_bottom = 59.0
+custom_constants/separation = 20
+
+[node name="Back" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_right = 48.0
+margin_bottom = 39.0
+text = "Exit"
+
+[node name="ChangeSong" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_left = 68.0
+margin_right = 184.0
+margin_bottom = 39.0
+text = "Change song"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ChangeSong" to="." method="_on_ChangeSong_pressed"]

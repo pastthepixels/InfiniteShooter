@@ -175,3 +175,7 @@ func _on_QuitLines_toggled(button_pressed):
 func _on_LoadScreenLog_toggled(button_pressed):
 	settings["load_screen_live_log"] = button_pressed
 	Saving.save_settings(settings)
+
+
+func _on_OpenJukebox_pressed():
+	SceneTransition.jukebox()

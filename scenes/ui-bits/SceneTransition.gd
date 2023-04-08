@@ -4,6 +4,8 @@ signal loaded_game
 
 onready var root = get_tree().get_root()
 
+var jukebox_scene = preload("res://scenes/game/jukebox/Jukebox.tscn")
+
 var game_scene = preload("res://scenes/game/Game.tscn")
 
 var menu_scene = preload("res://scenes/menus/main/MainMenu.tscn")
@@ -48,6 +50,13 @@ func start_game():
 	call_deferred("_deferred_goto_scene", game_scene)
 	yield(get_tree(), "idle_frame") # Wait until the scene has been switched to close
 	emit_signal("loaded_game")
+	close()
+
+func jukebox():
+	open()
+	yield(wait(), "completed")
+	call_deferred("_deferred_goto_scene", jukebox_scene)
+	yield(get_tree(), "idle_frame") # Wait until the scene has been switched to close
 	close()
 
 func continue_game():
