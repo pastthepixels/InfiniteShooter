@@ -1,8 +1,12 @@
-<p align="center">
-  <img alt="InfiniteShooter" src="https://raw.githubusercontent.com/pastthepixels/InfiniteShooter-Assets/main/Images/Banners and covers/infiniteshooter-cover.png">
-</p>
+<h1 align="center"> <img height="32px" vertical-align="center" src="resources/icon.png" /> InfiniteShooter</h1>
 
-<a style="float:left" href='https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+<p align="center">
+  <a href="https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter"><img src="https://img.shields.io/flathub/downloads/io.github.pastthepixels.InfiniteShooter" /></a>
+  <a href="https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter"><img src="https://img.shields.io/flathub/v/io.github.pastthepixels.InfiniteShooter" /></a>
+  <a href="https://github.com/pastthepixels/InfiniteShooter/releases/latest"><img src="https://img.shields.io/github/downloads/pastthepixels/InfiniteShooter/latest/total" /></a>
+  <a href="https://github.com/pastthepixels/InfiniteShooter/issues"><img src="https://img.shields.io/github/issues/pastthepixels/InfiniteShooter" /></a>
+  <a href="https://github.com/pastthepixels/InfiniteShooter/graphs/contributors"><img src="https://img.shields.io/github/contributors/pastthepixels/InfiniteShooter" /></a>
+</p>
 
 <a style="float:left" href="https://pastthepixels.itch.io/infiniteshooter">Now on itch.io!</a>
 
