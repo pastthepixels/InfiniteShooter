@@ -1,4 +1,4 @@
-<h1 align="center"> <img height="32px" vertical-align="center" src="resources/icon.png" /> InfiniteShooter</h1>
+<h1 align="center"> <img height="48px" vertical-align="center" src="https://github.com/pastthepixels/InfiniteShooter/assets/52388215/2de20013-e09e-4dd6-9dfa-897914329028" /></h1>
 
 <p align="center">
   <a href="https://flathub.org/apps/details/io.github.pastthepixels.InfiniteShooter"><img src="https://img.shields.io/flathub/downloads/io.github.pastthepixels.InfiniteShooter" /></a>
