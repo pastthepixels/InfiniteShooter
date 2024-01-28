@@ -25,6 +25,7 @@ func save():
 
 func _ready():
 	randomize()
+	set_sky(0)
 	VisualServer.canvas_item_set_z_index($FrameCounter.get_canvas_item(), 10)
 
 #

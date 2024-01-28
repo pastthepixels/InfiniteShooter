@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=2]
+[gd_resource type="Theme" load_steps=41 format=2]
 
 [ext_resource path="res://resources/font.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://images/gui/off.svg" type="Texture" id=2]
@@ -183,15 +183,6 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 1, 1, 1, 0.784314 )
 
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 5.0
-content_margin_top = 25.0
-content_margin_bottom = 12.0
-bg_color = Color( 1, 1, 1, 1 )
-draw_center = false
-border_width_bottom = 3
-border_color = Color( 1, 1, 1, 0.784314 )
-
 [sub_resource type="StyleBoxFlat" id=35]
 content_margin_top = 20.0
 draw_center = false
@@ -298,7 +289,7 @@ ProgressBar/fonts/font = SubResource( 32 )
 ProgressBar/styles/bg = SubResource( 33 )
 ProgressBar/styles/fg = SubResource( 34 )
 SeparatorLabel/base_type = "Label"
-SeparatorLabel/styles/normal = SubResource( 1 )
+SeparatorLabel/styles/normal = null
 TabContainer/constants/side_margin = 0
 TabContainer/styles/panel = SubResource( 35 )
 TabContainer/styles/tab_bg = SubResource( 39 )

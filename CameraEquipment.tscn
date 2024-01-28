@@ -421,7 +421,9 @@ rotating = true
 current = true
 smoothing_enabled = true
 script = ExtResource( 1 )
-max_roll = 0.15
+max_offset = Vector2( 0, 0 )
+max_roll = 0.0
+ignore_shake = true
 max_trauma = 0.6
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]

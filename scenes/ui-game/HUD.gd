@@ -60,19 +60,9 @@ func update_score(score):
 
 
 func update_level(level, progress):
-	get_node("%StatusBar").get_node("Level/Label").text = "Level %s" % level
-	get_node("%StatusBar").get_node("Level/Progress").value = progress
+	get_node("%StatusBar/Level/Label").text = "Level %s" % level
+	$LevelProgress.value = progress
 
-
-func update_wave(wave, progress):
-	get_node("%StatusBar").get_node("Wave/Label").text = "Wave %s" % wave
-	get_node("%StatusBar").get_node("Wave/Progress").value = progress
-
-func update_wave_boss():
-	get_node("%StatusBar").get_node("Wave/Label").text = "Boss fight"
-	get_node("%StatusBar").get_node("Wave/Progress").value = 100
-
-#
 # Updating the top bars
 #
 func update_laser_modifier_label(modifier=GameVariables.LASER_MODIFIERS.none):

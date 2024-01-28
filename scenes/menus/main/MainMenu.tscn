@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 3 ),
 "transitions": PoolRealArray( -2, -2 ),
 "update": 0,
-"values": [ Vector3( 0, 15, 0 ), Vector3( 0, 10, 0 ) ]
+"values": [ Vector3( 0, 15, 0 ), Vector3( 0, 8, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Title:rotation_degrees")
@@ -47,6 +47,18 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Menu/SelectSquare:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 1.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,

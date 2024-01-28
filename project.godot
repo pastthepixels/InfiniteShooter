@@ -24,11 +24,11 @@ CameraEquipment="*res://CameraEquipment.tscn"
 SceneTransition="*res://scenes/ui-bits/SceneTransition.tscn"
 GameVariables="*res://scenes/variables/GameVariables.gd"
 Utils="*res://scenes/bits/Utils.gd"
+Saving="*res://scenes/bits/Saving.tscn"
 LoadingScreen="*res://scenes/loading/LoadingScreen.tscn"
 Resize="*res://scenes/bits/resize.gd"
 MenuSFX="*res://scenes/ui-bits/MenuSFX.tscn"
 QuitPrompt="*res://scenes/menus/quit/QuitPrompt.tscn"
-Saving="*res://scenes/bits/Saving.tscn"
 Enhancements="*res://scenes/variables/Enhancements.gd"
 
 [display]
